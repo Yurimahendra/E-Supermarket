@@ -1,24 +1,26 @@
 package com.example.e_supermarket;
 
+import java.util.Date;
+
 public class DataPenjual {
     String nik ;
     String nama ;
-    String jk ;
-    String nopons ;
-    String tela;
-    String tala ;
+    String jenis_kelamin ;
+    String no_ponsel ;
+    String tempat_lahir;
+    String tanggal_lahir ;
     String alamat ;
-    String nato ;
+    String nama_toko ;
 
-    public DataPenjual(String nik, String nama, String jk, String nopons, String tela, String tala, String alamat, String nato) {
+    public DataPenjual(String nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko) {
         this.nik = nik;
         this.nama = nama;
-        this.jk = jk;
-        this.nopons = nopons;
-        this.tela = tela;
-        this.tala = tala;
+        this.jenis_kelamin = jenis_kelamin;
+        this.no_ponsel = no_ponsel;
+        this.tempat_lahir = tempat_lahir;
+        this.tanggal_lahir = tanggal_lahir;
         this.alamat = alamat;
-        this.nato = nato;
+        this.nama_toko = nama_toko;
     }
 
     public String getNik() {
@@ -29,27 +31,27 @@ public class DataPenjual {
         return nama;
     }
 
-    public String getJk() {
-        return jk;
+    public String getJenis_kelamin() {
+        return jenis_kelamin;
     }
 
-    public String getNopons() {
-        return nopons;
+    public String getNo_ponsel() {
+        return no_ponsel;
     }
 
-    public String getTela() {
-        return tela;
+    public String getTempat_lahir() {
+        return tempat_lahir;
     }
 
-    public String getTala() {
-        return tala;
+    public String getTanggal_lahir() {
+        return tanggal_lahir;
     }
 
     public String getAlamat() {
         return alamat;
     }
 
-    public String getNato() {
-        return nato;
+    public String getNama_toko() {
+        return nama_toko;
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homepenjual"
+        android:icon="@drawable/homepenjual"
+        android:title="" />
+    <item
+        android:id="@+id/notifpenjual"
+        android:icon="@drawable/notifpenjual"
+        android:title="" />
+    <item
+        android:id="@+id/profilpenjual"
+        android:icon="@drawable/profilpenjual"
+        android:title="" />
+    <item
+        android:id="@+id/logoutpenjual"
+        android:icon="@drawable/logoutpenjual"
+        android:title="" />
+
+
+
+</menu>

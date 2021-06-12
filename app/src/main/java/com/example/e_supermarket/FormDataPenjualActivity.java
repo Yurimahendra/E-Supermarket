@@ -39,6 +39,8 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     SimpleDateFormat dateFormat;
     FirebaseFirestore Dbroot;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,14 +88,14 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     private void insertdatapenjual() {
         String nik = Nik.getText().toString();
         String nama = Nama.getText().toString();
-        String jk = Jk.getSelectedItem().toString();
-        String nopons = NoPons.getText().toString();
-        String tela = TeLa.getText().toString();
-        String tala = EdtTala.getText().toString();
+        String jenis_kelamin = Jk.getSelectedItem().toString();
+        String no_ponsel = NoPons.getText().toString();
+        String tempat_lahir = TeLa.getText().toString();
+        String tanggal_lahir = EdtTala.getText().toString();
         String alamat = Alamat.getText().toString();
-        String nato = Nato.getText().toString();
+        String nama_toko = Nato.getText().toString();
 
-        DataPenjual dataPenjual = new DataPenjual(nik, nama, jk, nopons, tela, tala, alamat, nato);
+        DataPenjual dataPenjual = new DataPenjual(nik, nama, jenis_kelamin, no_ponsel, tempat_lahir, tanggal_lahir, alamat, nama_toko);
 
         Dbroot.collection("data_penjual").add(dataPenjual)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
