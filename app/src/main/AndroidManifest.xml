@@ -9,6 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ESupermarket">
+        <activity android:name=".AddDataActivityPenjual">
+            <intent-filter>
+                <action android:name=".AddDataActivityPenjual" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".HalamanUtamaPenjualActivity">
             <intent-filter>
                 <action android:name=".HalamanUtamaPenjualActivity" />

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -40,24 +41,23 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     FirebaseFirestore Dbroot;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_data_penjual);
 
-        Nik = (EditText)findViewById(R.id.EdtNik);
-        Nama = (EditText)findViewById(R.id.EdtNama);
-        Jk = (Spinner)findViewById(R.id.SpJk);
-        NoPons = (EditText)findViewById(R.id.EdtNop);
-        TeLa = (EditText)findViewById(R.id.EdtTeLa);
-        Alamat = (EditText)findViewById(R.id.EdtAlamat);
-        Nato = (EditText)findViewById(R.id.EdtNato);
-        EdtTala = (EditText)findViewById(R.id.EdtTala);
+        Nik = (EditText) findViewById(R.id.EdtNik);
+        Nama = (EditText) findViewById(R.id.EdtNama);
+        Jk = (Spinner) findViewById(R.id.SpJk);
+        NoPons = (EditText) findViewById(R.id.EdtNop);
+        TeLa = (EditText) findViewById(R.id.EdtTeLa);
+        Alamat = (EditText) findViewById(R.id.EdtAlamat);
+        Nato = (EditText) findViewById(R.id.EdtNato);
+        EdtTala = (EditText) findViewById(R.id.EdtTala);
 
         dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-        BtnUpdate = (Button)findViewById(R.id.btnUpdateData);
+        BtnUpdate = (Button) findViewById(R.id.btnUpdateData);
         Dbroot = FirebaseFirestore.getInstance();
 
 
@@ -95,25 +95,44 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         String alamat = Alamat.getText().toString();
         String nama_toko = Nato.getText().toString();
 
-        DataPenjual dataPenjual = new DataPenjual(nik, nama, jenis_kelamin, no_ponsel, tempat_lahir, tanggal_lahir, alamat, nama_toko);
+        if (nik.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "NIK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+        } else if (nama.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "NAMA TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+        } else if (jenis_kelamin.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "JENIS KELAMIN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+        } else if (no_ponsel.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "NOMOR PONSEL TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+        } else if (tempat_lahir.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "TEMPAT LAHIR TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+        } else if (tanggal_lahir.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "TANGGAL LAHIR TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+        } else if (alamat.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "ALAMAT TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+        } else if (nama_toko.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "NAMA TOKO TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+        } else {
+            DataPenjual dataPenjual = new DataPenjual(nik, nama, jenis_kelamin, no_ponsel, tempat_lahir, tanggal_lahir, alamat, nama_toko);
 
-        Dbroot.collection("data_penjual").add(dataPenjual)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                       /** Nik.setText("");
-                        Nama.setText("");
-                        Jk.getSelectedItem();
-                        NoPons.setText("");
-                        TeLa.setText("");
-                        EdtTala.setText("");
-                        Alamat.setText("");
-                        Nato.setText(""); **/
-                        Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            Dbroot.collection("data_penjual").add(dataPenjual)
+                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                            /** Nik.setText("");
+                             Nama.setText("");
+                             Jk.getSelectedItem();
+                             NoPons.setText("");
+                             TeLa.setText("");
+                             EdtTala.setText("");
+                             Alamat.setText("");
+                             Nato.setText(""); **/
+                            Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+
     }
 
     private void showDateDialog() {

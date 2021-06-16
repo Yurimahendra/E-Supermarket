@@ -7,14 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".HalamanUtamaPenjualActivity">
 
-     <com.google.android.material.bottomnavigation.BottomNavigationView
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:background="@color/design_default_color_primary"
-         android:id="@+id/nav_penjual"
-         app:menu="@menu/bottom_nav_penjual"
-         app:itemIconTint="@color/white"
-         android:layout_alignParentBottom="true"/>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_primary"
+        android:id="@+id/nav_penjual"
+        app:menu="@menu/bottom_nav_penjual"
+        app:itemIconTint="@color/white"
+        android:layout_alignParentBottom="true" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_above="@id/nav_penjual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/add"
+        android:layout_alignEnd="@id/nav_penjual"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/design_default_color_primary"
+        app:tint="@color/white"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
