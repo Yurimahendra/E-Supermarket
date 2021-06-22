@@ -2,11 +2,31 @@ package com.example.e_supermarket;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +34,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class HomeFragmentPenjual extends Fragment {
+
+    private RecyclerView recyclerView;
+    private List<DataProduk> dataProdukList;
+    private AdapterProdukPenjual adapterProdukPenjual;
+    private FirebaseFirestore db;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +51,7 @@ public class HomeFragmentPenjual extends Fragment {
 
     public HomeFragmentPenjual() {
         // Required empty public constructor
+
     }
 
     /**
@@ -59,6 +85,41 @@ public class HomeFragmentPenjual extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_penjual, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_penjual, container, false);
+
+        recyclerView = (RecyclerView)view.findViewById(R.id.recItem);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        db = FirebaseFirestore.getInstance();
+        dataProdukList = new ArrayList<>();
+        adapterProdukPenjual = new AdapterProdukPenjual(HomeFragmentPenjual.this, dataProdukList);
+        recyclerView.setAdapter(adapterProdukPenjual);
+        EventChangeListener();
+
+        return view;
+
     }
+
+    private void EventChangeListener() {
+        db.collection("data_produk").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        dataProdukList.clear();
+                        for (DocumentSnapshot snapshot : task.getResult()){
+                            DataProduk dataProduk = new DataProduk(snapshot.getString("nama_barang"), snapshot.getString("merk"), snapshot.getString("harga"), snapshot.getString("stok"), snapshot.getString("satuan"));
+                            dataProdukList.add(dataProduk);
+                        }
+                        adapterProdukPenjual.notifyDataSetChanged();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }
+

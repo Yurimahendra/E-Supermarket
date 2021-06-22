@@ -8,7 +8,6 @@
     tools:context=".HalamanUtamaPenjualActivity">
 
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,11 +30,15 @@
         android:backgroundTint="@color/design_default_color_primary"
         app:tint="@color/white"/>
 
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_penjual"
-        android:layout_above="@+id/nav_penjual" />
+        android:layout_above="@+id/nav_penjual" >
+
+
+    </FrameLayout>
 
 
 </RelativeLayout>

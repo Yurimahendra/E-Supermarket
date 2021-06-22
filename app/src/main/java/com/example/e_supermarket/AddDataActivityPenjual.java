@@ -18,6 +18,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.util.UUID;
 
 public class AddDataActivityPenjual extends AppCompatActivity {
 
@@ -51,6 +52,7 @@ public class AddDataActivityPenjual extends AppCompatActivity {
     }
 
     private void insertdataproduk() {
+       // String id = UUID.randomUUID().toString();
         String nama_barang = Nama_barang.getText().toString();
         String merk = Merk.getText().toString();
         String harga = Harga.getText().toString();
@@ -69,13 +71,13 @@ public class AddDataActivityPenjual extends AppCompatActivity {
         } else if (satuan.isEmpty()) {
             Toast.makeText(getApplicationContext(), "SATUAN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
         } else {
-            DataProduk dataProduk = new DataProduk(nama_barang, merk, harga, stok, satuan);
+            DataProduk dataProduk = new DataProduk(/**id,**/ nama_barang, merk, harga, stok, satuan);
 
             Dbroot.collection("data_produk").add(dataProduk)
                     .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
-                            setContentView(R.layout.activity_halaman_utama_penjual);
+                            Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
                             Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
                         }
                     });

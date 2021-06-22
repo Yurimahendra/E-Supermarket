@@ -63,7 +63,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textSize="20sp"
-          android:inputType="textCapSentences"/>
+          android:inputType="textCapSentences|textAutoCorrect"/>
 
       <TextView
           android:layout_marginTop="5dp"
@@ -115,7 +115,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textSize="20sp"
-          android:inputType="textCapSentences"/>
+          android:inputType="textCapSentences|textAutoCorrect"/>
 
       <TextView
           android:layout_marginTop="5dp"
@@ -152,7 +152,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textSize="20sp"
-          android:inputType="textCapSentences"/>
+          android:inputType="textCapSentences"
+          android:backgroundTint="@color/black"/>
 
       <TextView
           android:layout_marginTop="5dp"
@@ -170,7 +171,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textSize="20sp"
-          android:inputType="textCapSentences"/>
+          android:inputType="textCapSentences|textAutoCorrect"/>
 
       <Button
           android:layout_marginTop="5dp"

@@ -1,17 +1,47 @@
 package com.example.e_supermarket;
 
 public class DataProduk {
+    //String id;
     String nama_barang ;
     String merk ;
     String harga ;
     String stok ;
     String satuan;
 
-    public DataProduk(String nama_barang, String merk, String harga, String stok, String satuan) {
+    public DataProduk(/**String id,**/ String nama_barang, String merk, String harga, String stok, String satuan) {
+        //this.id = id;
         this.nama_barang = nama_barang;
         this.merk = merk;
         this.harga = harga;
         this.stok = stok;
+        this.satuan = satuan;
+    }
+
+   /** public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }**/
+
+    public void setNama_barang(String nama_barang) {
+        this.nama_barang = nama_barang;
+    }
+
+    public void setMerk(String merk) {
+        this.merk = merk;
+    }
+
+    public void setHarga(String harga) {
+        this.harga = harga;
+    }
+
+    public void setStok(String stok) {
+        this.stok = stok;
+    }
+
+    public void setSatuan(String satuan) {
         this.satuan = satuan;
     }
 
