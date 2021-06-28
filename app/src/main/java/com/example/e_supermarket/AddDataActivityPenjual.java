@@ -26,7 +26,8 @@ public class AddDataActivityPenjual extends AppCompatActivity {
     EditText Merk;
     EditText Harga;
     EditText Stok;
-    EditText Satuan;
+    Spinner Satuan;
+    EditText Deskripsi;
     Button BtnAddData;
     FirebaseFirestore Dbroot;
 
@@ -39,7 +40,8 @@ public class AddDataActivityPenjual extends AppCompatActivity {
         Merk = (EditText) findViewById(R.id.EdtMerk);
         Harga = (EditText) findViewById(R.id.EdtHarga);
         Stok = (EditText) findViewById(R.id.EdtStok);
-        Satuan = (EditText) findViewById(R.id.EdtSatuan);
+        Satuan = (Spinner) findViewById(R.id.SpSatuan);
+        Deskripsi = (EditText) findViewById(R.id.EdtDeskripsi);
         BtnAddData = (Button) findViewById(R.id.btnAddData);
         Dbroot = FirebaseFirestore.getInstance();
 
@@ -57,7 +59,8 @@ public class AddDataActivityPenjual extends AppCompatActivity {
         String merk = Merk.getText().toString();
         String harga = Harga.getText().toString();
         String stok = Stok.getText().toString();
-        String satuan = Satuan.getText().toString();
+        String satuan = Satuan.getSelectedItem().toString();
+        String deskripsi = Deskripsi.getText().toString();
 
 
         if (nama_barang.isEmpty()) {
@@ -71,13 +74,14 @@ public class AddDataActivityPenjual extends AppCompatActivity {
         } else if (satuan.isEmpty()) {
             Toast.makeText(getApplicationContext(), "SATUAN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
         } else {
-            DataProduk dataProduk = new DataProduk(/**id,**/ nama_barang, merk, harga, stok, satuan);
+            DataProduk dataProduk = new DataProduk(/**id,**/ nama_barang, merk, harga, stok, satuan, deskripsi);
 
             Dbroot.collection("data_produk").add(dataProduk)
                     .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
+                            startActivity(intent);
                             Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
                         }
                     });

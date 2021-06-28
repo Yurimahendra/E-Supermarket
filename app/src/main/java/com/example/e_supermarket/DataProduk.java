@@ -7,23 +7,27 @@ public class DataProduk {
     String harga ;
     String stok ;
     String satuan;
+    String deskripsi;
 
-    public DataProduk(/**String id,**/ String nama_barang, String merk, String harga, String stok, String satuan) {
-        //this.id = id;
+    public DataProduk(String nama_barang, String merk, String harga, String stok, String satuan, String deskripsi) {
         this.nama_barang = nama_barang;
         this.merk = merk;
         this.harga = harga;
         this.stok = stok;
         this.satuan = satuan;
+        this.deskripsi = deskripsi;
     }
 
-   /** public String getId() {
+
+
+    /** public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
     }**/
+
 
     public void setNama_barang(String nama_barang) {
         this.nama_barang = nama_barang;
@@ -63,5 +67,13 @@ public class DataProduk {
 
     public String getSatuan() {
         return satuan;
+    }
+
+    public String getDeskripsi() {
+        return deskripsi;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
     }
 }

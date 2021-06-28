@@ -108,7 +108,7 @@ public class HomeFragmentPenjual extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         dataProdukList.clear();
                         for (DocumentSnapshot snapshot : task.getResult()){
-                            DataProduk dataProduk = new DataProduk(snapshot.getString("nama_barang"), snapshot.getString("merk"), snapshot.getString("harga"), snapshot.getString("stok"), snapshot.getString("satuan"));
+                            DataProduk dataProduk = new DataProduk(snapshot.getString("nama_barang"), snapshot.getString("merk"), snapshot.getString("harga"), snapshot.getString("stok"), snapshot.getString("satuan"), snapshot.getString("deskripsi"));
                             dataProdukList.add(dataProduk);
                         }
                         adapterProdukPenjual.notifyDataSetChanged();
