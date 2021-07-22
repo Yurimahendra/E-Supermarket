@@ -34,7 +34,9 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (inputMobileS.getText().toString().trim().isEmpty()){
-                    Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
+                    startActivity(intent);
+                   // Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 progressBarS.setVisibility(View.VISIBLE);
@@ -73,6 +75,7 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                 );
 
             }
+
         });
     }
 }

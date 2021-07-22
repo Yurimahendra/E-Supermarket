@@ -15,7 +15,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -24,6 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class FormDataPenjualActivity extends AppCompatActivity {
 
@@ -70,7 +74,6 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         EdtTala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 showDateDialog();
             }
         });
@@ -86,51 +89,54 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     }
 
     private void insertdatapenjual() {
-        String nik = Nik.getText().toString();
-        String nama = Nama.getText().toString();
-        String jenis_kelamin = Jk.getSelectedItem().toString();
-        String no_ponsel = NoPons.getText().toString();
-        String tempat_lahir = TeLa.getText().toString();
-        String tanggal_lahir = EdtTala.getText().toString();
-        String alamat = Alamat.getText().toString();
-        String nama_toko = Nato.getText().toString();
+        try {
+            Long nik = Long.parseLong(Nik.getText().toString().trim());
+            String nama = Nama.getText().toString().trim();
+            String jenis_kelamin = Jk.getSelectedItem().toString().trim();
+            String no_ponsel = NoPons.getText().toString().trim();
+            String tempat_lahir = TeLa.getText().toString().trim();
+            String tanggal_lahir = EdtTala.getText().toString().trim();
+            String alamat = Alamat.getText().toString().trim();
+            String nama_toko = Nato.getText().toString().trim();
 
-        if (nik.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "NIK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-        } else if (nama.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "NAMA TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-        } else if (jenis_kelamin.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "JENIS KELAMIN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-        } else if (no_ponsel.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "NOMOR PONSEL TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-        } else if (tempat_lahir.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "TEMPAT LAHIR TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-        } else if (tanggal_lahir.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "TANGGAL LAHIR TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-        } else if (alamat.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "ALAMAT TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-        } else if (nama_toko.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "NAMA TOKO TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-        } else {
-            DataPenjual dataPenjual = new DataPenjual(nik, nama, jenis_kelamin, no_ponsel, tempat_lahir, tanggal_lahir, alamat, nama_toko);
+            if (nik == null) {
+                Toast.makeText(getApplicationContext(), "NIK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+            }else if (nama.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "NAMA TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+            }else if (jenis_kelamin.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "JENIS KELAMIN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+            }else if (no_ponsel.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "NOMOR PONSEL TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+            }else if (tempat_lahir.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "TEMPAT LAHIR TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+            }else if (tanggal_lahir.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "TANGGAL LAHIR TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+            }else if (alamat.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "ALAMAT TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+            }else if (nama_toko.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "NAMA TOKO TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+            }else {
+                DataPenjual dataPenjual = new DataPenjual(nik, nama, jenis_kelamin, no_ponsel, tempat_lahir, tanggal_lahir, alamat, nama_toko);
 
-            Dbroot.collection("data_penjual").add(dataPenjual)
-                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            /** Nik.setText("");
-                             Nama.setText("");
-                             Jk.getSelectedItem();
-                             NoPons.setText("");
-                             TeLa.setText("");
-                             EdtTala.setText("");
-                             Alamat.setText("");
-                             Nato.setText(""); **/
-                            Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
-                            startActivity(intent);
-                            Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                Dbroot.collection("data_penjual").add(dataPenjual)
+                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Data Gagal Disimpan", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+        }catch (NumberFormatException exception){
+            Toast.makeText(this, "Data Diri Harus Terisi Semua !", Toast.LENGTH_SHORT).show();
+
         }
 
     }

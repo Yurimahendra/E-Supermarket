@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.e_supermarket">
-
+    package="com.example.e_supermarket"
+    android:usesCleartextTraffic="true">
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ESupermarket">
+        <activity android:name=".Form_Edit_Produk_Activity">
+            <intent-filter>
+                <action android:name=".Form_Edit_Produk_Activity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".AddDataActivityPenjual">
             <intent-filter>
                 <action android:name=".AddDataActivityPenjual" />

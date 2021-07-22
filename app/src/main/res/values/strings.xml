@@ -11,12 +11,12 @@
     <string name="otp_verification">OTP Verification</string>
     <string name="string_otp_verification" />
     <string name="verifikasi">VERIFIKASI</string>
-    <string-array name="Jenis_Kelamin">
+    <string-array name="Jenis_Kelamin" tools:ignore="ExtraTranslation">
         <item>Pria</item>
         <item>Wanita</item>
     </string-array>
 
-    <string-array name="Satuan" tools:ignore="ExtraTranslation">
+    <array name="Satuan" >
         <item>Kg</item>
         <item>Gr</item>
         <item>Pcs</item>
@@ -24,7 +24,7 @@
         <item>Kodi</item>
         <item>Gross</item>
         <item>Pack</item>
-    </string-array>
+    </array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -6,23 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AddDataActivityPenjual">
+    tools:context=".Form_Edit_Produk_Activity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:padding="10dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Tambah Data"
+                android:hint="Edit Data"
                 android:textStyle="bold"
                 android:textSize="18dp" />
 
@@ -37,7 +38,7 @@
                 />
 
             <EditText
-                android:id="@+id/EdtNaBa"
+                android:id="@+id/UpdtNaBa"
                 android:background="@null"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
@@ -55,7 +56,7 @@
                 android:textColor="@color/black"/>
 
             <EditText
-                android:id="@+id/EdtMerk"
+                android:id="@+id/UpdtMerk"
                 android:background="@null"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
@@ -74,13 +75,13 @@
                 android:textColor="@color/black"/>
 
             <EditText
-                android:id="@+id/EdtHarga"
+                android:id="@+id/UpdtHarga"
                 android:background="@null"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:inputType="number"/>
+                android:inputType="numberDecimal|number"/>
 
             <TextView
                 android:layout_marginTop="5dp"
@@ -92,13 +93,13 @@
                 android:textColor="@color/black"/>
 
             <EditText
-                android:id="@+id/EdtStok"
+                android:id="@+id/UpdtStok"
                 android:background="@null"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:inputType="number"/>
+                android:inputType="number|numberDecimal"/>
 
             <TextView
                 android:layout_marginTop="5dp"
@@ -110,7 +111,7 @@
                 android:textColor="@color/black"/>
 
             <Spinner
-                android:id="@+id/SpSatuan"
+                android:id="@+id/UpdtSpSatuan"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -126,21 +127,21 @@
                 android:textColor="@color/black"/>
 
             <EditText
-                android:id="@+id/EdtDeskripsi"
+                android:id="@+id/UpdtDeskripsi"
                 android:background="@null"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="200dp"
                 android:textSize="20sp"
                 android:inputType="textMultiLine"
                 android:gravity="start"/>
 
             <Button
                 android:layout_marginTop="5dp"
-                android:id="@+id/btnAddData"
+                android:id="@+id/btnUpdtData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SIMPAN"
+                android:text="UPDATE"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 

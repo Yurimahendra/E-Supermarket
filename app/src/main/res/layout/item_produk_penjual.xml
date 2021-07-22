@@ -82,7 +82,34 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
+        <TextView
+            android:id="@+id/tvDeskripsi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="yuri"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/ImgProduk"
+            android:layout_below="@id/tvSatuan"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
 
+        <ImageView
+            android:id="@+id/ImgEdit"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:src="@drawable/pencil"
+            android:layout_below="@+id/ImgProduk"
+            android:layout_marginTop="120dp"/>
+
+        <ImageView
+            android:id="@+id/ImgHapus"
+            android:layout_width="193dp"
+            android:layout_height="40dp"
+            android:src="@drawable/delete1"
+            android:layout_toRightOf="@id/ImgEdit"
+            android:layout_below="@id/tvDeskripsi"
+            android:layout_marginTop="13dp"/>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

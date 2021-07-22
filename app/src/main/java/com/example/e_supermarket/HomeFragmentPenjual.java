@@ -1,5 +1,6 @@
 package com.example.e_supermarket;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,11 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseAppLifecycleListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -39,6 +43,10 @@ public class HomeFragmentPenjual extends Fragment {
     private List<DataProduk> dataProdukList;
     private AdapterProdukPenjual adapterProdukPenjual;
     private FirebaseFirestore db;
+
+
+    private ImageView editProduk;
+    private ImageView hapusProduk;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,32 +95,38 @@ public class HomeFragmentPenjual extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_penjual, container, false);
 
+       // editProduk = (ImageView)view.findViewById(R.id.ImgEdit);
+        //hapusProduk = (ImageView)view.findViewById(R.id.ImgHapus);
+
         recyclerView = (RecyclerView)view.findViewById(R.id.recItem);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+       // FirebaseDatabase.getInstance().getReference().child("data_produk");
         db = FirebaseFirestore.getInstance();
         dataProdukList = new ArrayList<>();
         adapterProdukPenjual = new AdapterProdukPenjual(HomeFragmentPenjual.this, dataProdukList);
         recyclerView.setAdapter(adapterProdukPenjual);
         EventChangeListener();
 
+
         return view;
 
     }
 
     private void EventChangeListener() {
+
+
         db.collection("data_produk").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         dataProdukList.clear();
                         for (DocumentSnapshot snapshot : task.getResult()){
-                            DataProduk dataProduk = new DataProduk(snapshot.getString("nama_barang"), snapshot.getString("merk"), snapshot.getString("harga"), snapshot.getString("stok"), snapshot.getString("satuan"), snapshot.getString("deskripsi"));
+                            DataProduk dataProduk = new DataProduk(snapshot.getString("id"), snapshot.getString("nama_barang"), snapshot.getString("merk"), snapshot.getLong("harga"), snapshot.getLong("stok"), snapshot.getString("satuan"), snapshot.getString("deskripsi"));
                             dataProdukList.add(dataProduk);
                         }
                         adapterProdukPenjual.notifyDataSetChanged();
-                    }
+                         }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
