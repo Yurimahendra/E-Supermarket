@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,11 +27,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
+import com.google.firebase.firestore.DocumentId;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +50,8 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     //private FirebaseDatabase database = FirebaseDatabase.getInstance();
     //private DatabaseReference myRef = database.getReference();
     int id_satuan;
-    String Uid;
+    FirebaseFirestore db;
+    //String id;
     private String n_satuan[] = {"Kg", "Gr", "Pcs", "Lusin", "Kodi", "Gross", "Pack"};
 
 
@@ -75,22 +82,23 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     @Override
     public AdapterProdukPenjual.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(homeFragmentPenjual.getContext()).inflate(R.layout.item_produk_penjual, parent, false);
-
-
+        db = FirebaseFirestore.getInstance();
         return new MyViewHolder(view);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
         holder.Nama_Barang.setText(ProdukList.get(position).getNama_barang());
         holder.Merk.setText(ProdukList.get(position).getMerk());
-        holder.Harga.setText(ProdukList.get(position).getHarga().toString());
-        holder.Stok.setText(ProdukList.get(position).getStok().toString());
+        holder.Harga.setText(String.valueOf(ProdukList.get(position).getHarga()));
+        holder.Stok.setText(String.valueOf(ProdukList.get(position).getStok()));
         holder.Satuan.setText(ProdukList.get(position).getSatuan());
         holder.Deskripsi.setText(ProdukList.get(position).getDeskripsi());
 
 
+        db = FirebaseFirestore.getInstance();
         // holder.Harga.setText(String.valueOf(dataProduk.harga));
 
 
@@ -110,7 +118,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                  Intent intent = new Intent(homeFragmentPenjual.getActivity(), Form_Edit_Produk_Activity.class);
                  intent.putExtras(bundle);
                  homeFragmentPenjual.startActivity(intent);**/
-                  DialogPlus dialogPlus = DialogPlus.newDialog(holder.Nama_Barang.getContext())
+                DialogPlus dialogPlus = DialogPlus.newDialog(holder.Nama_Barang.getContext())
                         .setContentHolder(new ViewHolder(R.layout.activity_form__edit__produk_))
                         .setExpanded(true, 1500)
                         .setGravity(Gravity.CENTER)
@@ -118,19 +126,19 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
 
 
                 View myview = dialogPlus.getHolderView();
-                EditText nama_barang = myview.findViewById(R.id.UpdtNaBa);
-                EditText merk = myview.findViewById(R.id.UpdtMerk);
-                EditText harga = myview.findViewById(R.id.UpdtHarga);
-                EditText stok = myview.findViewById(R.id.UpdtStok);
-                Spinner satuan = myview.findViewById(R.id.UpdtSpSatuan);
-                EditText deskripsi = myview.findViewById(R.id.UpdtDeskripsi);
+                EditText nama_barang1 = myview.findViewById(R.id.UpdtNaBa);
+                EditText merk1 = myview.findViewById(R.id.UpdtMerk);
+                EditText harga1 = myview.findViewById(R.id.UpdtHarga);
+                EditText stok1 = myview.findViewById(R.id.UpdtStok);
+                Spinner satuan1 = myview.findViewById(R.id.UpdtSpSatuan);
+                EditText deskripsi1 = myview.findViewById(R.id.UpdtDeskripsi);
                 Button btnupdate = myview.findViewById(R.id.btnUpdtData);
 
-                Uid = ProdukList.get(position).getId();
-                nama_barang.setText(ProdukList.get(position).getNama_barang());
-                merk.setText(ProdukList.get(position).getMerk());
-                harga.setText(ProdukList.get(position).getHarga().toString());
-                stok.setText(ProdukList.get(position).getStok().toString());
+
+                nama_barang1.setText(ProdukList.get(position).getNama_barang());
+                merk1.setText(ProdukList.get(position).getMerk());
+                harga1.setText(String.valueOf(ProdukList.get(position).getHarga()));
+                stok1.setText(String.valueOf(ProdukList.get(position).getStok()));
 
                 if (ProdukList.get(position).getSatuan().equals("Kg")) id_satuan = 0;
                 else if (ProdukList.get(position).getSatuan().equals("Gr")) id_satuan = 1;
@@ -139,38 +147,40 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                 else if (ProdukList.get(position).getSatuan().equals("Kodi")) id_satuan = 4;
                 else if (ProdukList.get(position).getSatuan().equals("Gross")) id_satuan = 5;
                 else if (ProdukList.get(position).getSatuan().equals("Pack")) id_satuan = 6;
-                satuan.setSelection(id_satuan);
-                deskripsi.setText(ProdukList.get(position).getDeskripsi());
+                satuan1.setSelection(id_satuan);
+                deskripsi1.setText(ProdukList.get(position).getDeskripsi());
 
 
                 btnupdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        /**Map<String, Object> map = new HashMap<>();
-                        map.put("nama_barang", nama_barang.getText().toString());
-                        map.put("merk", merk.getText().toString());
-                        map.put("harga", harga.getText().toString());
-                        map.put("stok", stok.getText().toString());
-                        map.put("satuan", satuan.getSelectedItem().toString());
-                        map.put("deskripsi", deskripsi.getText().toString());**/
+                        String id = ProdukList.get(position).getId();
+                        String nama_barang = nama_barang1.getText().toString().trim();
+                        String merk = merk1.getText().toString().trim();
+                        long harga = Long.parseLong(harga1.getText().toString().trim());
+                        long stok = Long.parseLong(stok1.getText().toString().trim());
+                        String satuan = satuan1.getSelectedItem().toString().trim();
+                        String deskripsi = deskripsi1.getText().toString().trim();
 
-                        FirebaseFirestore.getInstance().collection("data_produk")
-                                .document(Uid)
-                                .update("nama_barang", nama_barang.getText().toString().trim(),  "merk", merk.getText().toString().trim(), "harga", harga.getText().toString().trim(), "stok", stok.getText().toString().trim(), "satuan", satuan.getSelectedItem().toString().trim(), "deskripsi", deskripsi.getText().toString().trim())
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(homeFragmentPenjual.getContext(), "Update Berhasil !", Toast.LENGTH_SHORT).show();
-                                        dialogPlus.dismiss();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        //dialogPlus.dismiss();
-                                        Toast.makeText(homeFragmentPenjual.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                        //updatetofirestore(id, nama_barang, merk, harga, stok, satuan, deskripsi );
+
+                        if ( nama_barang.isEmpty()) {
+                            Toast.makeText(homeFragmentPenjual.getContext(), "NAMA BARANG TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                        } else if (merk.isEmpty()) {
+                            Toast.makeText(homeFragmentPenjual.getContext(), "MERK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                        } else if (harga <= 0  ) {
+                            Toast.makeText(homeFragmentPenjual.getContext(), "HARGA TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                        } else if (stok <= 0  ) {
+                            Toast.makeText(homeFragmentPenjual.getContext(), "STOK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                        } else if (satuan.isEmpty()) {
+                            Toast.makeText(homeFragmentPenjual.getContext(), "SATUAN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                        }else {
+                            //DataProduk dataProduk = new DataProduk(id, nama_barang, merk, harga, stok, satuan, deskripsi);
+                            updatetofirestore(id, nama_barang, merk, harga, stok, satuan, deskripsi );
+                            dialogPlus.dismiss();
+                        }
+
+
                     }
                 });
                 dialogPlus.show();
@@ -185,15 +195,18 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                 builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        FirebaseFirestore.getInstance().collection("data_produk")
-                                .document().delete();
+                        db.collection("data_produk")
+                                .document(ProdukList.get(position).getId())
+                                .delete();
+                        Toast.makeText(homeFragmentPenjual.getContext(), "Data Berhasil Dihapus !", Toast.LENGTH_SHORT).show();
+                        dialogInterface.dismiss();
                     }
                 });
 
                 builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        dialogInterface.dismiss();
                     }
                 });
 
@@ -202,13 +215,44 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
         });
     }
 
+
+    private void updatetofirestore(String id, String  nama_barang, String merk, long harga, long stok, String satuan, String deskripsi) {
+       /** Map<String, Object> map = new HashMap<>();
+        map.put("nama_barang", nama_barang);
+        map.put("merk", merk);
+        map.put("harga", harga);
+        map.put("stok", stok);
+        map.put("satuan", satuan);
+        map.put("deskripsi", deskripsi);**/
+
+        db.collection("data_produk")
+                .document(id)
+                .update("nama_barang", nama_barang, "merk", merk, "harga", harga, "stok", stok, "satuan", satuan, "deskripsi", deskripsi)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(homeFragmentPenjual.getContext(), "Update Berhasil !", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //dialogPlus.dismiss();
+                        Toast.makeText(homeFragmentPenjual.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+
     @Override
     public int getItemCount() {
         return ProdukList.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-       // String Uid;
+        // String Uid;
+
         TextView Nama_Barang;
         TextView Merk;
         TextView Harga;

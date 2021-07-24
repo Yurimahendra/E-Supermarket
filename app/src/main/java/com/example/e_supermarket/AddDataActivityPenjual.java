@@ -16,8 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,7 +35,7 @@ public class AddDataActivityPenjual extends AppCompatActivity {
     EditText Deskripsi;
     Button btnAddData;
     FirebaseFirestore Dbroot;
-    //FirebaseDatabase database = FirebaseDatabase.getInstance();
+   // FirebaseDatabase database;
    // DatabaseReference myRef;
 
 
@@ -69,8 +67,8 @@ public class AddDataActivityPenjual extends AppCompatActivity {
             String id = UUID.randomUUID().toString();
             String nama_barang = Nama_barang.getText().toString().trim();
             String merk = Merk.getText().toString().trim();
-            Long harga = Long.parseLong(Harga.getText().toString().trim());
-            Long stok = Long.parseLong(Stok.getText().toString().trim());
+            long harga = Long.parseLong(Harga.getText().toString().trim());
+            long stok = Long.parseLong(Stok.getText().toString().trim());
             String satuan = Satuan.getSelectedItem().toString().trim();
             String deskripsi = Deskripsi.getText().toString().trim();
 
@@ -78,18 +76,30 @@ public class AddDataActivityPenjual extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "NAMA BARANG TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
             } else if (merk.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "MERK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-            } else if (harga <= 0 || harga == null ) {
+            } else if (harga <= 0  ) {
                 Toast.makeText(getApplicationContext(), "HARGA TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-            } else if (stok <= 0 || stok == null ) {
+            } else if (stok <= 0  ) {
                 Toast.makeText(getApplicationContext(), "STOK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
             } else if (satuan.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "SATUAN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
             } else {
-                DataProduk dataProduk = new DataProduk(id, nama_barang, merk, harga, stok, satuan, deskripsi);
-                Dbroot.collection("data_produk").add(dataProduk)
-                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                //DataProduk dataProduk = new DataProduk(id, nama_barang, merk, harga, stok, satuan, deskripsi);
+                HashMap<String, Object> dataproduk = new HashMap<>();
+                dataproduk.put("id", id);
+                dataproduk.put("nama_barang", nama_barang);
+                dataproduk.put("merk", merk);
+                dataproduk.put("harga", harga);
+                dataproduk.put("stok", stok);
+                dataproduk.put("satuan", satuan);
+                dataproduk.put("deskripsi", deskripsi);
+
+
+
+                Dbroot.collection("data_produk").document(id)
+                        .set(dataproduk)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                            public void onComplete(@NonNull Task<Void> task) {
                                 Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
                                 startActivity(intent);
                                 Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();

@@ -18,7 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -116,15 +116,29 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             }else if (nama_toko.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "NAMA TOKO TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
             }else {
-                DataPenjual dataPenjual = new DataPenjual(nik, nama, jenis_kelamin, no_ponsel, tempat_lahir, tanggal_lahir, alamat, nama_toko);
+               // DataPenjual dataPenjual = new DataPenjual(nik, nama, jenis_kelamin, no_ponsel, tempat_lahir, tanggal_lahir, alamat, nama_toko);
 
-                Dbroot.collection("data_penjual").add(dataPenjual)
-                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                HashMap<String, Object> datapenjual = new HashMap<>();
+                datapenjual.put("nik", nik);
+                datapenjual.put("nama", nama);
+                datapenjual.put("jenis_kelamin", jenis_kelamin);
+                datapenjual.put("no_ponsel", no_ponsel);
+                datapenjual.put("tempat_lahir", tempat_lahir);
+                datapenjual.put("tanggal_lahir", tanggal_lahir);
+                datapenjual.put("alamat", alamat);
+                datapenjual.put("nama_toko", nama_toko);
+
+
+
+                Dbroot.collection("data_penjual").document(nik.toString())
+                        .set(datapenjual)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                            public void onComplete(@NonNull Task<Void> task) {
                                 Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
                                 startActivity(intent);
                                 Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
+
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override

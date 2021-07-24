@@ -4,12 +4,16 @@ public class DataProduk {
     String id;
     String nama_barang ;
     String merk ;
-    Long harga ;
-    Long stok ;
+    long harga ;
+    long stok ;
     String satuan;
     String deskripsi;
 
-    public DataProduk(String id, String nama_barang, String merk, Long harga, Long stok, String satuan, String deskripsi) {
+    public DataProduk() {
+
+    }
+
+    public DataProduk(String id, String nama_barang, String merk, long harga, long stok, String satuan, String deskripsi) {
         this.id = id;
         this.nama_barang = nama_barang;
         this.merk = merk;
@@ -43,19 +47,19 @@ public class DataProduk {
         this.merk = merk;
     }
 
-    public Long getHarga() {
+    public long getHarga() {
         return harga;
     }
 
-    public void setHarga(Long harga) {
+    public void setHarga(long harga) {
         this.harga = harga;
     }
 
-    public Long getStok() {
+    public long getStok() {
         return stok;
     }
 
-    public void setStok(Long stok) {
+    public void setStok(long stok) {
         this.stok = stok;
     }
 

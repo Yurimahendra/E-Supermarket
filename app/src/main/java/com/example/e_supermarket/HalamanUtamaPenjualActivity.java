@@ -92,6 +92,7 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         firebaseAuth.signOut();
                         Intent intent = new Intent(HalamanUtamaPenjualActivity.this, SendOTPActivityPenjual.class);
+                        startActivity(intent);
                         finish();
                     }
                 })

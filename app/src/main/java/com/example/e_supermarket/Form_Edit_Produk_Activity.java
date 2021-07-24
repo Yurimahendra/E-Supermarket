@@ -50,7 +50,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity {
         Deskripsi = findViewById(R.id.UpdtDeskripsi);
         btnUpdt = findViewById(R.id.btnUpdtData);**/
 
-        db = FirebaseFirestore.getInstance();
+       // db = FirebaseFirestore.getInstance();
 
        /** Bundle bundle = getIntent().getExtras();
         uId = bundle.getString("id");
@@ -100,7 +100,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity {
 
     }
 
-    private void updateToFirestore(String id, String nama_barang, String merk, Long harga, Long stok, String satuan, String deskripsi) {
+    /**private void updateToFirestore(String id, String nama_barang, String merk, Long harga, Long stok, String satuan, String deskripsi) {
 
         db.collection("data_produk").document(id)
                 .update("nama_barang", nama_barang, "merk", merk, "harga", harga, "stok", stok, "satuan", satuan, "deskripsi", deskripsi)
@@ -119,5 +119,5 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity {
                 Toast.makeText(Form_Edit_Produk_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }**/
 }
