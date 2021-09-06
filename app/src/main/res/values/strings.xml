@@ -16,7 +16,7 @@
         <item>Wanita</item>
     </string-array>
 
-    <array name="Satuan" >
+    <array name="Satuan">
         <item>Kg</item>
         <item>Gr</item>
         <item>Pcs</item>

@@ -1,6 +1,8 @@
 package com.example.e_supermarket;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +20,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseAppLifecycleListener;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,9 +31,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,8 +55,14 @@ public class HomeFragmentPenjual extends Fragment {
     private FirebaseFirestore db;
 
 
-    private ImageView editProduk;
-    private ImageView hapusProduk;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+
+    public Uri imageUri;
+    ImageView imageProduk;
+
+    //private ImageView editProduk;
+    //private ImageView hapusProduk;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,6 +105,8 @@ public class HomeFragmentPenjual extends Fragment {
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,20 +116,85 @@ public class HomeFragmentPenjual extends Fragment {
        // editProduk = (ImageView)view.findViewById(R.id.ImgEdit);
         //hapusProduk = (ImageView)view.findViewById(R.id.ImgHapus);
 
+
+
         recyclerView = (RecyclerView)view.findViewById(R.id.recItem);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
        // FirebaseDatabase.getInstance().getReference().child("data_produk");
+        //storage = FirebaseStorage.getInstance();
+        //storageReference = storage.getReference();
         db = FirebaseFirestore.getInstance();
         dataProdukList = new ArrayList<>();
         adapterProdukPenjual = new AdapterProdukPenjual(HomeFragmentPenjual.this, dataProdukList);
+
         recyclerView.setAdapter(adapterProdukPenjual);
         EventChangeListener();
-
+        /**imageProduk = (ImageView) view.findViewById(R.id.ImgProduk);
+        imageProduk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pilihGambar();
+            }
+        });**/
 
         return view;
 
+
+
     }
+
+
+
+    /** private void pilihGambar() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
+            imageUri = data.getData();
+            imageProduk.setImageURI(imageUri);
+            uploadGambar();
+        }
+    }
+
+    private void uploadGambar() {
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setTitle("Upload gambar....");
+        pd.show();
+
+        final String id = UUID.randomUUID().toString();
+        StorageReference riversRef = storageReference.child("images/" + id);
+
+        riversRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        pd.dismiss();
+                        Snackbar.make(getActivity().findViewById(R.id.dialogplus_content_container), "image uploaded", Snackbar.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(getContext(), "gagal upload", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                        pd.setMessage("Proses" + (int) progressPercent + "%");
+                    }
+                });
+
+    }**/
 
     private void EventChangeListener() {
 
@@ -121,7 +205,7 @@ public class HomeFragmentPenjual extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         dataProdukList.clear();
                         for (DocumentSnapshot snapshot : task.getResult()){
-                            DataProduk dataProduk = new DataProduk(snapshot.getString("id"), snapshot.getString("nama_barang"), snapshot.getString("merk"), snapshot.getLong("harga"), snapshot.getLong("stok"), snapshot.getString("satuan"), snapshot.getString("deskripsi"));
+                            DataProduk dataProduk = new DataProduk(snapshot.getString("id"), snapshot.getString("nama_barang"), snapshot.getString("merk"), snapshot.getLong("harga"), snapshot.getLong("stok"), snapshot.getString("satuan"), snapshot.getString("gambar"), snapshot.getString("deskripsi"));
                             dataProdukList.add(dataProduk);
                         }
                         adapterProdukPenjual.notifyDataSetChanged();

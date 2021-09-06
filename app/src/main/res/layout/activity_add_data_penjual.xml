@@ -120,6 +120,41 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Gambar"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:id="@+id/ImgProduk"
+                    android:layout_marginTop="5dp"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="#FF000000"/>
+
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Klik Gambar untuk upload"
+                    android:textSize="18dp"
+                    android:layout_marginStart="15dp"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Deskripsi"
                 android:textStyle="bold"
                 android:textSize="16sp"

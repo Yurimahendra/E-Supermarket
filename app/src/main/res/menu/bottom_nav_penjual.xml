@@ -9,6 +9,10 @@
         android:icon="@drawable/notifpenjual"
         android:title="" />
     <item
+        android:id="@+id/chatpenjual"
+        android:icon="@drawable/chatpenjual"
+        android:title="" />
+    <item
         android:id="@+id/profilpenjual"
         android:icon="@drawable/profilpenjual"
         android:title="" />

@@ -2,9 +2,11 @@ package com.example.e_supermarket;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -22,17 +24,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
@@ -42,6 +51,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.app.Activity.RESULT_OK;
 
 public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenjual.MyViewHolder> {
 
@@ -51,6 +65,12 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     //private DatabaseReference myRef = database.getReference();
     int id_satuan;
     FirebaseFirestore db;
+
+    public Uri imageUri;
+    ImageView imageProduk;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+
     //String id;
     private String n_satuan[] = {"Kg", "Gr", "Pcs", "Lusin", "Kodi", "Gross", "Pack"};
 
@@ -83,6 +103,8 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     public AdapterProdukPenjual.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(homeFragmentPenjual.getContext()).inflate(R.layout.item_produk_penjual, parent, false);
         db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         return new MyViewHolder(view);
     }
 
@@ -95,11 +117,23 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
         holder.Harga.setText(String.valueOf(ProdukList.get(position).getHarga()));
         holder.Stok.setText(String.valueOf(ProdukList.get(position).getStok()));
         holder.Satuan.setText(ProdukList.get(position).getSatuan());
+        Glide.with(holder.imageProduk.getContext()).load(ProdukList.get(position).getGambar()).into(holder.imageProduk);
         holder.Deskripsi.setText(ProdukList.get(position).getDeskripsi());
 
 
         db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         // holder.Harga.setText(String.valueOf(dataProduk.harga));
+
+       /** holder.imageProduk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pilihGambar();
+            }
+        });**/
+
+
 
 
         holder.editProduk.setOnClickListener(new View.OnClickListener() {
@@ -213,8 +247,61 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                 builder.show();
             }
         });
+
+
+    }
+    
+/**
+    private void pilihGambar() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        homeFragmentPenjual.startActivityForResult(intent, 1);
+    }
+**/
+
+    /**public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
+            imageUri = data.getData();
+            imageProduk.setImageURI(imageUri);
+
+            uploadGambar();
+        }
     }
 
+    private void uploadGambar() {
+        final ProgressDialog pd = new ProgressDialog(homeFragmentPenjual.getContext());
+        pd.setTitle("Upload gambar....");
+        pd.show();
+
+        final String id = UUID.randomUUID().toString();
+        StorageReference riversRef = storageReference.child("images/" + id);
+
+        riversRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        pd.dismiss();
+                        Snackbar.make(homeFragmentPenjual.getActivity().findViewById(R.id.dialogplus_content_container), "image uploaded", Snackbar.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(homeFragmentPenjual.getContext(), "gagal upload", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                        pd.setMessage("Proses" + (int) progressPercent + "%");
+                    }
+                });
+
+    }**/
 
     private void updatetofirestore(String id, String  nama_barang, String merk, long harga, long stok, String satuan, String deskripsi) {
        /** Map<String, Object> map = new HashMap<>();
@@ -251,8 +338,6 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        // String Uid;
-
         TextView Nama_Barang;
         TextView Merk;
         TextView Harga;
@@ -262,20 +347,27 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
 
         ImageView editProduk;
         ImageView hapusProduk;
+        CircleImageView imageProduk;
+
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
 
             Nama_Barang = itemView.findViewById(R.id.tvNamaBarang);
             Merk = itemView.findViewById(R.id.tvMerk);
             Harga = itemView.findViewById(R.id.tvHarga);
             Stok = itemView.findViewById(R.id.tvStok);
             Satuan = itemView.findViewById(R.id.tvSatuan);
+            imageProduk = (CircleImageView) itemView.findViewById(R.id.ImgProdukView);
             Deskripsi = itemView.findViewById(R.id.tvDeskripsi);
 
             editProduk = (ImageView) itemView.findViewById(R.id.ImgEdit);
             hapusProduk = (ImageView) itemView.findViewById(R.id.ImgHapus);
 
+
         }
+
     }
 }
