@@ -20,12 +20,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 //import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -44,6 +50,15 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     SimpleDateFormat dateFormat;
     FirebaseFirestore Dbroot;
 
+    private List<DataPenjual> dataPenjualList;
+    private AdapterProfilePenjual adapterProfilePenjual;
+
+    private FirebaseFirestore db;
+
+    int p = 0;
+
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +100,33 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             }
         });
 
+        db = FirebaseFirestore.getInstance();
+       // dataPenjualList = new ArrayList<>();
+
+
+        db.collection("data_penjual").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        dataPenjualList.clear();
+                        for (DocumentSnapshot snapshot : task.getResult()){
+                            DataPenjual dataPenjual = new DataPenjual(/**snapshot.getString("id"),**/ snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
+                            dataPenjualList.add(dataPenjual);
+                        }
+                        adapterProfilePenjual.notifyDataSetChanged();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
     private void insertdatapenjual() {
         try {
+           // String id = UUID.randomUUID().toString();
             Long nik = Long.parseLong(Nik.getText().toString().trim());
             String nama = Nama.getText().toString().trim();
             String jenis_kelamin = Jk.getSelectedItem().toString().trim();
@@ -99,8 +136,11 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             String alamat = Alamat.getText().toString().trim();
             String nama_toko = Nato.getText().toString().trim();
 
-            if (nik == null) {
+
+            if (nik == null ) {
                 Toast.makeText(getApplicationContext(), "NIK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+            }else if (nik == dataPenjualList.get(p).getNik()) {
+                Toast.makeText(getApplicationContext(), "NIK SUDAH ADA", Toast.LENGTH_SHORT).show();
             }else if (nama.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "NAMA TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
             }else if (jenis_kelamin.isEmpty()) {
@@ -119,6 +159,7 @@ public class FormDataPenjualActivity extends AppCompatActivity {
                // DataPenjual dataPenjual = new DataPenjual(nik, nama, jenis_kelamin, no_ponsel, tempat_lahir, tanggal_lahir, alamat, nama_toko);
 
                 HashMap<String, Object> datapenjual = new HashMap<>();
+                //datapenjual.put("id", id);
                 datapenjual.put("nik", nik);
                 datapenjual.put("nama", nama);
                 datapenjual.put("jenis_kelamin", jenis_kelamin);

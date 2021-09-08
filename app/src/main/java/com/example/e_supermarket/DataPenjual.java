@@ -13,7 +13,12 @@ public class DataPenjual {
     String alamat ;
     String nama_toko ;
 
-    public DataPenjual(Long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko) {
+    public DataPenjual() {
+
+    }
+
+    public DataPenjual( Long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko) {
+       // this.id = id;
         this.nik = nik;
         this.nama = nama;
         this.jenis_kelamin = jenis_kelamin;
@@ -24,6 +29,13 @@ public class DataPenjual {
         this.nama_toko = nama_toko;
     }
 
+   /** public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }**/
 
     public Long getNik() {
         return nik;

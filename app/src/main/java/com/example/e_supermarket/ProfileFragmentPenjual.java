@@ -2,14 +2,27 @@ package com.example.e_supermarket;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +30,16 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class ProfileFragmentPenjual extends Fragment {
+
+    private RecyclerView recyclerView;
+    private List<DataPenjual> dataPenjualList;
+    private AdapterProfilePenjual adapterProfilePenjual;
+
+    private FirebaseFirestore db;
+
+
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,9 +85,41 @@ public class ProfileFragmentPenjual extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_profile_penjual, container, false);
+        recyclerView = view.findViewById(R.id.recProfilepenjual);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        db = FirebaseFirestore.getInstance();
+        dataPenjualList = new ArrayList<>();
+        adapterProfilePenjual = new AdapterProfilePenjual(ProfileFragmentPenjual.this, dataPenjualList);
+
+        recyclerView.setAdapter(adapterProfilePenjual);
+        getProfilePenjual();
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_penjual, container, false);
+        return view;
+    }
+
+    private void getProfilePenjual() {
+
+        db.collection("data_penjual").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        dataPenjualList.clear();
+                        for (DocumentSnapshot snapshot : task.getResult()){
+                            DataPenjual dataPenjual = new DataPenjual(/**snapshot.getString("id"),**/ snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
+                            dataPenjualList.add(dataPenjual);
+                        }
+                        adapterProfilePenjual.notifyDataSetChanged();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
