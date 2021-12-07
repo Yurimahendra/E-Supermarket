@@ -5,9 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:overScrollMode="never"
-    android:scrollbars="none"
-    tools:context=".SendOTPActivityPenjual">
+    tools:context=".LupaNomorPonselActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Login Penjual"
+            android:text="Lupa Nomor Ponsel Penjual"
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold"/>
@@ -58,27 +56,20 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="@string/_62"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/inputMobileS"
+                android:id="@+id/inputNomorLamaS"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:background="@null"
-                android:hint="@string/xxxxxxxxxxx"
+                android:hint="Nomor Lama"
                 android:imeOptions="actionDone"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
         </LinearLayout>
-        
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -87,12 +78,43 @@
             android:layout_marginEnd="70dp"
             android:background="@color/design_default_color_secondary_variant" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/inputNomorBaruS"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@null"
+                android:hint="Nomor Baru"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="70dp"
+            android:background="@color/design_default_color_secondary_variant" />
+
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/btnGetOtpS"
+                android:id="@+id/btnGetOtpENomorBaruS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
@@ -101,7 +123,7 @@
                 android:textStyle="bold"/>
 
             <ProgressBar
-                android:id="@+id/progressBarS"
+                android:id="@+id/progressBarNomorBaruS"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -109,31 +131,7 @@
 
         </FrameLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="horizontal" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lupa Nomor Ponsel ?"
-                android:textColor="@color/grey"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/txtEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Klik Disini"
-                android:textColor="@color/red"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

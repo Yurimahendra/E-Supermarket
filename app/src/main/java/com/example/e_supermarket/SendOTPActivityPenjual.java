@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseException;
@@ -27,16 +28,25 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
 
         final EditText inputMobileS = findViewById(R.id.inputMobileS);
         final Button buttonS = findViewById(R.id.btnGetOtpS);
+        TextView TvemailS = findViewById(R.id.txtEmail);
 
         final ProgressBar progressBarS = findViewById(R.id.progressBarS);
+
+        TvemailS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SendOTPActivityPenjual.this, LupaNomorPonselActivity.class);
+                startActivity(intent);
+            }
+        });
 
         buttonS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (inputMobileS.getText().toString().trim().isEmpty()){
-                   // Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
-                   // startActivity(intent);
-                    Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
+                    startActivity(intent);
+                   // Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 progressBarS.setVisibility(View.VISIBLE);

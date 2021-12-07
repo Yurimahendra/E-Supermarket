@@ -50,15 +50,15 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     SimpleDateFormat dateFormat;
     FirebaseFirestore Dbroot;
 
-    private List<DataPenjual> dataPenjualList;
-    private AdapterProfilePenjual adapterProfilePenjual;
+     List<DataPenjual> dataPenjualList;
+     AdapterProfilePenjual adapterProfilePenjual;
 
-    private FirebaseFirestore db;
+     FirebaseFirestore db;
 
-    int p = 0;
+     int p = 0;
 
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         Nato = (EditText) findViewById(R.id.EdtNato);
         EdtTala = (EditText) findViewById(R.id.EdtTala);
 
-        dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         BtnUpdate = (Button) findViewById(R.id.btnUpdateData);
         Dbroot = FirebaseFirestore.getInstance();
@@ -101,16 +101,16 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         });
 
         db = FirebaseFirestore.getInstance();
-       // dataPenjualList = new ArrayList<>();
+        dataPenjualList = new ArrayList<>();
 
 
-        db.collection("data_penjual").get()
+        /**db.collection("data_penjual").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         dataPenjualList.clear();
                         for (DocumentSnapshot snapshot : task.getResult()){
-                            DataPenjual dataPenjual = new DataPenjual(/**snapshot.getString("id"),**/ snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
+                            DataPenjual dataPenjual = new DataPenjual(snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
                             dataPenjualList.add(dataPenjual);
                         }
                         adapterProfilePenjual.notifyDataSetChanged();
@@ -120,7 +120,7 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });**/
 
     }
 
@@ -139,8 +139,6 @@ public class FormDataPenjualActivity extends AppCompatActivity {
 
             if (nik == null ) {
                 Toast.makeText(getApplicationContext(), "NIK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-            }else if (nik == dataPenjualList.get(p).getNik()) {
-                Toast.makeText(getApplicationContext(), "NIK SUDAH ADA", Toast.LENGTH_SHORT).show();
             }else if (nama.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "NAMA TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
             }else if (jenis_kelamin.isEmpty()) {
