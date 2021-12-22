@@ -1,35 +1,20 @@
 package com.example.e_supermarket;
 
 public class DataProduk {
-    String id;
+    int id;
     String nama_barang ;
     String merk ;
-    long harga ;
-    long stok ;
+    int harga ;
     String satuan;
+    int stok ;
     String gambar;
     String deskripsi;
 
-    public DataProduk() {
-
-    }
-
-    public DataProduk(String id, String nama_barang, String merk, long harga, long stok, String satuan, String gambar, String deskripsi) {
-        this.id = id;
-        this.nama_barang = nama_barang;
-        this.merk = merk;
-        this.harga = harga;
-        this.stok = stok;
-        this.satuan = satuan;
-        this.gambar = gambar;
-        this.deskripsi = deskripsi;
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,20 +34,12 @@ public class DataProduk {
         this.merk = merk;
     }
 
-    public long getHarga() {
+    public int getHarga() {
         return harga;
     }
 
-    public void setHarga(long harga) {
+    public void setHarga(int harga) {
         this.harga = harga;
-    }
-
-    public long getStok() {
-        return stok;
-    }
-
-    public void setStok(long stok) {
-        this.stok = stok;
     }
 
     public String getSatuan() {
@@ -71,6 +48,14 @@ public class DataProduk {
 
     public void setSatuan(String satuan) {
         this.satuan = satuan;
+    }
+
+    public int getStok() {
+        return stok;
+    }
+
+    public void setStok(int stok) {
+        this.stok = stok;
     }
 
     public String getGambar() {

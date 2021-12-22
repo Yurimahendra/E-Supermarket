@@ -50,10 +50,10 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     SimpleDateFormat dateFormat;
     FirebaseFirestore Dbroot;
 
-     List<DataPenjual> dataPenjualList;
-     AdapterProfilePenjual adapterProfilePenjual;
+    private List<DataPenjual> dataPenjualList;
+    private AdapterProfilePenjual adapterProfilePenjual;
 
-     FirebaseFirestore db;
+    private FirebaseFirestore db;
 
      int p = 0;
 

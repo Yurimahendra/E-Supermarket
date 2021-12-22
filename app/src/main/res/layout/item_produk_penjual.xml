@@ -22,8 +22,18 @@
             app:civ_border_width="2dp"
             app:civ_border_color="#FF000000"/>
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvIdBarang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="id"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgProdukView"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvNamaBarang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +43,7 @@
             android:layout_toRightOf="@id/ImgProdukView"
             android:layout_marginLeft="10dp"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvMerk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +55,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvHarga"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +68,7 @@
             android:layout_marginLeft="10dp"/>
 
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvStok"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,7 +80,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvSatuan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,7 +92,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvDeskripsi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -94,7 +104,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ImgEdit"
             android:layout_width="180dp"
             android:layout_height="40dp"
@@ -102,7 +112,7 @@
             android:layout_below="@+id/ImgProdukView"
             android:layout_marginTop="120dp"/>
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ImgHapus"
             android:layout_width="193dp"
             android:layout_height="40dp"

@@ -64,7 +64,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     //private FirebaseDatabase database = FirebaseDatabase.getInstance();
     //private DatabaseReference myRef = database.getReference();
     int id_satuan;
-    FirebaseFirestore db;
+    //FirebaseFirestore db;
 
     public Uri imageUri;
     ImageView imageProduk;
@@ -102,9 +102,9 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     @Override
     public AdapterProdukPenjual.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(homeFragmentPenjual.getContext()).inflate(R.layout.item_produk_penjual, parent, false);
-        db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
+        //db = FirebaseFirestore.getInstance();
+        //storage = FirebaseStorage.getInstance();
+        //storageReference = storage.getReference();
         return new MyViewHolder(view);
     }
 
@@ -112,6 +112,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        holder.Id.setText(String.valueOf(ProdukList.get(position).getNama_barang()));
         holder.Nama_Barang.setText(ProdukList.get(position).getNama_barang());
         holder.Merk.setText(ProdukList.get(position).getMerk());
         holder.Harga.setText(String.valueOf(ProdukList.get(position).getHarga()));
@@ -121,9 +122,9 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
         holder.Deskripsi.setText(ProdukList.get(position).getDeskripsi());
 
 
-        db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
+        //db = FirebaseFirestore.getInstance();
+        //storage = FirebaseStorage.getInstance();
+        //storageReference = storage.getReference();
         // holder.Harga.setText(String.valueOf(dataProduk.harga));
 
        /** holder.imageProduk.setOnClickListener(new View.OnClickListener() {
@@ -188,11 +189,11 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                 btnupdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String id = ProdukList.get(position).getId();
+                        int id = ProdukList.get(position).getId();
                         String nama_barang = nama_barang1.getText().toString().trim();
                         String merk = merk1.getText().toString().trim();
-                        long harga = Long.parseLong(harga1.getText().toString().trim());
-                        long stok = Long.parseLong(stok1.getText().toString().trim());
+                        int harga = Integer.parseInt(harga1.getText().toString().trim());
+                        int stok = Integer.parseInt(stok1.getText().toString().trim());
                         String satuan = satuan1.getSelectedItem().toString().trim();
                         String deskripsi = deskripsi1.getText().toString().trim();
 
@@ -209,8 +210,8 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                         } else if (satuan.isEmpty()) {
                             Toast.makeText(homeFragmentPenjual.getContext(), "SATUAN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
                         }else {
-                            //DataProduk dataProduk = new DataProduk(id, nama_barang, merk, harga, stok, satuan, deskripsi);
-                            updatetofirestore(id, nama_barang, merk, harga, stok, satuan, deskripsi );
+
+                            //updatetofirestore(id, nama_barang, merk, harga, stok, satuan, deskripsi );
                             dialogPlus.dismiss();
                         }
 
@@ -229,9 +230,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                 builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        db.collection("data_produk")
-                                .document(ProdukList.get(position).getId())
-                                .delete();
+
                         Toast.makeText(homeFragmentPenjual.getContext(), "Data Berhasil Dihapus !", Toast.LENGTH_SHORT).show();
                         dialogInterface.dismiss();
                     }
@@ -303,14 +302,14 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
 
     }**/
 
-    private void updatetofirestore(String id, String  nama_barang, String merk, long harga, long stok, String satuan, String deskripsi) {
-       /** Map<String, Object> map = new HashMap<>();
+    /**private void updatetofirestore(int id, String  nama_barang, String merk, int harga, int stok, String satuan, String deskripsi) {
+        Map<String, Object> map = new HashMap<>();
         map.put("nama_barang", nama_barang);
         map.put("merk", merk);
         map.put("harga", harga);
         map.put("stok", stok);
         map.put("satuan", satuan);
-        map.put("deskripsi", deskripsi);**/
+        map.put("deskripsi", deskripsi);
 
         db.collection("data_produk")
                 .document(id)
@@ -329,7 +328,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                     }
                 });
 
-    }
+    }**/
 
 
     @Override
@@ -338,6 +337,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView Id;
         TextView Nama_Barang;
         TextView Merk;
         TextView Harga;
@@ -354,7 +354,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-
+            Id = itemView.findViewById(R.id.tvIdBarang);
             Nama_Barang = itemView.findViewById(R.id.tvNamaBarang);
             Merk = itemView.findViewById(R.id.tvMerk);
             Harga = itemView.findViewById(R.id.tvHarga);

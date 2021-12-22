@@ -41,7 +41,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HalamanUtamaPenjualActivity extends AppCompatActivity {
 
@@ -51,6 +56,10 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
     private StorageReference storageReference;
     public Uri imageUri;
     ImageView imageProduk;
+
+    private RecyclerView recyclerView;
+    private List<DataProduk> dataProdukList = new ArrayList<>();
+    private AdapterProdukPenjualHU adapterProdukPenjualHU;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -85,13 +94,19 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_halaman_utama_penjual);
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
+       // storage = FirebaseStorage.getInstance();
+        //storageReference = storage.getReference();
 
+        /**recyclerView = (RecyclerView)findViewById(R.id.recItem);;
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(HalamanUtamaPenjualActivity.this, LinearLayoutManager.VERTICAL, false));
+
+        retrieveData();**/
         firebaseAuth = FirebaseAuth.getInstance();
 
         bottomNavigationViewPenjual = findViewById(R.id.nav_penjual);
         bottomNavigationViewPenjual.setOnNavigationItemSelectedListener(navigation_penjual);
+
 
         FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fab_add);
         fabAdd.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +117,34 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
         });
        // CheckUserStatus(this);
     }
+
+    /**public void retrieveData(){
+        ApiRequestDataProduk requestDataProduk = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+        Call<ResponseDataProduk> tampilData = requestDataProduk.RetrieveDataProduk();
+
+        tampilData.enqueue(new Callback<ResponseDataProduk>() {
+            @Override
+            public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
+                int kode = response.body().getKode();
+                String pesan = response.body().getPesan();
+
+                Toast.makeText(HalamanUtamaPenjualActivity.this, "kode : "+kode+" | pesan : "+pesan, Toast.LENGTH_SHORT).show();
+
+                dataProdukList = response.body().getData();
+
+                adapterProdukPenjualHU = new AdapterProdukPenjualHU(HalamanUtamaPenjualActivity.this, dataProdukList);
+                recyclerView.setAdapter(adapterProdukPenjualHU);
+                adapterProdukPenjualHU.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataProduk> call, Throwable t) {
+                Toast.makeText(HalamanUtamaPenjualActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }**/
 
     @Override
     public void onBackPressed() {

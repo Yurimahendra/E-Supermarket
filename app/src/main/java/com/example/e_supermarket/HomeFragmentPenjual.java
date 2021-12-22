@@ -10,12 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,6 +42,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -50,13 +56,15 @@ import static android.app.Activity.RESULT_OK;
 public class HomeFragmentPenjual extends Fragment {
 
     private RecyclerView recyclerView;
-    private List<DataProduk> dataProdukList;
+    private List<DataProduk> dataProdukList = new ArrayList<>();
     private AdapterProdukPenjual adapterProdukPenjual;
-    private FirebaseFirestore db;
+    private SwipeRefreshLayout srlDataProduk;
+    private ProgressBar pbDataProduk;
+   // private FirebaseFirestore db;
 
 
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
+    //private FirebaseStorage storage;
+    //private StorageReference storageReference;
 
     public Uri imageUri;
     ImageView imageProduk;
@@ -113,30 +121,21 @@ public class HomeFragmentPenjual extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_penjual, container, false);
 
-       // editProduk = (ImageView)view.findViewById(R.id.ImgEdit);
-        //hapusProduk = (ImageView)view.findViewById(R.id.ImgHapus);
-
-
+        srlDataProduk = view.findViewById(R.id.sw_dataproduk);
+        pbDataProduk = view.findViewById(R.id.pb_dataproduk);
 
         recyclerView = (RecyclerView)view.findViewById(R.id.recItem);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-       // FirebaseDatabase.getInstance().getReference().child("data_produk");
-        //storage = FirebaseStorage.getInstance();
-        //storageReference = storage.getReference();
-        db = FirebaseFirestore.getInstance();
-        dataProdukList = new ArrayList<>();
-        adapterProdukPenjual = new AdapterProdukPenjual(HomeFragmentPenjual.this, dataProdukList);
-
-        recyclerView.setAdapter(adapterProdukPenjual);
-        EventChangeListener();
-        /**imageProduk = (ImageView) view.findViewById(R.id.ImgProduk);
-        imageProduk.setOnClickListener(new View.OnClickListener() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+       // retrieveData();
+        srlDataProduk.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View v) {
-                pilihGambar();
+            public void onRefresh() {
+                srlDataProduk.setRefreshing(true);
+                retrieveData();
+                srlDataProduk.setRefreshing(false);
             }
-        });**/
+        });
 
         return view;
 
@@ -144,79 +143,42 @@ public class HomeFragmentPenjual extends Fragment {
 
     }
 
-
-
-    /** private void pilihGambar() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
-    }
-
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imageUri = data.getData();
-            imageProduk.setImageURI(imageUri);
-            uploadGambar();
-        }
+    public void onResume() {
+        super.onResume();
+        retrieveData();
     }
 
-    private void uploadGambar() {
-        final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setTitle("Upload gambar....");
-        pd.show();
 
-        final String id = UUID.randomUUID().toString();
-        StorageReference riversRef = storageReference.child("images/" + id);
+    public void retrieveData(){
+        pbDataProduk.setVisibility(View.VISIBLE);
+        ApiRequestDataProduk requestDataProduk = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+        Call<ResponseDataProduk> tampilData = requestDataProduk.RetrieveDataProduk();
 
-        riversRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
-                        Snackbar.make(getActivity().findViewById(R.id.dialogplus_content_container), "image uploaded", Snackbar.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        Toast.makeText(getContext(), "gagal upload", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        pd.setMessage("Proses" + (int) progressPercent + "%");
-                    }
-                });
-
-    }**/
-
-    private void EventChangeListener() {
-
-
-        db.collection("data_produk").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        dataProdukList.clear();
-                        for (DocumentSnapshot snapshot : task.getResult()){
-                            DataProduk dataProduk = new DataProduk(snapshot.getString("id"), snapshot.getString("nama_barang"), snapshot.getString("merk"), snapshot.getLong("harga"), snapshot.getLong("stok"), snapshot.getString("satuan"), snapshot.getString("gambar"), snapshot.getString("deskripsi"));
-                            dataProdukList.add(dataProduk);
-                        }
-                        adapterProdukPenjual.notifyDataSetChanged();
-                         }
-                }).addOnFailureListener(new OnFailureListener() {
+        tampilData.enqueue(new Callback<ResponseDataProduk>() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
+                int kode = response.body().getKode();
+                String pesan = response.body().getPesan();
+
+                //Toast.makeText(getContext(), "kode : "+kode+" | pesan : "+pesan, Toast.LENGTH_SHORT).show();
+
+                dataProdukList = response.body().getData();
+
+                adapterProdukPenjual = new AdapterProdukPenjual(HomeFragmentPenjual.this, dataProdukList);
+                recyclerView.setAdapter(adapterProdukPenjual);
+                adapterProdukPenjual.notifyDataSetChanged();
+                pbDataProduk.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataProduk> call, Throwable t) {
+                Toast.makeText(getContext(), "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                pbDataProduk.setVisibility(View.INVISIBLE);
             }
         });
     }
+
 
 }
 
