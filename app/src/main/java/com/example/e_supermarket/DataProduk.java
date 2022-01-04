@@ -1,13 +1,23 @@
 package com.example.e_supermarket;
 
+import com.google.gson.annotations.SerializedName;
+
 public class DataProduk {
+    @SerializedName("id")
     int id;
+    @SerializedName("nama_barang")
     String nama_barang ;
+    @SerializedName("merk")
     String merk ;
+    @SerializedName("harga")
     int harga ;
+    @SerializedName("satuan")
     String satuan;
+    @SerializedName("stok")
     int stok ;
+    @SerializedName("gambar")
     String gambar;
+    @SerializedName("deskripsi")
     String deskripsi;
 
     public int getId() {

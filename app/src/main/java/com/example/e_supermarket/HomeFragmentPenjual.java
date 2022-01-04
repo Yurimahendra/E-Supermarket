@@ -160,14 +160,22 @@ public class HomeFragmentPenjual extends Fragment {
             public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
                 int kode = response.body().getKode();
                 String pesan = response.body().getPesan();
+                if(kode == 200) {
+
+                    dataProdukList = response.body().getData();
+
+                    adapterProdukPenjual = new AdapterProdukPenjual(HomeFragmentPenjual.this, dataProdukList);
+                    recyclerView.setAdapter(adapterProdukPenjual);
+                    adapterProdukPenjual.notifyDataSetChanged();
+                    Toast.makeText(getContext(), "pesan : "+pesan, Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                }
+
 
                 //Toast.makeText(getContext(), "kode : "+kode+" | pesan : "+pesan, Toast.LENGTH_SHORT).show();
 
-                dataProdukList = response.body().getData();
 
-                adapterProdukPenjual = new AdapterProdukPenjual(HomeFragmentPenjual.this, dataProdukList);
-                recyclerView.setAdapter(adapterProdukPenjual);
-                adapterProdukPenjual.notifyDataSetChanged();
                 pbDataProduk.setVisibility(View.INVISIBLE);
             }
 

@@ -54,6 +54,10 @@ import java.util.Map;
 import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -65,7 +69,6 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     //private DatabaseReference myRef = database.getReference();
     int id_satuan;
     //FirebaseFirestore db;
-
     public Uri imageUri;
     ImageView imageProduk;
     private FirebaseStorage storage;
@@ -81,30 +84,11 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
 
     }
 
-    /**
-     * public void UpdateData(int position){
-     * DataProduk item = ProdukList.get(position);
-     * Bundle bundle = new Bundle();
-     * bundle.putString("uId", item.getId());
-     * bundle.putString("uNama_Barang", item.getNama_barang());
-     * bundle.putString("uMerk", item.getMerk());
-     * bundle.putLong("uHarga", item.getHarga());
-     * bundle.putLong("uStok", item.getStok());
-     * bundle.putString("uSatuan", item.getSatuan());
-     * bundle.putString("uDeskripsi", item.getDeskripsi());
-     * Intent intent = new Intent(homeFragmentPenjual.getActivity(), Form_Edit_Produk_Activity.class);
-     * intent.putExtras(bundle);
-     * homeFragmentPenjual.startActivity(intent);
-     * }
-     **/
 
     @NonNull
     @Override
     public AdapterProdukPenjual.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(homeFragmentPenjual.getContext()).inflate(R.layout.item_produk_penjual, parent, false);
-        //db = FirebaseFirestore.getInstance();
-        //storage = FirebaseStorage.getInstance();
-        //storageReference = storage.getReference();
         return new MyViewHolder(view);
     }
 
@@ -112,28 +96,15 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.Id.setText(String.valueOf(ProdukList.get(position).getNama_barang()));
+        holder.Id.setText(String.valueOf(ProdukList.get(position).getId()));
         holder.Nama_Barang.setText(ProdukList.get(position).getNama_barang());
         holder.Merk.setText(ProdukList.get(position).getMerk());
         holder.Harga.setText(String.valueOf(ProdukList.get(position).getHarga()));
         holder.Stok.setText(String.valueOf(ProdukList.get(position).getStok()));
         holder.Satuan.setText(ProdukList.get(position).getSatuan());
-        Glide.with(holder.imageProduk.getContext()).load(ProdukList.get(position).getGambar()).into(holder.imageProduk);
+        Glide.with(holder.imageProduk.getContext())
+                .load(RetroServer.imageURL + ProdukList.get(position).getGambar()).into(holder.imageProduk);
         holder.Deskripsi.setText(ProdukList.get(position).getDeskripsi());
-
-
-        //db = FirebaseFirestore.getInstance();
-        //storage = FirebaseStorage.getInstance();
-        //storageReference = storage.getReference();
-        // holder.Harga.setText(String.valueOf(dataProduk.harga));
-
-       /** holder.imageProduk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pilihGambar();
-            }
-        });**/
-
 
 
 
@@ -189,7 +160,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                 btnupdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int id = ProdukList.get(position).getId();
+                        int idProduk = ProdukList.get(position).getId();
                         String nama_barang = nama_barang1.getText().toString().trim();
                         String merk = merk1.getText().toString().trim();
                         int harga = Integer.parseInt(harga1.getText().toString().trim());
@@ -225,13 +196,38 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
         holder.hapusProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(holder.Nama_Barang.getContext());
+                int idProduk = ProdukList.get(position).getId();
+                AlertDialog.Builder builder = new AlertDialog.Builder(holder.Id.getContext());
                 builder.setTitle("Apakah yakin ingin dihapus ?");
                 builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        ApiRequestDataProduk haDataProduk = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+                        Call<ResponseDataProduk> hapusDataProduk = haDataProduk.hapusData(idProduk);
+                        hapusDataProduk.enqueue(new Callback<ResponseDataProduk>() {
+                            @Override
+                            public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
+                                dialogInterface.dismiss();
+                                try {
+                                    int kode = response.body().getKode();
+                                    String pesan = response.body().getPesan();
+                                    if (kode == 200){
+                                        Toast.makeText(homeFragmentPenjual.getContext(), "Pesan :"+pesan, Toast.LENGTH_SHORT).show();
+                                    }/*else {
+                                        Toast.makeText(homeFragmentPenjual.getContext(), "Data Gagal Terhapus "+response.errorBody(), Toast.LENGTH_SHORT).show();
+                                    }*/
+                                }catch (NullPointerException nullPointerException){
+                                    Toast.makeText(homeFragmentPenjual.getContext(), "Data Gagal Terhapus "+nullPointerException.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
 
-                        Toast.makeText(homeFragmentPenjual.getContext(), "Data Berhasil Dihapus !", Toast.LENGTH_SHORT).show();
+                            @Override
+                            public void onFailure(Call<ResponseDataProduk> call, Throwable t) {
+                                dialogInterface.dismiss();
+                                Toast.makeText(homeFragmentPenjual.getContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        //homeFragmentPenjual.startActivity(new Intent(homeFragmentPenjual.getActivity(), HalamanUtamaPenjualActivity.class));
                         dialogInterface.dismiss();
                     }
                 });
@@ -246,6 +242,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                 builder.show();
             }
         });
+
 
 
     }
@@ -370,4 +367,5 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
         }
 
     }
+
 }

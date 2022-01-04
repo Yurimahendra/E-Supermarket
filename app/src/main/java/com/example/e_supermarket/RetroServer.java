@@ -11,8 +11,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroServer {
-    private static final String baseURL = "https://voluminous-contrast.000webhostapp.com";
+    private static final String baseURL = "http://192.168.100.6/esupermarket-api23/public/";
     private static Retrofit retro;
+    public static final String imageURL = "http://192.168.100.6/esupermarket-api23/public/storage/gambar/";
 
 
     public static Retrofit konekRetrofit(){
@@ -33,8 +34,8 @@ public class RetroServer {
         return retro;
     }
 
-    public static ApiRequestDataProduk GetapiRequestDataProduk(){
+    /*public static ApiRequestDataProduk GetapiRequestDataProduk(){
         ApiRequestDataProduk requestDataProduk = konekRetrofit().create(ApiRequestDataProduk.class);
         return requestDataProduk;
-    }
+    }*/
 }
