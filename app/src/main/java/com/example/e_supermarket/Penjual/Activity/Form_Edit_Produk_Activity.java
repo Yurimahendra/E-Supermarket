@@ -186,7 +186,8 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
             }else {
                 partImg = null;
             }
-
+            //token gthub
+//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
             deskripsi = Deskripsi.getText().toString().trim();
 
             if (nama_barang.equals("")) {
