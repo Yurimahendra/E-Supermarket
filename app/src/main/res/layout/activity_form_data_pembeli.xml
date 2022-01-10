@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".FormDataPembeliActivity">
+    tools:context=".Pembeli.FormDataPembeliActivity">
 
     <LinearLayout
         android:layout_margin="10dp"

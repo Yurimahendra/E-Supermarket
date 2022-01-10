@@ -1,4 +1,4 @@
-package com.example.e_supermarket;
+package com.example.e_supermarket.Penjual.Fragment;
 
 import android.os.Bundle;
 
@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.e_supermarket.Penjual.Adapter.AdapterProfilePenjual;
+import com.example.e_supermarket.Penjual.Model.DataPenjual;
+import com.example.e_supermarket.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;

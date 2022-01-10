@@ -1,4 +1,4 @@
-package com.example.e_supermarket;
+package com.example.e_supermarket.Penjual.Model;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:overScrollMode="never"
     android:scrollbars="none"
-    tools:context=".SendOTPActivityPenjual">
+    tools:context=".Penjual.Activity.SendOTPActivityPenjual">
 
     <LinearLayout
         android:layout_width="match_parent"

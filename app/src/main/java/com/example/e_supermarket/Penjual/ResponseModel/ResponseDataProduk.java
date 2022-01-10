@@ -1,5 +1,6 @@
-package com.example.e_supermarket;
+package com.example.e_supermarket.Penjual.ResponseModel;
 
+import com.example.e_supermarket.Penjual.Model.DataProduk;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

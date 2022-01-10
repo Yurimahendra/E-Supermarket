@@ -1,4 +1,4 @@
-package com.example.e_supermarket;
+package com.example.e_supermarket.Pembeli;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.e_supermarket.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

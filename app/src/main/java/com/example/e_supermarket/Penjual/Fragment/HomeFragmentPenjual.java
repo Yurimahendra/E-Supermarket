@@ -1,18 +1,19 @@
-package com.example.e_supermarket;
+package com.example.e_supermarket.Penjual.Fragment;
 
-import android.app.ProgressDialog;
+import android.app.DownloadManager;
+import android.content.ContentProvider;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,28 +21,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.FirebaseAppLifecycleListener;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.example.e_supermarket.Penjual.Adapter.AdapterProdukPenjual;
+import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
+import com.example.e_supermarket.Penjual.Model.DataProduk;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
+import com.example.e_supermarket.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,8 +56,6 @@ public class HomeFragmentPenjual extends Fragment {
     //private FirebaseStorage storage;
     //private StorageReference storageReference;
 
-    public Uri imageUri;
-    ImageView imageProduk;
 
     //private ImageView editProduk;
     //private ImageView hapusProduk;
@@ -121,8 +109,11 @@ public class HomeFragmentPenjual extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_penjual, container, false);
 
+
         srlDataProduk = view.findViewById(R.id.sw_dataproduk);
         pbDataProduk = view.findViewById(R.id.pb_dataproduk);
+
+
 
         recyclerView = (RecyclerView)view.findViewById(R.id.recItem);
         recyclerView.setHasFixedSize(true);
@@ -167,7 +158,7 @@ public class HomeFragmentPenjual extends Fragment {
                     adapterProdukPenjual = new AdapterProdukPenjual(HomeFragmentPenjual.this, dataProdukList);
                     recyclerView.setAdapter(adapterProdukPenjual);
                     adapterProdukPenjual.notifyDataSetChanged();
-                    Toast.makeText(getContext(), "pesan : "+pesan, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), ""+pesan, Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getContext(), "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                 }

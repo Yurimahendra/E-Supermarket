@@ -1,4 +1,4 @@
-package com.example.e_supermarket;
+package com.example.e_supermarket.Penjual.Model;
 
 import java.util.Date;
 

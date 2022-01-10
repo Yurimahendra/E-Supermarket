@@ -1,4 +1,4 @@
-package com.example.e_supermarket;
+package com.example.e_supermarket.Penjual.Server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

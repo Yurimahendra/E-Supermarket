@@ -1,67 +1,55 @@
-package com.example.e_supermarket;
+package com.example.e_supermarket.Penjual.Adapter;
 
-import android.app.Activity;
+import android.Manifest;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.ContentProvider;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.e_supermarket.Penjual.Activity.Form_Edit_Produk_Activity;
+import com.example.e_supermarket.Penjual.Fragment.HomeFragmentPenjual;
+import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
+import com.example.e_supermarket.Penjual.Model.DataProduk;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
+import com.example.e_supermarket.R;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.DocumentId;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldPath;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenjual.MyViewHolder> {
+public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenjual.MyViewHolder> implements onActivityResult {
 
     private HomeFragmentPenjual homeFragmentPenjual;
     private List<DataProduk> ProdukList;
@@ -69,11 +57,14 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
     //private DatabaseReference myRef = database.getReference();
     int id_satuan;
     //FirebaseFirestore db;
-    public Uri imageUri;
-    ImageView imageProduk;
+
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private String mediaPath;
+    private String postPath;
+    public Uri imageUri;
 
+    CircleImageView EditImgProduk;
     //String id;
     private String n_satuan[] = {"Kg", "Gr", "Pcs", "Lusin", "Kodi", "Gross", "Pack"};
 
@@ -92,7 +83,6 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
         return new MyViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
@@ -107,29 +97,30 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
         holder.Deskripsi.setText(ProdukList.get(position).getDeskripsi());
 
 
-
         holder.editProduk.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
-                /** DataProduk item = ProdukList.get(position);
+                 DataProduk item = ProdukList.get(position);
                  Bundle bundle = new Bundle();
-                 bundle.putString("id", item.getId());
+                 bundle.putInt("id", item.getId());
                  bundle.putString("nama_barang", item.getNama_barang());
                  bundle.putString("merk", item.getMerk());
-                 bundle.putLong("harga", item.getHarga());
-                 bundle.putLong("stok", item.getStok());
+                 bundle.putInt("harga", item.getHarga());
+                 bundle.putInt("stok", item.getStok());
                  bundle.putString("satuan", item.getSatuan());
+                 bundle.putString("gambar", RetroServer.imageURL + item.getGambar());
                  bundle.putString("deskripsi", item.getDeskripsi());
                  Intent intent = new Intent(homeFragmentPenjual.getActivity(), Form_Edit_Produk_Activity.class);
                  intent.putExtras(bundle);
-                 homeFragmentPenjual.startActivity(intent);**/
-                DialogPlus dialogPlus = DialogPlus.newDialog(holder.Nama_Barang.getContext())
+                 homeFragmentPenjual.startActivity(intent);
+
+                /*DialogPlus dialogPlus = DialogPlus.newDialog(holder.Id.getContext())
                         .setContentHolder(new ViewHolder(R.layout.activity_form__edit__produk_))
                         .setExpanded(true, 1500)
                         .setGravity(Gravity.CENTER)
                         .create();
-
 
                 View myview = dialogPlus.getHolderView();
                 EditText nama_barang1 = myview.findViewById(R.id.UpdtNaBa);
@@ -137,9 +128,17 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                 EditText harga1 = myview.findViewById(R.id.UpdtHarga);
                 EditText stok1 = myview.findViewById(R.id.UpdtStok);
                 Spinner satuan1 = myview.findViewById(R.id.UpdtSpSatuan);
+                EditImgProduk = myview.findViewById(R.id.GambarProdukEdit);
+                EditImgProduk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pilihgambar();
+                    }
+
+                });
+
                 EditText deskripsi1 = myview.findViewById(R.id.UpdtDeskripsi);
                 Button btnupdate = myview.findViewById(R.id.btnUpdtData);
-
 
                 nama_barang1.setText(ProdukList.get(position).getNama_barang());
                 merk1.setText(ProdukList.get(position).getMerk());
@@ -154,6 +153,15 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                 else if (ProdukList.get(position).getSatuan().equals("Gross")) id_satuan = 5;
                 else if (ProdukList.get(position).getSatuan().equals("Pack")) id_satuan = 6;
                 satuan1.setSelection(id_satuan);
+                //EditImgProduk.setImageURI(imageUri);
+
+                Glide.with(myview.findViewById(R.id.GambarProdukEdit).getContext())
+                        .load(imageUri).into(EditImgProduk);
+
+
+                Glide.with(myview.findViewById(R.id.GambarProdukEdit).getContext())
+                        .load(RetroServer.imageURL + ProdukList.get(position).getGambar()).into(EditImgProduk);
+
                 deskripsi1.setText(ProdukList.get(position).getDeskripsi());
 
 
@@ -168,7 +176,6 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                         String satuan = satuan1.getSelectedItem().toString().trim();
                         String deskripsi = deskripsi1.getText().toString().trim();
 
-                        //updatetofirestore(id, nama_barang, merk, harga, stok, satuan, deskripsi );
 
                         if ( nama_barang.isEmpty()) {
                             Toast.makeText(homeFragmentPenjual.getContext(), "NAMA BARANG TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
@@ -181,15 +188,13 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                         } else if (satuan.isEmpty()) {
                             Toast.makeText(homeFragmentPenjual.getContext(), "SATUAN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
                         }else {
-
-                            //updatetofirestore(id, nama_barang, merk, harga, stok, satuan, deskripsi );
                             dialogPlus.dismiss();
                         }
 
 
                     }
                 });
-                dialogPlus.show();
+                dialogPlus.show();*/
             }
         });
 
@@ -202,20 +207,19 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                 builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
                         ApiRequestDataProduk haDataProduk = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
                         Call<ResponseDataProduk> hapusDataProduk = haDataProduk.hapusData(idProduk);
                         hapusDataProduk.enqueue(new Callback<ResponseDataProduk>() {
                             @Override
                             public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
-                                dialogInterface.dismiss();
+
                                 try {
                                     int kode = response.body().getKode();
                                     String pesan = response.body().getPesan();
                                     if (kode == 200){
                                         Toast.makeText(homeFragmentPenjual.getContext(), "Pesan :"+pesan, Toast.LENGTH_SHORT).show();
-                                    }/*else {
-                                        Toast.makeText(homeFragmentPenjual.getContext(), "Data Gagal Terhapus "+response.errorBody(), Toast.LENGTH_SHORT).show();
-                                    }*/
+                                    }
                                 }catch (NullPointerException nullPointerException){
                                     Toast.makeText(homeFragmentPenjual.getContext(), "Data Gagal Terhapus "+nullPointerException.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -223,12 +227,11 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
 
                             @Override
                             public void onFailure(Call<ResponseDataProduk> call, Throwable t) {
-                                dialogInterface.dismiss();
-                                Toast.makeText(homeFragmentPenjual.getContext(), "Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(homeFragmentPenjual.getContext(), "Gagal Menghubungi Server "+t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
-                        //homeFragmentPenjual.startActivity(new Intent(homeFragmentPenjual.getActivity(), HalamanUtamaPenjualActivity.class));
                         dialogInterface.dismiss();
+
                     }
                 });
 
@@ -246,92 +249,67 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
 
 
     }
-    
-/**
-    private void pilihGambar() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        homeFragmentPenjual.startActivityForResult(intent, 1);
-    }
-**/
-
-    /**public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imageUri = data.getData();
-            imageProduk.setImageURI(imageUri);
-
-            uploadGambar();
-        }
-    }
-
-    private void uploadGambar() {
-        final ProgressDialog pd = new ProgressDialog(homeFragmentPenjual.getContext());
-        pd.setTitle("Upload gambar....");
-        pd.show();
-
-        final String id = UUID.randomUUID().toString();
-        StorageReference riversRef = storageReference.child("images/" + id);
-
-        riversRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
-                        Snackbar.make(homeFragmentPenjual.getActivity().findViewById(R.id.dialogplus_content_container), "image uploaded", Snackbar.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        Toast.makeText(homeFragmentPenjual.getContext(), "gagal upload", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        pd.setMessage("Proses" + (int) progressPercent + "%");
-                    }
-                });
-
-    }**/
-
-    /**private void updatetofirestore(int id, String  nama_barang, String merk, int harga, int stok, String satuan, String deskripsi) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("nama_barang", nama_barang);
-        map.put("merk", merk);
-        map.put("harga", harga);
-        map.put("stok", stok);
-        map.put("satuan", satuan);
-        map.put("deskripsi", deskripsi);
-
-        db.collection("data_produk")
-                .document(id)
-                .update("nama_barang", nama_barang, "merk", merk, "harga", harga, "stok", stok, "satuan", satuan, "deskripsi", deskripsi)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(homeFragmentPenjual.getContext(), "Update Berhasil !", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        //dialogPlus.dismiss();
-                        Toast.makeText(homeFragmentPenjual.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-    }**/
-
 
     @Override
     public int getItemCount() {
         return ProdukList.size();
     }
+
+    private void pilihgambar(){
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        homeFragmentPenjual.startActivityForResult(intent,1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            if (requestCode==1){
+                if (data!=null){
+                    imageUri = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getContentResolver().query(imageUri, filePathColumn, null, null, null);
+                    assert cursor != null;
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    mediaPath = cursor.getString(columnIndex);
+                    EditImgProduk.setImageURI(imageUri);
+                    cursor.close();
+                    postPath = mediaPath;
+                }
+            }
+        }
+
+    }
+    private void requestPermission(){
+        //PbSimpanData.setVisibility(View.VISIBLE);
+        //btnAddData.setVisibility(View.INVISIBLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 786);
+        }else {
+            //insertdataproduk();
+            //PbSimpanData.setVisibility(View.GONE);
+            //btnAddData.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    private void requestPermissions(String[] strings, int i) {
+    }
+
+    @Override
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 786 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            //insertdataproduk();
+            requestPermission();
+        }
+    }
+
+    private ContentProvider getContentResolver() {
+        return null;
+    }
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView Id;
@@ -346,6 +324,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
         ImageView hapusProduk;
         CircleImageView imageProduk;
 
+       // CircleImageView EditImgProduk1;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -360,12 +339,12 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
             imageProduk = (CircleImageView) itemView.findViewById(R.id.ImgProdukView);
             Deskripsi = itemView.findViewById(R.id.tvDeskripsi);
 
+           // EditImgProduk1 = (CircleImageView) itemView.findViewById(R.id.GambarProdukEdit);
             editProduk = (ImageView) itemView.findViewById(R.id.ImgEdit);
             hapusProduk = (ImageView) itemView.findViewById(R.id.ImgHapus);
 
 
         }
-
     }
 
 }

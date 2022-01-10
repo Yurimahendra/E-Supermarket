@@ -1,48 +1,38 @@
-package com.example.e_supermarket;
+package com.example.e_supermarket.Penjual.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AlertDialogLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.e_supermarket.Penjual.Adapter.AdapterProdukPenjualHU;
+import com.example.e_supermarket.Penjual.Fragment.ChatFragmentPenjual;
+import com.example.e_supermarket.Penjual.Fragment.HomeFragmentPenjual;
+import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
+import com.example.e_supermarket.Penjual.Model.DataProduk;
+import com.example.e_supermarket.Penjual.Fragment.NotifFragmentPenjual;
+import com.example.e_supermarket.Penjual.Fragment.ProfileFragmentPenjual;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
+import com.example.e_supermarket.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,8 +42,8 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationViewPenjual;
     FirebaseAuth firebaseAuth;
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
+    //private FirebaseStorage storage;
+    //private StorageReference storageReference;
     public Uri imageUri;
     ImageView imageProduk;
 
@@ -97,11 +87,11 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
        // storage = FirebaseStorage.getInstance();
         //storageReference = storage.getReference();
 
-        /**recyclerView = (RecyclerView)findViewById(R.id.recItem);;
+        /*recyclerView = (RecyclerView)findViewById(R.id.recItem);;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(HalamanUtamaPenjualActivity.this, LinearLayoutManager.VERTICAL, false));
 
-        retrieveData();**/
+        retrieveData();*/
         firebaseAuth = FirebaseAuth.getInstance();
 
         bottomNavigationViewPenjual = findViewById(R.id.nav_penjual);
@@ -118,7 +108,7 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
        // CheckUserStatus(this);
     }
 
-    /**public void retrieveData(){
+    /*public void retrieveData(){
         ApiRequestDataProduk requestDataProduk = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
         Call<ResponseDataProduk> tampilData = requestDataProduk.RetrieveDataProduk();
 
@@ -144,7 +134,7 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
         });
 
 
-    }**/
+    }*/
 
     @Override
     public void onBackPressed() {

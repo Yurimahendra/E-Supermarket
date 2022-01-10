@@ -19,57 +19,57 @@
         android:theme="@style/Theme.ESupermarket"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true">
-        <activity android:name=".VerifikasiEmailPenjualActivity">
+        <activity android:name=".Penjual.Activity.VerifikasiEmailPenjualActivity">
             <intent-filter>
                 <action android:name=".VerifikasiEmailPenjualActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".LupaNomorPonselActivity">
+        <activity android:name=".Penjual.Activity.LupaNomorPonselActivity">
             <intent-filter>
                 <action android:name=".LupaNomorPonselActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Form_Edit_Produk_Activity">
+        <activity android:name=".Penjual.Activity.Form_Edit_Produk_Activity">
             <intent-filter>
                 <action android:name=".Form_Edit_Produk_Activity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddDataActivityPenjual">
+        <activity android:name=".Penjual.Activity.AddDataActivityPenjual">
             <intent-filter>
                 <action android:name=".AddDataActivityPenjual" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".HalamanUtamaPenjualActivity">
+        <activity android:name=".Penjual.Activity.HalamanUtamaPenjualActivity">
             <intent-filter>
                 <action android:name=".HalamanUtamaPenjualActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".FormDataPembeliActivity">
+        <activity android:name=".Pembeli.FormDataPembeliActivity">
             <intent-filter>
                 <action android:name=".FormDataPembeliActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".FormDataPenjualActivity">
+        <activity android:name=".Penjual.Activity.FormDataPenjualActivity">
             <intent-filter>
                 <action android:name=".FormDataPenjualActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".VerifyOTPActivityPembeli" />
-        <activity android:name=".SendOTPActivityPembeli">
+        <activity android:name=".Pembeli.VerifyOTPActivityPembeli" />
+        <activity android:name=".Pembeli.SendOTPActivityPembeli">
             <intent-filter>
                 <action android:name=".SendOTPActivityPembeli" />
 
@@ -77,7 +77,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".VerifyOTPActivityPenjual"
+            android:name=".Penjual.Activity.VerifyOTPActivityPenjual"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -87,7 +87,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SendOTPActivityPenjual"
+            android:name=".Penjual.Activity.SendOTPActivityPenjual"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
