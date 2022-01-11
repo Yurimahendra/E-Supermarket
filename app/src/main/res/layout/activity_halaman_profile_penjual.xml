@@ -16,10 +16,28 @@
         app:itemIconTint="@color/white"
         android:layout_alignParentBottom="true" />
 
-    <TextView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sw_dataproduk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/nav_penjual">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:id="@+id/recProfilepenjual">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_dataproduk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Halaman Profile"
-        android:textSize="30dp"
-        android:textColor="@color/black"/>
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+
+
+
 </RelativeLayout>

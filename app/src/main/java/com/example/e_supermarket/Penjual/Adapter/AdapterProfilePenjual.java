@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_supermarket.Penjual.Activity.FormDataPenjualActivity;
+import com.example.e_supermarket.Penjual.Activity.HalamanProfilePenjualActivity;
 import com.example.e_supermarket.Penjual.Model.DataPenjual;
 import com.example.e_supermarket.Penjual.Fragment.ProfileFragmentPenjual;
 import com.example.e_supermarket.R;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class AdapterProfilePenjual extends RecyclerView.Adapter<AdapterProfilePenjual.MyViewHolder>{
 
-    private ProfileFragmentPenjual profileFragmentPenjual;
+    private HalamanProfilePenjualActivity halamanProfilePenjualActivity;
     private List<DataPenjual> penjualList;
     private FormDataPenjualActivity formDataPenjualActivity;
 
@@ -29,18 +30,18 @@ public class AdapterProfilePenjual extends RecyclerView.Adapter<AdapterProfilePe
     private FirebaseStorage storage;
     private StorageReference storageReference;
 
-    public AdapterProfilePenjual(ProfileFragmentPenjual profileFragmentPenjual, List<DataPenjual> penjualList) {
-        this.profileFragmentPenjual = profileFragmentPenjual;
+    public AdapterProfilePenjual(HalamanProfilePenjualActivity halamanProfilePenjualActivity, List<DataPenjual> penjualList) {
+        this.halamanProfilePenjualActivity = halamanProfilePenjualActivity;
         this.penjualList = penjualList;
     }
 
     @NonNull
     @Override
     public AdapterProfilePenjual.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(profileFragmentPenjual.getContext()).inflate(R.layout.profil_penjual, parent, false);
-        db = FirebaseFirestore.getInstance();
+        View view = LayoutInflater.from(halamanProfilePenjualActivity).inflate(R.layout.profil_penjual, parent, false);
+       /* db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
+        storageReference = storage.getReference();*/
         return new MyViewHolder(view);
     }
 

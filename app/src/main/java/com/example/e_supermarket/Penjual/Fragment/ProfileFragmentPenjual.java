@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.e_supermarket.Penjual.Activity.HalamanProfilePenjualActivity;
 import com.example.e_supermarket.Penjual.Adapter.AdapterProfilePenjual;
 import com.example.e_supermarket.Penjual.Model.DataPenjual;
 import com.example.e_supermarket.R;
@@ -89,22 +90,22 @@ public class ProfileFragmentPenjual extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_penjual, container, false);
-        recyclerView = view.findViewById(R.id.recProfilepenjual);
+        /*recyclerView = view.findViewById(R.id.recProfilepenjual);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         db = FirebaseFirestore.getInstance();
         dataPenjualList = new ArrayList<>();
-        adapterProfilePenjual = new AdapterProfilePenjual(ProfileFragmentPenjual.this, dataPenjualList);
+        //adapterProfilePenjual = new AdapterProfilePenjual(HalamanProfilePenjualActivity.this, dataPenjualList);
 
         recyclerView.setAdapter(adapterProfilePenjual);
         getProfilePenjual();
 
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragment*/
         return view;
     }
 
-    private void getProfilePenjual() {
+    /**private void getProfilePenjual() {
 
         db.collection("data_penjual").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -112,7 +113,7 @@ public class ProfileFragmentPenjual extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         dataPenjualList.clear();
                         for (DocumentSnapshot snapshot : task.getResult()){
-                            DataPenjual dataPenjual = new DataPenjual(/**snapshot.getString("id"),**/ snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
+                            DataPenjual dataPenjual = new DataPenjual(snapshot.getString("id"), snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
                             dataPenjualList.add(dataPenjual);
                         }
                         adapterProfilePenjual.notifyDataSetChanged();
@@ -124,5 +125,5 @@ public class ProfileFragmentPenjual extends Fragment {
             }
         });
 
-    }
+    }**/
 }
