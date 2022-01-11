@@ -30,14 +30,36 @@
         android:backgroundTint="@color/design_default_color_primary"
         app:tint="@color/white"/>
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sw_dataproduk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <FrameLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/recItem">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_dataproduk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+
+    <!--<FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_penjual"
         android:layout_above="@+id/nav_penjual" >
 
-    </FrameLayout>
+    </FrameLayout>-->
 
 
 </RelativeLayout>

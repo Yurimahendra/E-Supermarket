@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.e_supermarket.Penjual.Adapter.AdapterProdukPenjualHU;
@@ -46,6 +49,8 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
     //private StorageReference storageReference;
     public Uri imageUri;
     ImageView imageProduk;
+    private SwipeRefreshLayout srlDataProduk;
+    private ProgressBar pbDataProduk;
 
     private RecyclerView recyclerView;
     private List<DataProduk> dataProdukList = new ArrayList<>();
@@ -55,19 +60,23 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
-            Fragment Fp = null;
+            //Activity Fp = null;
             switch (item.getItemId()) {
                 case R.id.homepenjual:
-                    Fp = new HomeFragmentPenjual();
+                    //startActivity(new Intent());
                     break;
                 case R.id.notifpenjual:
-                    Fp = new NotifFragmentPenjual();
+                     startActivity(new Intent(HalamanUtamaPenjualActivity.this, HalamanNotifPenjualActivity.class));
+                    //Fp = new HalamanNotifPenjualActivity();
                     break;
                 case R.id.chatpenjual:
-                    Fp = new ChatFragmentPenjual();
+                    startActivity(new Intent(HalamanUtamaPenjualActivity.this, HalamanChatPenjualActivity.class));
+
+                    //Fp = new HalamanChatPenjualActivity();
                     break;
                 case R.id.profilpenjual:
-                    Fp = new ProfileFragmentPenjual();
+                    startActivity(new Intent(HalamanUtamaPenjualActivity.this, HalamanProfilePenjualActivity.class));
+                    //Fp = new HalamanProfilePenjualActivity();
                     break;
                 case R.id.logoutpenjual:
                     //Fp = new LogoutFragmentPenjual();
@@ -75,7 +84,8 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
                     return true;
 
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_penjual, Fp).commit();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_penjual, Fp).commit();
+            getContentTransitionManager();
             return true;
         }
     };
@@ -84,18 +94,28 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_halaman_utama_penjual);
-       // storage = FirebaseStorage.getInstance();
-        //storageReference = storage.getReference();
+        srlDataProduk = findViewById(R.id.sw_dataproduk);
+        pbDataProduk = findViewById(R.id.pb_dataproduk);
 
-        /*recyclerView = (RecyclerView)findViewById(R.id.recItem);;
+
+        recyclerView = (RecyclerView)findViewById(R.id.recItem);;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(HalamanUtamaPenjualActivity.this, LinearLayoutManager.VERTICAL, false));
 
-        retrieveData();*/
+        //retrieveData();
         firebaseAuth = FirebaseAuth.getInstance();
 
         bottomNavigationViewPenjual = findViewById(R.id.nav_penjual);
         bottomNavigationViewPenjual.setOnNavigationItemSelectedListener(navigation_penjual);
+
+        srlDataProduk.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srlDataProduk.setRefreshing(true);
+                retrieveData();
+                srlDataProduk.setRefreshing(false);
+            }
+        });
 
 
         FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fab_add);
@@ -107,8 +127,13 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
         });
        // CheckUserStatus(this);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        retrieveData();
+    }
 
-    /*public void retrieveData(){
+    public void retrieveData(){
         ApiRequestDataProduk requestDataProduk = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
         Call<ResponseDataProduk> tampilData = requestDataProduk.RetrieveDataProduk();
 
@@ -118,7 +143,7 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
                 int kode = response.body().getKode();
                 String pesan = response.body().getPesan();
 
-                Toast.makeText(HalamanUtamaPenjualActivity.this, "kode : "+kode+" | pesan : "+pesan, Toast.LENGTH_SHORT).show();
+                Toast.makeText(HalamanUtamaPenjualActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
 
                 dataProdukList = response.body().getData();
 
@@ -134,7 +159,7 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
         });
 
 
-    }*/
+    }
 
     @Override
     public void onBackPressed() {
@@ -161,81 +186,6 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
     }
 
 
-   /** @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imageUri = data.getData();
-            imageProduk.setImageURI(imageUri);
-
-            uploadGambar();
-        }
-    }
-
-    private void uploadGambar() {
-        final ProgressDialog pd = new ProgressDialog(getApplicationContext());
-        pd.setTitle("Upload gambar....");
-        pd.show();
-
-        final String id = UUID.randomUUID().toString();
-        StorageReference riversRef = storageReference.child("images/" + id);
-
-        riversRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
-                        Snackbar.make(findViewById(R.id.dialogplus_content_container), "image uploaded", Snackbar.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        Toast.makeText(getApplicationContext(), "gagal upload", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        pd.setMessage("Proses" + (int) progressPercent + "%");
-                    }
-                });
-
-    }**/
-    /**private void CheckUserStatus(Activity activity){
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.setTitle(R.string.app_name);
-        builder.setMessage("Kamu yakin ingin keluar?");
-        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                firebaseAuth.signOut();
-                startActivity(new Intent(HalamanUtamaPenjualActivity.this, SendOTPActivityPenjual.class));
-                System.exit(0);
-            }
-        });
-
-        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-     if (firebaseUser != null){
-     //setContentView(R.layout.activity_halaman_utama_penjual);
-     }
-     else {
-     FirebaseAuth.getInstance().signOut();
-     startActivity(new Intent(getApplicationContext(), SendOTPActivityPenjual.class));
-     finish();
-     }
-     }**/
 
 
 }

@@ -2,6 +2,8 @@ package com.example.e_supermarket.Penjual.Adapter;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +19,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.e_supermarket.Penjual.Activity.Form_Edit_Produk_Activity;
 import com.example.e_supermarket.Penjual.Activity.HalamanUtamaPenjualActivity;
+import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
 import com.example.e_supermarket.Penjual.Model.DataProduk;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
@@ -26,6 +32,9 @@ import com.orhanobut.dialogplus.ViewHolder;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPenjualHU.MyViewHolder>{
     private HalamanUtamaPenjualActivity halamanUtamaPenjualActivity;
@@ -54,95 +63,62 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
         holder.Harga.setText(String.valueOf(ProdukList.get(position).getHarga()));
         holder.Stok.setText(String.valueOf(ProdukList.get(position).getStok()));
         holder.Satuan.setText(ProdukList.get(position).getSatuan());
-        Glide.with(holder.imageProduk.getContext()).load(ProdukList.get(position).getGambar()).into(holder.imageProduk);
+        Glide.with(holder.imageProduk.getContext())
+                .load(RetroServer.imageURL + ProdukList.get(position).getGambar()).into(holder.imageProduk);
         holder.Deskripsi.setText(ProdukList.get(position).getDeskripsi());
 
         holder.editProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                DialogPlus dialogPlus = DialogPlus.newDialog(holder.Nama_Barang.getContext())
-                        .setContentHolder(new ViewHolder(R.layout.activity_form__edit__produk_))
-                        .setExpanded(true, 1500)
-                        .setGravity(Gravity.CENTER)
-                        .create();
-
-
-                View myview = dialogPlus.getHolderView();
-                EditText nama_barang1 = myview.findViewById(R.id.UpdtNaBa);
-                EditText merk1 = myview.findViewById(R.id.UpdtMerk);
-                EditText harga1 = myview.findViewById(R.id.UpdtHarga);
-                EditText stok1 = myview.findViewById(R.id.UpdtStok);
-                Spinner satuan1 = myview.findViewById(R.id.UpdtSpSatuan);
-                EditText deskripsi1 = myview.findViewById(R.id.UpdtDeskripsi);
-                Button btnupdate = myview.findViewById(R.id.btnUpdtData);
-
-
-                nama_barang1.setText(ProdukList.get(position).getNama_barang());
-                merk1.setText(ProdukList.get(position).getMerk());
-                harga1.setText(String.valueOf(ProdukList.get(position).getHarga()));
-                stok1.setText(String.valueOf(ProdukList.get(position).getStok()));
-
-                if (ProdukList.get(position).getSatuan().equals("Kg")) id_satuan = 0;
-                else if (ProdukList.get(position).getSatuan().equals("Gr")) id_satuan = 1;
-                else if (ProdukList.get(position).getSatuan().equals("Pcs")) id_satuan = 2;
-                else if (ProdukList.get(position).getSatuan().equals("Lusin")) id_satuan = 3;
-                else if (ProdukList.get(position).getSatuan().equals("Kodi")) id_satuan = 4;
-                else if (ProdukList.get(position).getSatuan().equals("Gross")) id_satuan = 5;
-                else if (ProdukList.get(position).getSatuan().equals("Pack")) id_satuan = 6;
-                satuan1.setSelection(id_satuan);
-                deskripsi1.setText(ProdukList.get(position).getDeskripsi());
-
-
-                btnupdate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int id = ProdukList.get(position).getId();
-                        String nama_barang = nama_barang1.getText().toString().trim();
-                        String merk = merk1.getText().toString().trim();
-                        int harga = Integer.parseInt(harga1.getText().toString().trim());
-                        int stok = Integer.parseInt(stok1.getText().toString().trim());
-                        String satuan = satuan1.getSelectedItem().toString().trim();
-                        String deskripsi = deskripsi1.getText().toString().trim();
-
-                        //updatetofirestore(id, nama_barang, merk, harga, stok, satuan, deskripsi );
-
-                        if ( nama_barang.isEmpty()) {
-                            Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "NAMA BARANG TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-                        } else if (merk.isEmpty()) {
-                            Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "MERK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-                        } else if (harga <= 0  ) {
-                            Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "HARGA TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-                        } else if (stok <= 0  ) {
-                            Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "STOK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-                        } else if (satuan.isEmpty()) {
-                            Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "SATUAN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-                        }else {
-
-                            //updatetofirestore(id, nama_barang, merk, harga, stok, satuan, deskripsi );
-                            dialogPlus.dismiss();
-                        }
-
-
-                    }
-                });
-                dialogPlus.show();
+                DataProduk item = ProdukList.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", item.getId());
+                bundle.putString("nama_barang", item.getNama_barang());
+                bundle.putString("merk", item.getMerk());
+                bundle.putInt("harga", item.getHarga());
+                bundle.putInt("stok", item.getStok());
+                bundle.putString("satuan", item.getSatuan());
+                bundle.putString("gambar", RetroServer.imageURL + item.getGambar());
+                bundle.putString("deskripsi", item.getDeskripsi());
+                Intent intent = new Intent(halamanUtamaPenjualActivity, Form_Edit_Produk_Activity.class);
+                intent.putExtras(bundle);
+                halamanUtamaPenjualActivity.startActivity(intent);
             }
         });
 
         holder.hapusProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(holder.Nama_Barang.getContext());
+                int idProduk = ProdukList.get(position).getId();
+                AlertDialog.Builder builder = new AlertDialog.Builder(holder.Id.getContext());
                 builder.setTitle("Apakah yakin ingin dihapus ?");
                 builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        /**db.collection("data_produk")
-                         .document(String.valueOf(ProdukList.get(position).getId()))
-                         .delete();**/
-                        Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "Data Berhasil Dihapus !", Toast.LENGTH_SHORT).show();
+
+                        ApiRequestDataProduk haDataProduk = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+                        Call<ResponseDataProduk> hapusDataProduk = haDataProduk.hapusData(idProduk);
+                        hapusDataProduk.enqueue(new Callback<ResponseDataProduk>() {
+                            @Override
+                            public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
+                                try {
+                                    int kode = response.body().getKode();
+                                    String pesan = response.body().getPesan();
+                                    if (kode == 200){
+                                        Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "Pesan :"+pesan, Toast.LENGTH_SHORT).show();
+                                    }
+                                }catch (NullPointerException nullPointerException){
+                                    Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "Data Gagal Terhapus "+nullPointerException.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseDataProduk> call, Throwable t) {
+                                Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "Gagal Menghubungi Server "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         dialogInterface.dismiss();
+
                     }
                 });
 
