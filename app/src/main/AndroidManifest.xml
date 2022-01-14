@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ESupermarket"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Penjual.Activity.HalamanProfilePenjualActivity"></activity>
+        <activity android:name=".Pembeli.Activity.HalamanUtamaPembeliActivity"></activity>
+        <activity android:name=".Penjual.Activity.HalamanProfilePenjualActivity" />
         <activity android:name=".Penjual.Activity.HalamanChatPenjualActivity" />
         <activity android:name=".Penjual.Activity.HalamanNotifPenjualActivity" />
         <activity android:name=".Penjual.Activity.VerifikasiEmailPenjualActivity">
@@ -56,7 +57,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Pembeli.FormDataPembeliActivity">
+        <activity android:name=".Pembeli.Activity.FormDataPembeliActivity">
             <intent-filter>
                 <action android:name=".FormDataPembeliActivity" />
 
@@ -70,8 +71,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Pembeli.VerifyOTPActivityPembeli" />
-        <activity android:name=".Pembeli.SendOTPActivityPembeli">
+        <activity android:name=".Pembeli.Activity.VerifyOTPActivityPembeli" />
+        <activity android:name=".Pembeli.Activity.SendOTPActivityPembeli">
             <intent-filter>
                 <action android:name=".SendOTPActivityPembeli" />
 

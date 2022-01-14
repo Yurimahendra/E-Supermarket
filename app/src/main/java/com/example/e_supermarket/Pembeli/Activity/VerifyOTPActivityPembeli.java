@@ -1,4 +1,4 @@
-package com.example.e_supermarket.Pembeli;
+package com.example.e_supermarket.Pembeli.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

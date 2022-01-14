@@ -1,4 +1,4 @@
-package com.example.e_supermarket.Pembeli;
+package com.example.e_supermarket.Pembeli.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,8 +33,9 @@ public class SendOTPActivityPembeli extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (inputMobileB.getText().toString().trim().isEmpty()){
-                    Toast.makeText(SendOTPActivityPembeli.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
-                    return;
+                    startActivity(new Intent(SendOTPActivityPembeli.this, HalamanUtamaPembeliActivity.class));
+                    //Toast.makeText(SendOTPActivityPembeli.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                    //return;
                 }
 
                 progressBarB.setVisibility(View.VISIBLE);

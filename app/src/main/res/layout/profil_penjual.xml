@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="55dp"
-                    android:text="Yuri Mahendra"
+                    android:text="Nama"
                     android:textColor="@color/black"
                     android:textSize="25sp"
                     android:layout_gravity="center"/>

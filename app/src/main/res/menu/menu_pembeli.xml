@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homepembeli"
+        android:icon="@drawable/homepenjual"
+        android:title="" />
+    <item
+        android:id="@+id/orderanpembeli"
+        android:icon="@drawable/ic_orderan_24"
+        android:title="" />
+    <item
+        android:id="@+id/chatpembeli"
+        android:icon="@drawable/chatpenjual"
+        android:title="" />
+    <item
+        android:id="@+id/profilpembeli"
+        android:icon="@drawable/profilpenjual"
+        android:title="" />
+    <item
+        android:id="@+id/logoutpembelil"
+        android:icon="@drawable/logoutpenjual"
+        android:title="" />
+
+</menu>
