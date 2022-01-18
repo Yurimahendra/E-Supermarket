@@ -18,7 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ESupermarket"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Pembeli.Activity.HalamanUtamaPembeliActivity"></activity>
+        <activity android:name=".Pembeli.Activity.ProfilePembeliActivity"></activity>
+        <activity android:name=".Pembeli.Activity.ChatPembeliActivity" />
+        <activity android:name=".Pembeli.Activity.OrderanPembeliActivity" />
+        <activity android:name=".Pembeli.Activity.HalamanUtamaPembeliActivity" />
         <activity android:name=".Penjual.Activity.HalamanProfilePenjualActivity" />
         <activity android:name=".Penjual.Activity.HalamanChatPenjualActivity" />
         <activity android:name=".Penjual.Activity.HalamanNotifPenjualActivity" />

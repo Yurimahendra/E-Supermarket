@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,7 +63,7 @@ public class HalamanNotifPenjualActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         firebaseAuth.signOut();
-                        Intent intent = new Intent(HalamanNotifPenjualActivity.this, SendOTPActivityPenjual.class);
+                        Intent intent = new Intent(HalamanNotifPenjualActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }

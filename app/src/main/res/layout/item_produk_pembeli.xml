@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:src="@drawable/logo"
+            android:layout_width="80dp"
+            android:layout_height="147dp"
+            android:id="@+id/ImgItemPembeli"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvIdBarangPembeli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="id"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPembeli"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvNamaBarangPembeli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Barang"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPembeli"
+            android:layout_marginLeft="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvMerkPembeli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Merk"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPembeli"
+            android:layout_below="@id/tvNamaBarangPembeli"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHargaPembeli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Harga"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPembeli"
+            android:layout_below="@id/tvMerkPembeli"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStokPembeli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stok"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPembeli"
+            android:layout_below="@id/tvHargaPembeli"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSatuanPembeli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Satuan"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/ImgItemPembeli"
+            android:layout_below="@id/tvStokPembeli"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDeskripsiPembeli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deskripsi"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/ImgItemPembeli"
+            android:layout_below="@id/tvSatuanPembeli"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ImgKeranjang"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:src="@drawable/shoppingcart"
+            android:layout_below="@+id/ImgItemPembeli"
+            android:layout_marginTop="20dp"/>
+
+
+        <Button
+            android:id="@+id/BtnBeliSekarang"
+            android:layout_width="193dp"
+            android:layout_height="40dp"
+            android:text="Beli Sekarang"
+            android:layout_below="@id/tvDeskripsiPembeli"
+            android:layout_toRightOf="@id/ImgKeranjang"
+            android:layout_marginTop="13dp" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.Penjual.Adapter.AdapterProfilePenjual;
 import com.example.e_supermarket.Penjual.Fragment.ProfileFragmentPenjual;
 import com.example.e_supermarket.Penjual.Model.DataPenjual;
@@ -149,7 +150,7 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         firebaseAuth.signOut();
-                        Intent intent = new Intent(HalamanProfilePenjualActivity.this, SendOTPActivityPenjual.class);
+                        Intent intent = new Intent(HalamanProfilePenjualActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }

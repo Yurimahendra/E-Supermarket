@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.Penjual.Adapter.AdapterProdukPenjualHU;
 import com.example.e_supermarket.Penjual.Fragment.ChatFragmentPenjual;
 import com.example.e_supermarket.Penjual.Fragment.HomeFragmentPenjual;
@@ -130,7 +131,9 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        pbDataProduk.setVisibility(View.VISIBLE);
         retrieveData();
+        pbDataProduk.setVisibility(View.GONE);
     }
 
     public void retrieveData(){
@@ -171,7 +174,7 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         firebaseAuth.signOut();
-                        Intent intent = new Intent(HalamanUtamaPenjualActivity.this, SendOTPActivityPenjual.class);
+                        Intent intent = new Intent(HalamanUtamaPenjualActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
