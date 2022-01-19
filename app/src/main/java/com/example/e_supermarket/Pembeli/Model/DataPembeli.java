@@ -1,16 +1,18 @@
 package com.example.e_supermarket.Pembeli.Model;
 
+import java.util.Date;
+
 public class DataPembeli {
     int nik ;
     String nama ;
     String jenis_kelamin ;
     String no_ponsel ;
     String tempat_lahir;
-    String tanggal_lahir ;
+    Date tanggal_lahir ;
     String alamat ;
     String nama_toko ;
 
-    public DataPembeli(int nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko) {
+    public DataPembeli(int nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, Date tanggal_lahir, String alamat, String nama_toko) {
         this.nik = nik;
         this.nama = nama;
         this.jenis_kelamin = jenis_kelamin;
@@ -61,11 +63,11 @@ public class DataPembeli {
         this.tempat_lahir = tempat_lahir;
     }
 
-    public String getTanggal_lahir() {
+    public Date getTanggal_lahir() {
         return tanggal_lahir;
     }
 
-    public void setTanggal_lahir(String tanggal_lahir) {
+    public void setTanggal_lahir(Date tanggal_lahir) {
         this.tanggal_lahir = tanggal_lahir;
     }
 

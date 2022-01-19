@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class ResponseDataProduk {
-    @SerializedName("kode")
+    //@SerializedName("kode")
     private int kode;
-    @SerializedName("pesan")
+   // @SerializedName("pesan")
     private String pesan;
-    @SerializedName("data")
+    //@SerializedName("data")
     private List<DataProduk> data;
 
     public int getKode() {
