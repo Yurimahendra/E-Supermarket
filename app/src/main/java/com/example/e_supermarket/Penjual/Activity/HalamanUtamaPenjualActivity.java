@@ -131,12 +131,11 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        pbDataProduk.setVisibility(View.VISIBLE);
         retrieveData();
-        pbDataProduk.setVisibility(View.GONE);
     }
 
     public void retrieveData(){
+        pbDataProduk.setVisibility(View.VISIBLE);
         ApiRequestDataProduk requestDataProduk = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
         Call<ResponseDataProduk> tampilData = requestDataProduk.RetrieveDataProduk();
 
@@ -153,11 +152,13 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
                 adapterProdukPenjualHU = new AdapterProdukPenjualHU(HalamanUtamaPenjualActivity.this, dataProdukList);
                 recyclerView.setAdapter(adapterProdukPenjualHU);
                 adapterProdukPenjualHU.notifyDataSetChanged();
+                pbDataProduk.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<ResponseDataProduk> call, Throwable t) {
                 Toast.makeText(HalamanUtamaPenjualActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                pbDataProduk.setVisibility(View.GONE);
             }
         });
 

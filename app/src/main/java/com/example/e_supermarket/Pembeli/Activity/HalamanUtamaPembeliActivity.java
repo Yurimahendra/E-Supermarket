@@ -36,7 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HalamanUtamaPembeliActivity extends AppCompatActivity {
-    BottomNavigationView bottomNavigationViewPenjual;
+    BottomNavigationView bottomNavigationViewPembeli;
     private SwipeRefreshLayout srlDataProduk;
     private ProgressBar pbDataProdukPembeli;
 
@@ -85,8 +85,8 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
         srlDataProduk = findViewById(R.id.sw_dataprodukPembeli);
         pbDataProdukPembeli = findViewById(R.id.pb_dataprodukPembeli);
 
-        bottomNavigationViewPenjual = findViewById(R.id.nav_pembeli);
-        bottomNavigationViewPenjual.setOnNavigationItemSelectedListener(navigation_pembeli);
+        bottomNavigationViewPembeli = findViewById(R.id.nav_pembeli);
+        bottomNavigationViewPembeli.setOnNavigationItemSelectedListener(navigation_pembeli);
 
         recyclerViewPembeli = (RecyclerView)findViewById(R.id.RecviewPembeli);;
         recyclerViewPembeli.setHasFixedSize(true);
@@ -105,12 +105,11 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        pbDataProdukPembeli.setVisibility(View.VISIBLE);
         retrieveDataPembeli();
-        pbDataProdukPembeli.setVisibility(View.GONE);
     }
 
     public void retrieveDataPembeli(){
+        pbDataProdukPembeli.setVisibility(View.VISIBLE);
         ApiRequestDataProduk requestDataProdukPembeli = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
         Call<ResponseDataProduk> tampilDataPembeli = requestDataProdukPembeli.RetrieveDataProduk();
 
@@ -127,11 +126,13 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
                 adapterItemPembeli = new AdapterItemPembeli(HalamanUtamaPembeliActivity.this, dataProdukListPembeli);
                 recyclerViewPembeli.setAdapter(adapterItemPembeli);
                 adapterItemPembeli.notifyDataSetChanged();
+                pbDataProdukPembeli.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<ResponseDataProduk> call, Throwable t) {
                 Toast.makeText(HalamanUtamaPembeliActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                pbDataProdukPembeli.setVisibility(View.GONE);
             }
         });
 

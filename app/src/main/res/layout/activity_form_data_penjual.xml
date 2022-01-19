@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,178 +11,239 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-       <LinearLayout
-           android:padding="10dp"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
 
-      <TextView
-          android:layout_gravity="center_horizontal"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:hint="Lengkapi Data Diri"
-          android:textStyle="bold"
-          android:textSize="18dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:hint="Lengkapi Data Diri"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
-      <TextView
-          android:layout_marginTop="5dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="NIK"
-          android:textStyle="bold"
-          android:textSize="16sp"
-          android:textColor="@color/black"
-          />
+            <!--<TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NIK"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                />
+                -->
 
-      <EditText
-          android:id="@+id/EdtNik"
-          android:background="@null"
-          android:layout_marginTop="5dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="20sp"
-          android:inputType="number"
-          android:maxLength="16"
-          />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/white">
+                <EditText
+                    android:id="@+id/EdtNik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="Nik"
+                    android:inputType="number"
+                    android:maxLength="16"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-      <TextView
-          android:layout_marginTop="5dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Nama Lengkap"
-          android:textStyle="bold"
-          android:textSize="16sp"
-          android:textColor="@color/black"/>
 
-      <EditText
-          android:id="@+id/EdtNama"
-          android:background="@null"
-          android:layout_marginTop="5dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="20sp"
-          android:inputType="textCapSentences|textAutoCorrect"/>
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Nama Lengkap"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+                -->
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white">
+            <EditText
+                android:hint="Nama Lengkap"
+                android:id="@+id/EdtNama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textSize="20sp" />
+          </com.google.android.material.textfield.TextInputLayout>
 
-      <TextView
-          android:layout_marginTop="5dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Jenis Kelamin"
-          android:textStyle="bold"
-          android:textSize="16sp"
-          android:textColor="@color/black"/>
 
-      <Spinner
-          android:id="@+id/SpJk"
-          android:layout_marginTop="5dp"
-          android:layout_width="match_parent"
-          android:layout_height="30dp"
-          android:entries="@array/Jenis_Kelamin"/>
 
-      <TextView
-          android:layout_marginTop="5dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Nomor Ponsel"
-          android:textStyle="bold"
-          android:textSize="16sp"
-          android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Jenis Kelamin"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-      <EditText
-          android:id="@+id/EdtNop"
-          android:background="@null"
-          android:layout_marginTop="5dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="20sp"
-          android:inputType="number"
-          android:focusable="false"/>
+            <Spinner
+                android:id="@+id/SpJk"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:entries="@array/Jenis_Kelamin" />
 
-      <TextView
-          android:layout_marginTop="5dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Tempat Lahir"
-          android:textStyle="bold"
-          android:textSize="16sp"
-          android:textColor="@color/black"/>
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Nomor Ponsel"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+                -->
 
-      <EditText
-          android:id="@+id/EdtTeLa"
-          android:background="@null"
-          android:layout_marginTop="5dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="20sp"
-          android:inputType="textCapSentences|textAutoCorrect"/>
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white">
+            <EditText
+                android:hint="Nomor Ponsel"
+                android:id="@+id/EdtNop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:focusable="false"
+                android:inputType="number"
+                android:textSize="20sp" />
+          </com.google.android.material.textfield.TextInputLayout>
 
-      <TextView
-          android:layout_marginTop="5dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Tanggal Lahir"
-          android:textStyle="bold"
-          android:textSize="16sp"
-          android:textColor="@color/black"/>
 
-      <EditText
-          android:id="@+id/EdtTala"
-          android:background="@null"
-          android:layout_marginTop="5dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="20sp"
-          android:inputType="date"
-          android:focusable="false" />
 
-      <TextView
-          android:layout_marginTop="5dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Alamat"
-          android:textStyle="bold"
-          android:textSize="16sp"
-          android:textColor="@color/black"/>
+           <!-- <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Tempat Lahir"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+                -->
 
-      <EditText
-          android:id="@+id/EdtAlamat"
-          android:background="@null"
-          android:layout_marginTop="5dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="20sp"
-          android:inputType="textCapSentences"
-          android:backgroundTint="@color/black"/>
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white">
+            <EditText
+                android:hint="Tempat Lahir"
+                android:id="@+id/EdtTeLa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textSize="20sp" />
+          </com.google.android.material.textfield.TextInputLayout>
 
-      <TextView
-          android:layout_marginTop="5dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Nama Toko"
-          android:textStyle="bold"
-          android:textSize="16sp"
-          android:textColor="@color/black"/>
 
-      <EditText
-          android:id="@+id/EdtNato"
-          android:background="@null"
-          android:layout_marginTop="5dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="20sp"
-          android:inputType="textCapSentences|textAutoCorrect"/>
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Tanggal Lahir"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+                -->
 
-      <Button
-          android:layout_marginTop="5dp"
-          android:id="@+id/btnUpdateData"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="SIMPAN"
-          android:textSize="16sp"
-          android:textStyle="bold"/>
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white">
+            <EditText
+                android:hint="Tanggal Lahir"
+                android:id="@+id/EdtTala"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:focusable="false"
+                android:inputType="date"
+                android:textSize="20sp" />
+          </com.google.android.material.textfield.TextInputLayout>
 
-      </LinearLayout>
+
+
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Alamat"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+                -->
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:boxBackgroundColor="@color/white">
+            <EditText
+                android:hint="Alamat"
+                android:id="@+id/EdtAlamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:inputType="textCapSentences"
+                android:textSize="20sp" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Nama Toko"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />-->
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white">
+            <EditText
+                android:hint="Nama Toko"
+                android:id="@+id/EdtNato"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textSize="20sp" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+
+          <FrameLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp">
+            <Button
+                android:id="@+id/btnUpdateData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SIMPAN"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progressDataS"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+          </FrameLayout>
+
+
+        </LinearLayout>
 
     </ScrollView>
 

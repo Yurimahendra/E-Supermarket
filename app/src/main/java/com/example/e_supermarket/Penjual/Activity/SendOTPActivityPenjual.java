@@ -47,7 +47,7 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                     Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
                     startActivity(intent);
                    // Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
-                    return;
+                    //return;
                 }
                 // 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 token github
                 progressBarS.setVisibility(View.VISIBLE);
