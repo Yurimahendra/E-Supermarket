@@ -168,13 +168,15 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
                 SimpanData.enqueue(new Callback<ResponseDataProduk>() {
                     @Override
                     public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
-                        int kode = response.body().getKode();
-                        String pesan = response.body().getPesan();
-                        if( kode == 200) {
-                            startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
-                            Toast.makeText(AddDataActivityPenjual.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
-
-                        }else {
+                        if (response.isSuccessful()){
+                            int kode = response.body().getKode();
+                            String pesan = response.body().getPesan();
+                            if( kode == 200) {
+                                startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
+                                Toast.makeText(AddDataActivityPenjual.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
                             Toast.makeText(AddDataActivityPenjual.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                         }
 

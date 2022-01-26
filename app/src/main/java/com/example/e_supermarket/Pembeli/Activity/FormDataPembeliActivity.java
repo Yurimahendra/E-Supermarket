@@ -50,13 +50,13 @@ public class FormDataPembeliActivity extends AppCompatActivity {
     Button btnsimpanDataB;
     ProgressBar PbSimpanDataB;
 
-    int nikB;
+    long nikB;
     String namaB;
     String jkB;
     String editnopB;
     String teLaB;
     String alamatB;
-    Date edttalaB;
+    String edttalaB;
 
 
     @Override
@@ -68,13 +68,17 @@ public class FormDataPembeliActivity extends AppCompatActivity {
         NamaB = findViewById(R.id.EdtNamaB);
         JkB = findViewById(R.id.SpJkB);
         TeLaB = findViewById(R.id.EdtTeLaB);
+        EdtTalaB = findViewById(R.id.EdtTalaB);
         AlamatB = findViewById(R.id.EdtAlamatB);
         editNopB = findViewById(R.id.EdtNopB);
+        btnsimpanDataB = findViewById(R.id.btnUpdateDataB);
+        PbSimpanDataB = findViewById(R.id.pbDataPembeli);
+
         editNopB.setText(String.format(
                 "%s", getIntent().getStringExtra("mobile")
         ));
 
-        EdtTalaB = findViewById(R.id.EdtTalaB);
+
 
         dateFormatB = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -85,30 +89,29 @@ public class FormDataPembeliActivity extends AppCompatActivity {
             }
         });
 
-        btnsimpanDataB = findViewById(R.id.btnUpdateDataB);
+
         btnsimpanDataB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                insertdatapembeli();
             }
         });
-        PbSimpanDataB = findViewById(R.id.progressBarB);
+
     }
 
-    private void insertdataproduk() {
+    private void insertdatapembeli() {
         PbSimpanDataB.setVisibility(View.VISIBLE);
         btnsimpanDataB.setVisibility(View.INVISIBLE);
         try {
-
-            nikB = Integer.parseInt(NikB.getText().toString().trim());
+            nikB = Long.parseLong(NikB.getText().toString().trim());
             namaB = NamaB.getText().toString().trim();
             jkB = JkB.getSelectedItem().toString().trim();
             editnopB = editNopB.getText().toString().trim();
             teLaB = TeLaB.getText().toString().trim();
-            edttalaB = (Date) EdtTalaB.getText();
+            edttalaB = EdtTalaB.getText().toString().trim();
             alamatB = AlamatB.getText().toString().trim();
 
-            if (nikB == 0) {
+            if (nikB <= 0) {
                 NikB.setError("NIK TIDAK BOLEH KOSONG");
             } else if (namaB.equals("")) {
                 NamaB.setError("NAMA TIDAK BOLEH KOSONG");
@@ -124,12 +127,14 @@ public class FormDataPembeliActivity extends AppCompatActivity {
                 SimpanDataPembeli.enqueue(new Callback<ResponseDataPembeli>() {
                     @Override
                     public void onResponse(Call<ResponseDataPembeli> call, Response<ResponseDataPembeli> response) {
-                        int kode = response.body().getKode();
-                        String pesan = response.body().getPesan();
-                        if( kode == 200) {
-                            startActivity(new Intent(FormDataPembeliActivity.this, HalamanUtamaPenjualActivity.class));
-                            Toast.makeText(FormDataPembeliActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
 
+                        if( response.isSuccessful()) {
+                            int kode = response.body().getKode();
+                            String pesan = response.body().getPesan();
+                            if (kode == 200){
+                                startActivity(new Intent(FormDataPembeliActivity.this, HalamanUtamaPenjualActivity.class));
+                                Toast.makeText(FormDataPembeliActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
+                            }
                         }else {
                             Toast.makeText(FormDataPembeliActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                         }

@@ -116,16 +116,20 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
         tampilDataPembeli.enqueue(new Callback<ResponseDataProduk>() {
             @Override
             public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
-                int kode = response.body().getKode();
-                String pesan = response.body().getPesan();
+                if (response.isSuccessful()){
+                    int kode = response.body().getKode();
+                    String pesan = response.body().getPesan();
+                    if (kode == 200){
+                        Toast.makeText(HalamanUtamaPembeliActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(HalamanUtamaPembeliActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+                        dataProdukListPembeli = response.body().getData();
 
-                dataProdukListPembeli = response.body().getData();
+                        adapterItemPembeli = new AdapterItemPembeli(HalamanUtamaPembeliActivity.this, dataProdukListPembeli);
+                        recyclerViewPembeli.setAdapter(adapterItemPembeli);
+                        adapterItemPembeli.notifyDataSetChanged();
+                    }
 
-                adapterItemPembeli = new AdapterItemPembeli(HalamanUtamaPembeliActivity.this, dataProdukListPembeli);
-                recyclerViewPembeli.setAdapter(adapterItemPembeli);
-                adapterItemPembeli.notifyDataSetChanged();
+                }
                 pbDataProdukPembeli.setVisibility(View.GONE);
             }
 

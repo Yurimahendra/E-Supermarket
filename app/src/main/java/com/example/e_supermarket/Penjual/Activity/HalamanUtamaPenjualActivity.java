@@ -142,16 +142,21 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
         tampilData.enqueue(new Callback<ResponseDataProduk>() {
             @Override
             public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
-                int kode = response.body().getKode();
-                String pesan = response.body().getPesan();
+                if (response.isSuccessful()){
+                    int kode = response.body().getKode();
+                    String pesan = response.body().getPesan();
+                    if (kode == 200){
+                        Toast.makeText(HalamanUtamaPenjualActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(HalamanUtamaPenjualActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+                        dataProdukList = response.body().getData();
 
-                dataProdukList = response.body().getData();
+                        adapterProdukPenjualHU = new AdapterProdukPenjualHU(HalamanUtamaPenjualActivity.this, dataProdukList);
+                        recyclerView.setAdapter(adapterProdukPenjualHU);
+                        adapterProdukPenjualHU.notifyDataSetChanged();
+                    }
 
-                adapterProdukPenjualHU = new AdapterProdukPenjualHU(HalamanUtamaPenjualActivity.this, dataProdukList);
-                recyclerView.setAdapter(adapterProdukPenjualHU);
-                adapterProdukPenjualHU.notifyDataSetChanged();
+                }
+
                 pbDataProduk.setVisibility(View.GONE);
             }
 

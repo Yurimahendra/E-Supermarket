@@ -3,16 +3,15 @@ package com.example.e_supermarket.Pembeli.Model;
 import java.util.Date;
 
 public class DataPembeli {
-    int nik ;
+    long nik ;
     String nama ;
     String jenis_kelamin ;
     String no_ponsel ;
     String tempat_lahir;
-    Date tanggal_lahir ;
+    String tanggal_lahir ;
     String alamat ;
-    String nama_toko ;
 
-    public DataPembeli(int nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, Date tanggal_lahir, String alamat, String nama_toko) {
+    public DataPembeli(long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat) {
         this.nik = nik;
         this.nama = nama;
         this.jenis_kelamin = jenis_kelamin;
@@ -20,14 +19,13 @@ public class DataPembeli {
         this.tempat_lahir = tempat_lahir;
         this.tanggal_lahir = tanggal_lahir;
         this.alamat = alamat;
-        this.nama_toko = nama_toko;
     }
 
-    public int getNik() {
+    public long getNik() {
         return nik;
     }
 
-    public void setNik(int nik) {
+    public void setNik(long nik) {
         this.nik = nik;
     }
 
@@ -63,11 +61,11 @@ public class DataPembeli {
         this.tempat_lahir = tempat_lahir;
     }
 
-    public Date getTanggal_lahir() {
+    public String getTanggal_lahir() {
         return tanggal_lahir;
     }
 
-    public void setTanggal_lahir(Date tanggal_lahir) {
+    public void setTanggal_lahir(String tanggal_lahir) {
         this.tanggal_lahir = tanggal_lahir;
     }
 
@@ -77,13 +75,5 @@ public class DataPembeli {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
-    }
-
-    public String getNama_toko() {
-        return nama_toko;
-    }
-
-    public void setNama_toko(String nama_toko) {
-        this.nama_toko = nama_toko;
     }
 }
