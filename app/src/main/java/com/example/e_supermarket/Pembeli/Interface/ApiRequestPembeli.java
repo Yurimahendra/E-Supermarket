@@ -25,7 +25,7 @@ public interface ApiRequestPembeli {
             @Field("nik") long nik,
             @Field("nama") String nama,
             @Field("jenis_kelamin") String jenis_kelamin,
-            @Field("alamat") String satuan,
+            @Field("alamat") String alamat,
             @Field("tempat_lahir") String tempat_lahir,
             @Field("tanggal_lahir") String tanggal_lahir,
             @Field("no_ponsel") String no_ponsel

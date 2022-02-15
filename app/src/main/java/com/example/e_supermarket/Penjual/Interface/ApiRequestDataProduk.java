@@ -2,12 +2,16 @@ package com.example.e_supermarket.Penjual.Interface;
 
 import androidx.annotation.Nullable;
 
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -54,6 +58,20 @@ public interface ApiRequestDataProduk {
     @DELETE("api/dataproduk/{dataproduk}")
     Call<ResponseDataProduk> hapusData(
             @Path("dataproduk") int id
+    );
+
+    @Headers({"Accept: application/json"})
+    @FormUrlEncoded
+    @POST("api/datapenjual")
+    Call<ResponseDataPenjual> SendDataPenjual(
+            @Field("nik") long nik,
+            @Field("nama") String nama,
+            @Field("jenis_kelamin") String jenis_kelamin,
+            @Field("alamat") String alamat,
+            @Field("tempat_lahir") String tempat_lahir,
+            @Field("tanggal_lahir") String tanggal_lahir,
+            @Field("no_ponsel") String no_ponsel,
+            @Field("nama_toko") String nama_toko
     );
 
 }

@@ -37,7 +37,7 @@ public class VerifyOTPActivityPenjual extends AppCompatActivity {
 
         TextView textMobileVS = findViewById(R.id.txtMobileVS);
         textMobileVS.setText(String.format(
-                "+62-%s", getIntent().getStringExtra("mobile")
+                "+62%s", getIntent().getStringExtra("mobile")
         ));
 
         inputCode1 = findViewById(R.id.inputCode1);

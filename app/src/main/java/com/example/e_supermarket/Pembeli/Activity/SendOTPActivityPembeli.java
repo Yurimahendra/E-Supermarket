@@ -35,7 +35,7 @@ public class SendOTPActivityPembeli extends AppCompatActivity {
                 if (inputMobileB.getText().toString().trim().isEmpty()){
                     startActivity(new Intent(SendOTPActivityPembeli.this, HalamanUtamaPembeliActivity.class));
                     //Toast.makeText(SendOTPActivityPembeli.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
-                    //return;
+                    return;
                 }
 
                 progressBarB.setVisibility(View.VISIBLE);

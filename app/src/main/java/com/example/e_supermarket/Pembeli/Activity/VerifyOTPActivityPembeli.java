@@ -38,7 +38,7 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
 
         TextView textMobile = findViewById(R.id.txtMobilePemb);
         textMobile.setText(String.format(
-                "+62-%s", getIntent().getStringExtra("mobile")
+                "+62%s", getIntent().getStringExtra("mobile")
         ));
 
         inputCode1B = findViewById(R.id.inputCode1p);

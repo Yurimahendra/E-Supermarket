@@ -10,11 +10,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.e_supermarket.Pembeli.Activity.FormDataPembeliActivity;
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
 import com.example.e_supermarket.Penjual.Adapter.AdapterProfilePenjual;
+import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
 import com.example.e_supermarket.Penjual.Model.DataPenjual;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +36,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FormDataPenjualActivity extends AppCompatActivity {
 
@@ -52,8 +63,18 @@ public class FormDataPenjualActivity extends AppCompatActivity {
 
      int p = 0;
 
+    ProgressBar PbSimpanDataS;
     FirebaseStorage storage;
     StorageReference storageReference;
+
+    long nik;
+    String nama;
+    String jenis_kelamin;
+    String no_ponsel;
+    String tempat_lahir;
+    String tanggal_lahir;
+    String alamat;
+    String nama_toko;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +89,7 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         Alamat = (EditText) findViewById(R.id.EdtAlamat);
         Nato = (EditText) findViewById(R.id.EdtNato);
         EdtTala = (EditText) findViewById(R.id.EdtTala);
-
+        PbSimpanDataS = findViewById(R.id.progressDataS);
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         BtnUpdate = (Button) findViewById(R.id.btnUpdateData);
@@ -99,40 +120,24 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         dataPenjualList = new ArrayList<>();
 
 
-        /**db.collection("data_penjual").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        dataPenjualList.clear();
-                        for (DocumentSnapshot snapshot : task.getResult()){
-                            DataPenjual dataPenjual = new DataPenjual(snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
-                            dataPenjualList.add(dataPenjual);
-                        }
-                        adapterProfilePenjual.notifyDataSetChanged();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });**/
-
     }
 
     private void insertdatapenjual() {
+        PbSimpanDataS.setVisibility(View.VISIBLE);
+        BtnUpdate.setVisibility(View.INVISIBLE);
         try {
            // String id = UUID.randomUUID().toString();
-            Long nik = Long.parseLong(Nik.getText().toString().trim());
-            String nama = Nama.getText().toString().trim();
-            String jenis_kelamin = Jk.getSelectedItem().toString().trim();
-            String no_ponsel = NoPons.getText().toString().trim();
-            String tempat_lahir = TeLa.getText().toString().trim();
-            String tanggal_lahir = EdtTala.getText().toString().trim();
-            String alamat = Alamat.getText().toString().trim();
-            String nama_toko = Nato.getText().toString().trim();
+            nik = Long.parseLong(Nik.getText().toString().trim());
+            nama = Nama.getText().toString().trim();
+            jenis_kelamin = Jk.getSelectedItem().toString().trim();
+            no_ponsel = NoPons.getText().toString().trim();
+            tempat_lahir = TeLa.getText().toString().trim();
+            tanggal_lahir = EdtTala.getText().toString().trim();
+            alamat = Alamat.getText().toString().trim();
+            nama_toko = Nato.getText().toString().trim();
 
 
-            if (nik == null ) {
+            if (nik <= 0 ) {
                 Toast.makeText(getApplicationContext(), "NIK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
             }else if (nama.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "NAMA TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
@@ -149,42 +154,43 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             }else if (nama_toko.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "NAMA TOKO TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
             }else {
-               // DataPenjual dataPenjual = new DataPenjual(nik, nama, jenis_kelamin, no_ponsel, tempat_lahir, tanggal_lahir, alamat, nama_toko);
-
-                HashMap<String, Object> datapenjual = new HashMap<>();
-                //datapenjual.put("id", id);
-                datapenjual.put("nik", nik);
-                datapenjual.put("nama", nama);
-                datapenjual.put("jenis_kelamin", jenis_kelamin);
-                datapenjual.put("no_ponsel", no_ponsel);
-                datapenjual.put("tempat_lahir", tempat_lahir);
-                datapenjual.put("tanggal_lahir", tanggal_lahir);
-                datapenjual.put("alamat", alamat);
-                datapenjual.put("nama_toko", nama_toko);
+                ApiRequestDataProduk requestDataPenjual = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+                Call<ResponseDataPenjual> SimpanDataPenjual = requestDataPenjual.SendDataPenjual(nik, nama, jenis_kelamin, alamat, tempat_lahir, tanggal_lahir, no_ponsel, nama_toko);
 
 
-
-                Dbroot.collection("data_penjual").document(nik.toString())
-                        .set(datapenjual)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
-                                startActivity(intent);
-                                Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
+                SimpanDataPenjual.enqueue(new Callback<ResponseDataPenjual>() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Data Gagal Disimpan", Toast.LENGTH_SHORT).show();
+                    public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
+
+                        if( response.isSuccessful()) {
+                            int kode = response.body().getKode();
+                            String pesan = response.body().getPesan();
+                            if (kode == 200){
+                                startActivity(new Intent(FormDataPenjualActivity.this, HalamanUtamaPenjualActivity.class));
+                                Toast.makeText(FormDataPenjualActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
+                            }
+                        }else {
+                            Toast.makeText(FormDataPenjualActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        PbSimpanDataS.setVisibility(View.GONE);
+                        BtnUpdate.setVisibility(View.VISIBLE);
                     }
+                    @Override
+                    public void onFailure(Call<ResponseDataPenjual> call, Throwable t) {
+                        Toast.makeText(FormDataPenjualActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                        PbSimpanDataS.setVisibility(View.GONE);
+                        BtnUpdate.setVisibility(View.VISIBLE);
+                        //startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
+                    }
+
                 });
             }
 
         }catch (NumberFormatException exception){
             Toast.makeText(this, "Data Diri Harus Terisi Semua !", Toast.LENGTH_SHORT).show();
-
+            PbSimpanDataS.setVisibility(View.GONE);
+            BtnUpdate.setVisibility(View.VISIBLE);
         }
 
     }

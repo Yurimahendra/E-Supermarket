@@ -132,7 +132,7 @@ public class FormDataPembeliActivity extends AppCompatActivity {
                             int kode = response.body().getKode();
                             String pesan = response.body().getPesan();
                             if (kode == 200){
-                                startActivity(new Intent(FormDataPembeliActivity.this, HalamanUtamaPenjualActivity.class));
+                                startActivity(new Intent(FormDataPembeliActivity.this, HalamanUtamaPembeliActivity.class));
                                 Toast.makeText(FormDataPembeliActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
                             }
                         }else {

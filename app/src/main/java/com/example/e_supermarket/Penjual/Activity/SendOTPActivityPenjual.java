@@ -46,7 +46,7 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                 if (inputMobileS.getText().toString().trim().isEmpty()){
                     Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
                     startActivity(intent);
-                   // Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                     //return;
                 }
                 // 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 token github

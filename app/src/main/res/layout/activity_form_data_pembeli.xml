@@ -118,7 +118,8 @@
                     android:layout_marginTop="5dp"
                     android:hint="Nomor Ponsel"
                     android:inputType="number"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:focusable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
