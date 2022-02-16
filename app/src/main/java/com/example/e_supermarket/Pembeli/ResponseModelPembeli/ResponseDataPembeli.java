@@ -7,7 +7,7 @@ import java.util.List;
 public class ResponseDataPembeli {
     private int kode;
     private String pesan;
-    private List<DataPembeli> dataPembeli;
+    private List<DataPembeli> data;
 
     public int getKode() {
         return kode;
@@ -26,10 +26,10 @@ public class ResponseDataPembeli {
     }
 
     public List<DataPembeli> getDataPembeli() {
-        return dataPembeli;
+        return data;
     }
 
     public void setDataPembeli(List<DataPembeli> dataPembeli) {
-        this.dataPembeli = dataPembeli;
+        this.data = dataPembeli;
     }
 }

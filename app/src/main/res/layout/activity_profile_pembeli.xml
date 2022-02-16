@@ -7,11 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".Pembeli.Activity.ProfilePembeliActivity">
 
-    <TextView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sw_profpembeli"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/nav_pembeli">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:id="@+id/recProfilepembeli">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_profilePembeli"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ini halamann profile"
-        android:textSize="25sp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_pembeli"

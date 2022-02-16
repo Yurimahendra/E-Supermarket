@@ -24,7 +24,6 @@ public class AdapterProfilePenjual extends RecyclerView.Adapter<AdapterProfilePe
 
     private HalamanProfilePenjualActivity halamanProfilePenjualActivity;
     private List<DataPenjual> penjualList;
-    private FormDataPenjualActivity formDataPenjualActivity;
 
     FirebaseFirestore db;
     private FirebaseStorage storage;
@@ -39,9 +38,6 @@ public class AdapterProfilePenjual extends RecyclerView.Adapter<AdapterProfilePe
     @Override
     public AdapterProfilePenjual.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(halamanProfilePenjualActivity).inflate(R.layout.profil_penjual, parent, false);
-       /* db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();*/
         return new MyViewHolder(view);
     }
 

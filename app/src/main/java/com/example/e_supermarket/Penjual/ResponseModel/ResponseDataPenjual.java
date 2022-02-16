@@ -8,6 +8,7 @@ import java.util.List;
 public class ResponseDataPenjual {
     private int kode;
     private String pesan;
+    private List<DataPenjual> data;
 
     public int getKode() {
         return kode;
@@ -26,12 +27,12 @@ public class ResponseDataPenjual {
     }
 
     public List<DataPenjual> getDataPenjual() {
-        return dataPenjual;
+        return data;
     }
 
     public void setDataPenjual(List<DataPenjual> dataPenjual) {
-        this.dataPenjual = dataPenjual;
+        this.data = dataPenjual;
     }
 
-    private List<DataPenjual> dataPenjual;
+
 }

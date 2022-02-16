@@ -17,26 +17,28 @@
         android:layout_alignParentBottom="true" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/sw_dataproduk"
+        android:id="@+id/sw_datapenjual"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/nav_penjual">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
             android:id="@+id/recProfilepenjual">
         </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
-        android:id="@+id/pb_dataproduk"
+        android:id="@+id/pb_datapenjual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
 
 
 

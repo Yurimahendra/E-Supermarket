@@ -60,6 +60,7 @@ public interface ApiRequestDataProduk {
             @Path("dataproduk") int id
     );
 
+//datapenjual
     @Headers({"Accept: application/json"})
     @FormUrlEncoded
     @POST("api/datapenjual")
@@ -73,6 +74,9 @@ public interface ApiRequestDataProduk {
             @Field("no_ponsel") String no_ponsel,
             @Field("nama_toko") String nama_toko
     );
+
+    @GET("api/datapenjual")
+    Call<ResponseDataPenjual> RetrieveDataPenjual();
 
 }
 

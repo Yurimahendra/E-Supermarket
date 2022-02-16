@@ -11,13 +11,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.e_supermarket.MainActivity;
+import com.example.e_supermarket.Pembeli.Activity.ProfilePembeliActivity;
+import com.example.e_supermarket.Pembeli.Adapter.AdapterProfilePembeli;
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
 import com.example.e_supermarket.Penjual.Adapter.AdapterProfilePenjual;
 import com.example.e_supermarket.Penjual.Fragment.ProfileFragmentPenjual;
+import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
 import com.example.e_supermarket.Penjual.Model.DataPenjual;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,17 +41,21 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HalamanProfilePenjualActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewPenjual;
     FirebaseAuth firebaseAuth;
     private RecyclerView recyclerView;
-    private List<DataPenjual> dataPenjualList;
+    private List<DataPenjual> dataPenjualList = new ArrayList<>();;
     private AdapterProfilePenjual adapterProfilePenjual;
 
     private FirebaseFirestore db;
 
-    private SwipeRefreshLayout srlDataProduk;
-    private ProgressBar pbDataProduk;
+    private SwipeRefreshLayout srlDataPenjual;
+    private ProgressBar pbDataPenjual;
 
     private FirebaseStorage storage;
     private StorageReference storageReference;
@@ -86,27 +98,27 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
         setContentView(R.layout.activity_halaman_profile_penjual);
         bottomNavigationViewPenjual = findViewById(R.id.nav_penjual);
         bottomNavigationViewPenjual.setOnNavigationItemSelectedListener(navigation_penjual);
-        firebaseAuth = FirebaseAuth.getInstance();
+        //firebaseAuth = FirebaseAuth.getInstance();
 
         recyclerView = findViewById(R.id.recProfilepenjual);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        db = FirebaseFirestore.getInstance();
-        dataPenjualList = new ArrayList<>();
+        //db = FirebaseFirestore.getInstance();
+
         adapterProfilePenjual = new AdapterProfilePenjual(HalamanProfilePenjualActivity.this, dataPenjualList);
 
         recyclerView.setAdapter(adapterProfilePenjual);
 
-        srlDataProduk = findViewById(R.id.sw_dataproduk);
-        pbDataProduk = findViewById(R.id.pb_dataproduk);
+        srlDataPenjual = findViewById(R.id.sw_datapenjual);
+        pbDataPenjual = findViewById(R.id.pb_datapenjual);
 
-        srlDataProduk.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        srlDataPenjual.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                srlDataProduk.setRefreshing(true);
+                srlDataPenjual.setRefreshing(true);
                 getProfilePenjual();
-                srlDataProduk.setRefreshing(false);
+                srlDataPenjual.setRefreshing(false);
             }
         });
 
@@ -119,14 +131,44 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
     }
 
     private void getProfilePenjual() {
+        pbDataPenjual.setVisibility(View.VISIBLE);
+        ApiRequestDataProduk requestDataPenjual = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+        Call<ResponseDataPenjual> tampilData = requestDataPenjual.RetrieveDataPenjual();
 
-        db.collection("data_penjual").get()
+        tampilData.enqueue(new Callback<ResponseDataPenjual>() {
+            @Override
+            public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
+                if (response.isSuccessful()){
+                    int kode = response.body().getKode();
+                    String pesan = response.body().getPesan();
+                    if (kode == 200){
+                        Toast.makeText(HalamanProfilePenjualActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+
+                        dataPenjualList = response.body().getDataPenjual();
+
+                        adapterProfilePenjual = new AdapterProfilePenjual(HalamanProfilePenjualActivity.this, dataPenjualList);
+                        recyclerView.setAdapter(adapterProfilePenjual);
+                        adapterProfilePenjual.notifyDataSetChanged();
+                    }
+
+                }
+
+                pbDataPenjual.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataPenjual> call, Throwable t) {
+                Toast.makeText(HalamanProfilePenjualActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                pbDataPenjual.setVisibility(View.GONE);
+            }
+        });
+       /* db.collection("data_penjual").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         dataPenjualList.clear();
                         for (DocumentSnapshot snapshot : task.getResult()){
-                            DataPenjual dataPenjual = new DataPenjual(/**snapshot.getString("id"),**/ snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
+                            DataPenjual dataPenjual = new DataPenjual( snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
                             dataPenjualList.add(dataPenjual);
                         }
                         adapterProfilePenjual.notifyDataSetChanged();
@@ -136,7 +178,7 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
     }
 

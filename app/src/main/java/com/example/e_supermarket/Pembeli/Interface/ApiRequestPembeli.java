@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.versionedparcelable.ParcelField;
 
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -30,4 +32,7 @@ public interface ApiRequestPembeli {
             @Field("tanggal_lahir") String tanggal_lahir,
             @Field("no_ponsel") String no_ponsel
     );
+
+    @GET("api/datapembeli")
+    Call<ResponseDataPembeli> RetrieveDataPembeli();
 }
