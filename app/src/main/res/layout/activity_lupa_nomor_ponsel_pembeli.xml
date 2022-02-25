@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Penjual.Activity.LupaNomorPonselActivity">
+    tools:context=".Pembeli.Activity.LupaNomorPonselPembeliActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Lupa Nomor Ponsel Penjual"
+            android:text="Lupa Nomor Ponsel Pembeli"
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold"/>
@@ -128,7 +128,7 @@
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/btnGetOtpENomorBaruS"
+                android:id="@+id/btnGetOtpENomorBaruB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
@@ -144,6 +144,7 @@
                 android:visibility="gone" />
 
         </FrameLayout>
+
 
 
     </LinearLayout>

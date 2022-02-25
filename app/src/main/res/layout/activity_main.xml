@@ -26,7 +26,7 @@
         android:layout_below="@id/btnpenjual"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:hint="Atau"
+        android:hint=""
         android:textStyle="bold"
         android:textColor="@color/black"/>
 
@@ -38,6 +38,28 @@
         android:layout_centerHorizontal="true"
         android:text="pembeli"
         android:layout_below="@id/txtatau"
+        android:onClick="onClickEventPembeli"
+        />
+
+    <TextView
+        android:id="@+id/txtatau1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnpembeli"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:hint=""
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/btnKurir"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:text="KURIR"
+        android:layout_below="@id/txtatau1"
         android:onClick="onClickEventPembeli"
         />
 

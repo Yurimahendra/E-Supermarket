@@ -9,8 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.e_supermarket.Penjual.Activity.LupaNomorPonselActivity;
+import com.example.e_supermarket.Penjual.Activity.SendOTPActivityPenjual;
 import com.example.e_supermarket.R;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -28,6 +31,15 @@ public class SendOTPActivityPembeli extends AppCompatActivity {
         final EditText inputMobileB = findViewById(R.id.inputMobilePemb);
         final Button buttonB = findViewById(R.id.btnGetOtpPemb);
         final ProgressBar progressBarB = findViewById(R.id.progressBarB);
+        TextView TvLupanopon = findViewById(R.id.tvLupaNoPon);
+
+        TvLupanopon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SendOTPActivityPembeli.this, LupaNomorPonselPembeliActivity.class);
+                startActivity(intent);
+            }
+        });
 
         buttonB.setOnClickListener(new View.OnClickListener() {
             @Override

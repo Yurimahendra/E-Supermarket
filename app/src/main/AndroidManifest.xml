@@ -18,7 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ESupermarket"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Pembeli.Activity.ProfilePembeliActivity"></activity>
+        <activity android:name=".Kurir.Activity.HalamanUtamaKurirActivity"></activity>
+        <activity android:name=".Kurir.Activity.FormDataKurirActivity" />
+        <activity android:name=".Kurir.Activity.LupaNoponKurirActivity" />
+        <activity android:name=".Kurir.Activity.VerifyOtpKurirActivity" />
+        <activity android:name=".Kurir.Activity.SendOtpKurirActivity" />
+        <activity android:name=".Pembeli.Activity.LupaNomorPonselPembeliActivity" />
+        <activity android:name=".Pembeli.Activity.ProfilePembeliActivity" />
         <activity android:name=".Pembeli.Activity.ChatPembeliActivity" />
         <activity android:name=".Pembeli.Activity.OrderanPembeliActivity" />
         <activity android:name=".Pembeli.Activity.HalamanUtamaPembeliActivity" />

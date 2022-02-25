@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homekurir"
+        android:icon="@drawable/homepenjual"
+        android:title="" />
+    <item
+        android:id="@+id/profilkurir"
+        android:icon="@drawable/profilpenjual"
+        android:title="" />
+    <item
+        android:id="@+id/logoutkurir"
+        android:icon="@drawable/logoutpenjual"
+        android:title="" />
+</menu>
