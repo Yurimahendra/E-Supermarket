@@ -16,7 +16,7 @@
        android:layout_centerVertical="true"
        android:layout_centerHorizontal="true"
        android:text="penjual"
-       android:onClick="onClickEventPenjual"
+
         />
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_centerHorizontal="true"
         android:text="pembeli"
         android:layout_below="@id/txtatau"
-        android:onClick="onClickEventPembeli"
+
         />
 
     <TextView
@@ -60,7 +60,6 @@
         android:layout_centerHorizontal="true"
         android:text="KURIR"
         android:layout_below="@id/txtatau1"
-        android:onClick="onClickEventPembeli"
         />
 
 </RelativeLayout>

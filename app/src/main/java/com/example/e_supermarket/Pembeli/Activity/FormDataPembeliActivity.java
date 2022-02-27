@@ -113,12 +113,20 @@ public class FormDataPembeliActivity extends AppCompatActivity {
 
             if (nikB <= 0) {
                 NikB.setError("NIK TIDAK BOLEH KOSONG");
+                PbSimpanDataB.setVisibility(View.GONE);
+                btnsimpanDataB.setVisibility(View.VISIBLE);
             } else if (namaB.equals("")) {
                 NamaB.setError("NAMA TIDAK BOLEH KOSONG");
+                PbSimpanDataB.setVisibility(View.GONE);
+                btnsimpanDataB.setVisibility(View.VISIBLE);
             } else if (teLaB.equals("")) {
                 TeLaB.setError("TEMPAT LAHIR TIDAK BOLEH KOSONG");
+                PbSimpanDataB.setVisibility(View.GONE);
+                btnsimpanDataB.setVisibility(View.VISIBLE);
             } else if (alamatB.equals("")) {
                 AlamatB.setError("STOK TIDAK BOLEH KOSONG");
+                PbSimpanDataB.setVisibility(View.GONE);
+                btnsimpanDataB.setVisibility(View.VISIBLE);
             } else {
                 ApiRequestPembeli requestDataPembeli = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
                 Call<ResponseDataPembeli> SimpanDataPembeli = requestDataPembeli.SendDataPembeli(nikB, namaB, jkB, alamatB, teLaB, edttalaB, editnopB);
