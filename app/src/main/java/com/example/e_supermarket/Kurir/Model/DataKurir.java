@@ -2,77 +2,87 @@ package com.example.e_supermarket.Kurir.Model;
 
 public class DataKurir {
 
-    long nikK ;
-    String namaK ;
-    String jenis_kelaminK ;
-    String no_ponselK ;
-    String tempat_lahirK;
-    String tanggal_lahirK ;
-    String alamatK ;
+    int idKurir;
+    long nik ;
+    String nama ;
+    String jenis_kelamin ;
+    String no_ponsel ;
+    String tempat_lahir;
+    String tanggal_lahir ;
+    String alamat ;
 
-    public DataKurir(long nikK, String namaK, String jenis_kelaminK, String no_ponselK, String tempat_lahirK, String tanggal_lahirK, String alamatK) {
-        this.nikK = nikK;
-        this.namaK = namaK;
-        this.jenis_kelaminK = jenis_kelaminK;
-        this.no_ponselK = no_ponselK;
-        this.tempat_lahirK = tempat_lahirK;
-        this.tanggal_lahirK = tanggal_lahirK;
-        this.alamatK = alamatK;
+    public DataKurir(int idKurir, long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat) {
+        this.idKurir = idKurir;
+        this.nik = nik;
+        this.nama = nama;
+        this.jenis_kelamin = jenis_kelamin;
+        this.no_ponsel = no_ponsel;
+        this.tempat_lahir = tempat_lahir;
+        this.tanggal_lahir = tanggal_lahir;
+        this.alamat = alamat;
     }
 
-    public long getNikK() {
-        return nikK;
+    public int getIdKurir() {
+        return idKurir;
     }
 
-    public void setNikK(long nikK) {
-        this.nikK = nikK;
+    public void setIdKurir(int idKurir) {
+        this.idKurir = idKurir;
     }
 
-    public String getNamaK() {
-        return namaK;
+    public long getNik() {
+        return nik;
     }
 
-    public void setNamaK(String namaK) {
-        this.namaK = namaK;
+    public void setNik(long nik) {
+        this.nik = nik;
     }
 
-    public String getJenis_kelaminK() {
-        return jenis_kelaminK;
+    public String getNama() {
+        return nama;
     }
 
-    public void setJenis_kelaminK(String jenis_kelaminK) {
-        this.jenis_kelaminK = jenis_kelaminK;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public String getNo_ponselK() {
-        return no_ponselK;
+    public String getJenis_kelamin() {
+        return jenis_kelamin;
     }
 
-    public void setNo_ponselK(String no_ponselK) {
-        this.no_ponselK = no_ponselK;
+    public void setJenis_kelamin(String jenis_kelamin) {
+        this.jenis_kelamin = jenis_kelamin;
     }
 
-    public String getTempat_lahirK() {
-        return tempat_lahirK;
+    public String getNo_ponsel() {
+        return no_ponsel;
     }
 
-    public void setTempat_lahirK(String tempat_lahirK) {
-        this.tempat_lahirK = tempat_lahirK;
+    public void setNo_ponsel(String no_ponsel) {
+        this.no_ponsel = no_ponsel;
     }
 
-    public String getTanggal_lahirK() {
-        return tanggal_lahirK;
+    public String getTempat_lahir() {
+        return tempat_lahir;
     }
 
-    public void setTanggal_lahirK(String tanggal_lahirK) {
-        this.tanggal_lahirK = tanggal_lahirK;
+    public void setTempat_lahir(String tempat_lahir) {
+        this.tempat_lahir = tempat_lahir;
     }
 
-    public String getAlamatK() {
-        return alamatK;
+    public String getTanggal_lahir() {
+        return tanggal_lahir;
     }
 
-    public void setAlamatK(String alamatK) {
-        this.alamatK = alamatK;
+    public void setTanggal_lahir(String tanggal_lahir) {
+        this.tanggal_lahir = tanggal_lahir;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 }

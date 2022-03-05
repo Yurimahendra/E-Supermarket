@@ -1,9 +1,12 @@
 package com.example.e_supermarket.Kurir.Interface;
 
 import com.example.e_supermarket.Kurir.ResponseModel.ResponseDataKurir;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
@@ -20,4 +23,7 @@ public interface ApiRequestDataKurir {
             @Field("tanggal_lahir") String tanggal_lahirK,
             @Field("no_ponsel") String no_ponselK
     );
+
+    @GET("api/datakurir")
+    Call<ResponseDataKurir> RetrieveDataKurir();
 }

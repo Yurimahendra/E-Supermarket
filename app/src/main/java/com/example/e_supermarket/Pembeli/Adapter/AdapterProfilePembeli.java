@@ -34,6 +34,7 @@ public class AdapterProfilePembeli extends RecyclerView.Adapter<AdapterProfilePe
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.idPmbl.setText(String.valueOf(dataPembeliList.get(position).getIdPmbl()));
         holder.Nama_pembeli.setText(dataPembeliList.get(position).getNama());
         holder.Nik_Pembeli.setText(String.valueOf(dataPembeliList.get(position).getNik()));
         holder.Tmptlahirpembeli.setText(dataPembeliList.get(position).getTempat_lahir());
@@ -49,6 +50,7 @@ public class AdapterProfilePembeli extends RecyclerView.Adapter<AdapterProfilePe
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView idPmbl;
         TextView Nama_pembeli;
         TextView Nik_Pembeli;
         TextView Tmptlahirpembeli;
@@ -62,6 +64,7 @@ public class AdapterProfilePembeli extends RecyclerView.Adapter<AdapterProfilePe
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            idPmbl = itemView.findViewById(R.id.tvIdPmbl);
             Nama_pembeli = itemView.findViewById(R.id.tvnamapembeli);
             Nik_Pembeli = itemView.findViewById(R.id.tvnikpembeli);
             Tmptlahirpembeli = itemView.findViewById(R.id.tvtmptlahirpembeli);

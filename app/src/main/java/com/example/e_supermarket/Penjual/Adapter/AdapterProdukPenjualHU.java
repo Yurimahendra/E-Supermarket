@@ -51,13 +51,12 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(halamanUtamaPenjualActivity).inflate(R.layout.item_produk_penjual, parent, false);
-
         return new MyViewHolder(view) ;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.Id.setText(String.valueOf(ProdukList.get(position).getNama_barang()));
+        holder.Id.setText(String.valueOf(ProdukList.get(position).getId()));
         holder.Nama_Barang.setText(ProdukList.get(position).getNama_barang());
         holder.Merk.setText(ProdukList.get(position).getMerk());
         holder.Harga.setText(String.valueOf(ProdukList.get(position).getHarga()));

@@ -22,7 +22,7 @@
             app:civ_border_width="2dp"
             app:civ_border_color="#FF000000"/>
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/tvIdBarang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

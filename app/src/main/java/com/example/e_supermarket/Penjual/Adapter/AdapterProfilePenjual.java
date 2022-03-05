@@ -45,6 +45,7 @@ public class AdapterProfilePenjual extends RecyclerView.Adapter<AdapterProfilePe
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.idPnjl.setText(""+penjualList.get(position).getId());
         holder.Nama_penjual.setText(penjualList.get(position).getNama());
         holder.Nik.setText(String.valueOf(penjualList.get(position).getNik()));
         holder.Tmptlahirpenjual.setText(penjualList.get(position).getTempat_lahir());
@@ -61,6 +62,7 @@ public class AdapterProfilePenjual extends RecyclerView.Adapter<AdapterProfilePe
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView idPnjl;
         TextView Nama_penjual;
         TextView Nik;
         TextView Tmptlahirpenjual;
@@ -75,6 +77,7 @@ public class AdapterProfilePenjual extends RecyclerView.Adapter<AdapterProfilePe
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            idPnjl = itemView.findViewById(R.id.tvIdPnjl);
             Nama_penjual = itemView.findViewById(R.id.tvnamapenjual);
             Nik = itemView.findViewById(R.id.tvnikpenjual);
             Tmptlahirpenjual = itemView.findViewById(R.id.tvtmptlahirpenjual);

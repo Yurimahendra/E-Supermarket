@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ESupermarket"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Kurir.Activity.HalamanUtamaKurirActivity"></activity>
+        <activity android:name=".Kurir.Activity.HalamanProfilKurirActivity"></activity>
+        <activity android:name=".Kurir.Activity.HalamanUtamaKurirActivity" />
         <activity android:name=".Kurir.Activity.FormDataKurirActivity" />
         <activity android:name=".Kurir.Activity.LupaNoponKurirActivity" />
         <activity android:name=".Kurir.Activity.VerifyOtpKurirActivity" />
@@ -117,9 +118,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" >
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -3,7 +3,7 @@ package com.example.e_supermarket.Penjual.Model;
 import java.util.Date;
 
 public class DataPenjual {
-   // String id;
+    int id;
     Long nik ;
     String nama ;
     String jenis_kelamin ;
@@ -17,8 +17,8 @@ public class DataPenjual {
 
     }
 
-    public DataPenjual( Long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko) {
-       // this.id = id;
+    public DataPenjual(int id, Long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko) {
+        this.id = id;
         this.nik = nik;
         this.nama = nama;
         this.jenis_kelamin = jenis_kelamin;
@@ -29,13 +29,13 @@ public class DataPenjual {
         this.nama_toko = nama_toko;
     }
 
-   /** public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
-    }**/
+    }
 
     public Long getNik() {
         return nik;

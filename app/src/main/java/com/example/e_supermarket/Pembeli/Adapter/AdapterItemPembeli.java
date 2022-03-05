@@ -50,7 +50,7 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.IdPembeli.setText(String.valueOf(ProdukListPembeli.get(position).getNama_barang()));
+        holder.IdPembeli.setText(String.valueOf(ProdukListPembeli.get(position).getId()));
         holder.Nama_BarangPembeli.setText(ProdukListPembeli.get(position).getNama_barang());
         holder.MerkPembeli.setText(ProdukListPembeli.get(position).getMerk());
         holder.HargaPembeli.setText(String.valueOf(ProdukListPembeli.get(position).getHarga()));

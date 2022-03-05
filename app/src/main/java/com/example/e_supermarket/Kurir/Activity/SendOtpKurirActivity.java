@@ -47,7 +47,7 @@ public class SendOtpKurirActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (inputMobileK.getText().toString().trim().isEmpty()){
-                    startActivity(new Intent(SendOtpKurirActivity.this, FormDataKurirActivity.class));
+                    startActivity(new Intent(SendOtpKurirActivity.this, HalamanUtamaKurirActivity.class));
                     //Toast.makeText(SendOtpKurirActivity.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                     return;
                 }

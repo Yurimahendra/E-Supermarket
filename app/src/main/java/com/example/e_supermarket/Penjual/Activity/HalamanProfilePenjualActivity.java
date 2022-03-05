@@ -106,9 +106,9 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
 
         //db = FirebaseFirestore.getInstance();
 
-        adapterProfilePenjual = new AdapterProfilePenjual(HalamanProfilePenjualActivity.this, dataPenjualList);
+        //adapterProfilePenjual = new AdapterProfilePenjual(HalamanProfilePenjualActivity.this, dataPenjualList);
 
-        recyclerView.setAdapter(adapterProfilePenjual);
+        //recyclerView.setAdapter(adapterProfilePenjual);
 
         srlDataPenjual = findViewById(R.id.sw_datapenjual);
         pbDataPenjual = findViewById(R.id.pb_datapenjual);

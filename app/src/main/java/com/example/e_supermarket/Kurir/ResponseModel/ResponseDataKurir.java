@@ -24,12 +24,11 @@ public class ResponseDataKurir {
         this.pesan = pesan;
     }
 
-    public List<DataKurir> getData() {
+    public List<DataKurir> getDataKurir() {
         return data;
     }
 
-    public void setData(List<DataKurir> data) {
-        this.data = data;
+    public void setDataKurir(List<DataKurir> dataKurir) {
+        this.data = dataKurir;
     }
-
 }

@@ -39,6 +39,17 @@
                     />
 
                 <TextView
+                    android:id="@+id/tvIdPmbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="id"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:layout_toRightOf="@id/ImgProdukView"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"/>
+
+                <TextView
                     android:id="@+id/tvnamapembeli"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

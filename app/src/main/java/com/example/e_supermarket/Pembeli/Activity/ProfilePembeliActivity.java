@@ -90,7 +90,7 @@ public class ProfilePembeliActivity extends AppCompatActivity {
         pbProfPembeli = findViewById(R.id.pb_profilePembeli);
 
 
-        recyclerView = (RecyclerView)findViewById(R.id.recProfilepembeli);;
+        recyclerView = findViewById(R.id.recProfilepembeli);;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(ProfilePembeliActivity.this, LinearLayoutManager.VERTICAL, false));
 
