@@ -78,5 +78,24 @@ public interface ApiRequestDataProduk {
     @GET("api/datapenjual")
     Call<ResponseDataPenjual> RetrieveDataPenjual();
 
+    @Headers({"Accept: application/json"})
+    @Multipart
+    @POST("api/datapenjual/{datapenjual}")
+    Call<ResponseDataPenjual> UpdateProfilePenjual(
+            @Path("dataproduk") int id,
+            @Query("_method") String _method,
+            @Part("nik") long nik,
+            @Part("nama") RequestBody nama,
+            @Part("jenis_kelamin") RequestBody jenis_kelamin,
+            @Part("alamat") RequestBody alamat,
+            @Part("tempat_lahir") RequestBody tempat_lahir,
+            @Part("tanggal_lahir") RequestBody tanggal_lahir,
+            @Part("no_ponsel") RequestBody no_ponsel,
+            @Part("nama_toko") RequestBody nama_toko,
+            @Nullable @Part MultipartBody.Part gambar
+    );
+
+
+
 }
 

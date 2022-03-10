@@ -21,7 +21,6 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/tvimgprofileK"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
@@ -30,6 +29,7 @@
                     />
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ImgProfileK"
                     android:layout_width="300px"
                     android:layout_height="300px"
                     android:layout_gravity="center"

@@ -12,12 +12,13 @@ public class DataPenjual {
     String tanggal_lahir ;
     String alamat ;
     String nama_toko ;
+    String gambar;
 
     public DataPenjual() {
 
     }
 
-    public DataPenjual(int id, Long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko) {
+    public DataPenjual(int id, Long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko, String gambar) {
         this.id = id;
         this.nik = nik;
         this.nama = nama;
@@ -27,6 +28,7 @@ public class DataPenjual {
         this.tanggal_lahir = tanggal_lahir;
         this.alamat = alamat;
         this.nama_toko = nama_toko;
+        this.gambar = gambar;
     }
 
     public int getId() {
@@ -99,5 +101,13 @@ public class DataPenjual {
 
     public void setNama_toko(String nama_toko) {
         this.nama_toko = nama_toko;
+    }
+
+    public String getGambar() {
+        return gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
     }
 }

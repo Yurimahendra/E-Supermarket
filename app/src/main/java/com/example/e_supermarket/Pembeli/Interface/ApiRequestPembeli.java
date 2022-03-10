@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.versionedparcelable.ParcelField;
 
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
 
 import java.util.Date;
@@ -18,6 +19,8 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiRequestPembeli {
     @Headers({"Accept: application/json"})
@@ -35,4 +38,20 @@ public interface ApiRequestPembeli {
 
     @GET("api/datapembeli")
     Call<ResponseDataPembeli> RetrieveDataPembeli();
+
+    @Headers({"Accept: application/json"})
+    @Multipart
+    @POST("api/datapembeli/{datapembeli}")
+    Call<ResponseDataPembeli> UpdateProfilePembeli(
+            @Path("dataproduk") int id,
+            @Query("_method") String _method,
+            @Part("nik") long nik,
+            @Part("nama") RequestBody nama,
+            @Part("jenis_kelamin") RequestBody jenis_kelamin,
+            @Part("alamat") RequestBody alamat,
+            @Part("tempat_lahir") RequestBody tempat_lahir,
+            @Part("tanggal_lahir") RequestBody tanggal_lahir,
+            @Part("no_ponsel") RequestBody no_ponsel,
+            @Nullable @Part MultipartBody.Part gambar
+    );
 }

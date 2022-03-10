@@ -3,7 +3,7 @@ package com.example.e_supermarket.Pembeli.Model;
 import java.util.Date;
 
 public class DataPembeli {
-    int idPmbl;
+    int id;
     long nik ;
     String nama ;
     String jenis_kelamin ;
@@ -11,9 +11,10 @@ public class DataPembeli {
     String tempat_lahir;
     String tanggal_lahir ;
     String alamat ;
+    String gambar;
 
-    public DataPembeli(int idPmbl, long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat) {
-        this.idPmbl = idPmbl;
+    public DataPembeli(int id, long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String gambar) {
+        this.id = id;
         this.nik = nik;
         this.nama = nama;
         this.jenis_kelamin = jenis_kelamin;
@@ -21,14 +22,15 @@ public class DataPembeli {
         this.tempat_lahir = tempat_lahir;
         this.tanggal_lahir = tanggal_lahir;
         this.alamat = alamat;
+        this.gambar = gambar;
     }
 
-    public int getIdPmbl() {
-        return idPmbl;
+    public int getId() {
+        return id;
     }
 
-    public void setIdPmbl(int idPmbl) {
-        this.idPmbl = idPmbl;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public long getNik() {
@@ -85,5 +87,13 @@ public class DataPembeli {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    public String getGambar() {
+        return gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
     }
 }

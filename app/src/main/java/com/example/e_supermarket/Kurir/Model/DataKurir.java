@@ -2,7 +2,7 @@ package com.example.e_supermarket.Kurir.Model;
 
 public class DataKurir {
 
-    int idKurir;
+    int id;
     long nik ;
     String nama ;
     String jenis_kelamin ;
@@ -10,9 +10,10 @@ public class DataKurir {
     String tempat_lahir;
     String tanggal_lahir ;
     String alamat ;
+    String gambar;
 
-    public DataKurir(int idKurir, long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat) {
-        this.idKurir = idKurir;
+    public DataKurir(int id, long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String gambar) {
+        this.id = id;
         this.nik = nik;
         this.nama = nama;
         this.jenis_kelamin = jenis_kelamin;
@@ -20,14 +21,15 @@ public class DataKurir {
         this.tempat_lahir = tempat_lahir;
         this.tanggal_lahir = tanggal_lahir;
         this.alamat = alamat;
+        this.gambar = gambar;
     }
 
-    public int getIdKurir() {
-        return idKurir;
+    public int getId() {
+        return id;
     }
 
-    public void setIdKurir(int idKurir) {
-        this.idKurir = idKurir;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public long getNik() {
@@ -84,5 +86,13 @@ public class DataKurir {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    public String getGambar() {
+        return gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
     }
 }
