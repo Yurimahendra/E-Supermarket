@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
-import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 
@@ -145,8 +144,13 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         TalaPnjl.setText(uTalaPnjl);
         AlamatPnjl.setText(uAlamatPnjl);
         NatoPnjl.setText(uNatoPnjl);
-        Glide.with(eFtoPnjl.getContext())
-                .load(uFtoPnjl).into(eFtoPnjl);
+        /*if (uFtoPnjl == null){
+            eFtoPnjl.setImageURI(null);
+        }else {
+            Glide.with(eFtoPnjl.getContext())
+                    .load(uFtoPnjl).into(eFtoPnjl);
+        }*/
+
     }
 
     private void pilihgambar(){
@@ -283,6 +287,20 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         }
     }
 
+    private void showDateDialog() {
+        Calendar calendar = Calendar.getInstance();
+
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, month, dayOfMonth);
+                TalaPnjl.setText(dateFormat.format(newDate.getTime()));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
     private void requestPermission(){
         //PbSimpanData.setVisibility(View.VISIBLE);
         //btnAddData.setVisibility(View.INVISIBLE);
@@ -303,17 +321,5 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         }
     }
 
-    private void showDateDialog() {
-        Calendar calendar = Calendar.getInstance();
 
-        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, month, dayOfMonth);
-                TalaPnjl.setText(dateFormat.format(newDate.getTime()));
-            }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
 }

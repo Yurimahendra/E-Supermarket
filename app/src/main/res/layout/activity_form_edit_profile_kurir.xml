@@ -37,6 +37,17 @@
                 />
                 -->
 
+            <EditText
+                android:id="@+id/tvIdProfKurir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="id"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/ImgProdukView"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

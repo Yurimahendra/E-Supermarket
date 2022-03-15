@@ -142,8 +142,8 @@ public class FormEditProfileKurirActivity extends AppCompatActivity implements o
         TeLaKurir.setText(uTelaKurir);
         TalaKurir.setText(uTalaKurir);
         AlamatKurir.setText(uAlamatKurir);
-        Glide.with(eFtoKurir.getContext())
-                .load(uFtoKurir).into(eFtoKurir);
+        /*Glide.with(eFtoKurir.getContext())
+                .load(uFtoKurir).into(eFtoKurir);*/
     }
 
     private void UpdateProfilKurir() {

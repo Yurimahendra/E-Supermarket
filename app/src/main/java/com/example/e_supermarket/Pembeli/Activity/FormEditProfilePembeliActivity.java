@@ -142,8 +142,8 @@ public class FormEditProfilePembeliActivity extends AppCompatActivity implements
         TeLaPmbl.setText(uTelaPmbl);
         TalaPmbl.setText(uTalaPmbl);
         AlamatPmbl.setText(uAlamatPmbl);
-        Glide.with(eFtoPmbl.getContext())
-                .load(uFtoPmbl).into(eFtoPmbl);
+        /*Glide.with(eFtoPmbl.getContext())
+                .load(uFtoPmbl).into(eFtoPmbl);*/
     }
 
     private void UpdateProfilPmbl() {

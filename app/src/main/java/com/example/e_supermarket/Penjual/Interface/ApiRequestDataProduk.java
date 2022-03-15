@@ -82,7 +82,7 @@ public interface ApiRequestDataProduk {
     @Multipart
     @POST("api/datapenjual/{datapenjual}")
     Call<ResponseDataPenjual> UpdateProfilePenjual(
-            @Path("dataproduk") int id,
+            @Path("datapenjual") int id,
             @Query("_method") String _method,
             @Part("nik") long nik,
             @Part("nama") RequestBody nama,
