@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
+import com.example.e_supermarket.Penjual.Model.DataPenjual;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,12 +28,26 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VerifyOTPActivityPenjual extends AppCompatActivity {
 
     private EditText inputCode1, inputCode2, inputCode3, inputCode4, inputCode5, inputCode6;
     private String verificationId;
+
+    private List<DataPenjual> dataPenjualList = new ArrayList<>();
+
+    int index;
+    String noponsel;
+
+    String Enopon;
+    int compare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +55,8 @@ public class VerifyOTPActivityPenjual extends AppCompatActivity {
         setContentView(R.layout.activity_verify_o_t_p_penjual);
 
         TextView textMobileVS = findViewById(R.id.txtMobileVS);
-        textMobileVS.setText(String.format(
-                "+62%s", getIntent().getStringExtra("mobile")
-        ));
+        textMobileVS.setText(getIntent().getStringExtra("mobile")
+        );
 
         inputCode1 = findViewById(R.id.inputCode1);
         inputCode2 = findViewById(R.id.inputCode2);
@@ -85,16 +103,35 @@ public class VerifyOTPActivityPenjual extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    progressBarVS.setVisibility(View.GONE);
-                                    buttonVS.setVisibility(View.VISIBLE);
-                                    if (task.isSuccessful()){
+                                    try {
+                                        progressBarVS.setVisibility(View.GONE);
+                                        buttonVS.setVisibility(View.VISIBLE);
+                                        Enopon = textMobileVS.getText().toString().trim();
+                                        compare = Enopon.compareTo(noponsel);
+                                        if (task.isSuccessful()){
+                                            if (compare == 0){
+                                                Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                            }else {
+                                                Intent intent = new Intent(getApplicationContext(), FormDataPenjualActivity.class);
+                                                intent.putExtra("mobile", textMobileVS.getText().toString());
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                            }
+
+                                        } else {
+                                            Toast.makeText(VerifyOTPActivityPenjual.this, "kode verifikasi yang dimasukkan tidak valid", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }catch (NullPointerException exception){
+                                        progressBarVS.setVisibility(View.GONE);
+                                        buttonVS.setVisibility(View.VISIBLE);
                                         Intent intent = new Intent(getApplicationContext(), FormDataPenjualActivity.class);
                                         intent.putExtra("mobile", textMobileVS.getText().toString());
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
-                                    } else {
-                                        Toast.makeText(VerifyOTPActivityPenjual.this, "kode verifikasi yang dimasukkan tidak valid", Toast.LENGTH_SHORT).show();
                                     }
+
                                 }
                             });
                 }
@@ -229,5 +266,69 @@ public class VerifyOTPActivityPenjual extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getProfilePenjual();
+    }
+
+    private void getProfilePenjual() {
+
+        ApiRequestDataProduk requestDataPenjual = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+        Call<ResponseDataPenjual> tampilData = requestDataPenjual.RetrieveDataPenjual();
+
+        tampilData.enqueue(new Callback<ResponseDataPenjual>() {
+            @Override
+            public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
+                if (response.isSuccessful()){
+                    int kode = response.body().getKode();
+                    String pesan = response.body().getPesan();
+                    if (kode == 200){
+                       // Toast.makeText(VerifyOTPActivityPenjual.this, ""+pesan, Toast.LENGTH_SHORT).show();
+
+                        try {
+                            dataPenjualList = response.body().getDataPenjual();
+                            noponsel = dataPenjualList.get(index).getNo_ponsel();
+                        }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                            //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
+                        }
+                        //noponsel = dataPenjual.getNo_ponsel();
+                        //Log.i("nopon" , "noponsel : " + noponsel);
+
+                        //adapterProfilePenjual = new AdapterProfilePenjual(SendOTPActivityPenjual.this, dataPenjualList);
+                        //recyclerView.setAdapter(adapterProfilePenjual);
+                        // adapterProfilePenjual.notifyDataSetChanged();
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataPenjual> call, Throwable t) {
+                //Toast.makeText(VerifyOTPActivityPenjual.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+            }
+        });
+       /* db.collection("data_penjual").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        dataPenjualList.clear();
+                        for (DocumentSnapshot snapshot : task.getResult()){
+                            DataPenjual dataPenjual = new DataPenjual( snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
+                            dataPenjualList.add(dataPenjual);
+                        }
+                        adapterProfilePenjual.notifyDataSetChanged();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
     }
 }

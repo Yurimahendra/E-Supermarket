@@ -97,9 +97,8 @@ public class FormDataPenjualActivity extends AppCompatActivity {
 
 
         EditText editTextS = findViewById(R.id.EdtNop);
-        editTextS.setText(String.format(
-                "%s", getIntent().getStringExtra("mobile")
-        ));
+        editTextS.setText(getIntent().getStringExtra("mobile")
+        );
 
 
         EdtTala.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +160,6 @@ public class FormDataPenjualActivity extends AppCompatActivity {
                 SimpanDataPenjual.enqueue(new Callback<ResponseDataPenjual>() {
                     @Override
                     public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
-
                         if( response.isSuccessful()) {
                             int kode = response.body().getKode();
                             String pesan = response.body().getPesan();

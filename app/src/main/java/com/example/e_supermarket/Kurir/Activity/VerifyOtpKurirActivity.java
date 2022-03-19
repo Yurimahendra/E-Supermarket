@@ -14,8 +14,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.e_supermarket.Kurir.Interface.ApiRequestDataKurir;
+import com.example.e_supermarket.Kurir.Model.DataKurir;
+import com.example.e_supermarket.Kurir.ResponseModel.ResponseDataKurir;
 import com.example.e_supermarket.Pembeli.Activity.FormDataPembeliActivity;
 import com.example.e_supermarket.Pembeli.Activity.VerifyOTPActivityPembeli;
+import com.example.e_supermarket.Penjual.Activity.HalamanUtamaPenjualActivity;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,21 +30,32 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VerifyOtpKurirActivity extends AppCompatActivity {
     private EditText inputCode1K, inputCode2K, inputCode3K, inputCode4K, inputCode5K, inputCode6K;
     private String verificationIdK;
+
+    private List<DataKurir> dataKurirList = new ArrayList<>();
+    int index;
+    String noponsel;
+    String ETnopon;
+    int compare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_otp_kurir);
 
-        TextView textMobile = findViewById(R.id.txtMobilePemb);
-        textMobile.setText(String.format(
-                "+62%s", getIntent().getStringExtra("mobile")
-        ));
+        TextView textMobile = findViewById(R.id.txtMobileVK);
+        textMobile.setText(getIntent().getStringExtra("mobile")
+        );
 
         inputCode1K = findViewById(R.id.inputCode1K);
         inputCode2K = findViewById(R.id.inputCode2K);
@@ -50,12 +66,12 @@ public class VerifyOtpKurirActivity extends AppCompatActivity {
 
         setupOTPInputs();
 
-        final ProgressBar progressBarVB = findViewById(R.id.progressBarVB);
-        final Button buttonVB = findViewById(R.id.btnVerifyPemb);
+        final ProgressBar progressBarVK = findViewById(R.id.progressBarVB);
+        final Button buttonVK = findViewById(R.id.btnVerifyPemb);
 
         verificationIdK = getIntent().getStringExtra("verificationId");
 
-        buttonVB.setOnClickListener(new View.OnClickListener() {
+        buttonVK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (inputCode1K.getText().toString().trim().isEmpty()
@@ -76,8 +92,8 @@ public class VerifyOtpKurirActivity extends AppCompatActivity {
                                 inputCode6K.getText().toString();
 
                 if (verificationIdK != null){
-                    progressBarVB.setVisibility(View.VISIBLE);
-                    buttonVB.setVisibility(View.INVISIBLE);
+                    progressBarVK.setVisibility(View.VISIBLE);
+                    buttonVK.setVisibility(View.INVISIBLE);
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
                             verificationIdK,
                             codeK
@@ -86,16 +102,36 @@ public class VerifyOtpKurirActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    progressBarVB.setVisibility(View.GONE);
-                                    buttonVB.setVisibility(View.VISIBLE);
-                                    if (task.isSuccessful()){
+                                    try {
+                                        progressBarVK.setVisibility(View.GONE);
+                                        buttonVK.setVisibility(View.VISIBLE);
+                                        ETnopon = textMobile.getText().toString().trim();
+                                        compare = ETnopon.compareTo(noponsel);
+                                        if (task.isSuccessful()){
+                                            if (compare == 0){
+                                                Intent intent = new Intent(getApplicationContext(), HalamanUtamaKurirActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                            }else {
+                                                Intent intent = new Intent(getApplicationContext(), FormDataKurirActivity.class);
+                                                intent.putExtra("mobile", textMobile.getText().toString());
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                            }
+
+                                        } else {
+                                            Toast.makeText(VerifyOtpKurirActivity.this, "kode verifikasi yang dimasukkan tidak valid", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }catch (NullPointerException exception){
+                                        progressBarVK.setVisibility(View.GONE);
+                                        buttonVK.setVisibility(View.VISIBLE);
                                         Intent intent = new Intent(getApplicationContext(), FormDataKurirActivity.class);
                                         intent.putExtra("mobile", textMobile.getText().toString());
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
-                                    } else {
-                                        Toast.makeText(VerifyOtpKurirActivity.this, "kode verifikasi yang dimasukkan tidak valid", Toast.LENGTH_SHORT).show();
                                     }
+
+
                                 }
                             });
                 }
@@ -227,6 +263,45 @@ public class VerifyOtpKurirActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getProfileKurir();
+    }
+
+    private void getProfileKurir() {
+
+        ApiRequestDataKurir requestDataKurir = RetroServer.konekRetrofit().create(ApiRequestDataKurir.class);
+        Call<ResponseDataKurir> tampilData = requestDataKurir.RetrieveDataKurir();
+
+        tampilData.enqueue(new Callback<ResponseDataKurir>() {
+            @Override
+            public void onResponse(Call<ResponseDataKurir> call, Response<ResponseDataKurir> response) {
+                if (response.isSuccessful()){
+                    int kode = response.body().getKode();
+                    String pesan = response.body().getPesan();
+                    if (kode == 200){
+                        try {
+                            dataKurirList = response.body().getDataKurir();
+                            noponsel = dataKurirList.get(index).getNo_ponsel();
+                            ETnopon= noponsel;
+                        }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                            //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataKurir> call, Throwable t) {
 
             }
         });

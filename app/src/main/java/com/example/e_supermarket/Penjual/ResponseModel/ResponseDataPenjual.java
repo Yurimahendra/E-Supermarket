@@ -9,6 +9,7 @@ public class ResponseDataPenjual {
     private int kode;
     private String pesan;
     private List<DataPenjual> data;
+    private String no_ponsel;
 
     public int getKode() {
         return kode;
@@ -34,5 +35,11 @@ public class ResponseDataPenjual {
         this.data = dataPenjual;
     }
 
+    public String getNo_ponsel() {
+        return no_ponsel;
+    }
 
+    public void setNo_ponsel(String no_ponsel) {
+        this.no_ponsel = no_ponsel;
+    }
 }

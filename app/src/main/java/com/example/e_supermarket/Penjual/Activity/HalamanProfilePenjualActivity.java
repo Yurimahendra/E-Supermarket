@@ -49,7 +49,7 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewPenjual;
     FirebaseAuth firebaseAuth;
     private RecyclerView recyclerView;
-    private List<DataPenjual> dataPenjualList = new ArrayList<>();;
+    private List<DataPenjual> dataPenjualList = new ArrayList<>();
     private AdapterProfilePenjual adapterProfilePenjual;
 
     private FirebaseFirestore db;

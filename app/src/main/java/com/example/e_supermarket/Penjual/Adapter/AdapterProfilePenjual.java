@@ -1,5 +1,6 @@
 package com.example.e_supermarket.Penjual.Adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,22 +28,22 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterProfilePenjual extends RecyclerView.Adapter<AdapterProfilePenjual.MyViewHolder>{
 
-    private HalamanProfilePenjualActivity halamanProfilePenjualActivity;
+    private Context context;
     private List<DataPenjual> penjualList;
 
     FirebaseFirestore db;
     private FirebaseStorage storage;
     private StorageReference storageReference;
 
-    public AdapterProfilePenjual(HalamanProfilePenjualActivity halamanProfilePenjualActivity, List<DataPenjual> penjualList) {
-        this.halamanProfilePenjualActivity = halamanProfilePenjualActivity;
+    public AdapterProfilePenjual(Context context, List<DataPenjual> penjualList) {
+        this.context = context;
         this.penjualList = penjualList;
     }
 
     @NonNull
     @Override
     public AdapterProfilePenjual.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(halamanProfilePenjualActivity).inflate(R.layout.profil_penjual, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.profil_penjual, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -78,9 +79,9 @@ public class AdapterProfilePenjual extends RecyclerView.Adapter<AdapterProfilePe
                 bundle.putString("nama_toko", item.getNama_toko());
                 bundle.putString("gambar", RetroServer.imageURL + item.getGambar());
 
-                Intent intent = new Intent(halamanProfilePenjualActivity, FormEditProfilePenjualActivity.class);
+                Intent intent = new Intent(context, FormEditProfilePenjualActivity.class);
                 intent.putExtras(bundle);
-                halamanProfilePenjualActivity.startActivity(intent);
+                context.startActivity(intent);
             }
         });
     }
