@@ -14,6 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.e_supermarket.Kurir.Activity.HalamanUtamaKurirActivity;
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
+import com.example.e_supermarket.Pembeli.Model.DataPembeli;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,23 +28,33 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VerifyOTPActivityPembeli extends AppCompatActivity {
 
     private EditText inputCode1B, inputCode2B, inputCode3B, inputCode4B, inputCode5B, inputCode6B;
     private String verificationIdB;
 
+    private List<DataPembeli> dataPembeliList = new ArrayList<>();
+    int index;
+    String noponsel;
+    String ETnopon;
+    int compare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_o_t_p_pembeli);
 
-        TextView textMobile = findViewById(R.id.txtMobilePemb);
-        textMobile.setText(String.format(
-                "+62%s", getIntent().getStringExtra("mobile")
-        ));
+        TextView textMobileVB = findViewById(R.id.txtMobilePemb);
+        textMobileVB.setText(getIntent().getStringExtra("mobile")
+        );
 
         inputCode1B = findViewById(R.id.inputCode1p);
         inputCode2B = findViewById(R.id.inputCode2p);
@@ -86,16 +101,35 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    progressBarVB.setVisibility(View.GONE);
-                                    buttonVB.setVisibility(View.VISIBLE);
-                                    if (task.isSuccessful()){
+                                    try {
+                                        progressBarVB.setVisibility(View.GONE);
+                                        buttonVB.setVisibility(View.VISIBLE);
+                                        ETnopon = textMobileVB.getText().toString().trim();
+                                        compare = ETnopon.compareTo(noponsel);
+                                        if (task.isSuccessful()){
+                                            if (compare == 0){
+                                                Intent intent = new Intent(getApplicationContext(), HalamanUtamaPembeliActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                            }else {
+                                                Intent intent = new Intent(getApplicationContext(), FormDataPembeliActivity.class);
+                                                intent.putExtra("mobile", textMobileVB.getText().toString());
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                            }
+
+                                        } else {
+                                            Toast.makeText(VerifyOTPActivityPembeli.this, "kode verifikasi yang dimasukkan tidak valid", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }catch (NullPointerException exception){
+                                        progressBarVB.setVisibility(View.GONE);
+                                        buttonVB.setVisibility(View.VISIBLE);
                                         Intent intent = new Intent(getApplicationContext(), FormDataPembeliActivity.class);
-                                        intent.putExtra("mobile", textMobile.getText().toString());
+                                        intent.putExtra("mobile", textMobileVB.getText().toString());
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
-                                    } else {
-                                        Toast.makeText(VerifyOTPActivityPembeli.this, "kode verifikasi yang dimasukkan tidak valid", Toast.LENGTH_SHORT).show();
                                     }
+
                                 }
                             });
                 }
@@ -230,5 +264,49 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getProfilePembeli();
+    }
+
+    private void getProfilePembeli() {
+
+        ApiRequestPembeli requestDataPembeli = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+        Call<ResponseDataPembeli> tampilData = requestDataPembeli.RetrieveDataPembeli();
+
+        tampilData.enqueue(new Callback<ResponseDataPembeli>() {
+            @Override
+            public void onResponse(Call<ResponseDataPembeli> call, Response<ResponseDataPembeli> response) {
+                if (response.isSuccessful()){
+                    int kode = response.body().getKode();
+                    String pesan = response.body().getPesan();
+                    if (kode == 200){
+                        try {
+                            dataPembeliList = response.body().getDataPembeli();
+                            noponsel = dataPembeliList.get(index).getNo_ponsel();
+                            ETnopon= noponsel;
+                        }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                            //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataPembeli> call, Throwable t) {
+                //Toast.makeText(ProfilePembeliActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                //pbProfPembeli.setVisibility(View.GONE);
+            }
+        });
+
+
     }
 }
