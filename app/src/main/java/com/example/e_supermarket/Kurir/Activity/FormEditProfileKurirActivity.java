@@ -214,13 +214,15 @@ public class FormEditProfileKurirActivity extends AppCompatActivity implements o
                         @Override
                         public void onResponse(Call<ResponseDataKurir> call, Response<ResponseDataKurir> response) {
                             if( response.isSuccessful()) {
-                                int kode = response.body().getKode();
-                                String pesan = response.body().getPesan();
-                                if (kode == 200){
-                                    startActivity(new Intent(FormEditProfileKurirActivity.this, HalamanUtamaKurirActivity.class));
-                                    Toast.makeText(FormEditProfileKurirActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+                                //int kode = response.body().getKode();
+                                //String pesan = response.body().getPesan();
+                                startActivity(new Intent(FormEditProfileKurirActivity.this, HalamanUtamaKurirActivity.class));
+                                Toast.makeText(FormEditProfileKurirActivity.this, "berhasil update", Toast.LENGTH_SHORT).show();
+                                /*if (kode == 200){
 
-                                }
+
+
+                                }*/
 
                             }else {
                                 Toast.makeText(FormEditProfileKurirActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();

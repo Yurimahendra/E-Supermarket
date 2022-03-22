@@ -17,19 +17,19 @@ public class RetroServer {
 
 
     public static Retrofit konekRetrofit(){
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        /*HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
-
-            retro = new Retrofit.Builder()
-                    .baseUrl(baseURL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(okHttpClient)
-                    .build();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build(); .client(okHttpClient)*/
+            if (retro == null){
+                retro = new Retrofit.Builder()
+                        .baseUrl(baseURL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+            }
 
         return retro;
     }

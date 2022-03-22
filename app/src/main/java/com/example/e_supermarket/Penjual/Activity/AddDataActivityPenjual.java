@@ -141,16 +141,28 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
 
             if (nama_barang.equals("")) {
                 Nama_barang.setError("NAMA BARANG TIDAK BOLEH KOSONG");
+                PbSimpanData.setVisibility(View.GONE);
+                btnAddData.setVisibility(View.VISIBLE);
             } else if (merk.equals("")) {
                 Merk.setError("MERK TIDAK BOLEH KOSONG");
+                PbSimpanData.setVisibility(View.GONE);
+                btnAddData.setVisibility(View.VISIBLE);
             } else if (harga <= 0) {
                 Harga.setError("HARGA TIDAK BOLEH KOSONG");
+                PbSimpanData.setVisibility(View.GONE);
+                btnAddData.setVisibility(View.VISIBLE);
             } else if (stok <= 0) {
                 Stok.setError("STOK TIDAK BOLEH KOSONG");
+                PbSimpanData.setVisibility(View.GONE);
+                btnAddData.setVisibility(View.VISIBLE);
             } else if (satuan.equals("")) {
                  Toast.makeText(getApplicationContext(), "SATUAN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                PbSimpanData.setVisibility(View.GONE);
+                btnAddData.setVisibility(View.VISIBLE);
             } else if (mediaPath == null) {
                 Toast.makeText(getApplicationContext(), "GAMBAR TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                PbSimpanData.setVisibility(View.GONE);
+                btnAddData.setVisibility(View.VISIBLE);
             } else {
 
                 ApiRequestDataProduk requestDataProduk = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
@@ -169,12 +181,13 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
                     @Override
                     public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
                         if (response.isSuccessful()){
-                            int kode = response.body().getKode();
-                            String pesan = response.body().getPesan();
-                            if( kode == 200) {
-                                startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
-                                Toast.makeText(AddDataActivityPenjual.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
-                            }
+                            //int kode = response.body().getKode();
+                            //String pesan = response.body().getPesan();
+                            startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
+                            Toast.makeText(AddDataActivityPenjual.this, "berhasil disimpan", Toast.LENGTH_SHORT).show();
+                            /*if( kode == 200) {
+
+                            }*/
                         }
                         else {
                             Toast.makeText(AddDataActivityPenjual.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();

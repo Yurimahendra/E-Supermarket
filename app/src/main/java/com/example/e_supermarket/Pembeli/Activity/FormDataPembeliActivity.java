@@ -51,6 +51,8 @@ public class FormDataPembeliActivity extends AppCompatActivity {
     ProgressBar PbSimpanDataB;
 
     long nikB;
+    String nikBS;
+    int lenNikB;
     String namaB;
     String jkB;
     String editnopB;
@@ -111,11 +113,19 @@ public class FormDataPembeliActivity extends AppCompatActivity {
             edttalaB = EdtTalaB.getText().toString().trim();
             alamatB = AlamatB.getText().toString().trim();
 
+            nikBS = NikB.getText().toString().trim();
+            lenNikB = nikBS.length();
+
             if (nikB <= 0) {
                 NikB.setError("NIK TIDAK BOLEH KOSONG");
                 PbSimpanDataB.setVisibility(View.GONE);
                 btnsimpanDataB.setVisibility(View.VISIBLE);
-            } else if (namaB.equals("")) {
+            }else if (lenNikB < 16){
+                NikB.setError("JUMLAH NIK TIDAK SESUAI");
+                PbSimpanDataB.setVisibility(View.GONE);
+                btnsimpanDataB.setVisibility(View.VISIBLE);
+            }
+            else if (namaB.equals("")) {
                 NamaB.setError("NAMA TIDAK BOLEH KOSONG");
                 PbSimpanDataB.setVisibility(View.GONE);
                 btnsimpanDataB.setVisibility(View.VISIBLE);
@@ -137,12 +147,14 @@ public class FormDataPembeliActivity extends AppCompatActivity {
                     public void onResponse(Call<ResponseDataPembeli> call, Response<ResponseDataPembeli> response) {
 
                         if( response.isSuccessful()) {
-                            int kode = response.body().getKode();
-                            String pesan = response.body().getPesan();
-                            if (kode == 200){
-                                startActivity(new Intent(FormDataPembeliActivity.this, HalamanUtamaPembeliActivity.class));
-                                Toast.makeText(FormDataPembeliActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
-                            }
+                            //int kode = response.body().getKode();
+                            //String pesan = response.body().getPesan();
+                            startActivity(new Intent(getApplicationContext(), HalamanUtamaPembeliActivity.class));
+                            Toast.makeText(FormDataPembeliActivity.this, "berhasil disimpan", Toast.LENGTH_SHORT).show();
+                            /*if (kode == 200){
+
+                                //Toast.makeText(FormDataPembeliActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
+                            }*/
                         }else {
                             Toast.makeText(FormDataPembeliActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                         }

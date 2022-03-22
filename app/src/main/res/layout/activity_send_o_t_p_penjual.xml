@@ -58,13 +58,13 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:text="@string/_62"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold" />-->
 
             <EditText
                 android:id="@+id/inputMobileS"

@@ -142,7 +142,7 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                     int kode = response.body().getKode();
                     String pesan = response.body().getPesan();
                     if (kode == 200){
-                        Toast.makeText(HalamanProfilePenjualActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(HalamanProfilePenjualActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
 
                         dataPenjualList = response.body().getDataPenjual();
 

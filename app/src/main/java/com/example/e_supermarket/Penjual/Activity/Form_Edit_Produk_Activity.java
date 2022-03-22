@@ -231,13 +231,14 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
                         @Override
                         public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
                             if( response.isSuccessful()) {
-                                int kode = response.body().getKode();
-                                String pesan = response.body().getPesan();
-                                if (kode == 200){
-                                    startActivity(new Intent(Form_Edit_Produk_Activity.this, HalamanUtamaPenjualActivity.class));
-                                    Toast.makeText(Form_Edit_Produk_Activity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+                                //int kode = response.body().getKode();
+                                //String pesan = response.body().getPesan();
+                                startActivity(new Intent(Form_Edit_Produk_Activity.this, HalamanUtamaPenjualActivity.class));
+                                Toast.makeText(Form_Edit_Produk_Activity.this, "berhasil update", Toast.LENGTH_SHORT).show();
+                                /*if (kode == 200){
 
-                                }
+
+                                }*/
 
                             }else {
                                 Toast.makeText(Form_Edit_Produk_Activity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();

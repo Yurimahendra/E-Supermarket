@@ -256,9 +256,10 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
                             if( response.isSuccessful()) {
                                 int kode = response.body().getKode();
                                 String pesan = response.body().getPesan();
+                                startActivity(new Intent(FormEditProfilePenjualActivity.this, HalamanUtamaPenjualActivity.class));
+                                Toast.makeText(FormEditProfilePenjualActivity.this, "berhasil update", Toast.LENGTH_SHORT).show();
                                 if (kode == 200){
-                                    startActivity(new Intent(FormEditProfilePenjualActivity.this, HalamanUtamaPenjualActivity.class));
-                                    Toast.makeText(FormEditProfilePenjualActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+
 
                                 }
 

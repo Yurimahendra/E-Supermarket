@@ -55,13 +55,6 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
 
 
 
-        //getProfilePenjual();
-
-        //Log.i("dbcreatenopon" , "noponsel : " + Enopon);
-       // Enopon = inputMobileS.getText().toString().trim();
-        //compare = Enopon.compareTo(noponsel);
-        //lengpon = Enopon.charAt(0);
-
         TvemailS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,12 +75,7 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                         //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                         //return;
                     }else if (compare != 0){
-                    /*if (){
-                        //Log.i("compare" , "noponsel : " + compare);
-                        Toast.makeText(SendOTPActivityPenjual.this, "Penjual Hanya Boleh Satu User", Toast.LENGTH_SHORT).show();
-                    }*/
-                    /*Log.i("dbnopon" , "noponsel : " + noponsel);
-                    Log.i("inputnopon" , "noponsel : " + inputMobileS.getText().toString().trim());*/
+
                         Toast.makeText(SendOTPActivityPenjual.this, "Penjual Hanya Boleh Satu User", Toast.LENGTH_SHORT).show();
 
                     }else {
@@ -128,6 +116,12 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
 
                     }
                 }catch (NullPointerException exception){
+                    if (inputMobileS.getText().toString().trim().isEmpty()){
+                        Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
+                        startActivity(intent);
+                        //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                        //return;
+                    }
                     progressBarS.setVisibility(View.VISIBLE);
                     buttonS.setVisibility(View.INVISIBLE);
 
@@ -199,13 +193,6 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                             //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                         }
 
-                        //noponsel = dataPenjual.getNo_ponsel();
-                        //Log.i("nopon" , "noponsel : " + noponsel);
-                        //Log.e("char", "angka awal"+ lengpon);
-
-                        //adapterProfilePenjual = new AdapterProfilePenjual(SendOTPActivityPenjual.this, dataPenjualList);
-                        //recyclerView.setAdapter(adapterProfilePenjual);
-                       // adapterProfilePenjual.notifyDataSetChanged();
                     }
 
                 }

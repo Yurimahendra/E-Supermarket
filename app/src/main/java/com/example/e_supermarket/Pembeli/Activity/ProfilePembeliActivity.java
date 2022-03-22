@@ -122,7 +122,7 @@ public class ProfilePembeliActivity extends AppCompatActivity {
                     int kode = response.body().getKode();
                     String pesan = response.body().getPesan();
                     if (kode == 200){
-                        Toast.makeText(ProfilePembeliActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ProfilePembeliActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
 
                         dataPembeliList = response.body().getDataPembeli();
 

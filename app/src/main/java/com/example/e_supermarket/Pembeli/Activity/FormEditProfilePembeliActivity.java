@@ -214,13 +214,14 @@ public class FormEditProfilePembeliActivity extends AppCompatActivity implements
                         @Override
                         public void onResponse(Call<ResponseDataPembeli> call, Response<ResponseDataPembeli> response) {
                             if( response.isSuccessful()) {
-                                int kode = response.body().getKode();
-                                String pesan = response.body().getPesan();
-                                if (kode == 200){
-                                    startActivity(new Intent(FormEditProfilePembeliActivity.this, HalamanUtamaPembeliActivity.class));
-                                    Toast.makeText(FormEditProfilePembeliActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+                               // int kode = response.body().getKode();
+                                //String pesan = response.body().getPesan();
+                                startActivity(new Intent(FormEditProfilePembeliActivity.this, HalamanUtamaPembeliActivity.class));
+                                Toast.makeText(FormEditProfilePembeliActivity.this, "berhasil update", Toast.LENGTH_SHORT).show();
+                                /*if (kode == 200){
 
-                                }
+
+                                }*/
 
                             }else {
                                 Toast.makeText(FormEditProfilePembeliActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
@@ -231,6 +232,7 @@ public class FormEditProfilePembeliActivity extends AppCompatActivity implements
                         }
                         @Override
                         public void onFailure(Call<ResponseDataPembeli> call, Throwable t) {
+
                             Toast.makeText(FormEditProfilePembeliActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
                             PbUpdteProfilPmbl.setVisibility(View.GONE);
                             BtnUpdateProfilePmbl.setVisibility(View.VISIBLE);

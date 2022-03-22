@@ -107,7 +107,7 @@ public class HalamanProfilKurirActivity extends AppCompatActivity {
                     int kode = response.body().getKode();
                     String pesan = response.body().getPesan();
                     if (kode == 200){
-                        Toast.makeText(HalamanProfilKurirActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(HalamanProfilKurirActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
 
                         dataKurirList = response.body().getDataKurir();
 

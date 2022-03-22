@@ -120,7 +120,7 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
                     int kode = response.body().getKode();
                     String pesan = response.body().getPesan();
                     if (kode == 200){
-                        Toast.makeText(HalamanUtamaPembeliActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(HalamanUtamaPembeliActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
 
                         dataProdukListPembeli = response.body().getData();
 

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class DataPenjual {
     int id;
-    Long nik ;
+    long nik ;
     String nama ;
     String jenis_kelamin ;
     String no_ponsel ;
@@ -18,7 +18,7 @@ public class DataPenjual {
 
     }
 
-    public DataPenjual(int id, Long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko, String gambar) {
+    public DataPenjual(int id, long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko, String gambar) {
         this.id = id;
         this.nik = nik;
         this.nama = nama;
@@ -39,11 +39,11 @@ public class DataPenjual {
         this.id = id;
     }
 
-    public Long getNik() {
+    public long getNik() {
         return nik;
     }
 
-    public void setNik(Long nik) {
+    public void setNik(long nik) {
         this.nik = nik;
     }
 

@@ -112,6 +112,11 @@ public class SendOtpKurirActivity extends AppCompatActivity {
 
 
                 }catch (NullPointerException exception){
+                    if (inputMobileK.getText().toString().trim().isEmpty()){
+                        startActivity(new Intent(SendOtpKurirActivity.this, HalamanUtamaKurirActivity.class));
+                        //Toast.makeText(SendOtpKurirActivity.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     progressBarK.setVisibility(View.VISIBLE);
                     buttonK.setVisibility(View.INVISIBLE);
 

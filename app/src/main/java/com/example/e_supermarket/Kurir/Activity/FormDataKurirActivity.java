@@ -139,12 +139,14 @@ public class FormDataKurirActivity extends AppCompatActivity {
                     public void onResponse(Call<ResponseDataKurir> call, Response<ResponseDataKurir> response) {
 
                         if( response.isSuccessful()) {
-                            int kode = response.body().getKode();
-                            String pesan = response.body().getPesan();
-                            if (kode == 200){
-                                startActivity(new Intent(FormDataKurirActivity.this, HalamanUtamaKurirActivity.class));
-                                Toast.makeText(FormDataKurirActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
-                            }
+                            //int kode = response.body().getKode();
+                            //String pesan = response.body().getPesan();
+                            startActivity(new Intent(getApplicationContext(), HalamanUtamaKurirActivity.class));
+                            Toast.makeText(FormDataKurirActivity.this, "berhasil disimpan", Toast.LENGTH_SHORT).show();
+                            /*if (kode == 200){
+
+                                //Toast.makeText(FormDataKurirActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
+                            }*/
                         }else {
                             Toast.makeText(FormDataKurirActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                         }

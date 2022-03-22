@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -68,6 +69,8 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     StorageReference storageReference;
 
     long nik;
+    String nikS;
+    int lenNik;
     String nama;
     String jenis_kelamin;
     String no_ponsel;
@@ -75,7 +78,6 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     String tanggal_lahir;
     String alamat;
     String nama_toko;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,23 +137,32 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             alamat = Alamat.getText().toString().trim();
             nama_toko = Nato.getText().toString().trim();
 
-
+            nikS = Nik.getText().toString().trim();
+            lenNik = nikS.length();
             if (nik <= 0 ) {
-                Toast.makeText(getApplicationContext(), "NIK TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                Nik.setError("NIK TIDAK BOLEH KOSONG");
+                PbSimpanDataS.setVisibility(View.GONE);
+                BtnUpdate.setVisibility(View.VISIBLE);
+            }else if (lenNik < 16){
+                Nik.setError("JUMLAH NIK TIDAK SESUAI");
+                PbSimpanDataS.setVisibility(View.GONE);
+                BtnUpdate.setVisibility(View.VISIBLE);
             }else if (nama.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "NAMA TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-            }else if (jenis_kelamin.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "JENIS KELAMIN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-            }else if (no_ponsel.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "NOMOR PONSEL TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                Nama.setError("NAMA TIDAK BOLEH KOSONG");
+                PbSimpanDataS.setVisibility(View.GONE);
+                BtnUpdate.setVisibility(View.VISIBLE);
             }else if (tempat_lahir.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "TEMPAT LAHIR TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
-            }else if (tanggal_lahir.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "TANGGAL LAHIR TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                TeLa.setError("TEMPAT LAHIR TIDAK BOLEH KOSONG");
+                PbSimpanDataS.setVisibility(View.GONE);
+                BtnUpdate.setVisibility(View.VISIBLE);
             }else if (alamat.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "ALAMAT TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                Alamat.setError("ALAMAT TIDAK BOLEH KOSONG");
+                PbSimpanDataS.setVisibility(View.GONE);
+                BtnUpdate.setVisibility(View.VISIBLE);
             }else if (nama_toko.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "NAMA TOKO TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
+                Nato.setError("NAMA TOKO TIDAK BOLEH KOSONG");
+                PbSimpanDataS.setVisibility(View.GONE);
+                BtnUpdate.setVisibility(View.VISIBLE);
             }else {
                 ApiRequestDataProduk requestDataPenjual = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
                 Call<ResponseDataPenjual> SimpanDataPenjual = requestDataPenjual.SendDataPenjual(nik, nama, jenis_kelamin, alamat, tempat_lahir, tanggal_lahir, no_ponsel, nama_toko);
@@ -160,25 +171,32 @@ public class FormDataPenjualActivity extends AppCompatActivity {
                 SimpanDataPenjual.enqueue(new Callback<ResponseDataPenjual>() {
                     @Override
                     public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
-                        if( response.isSuccessful()) {
-                            int kode = response.body().getKode();
-                            String pesan = response.body().getPesan();
-                            if (kode == 200){
-                                startActivity(new Intent(FormDataPenjualActivity.this, HalamanUtamaPenjualActivity.class));
-                                Toast.makeText(FormDataPenjualActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
-                            }
+                        if(response.isSuccessful()) {
+                            //int kode = response.body().getKode();
+                            //String pesan = response.body().getPesan();
+                            startActivity(new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class));
+                            Toast.makeText(FormDataPenjualActivity.this, "berhasil disimpan", Toast.LENGTH_SHORT).show();
+                            /*if (kode == 200){
+
+                            }*/
                         }else {
                             Toast.makeText(FormDataPenjualActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                         }
 
+
                         PbSimpanDataS.setVisibility(View.GONE);
                         BtnUpdate.setVisibility(View.VISIBLE);
                     }
+
                     @Override
                     public void onFailure(Call<ResponseDataPenjual> call, Throwable t) {
+                       // Log.i("Ilegal", "eror "+t);
+
                         Toast.makeText(FormDataPenjualActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
                         PbSimpanDataS.setVisibility(View.GONE);
                         BtnUpdate.setVisibility(View.VISIBLE);
+
+
                         //startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
                     }
 
