@@ -38,9 +38,7 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
 
     int index;
     String noponsel;
-    char lengpon;
     String Enopon;
-    Character idxpon;
     int compare;
 
     @Override
@@ -75,9 +73,7 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                         //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                         //return;
                     }else if (compare != 0){
-
                         Toast.makeText(SendOTPActivityPenjual.this, "Penjual Hanya Boleh Satu User", Toast.LENGTH_SHORT).show();
-
                     }else {
                         progressBarS.setVisibility(View.VISIBLE);
                         buttonS.setVisibility(View.INVISIBLE);
@@ -188,7 +184,7 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                         try {
                             dataPenjualList = response.body().getDataPenjual();
                             noponsel = dataPenjualList.get(index).getNo_ponsel();
-                            Enopon = noponsel;
+                            //Enopon = noponsel;
                         }catch (IndexOutOfBoundsException indexOutOfBoundsException){
                             //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                         }
