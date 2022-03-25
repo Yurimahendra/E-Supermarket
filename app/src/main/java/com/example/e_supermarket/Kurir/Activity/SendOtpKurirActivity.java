@@ -180,7 +180,7 @@ public class SendOtpKurirActivity extends AppCompatActivity {
                         try {
                             dataKurirList = response.body().getDataKurir();
                             noponsel = dataKurirList.get(index).getNo_ponsel();
-                            ETnopon= noponsel;
+                           // ETnopon= noponsel;
                         }catch (IndexOutOfBoundsException indexOutOfBoundsException){
                             //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                         }

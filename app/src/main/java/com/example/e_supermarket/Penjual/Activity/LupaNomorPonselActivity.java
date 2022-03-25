@@ -52,14 +52,14 @@ public class LupaNomorPonselActivity extends AppCompatActivity {
                     EnoponLS = inputNomoLamaS.getText().toString().trim();
                     compareLS = EnoponLS.compareTo(noponselLS);
                     if (inputNomoLamaS.getText().toString().trim().isEmpty() ){
-                        Intent intent = new Intent(LupaNomorPonselActivity.this, HalamanUtamaPenjualActivity.class);
-                        startActivity(intent);
-                        //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel Lama", Toast.LENGTH_SHORT).show();
+                        //Intent intent = new Intent(LupaNomorPonselActivity.this, HalamanUtamaPenjualActivity.class);
+                        //startActivity(intent);
+                        Toast.makeText(LupaNomorPonselActivity.this, "Masukan Nomor Ponsel Lama", Toast.LENGTH_SHORT).show();
                         //return;
                     }else if (inputNomorBaruS.getText().toString().trim().isEmpty()){
-                        Intent intent = new Intent(LupaNomorPonselActivity.this, HalamanUtamaPenjualActivity.class);
-                        startActivity(intent);
-                        //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel Baru", Toast.LENGTH_SHORT).show();
+                        //Intent intent = new Intent(LupaNomorPonselActivity.this, HalamanUtamaPenjualActivity.class);
+                        //startActivity(intent);
+                        Toast.makeText(LupaNomorPonselActivity.this, "Masukan Nomor Ponsel Baru", Toast.LENGTH_SHORT).show();
                     } else if (compareLS != 0){
 
                         Toast.makeText(LupaNomorPonselActivity.this, "Nomor Ponsel Lama Belum Terdaftar", Toast.LENGTH_SHORT).show();
@@ -103,14 +103,14 @@ public class LupaNomorPonselActivity extends AppCompatActivity {
                     }
                 }catch (NullPointerException exception){
                     if (inputNomoLamaS.getText().toString().trim().isEmpty()){
-                        Intent intent = new Intent(LupaNomorPonselActivity.this, HalamanUtamaPenjualActivity.class);
-                        startActivity(intent);
-                        //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel Lama" , Toast.LENGTH_SHORT).show();
+                        //Intent intent = new Intent(LupaNomorPonselActivity.this, HalamanUtamaPenjualActivity.class);
+                        //startActivity(intent);
+                        Toast.makeText(LupaNomorPonselActivity.this, "Masukan Nomor Ponsel Lama" , Toast.LENGTH_SHORT).show();
                         //return;
                     }else if (inputNomorBaruS.getText().toString().trim().isEmpty()){
-                        Intent intent = new Intent(LupaNomorPonselActivity.this, HalamanUtamaPenjualActivity.class);
-                        startActivity(intent);
-                        //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel Baru", Toast.LENGTH_SHORT).show();
+                        //Intent intent = new Intent(LupaNomorPonselActivity.this, HalamanUtamaPenjualActivity.class);
+                        //startActivity(intent);
+                        Toast.makeText(LupaNomorPonselActivity.this, "Masukan Nomor Ponsel Baru", Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(LupaNomorPonselActivity.this, "Nomor Ponsel Lama Belum Terdaftar", Toast.LENGTH_SHORT).show();
                     }

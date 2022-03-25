@@ -1,4 +1,4 @@
-package com.example.e_supermarket.Penjual.Activity;
+package com.example.e_supermarket.Pembeli.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
+import com.example.e_supermarket.Pembeli.Model.DataPembeli;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Penjual.Activity.HalamanUtamaPenjualActivity;
+import com.example.e_supermarket.Penjual.Activity.VerifikasiEmailPenjualActivity;
 import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
-import com.example.e_supermarket.Penjual.Model.DataPenjual;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
@@ -27,50 +31,46 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
+public class VerifikasiNewNoPonselPembeliActivity extends AppCompatActivity {
     private EditText inputCode1, inputCode2, inputCode3, inputCode4, inputCode5, inputCode6;
     private String verificationId;
+
     int id;
-    long nik;
-    String nama;
-    String jenis_kelamin;
-    String NewPonS;
+    long nik ;
+    String nama ;
+    String jenis_kelamin ;
+    String NewPonB ;
     String tempat_lahir;
-    String tanggal_lahir;
-    String alamat;
-    String nama_toko;
+    String tanggal_lahir ;
+    String alamat ;
+
+    private List<DataPembeli> dataPembeliList = new ArrayList<>();
+    int indexLB;
 
 
-    private List<DataPenjual> dataPenjualList = new ArrayList<>();
-    int indexLS;
-    String noponselLS;
-    String EnoponLS;
-    int compareLS;
-
-    ProgressBar progressBarNewPonVS;
-    Button buttonNewponVS;
+    ProgressBar progressBarNewPonVB;
+    Button buttonNewponVB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verifikasi_email_penjual);
+        setContentView(R.layout.activity_verifikasi_new_no_ponsel_pembeli);
 
-        TextView textNewPonVS = findViewById(R.id.txtNomorBaruVS);
-        textNewPonVS.setText(getIntent().getStringExtra("mobile")
+
+        TextView textNewPonVB = findViewById(R.id.txtNomorBaruVB);
+        textNewPonVB.setText(getIntent().getStringExtra("mobile")
         );
-        NewPonS = textNewPonVS.getText().toString().trim();
+        NewPonB = textNewPonVB.getText().toString().trim();
         inputCode1 = findViewById(R.id.inputCode1);
         inputCode2 = findViewById(R.id.inputCode2);
         inputCode3 = findViewById(R.id.inputCode3);
@@ -80,12 +80,12 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
 
         setupOTPInputs();
 
-        progressBarNewPonVS = findViewById(R.id.progressBarNomorBaruVS);
-        buttonNewponVS = findViewById(R.id.btnVerifyNomorBaruS);
+        progressBarNewPonVB = findViewById(R.id.progressBarNomorBaruVB);
+        buttonNewponVB = findViewById(R.id.btnVerifyNomorBaruB);
 
         verificationId = getIntent().getStringExtra("verificationId");
 
-        buttonNewponVS.setOnClickListener(new View.OnClickListener() {
+        buttonNewponVB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (inputCode1.getText().toString().trim().isEmpty()
@@ -94,7 +94,7 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
                         || inputCode4.getText().toString().trim().isEmpty()
                         || inputCode5.getText().toString().trim().isEmpty()
                         || inputCode6.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(VerifikasiEmailPenjualActivity.this, "harap masukkan kode yang valid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VerifikasiNewNoPonselPembeliActivity.this, "harap masukkan kode yang valid", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 String code =
@@ -106,8 +106,8 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
                                 inputCode6.getText().toString();
 
                 if (verificationId != null) {
-                    progressBarNewPonVS.setVisibility(View.VISIBLE);
-                    buttonNewponVS.setVisibility(View.INVISIBLE);
+                    progressBarNewPonVB.setVisibility(View.VISIBLE);
+                    buttonNewponVB.setVisibility(View.INVISIBLE);
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
                             verificationId,
                             code
@@ -116,11 +116,11 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    progressBarNewPonVS.setVisibility(View.GONE);
-                                    buttonNewponVS.setVisibility(View.VISIBLE);
+                                    progressBarNewPonVB.setVisibility(View.GONE);
+                                    buttonNewponVB.setVisibility(View.VISIBLE);
                                     if (task.isSuccessful()) {
-                                        ApiRequestDataProduk requestDataProfilPnjl = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
-                                        Call<ResponseDataPenjual> UpdateProfilePnjl = requestDataProfilPnjl.UpdateProfilePenjual(
+                                        ApiRequestPembeli requestDataProfilPmbl = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                                        Call<ResponseDataPembeli> UpdateProfilePmbl = requestDataProfilPmbl.UpdateProfilePembeli(
                                                 id,
                                                 "PUT",
                                                 nik,
@@ -129,31 +129,32 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
                                                 RequestBody.create(MediaType.parse("text/plain"), alamat),
                                                 RequestBody.create(MediaType.parse("text/plain"), tempat_lahir),
                                                 RequestBody.create(MediaType.parse("text/plain"), tanggal_lahir),
-                                                RequestBody.create(MediaType.parse("text/plain"), NewPonS),
-                                                RequestBody.create(MediaType.parse("text/plain"), nama_toko),
+                                                RequestBody.create(MediaType.parse("text/plain"), NewPonB),
                                                 null
 
                                         );
-                                        UpdateProfilePnjl.enqueue(new Callback<ResponseDataPenjual>() {
+                                        UpdateProfilePmbl.enqueue(new Callback<ResponseDataPembeli>() {
                                             @Override
-                                            public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
-                                                if (response.isSuccessful()) {
-                                                    startActivity(new Intent(VerifikasiEmailPenjualActivity.this, HalamanUtamaPenjualActivity.class));
-                                                    Toast.makeText(VerifikasiEmailPenjualActivity.this, "berhasil update", Toast.LENGTH_SHORT).show();
+                                            public void onResponse(Call<ResponseDataPembeli> call, Response<ResponseDataPembeli> response) {
+                                                if( response.isSuccessful()) {
 
-                                                } else {
-                                                    Toast.makeText(VerifikasiEmailPenjualActivity.this, "Data Gagal Tersimpan " + response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(VerifikasiNewNoPonselPembeliActivity.this, HalamanUtamaPembeliActivity.class));
+                                                    Toast.makeText(VerifikasiNewNoPonselPembeliActivity.this, "berhasil update", Toast.LENGTH_SHORT).show();
+
+
+                                                }else {
+                                                    Toast.makeText(VerifikasiNewNoPonselPembeliActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                                                 }
 
-                                                progressBarNewPonVS.setVisibility(View.GONE);
-                                                buttonNewponVS.setVisibility(View.VISIBLE);
+                                                progressBarNewPonVB.setVisibility(View.GONE);
+                                                buttonNewponVB.setVisibility(View.VISIBLE);
                                             }
-
                                             @Override
-                                            public void onFailure(Call<ResponseDataPenjual> call, Throwable t) {
-                                                Toast.makeText(VerifikasiEmailPenjualActivity.this, "Gagal Menghubungi Server " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                                                progressBarNewPonVS.setVisibility(View.GONE);
-                                                buttonNewponVS.setVisibility(View.VISIBLE);
+                                            public void onFailure(Call<ResponseDataPembeli> call, Throwable t) {
+
+                                                Toast.makeText(VerifikasiNewNoPonselPembeliActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                                                progressBarNewPonVB.setVisibility(View.GONE);
+                                                buttonNewponVB.setVisibility(View.VISIBLE);
                                                 //startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
                                             }
 
@@ -162,7 +163,7 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);*/
                                     } else {
-                                        Toast.makeText(VerifikasiEmailPenjualActivity.this, "kode verifikasi yang dimasukkan tidak valid", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(VerifikasiNewNoPonselPembeliActivity.this, "kode verifikasi yang dimasukkan tidak valid", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -170,7 +171,7 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.txtKirimUlangNomorBaruVS).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.txtKirimUlangNomorBaruVB).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -178,7 +179,7 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
                         "+62" + getIntent().getStringExtra("mobile"),
                         60,
                         TimeUnit.SECONDS,
-                        VerifikasiEmailPenjualActivity.this,
+                        VerifikasiNewNoPonselPembeliActivity.this,
                         new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
@@ -187,14 +188,14 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
 
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
-                                Toast.makeText(VerifikasiEmailPenjualActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(VerifikasiNewNoPonselPembeliActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onCodeSent(@NonNull String newVerificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
 
                                 verificationId = newVerificationId;
-                                Toast.makeText(VerifikasiEmailPenjualActivity.this, "OTP Dikirim", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(VerifikasiNewNoPonselPembeliActivity.this, "OTP Dikirim", Toast.LENGTH_SHORT).show();
                             }
                         }
                 );
@@ -303,37 +304,36 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        getProfilePenjual();
+        getProfilePembeli();
     }
 
-    private void getProfilePenjual() {
+    private void getProfilePembeli() {
 
-        ApiRequestDataProduk requestDataPenjual = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
-        Call<ResponseDataPenjual> tampilData = requestDataPenjual.RetrieveDataPenjual();
+        ApiRequestPembeli requestDataPembeli = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+        Call<ResponseDataPembeli> tampilData = requestDataPembeli.RetrieveDataPembeli();
 
-        tampilData.enqueue(new Callback<ResponseDataPenjual>() {
+        tampilData.enqueue(new Callback<ResponseDataPembeli>() {
             @Override
-            public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
-                if (response.isSuccessful()) {
+            public void onResponse(Call<ResponseDataPembeli> call, Response<ResponseDataPembeli> response) {
+                if (response.isSuccessful()){
                     int kode = response.body().getKode();
                     String pesan = response.body().getPesan();
-                    if (kode == 200) {
-
+                    if (kode == 200){
                         try {
-                            dataPenjualList = response.body().getDataPenjual();
-                            id = dataPenjualList.get(indexLS).getId();
-                            nik = dataPenjualList.get(indexLS).getNik();
-                            nama = dataPenjualList.get(indexLS).getNama();
-                            jenis_kelamin = dataPenjualList.get(indexLS).getJenis_kelamin();
-                            tempat_lahir = dataPenjualList.get(indexLS).getTempat_lahir();
-                            tanggal_lahir = dataPenjualList.get(indexLS).getTanggal_lahir();
-                            alamat = dataPenjualList.get(indexLS).getAlamat();
-                            nama_toko = dataPenjualList.get(indexLS).getNama_toko();
-                            //noponselLS = dataPenjualList.get(indexLS).getNo_ponsel();
-                            //EnoponLS = noponselLS;
-                        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                            dataPembeliList = response.body().getDataPembeli();
+                            id = dataPembeliList.get(indexLB).getId();
+                            nik = dataPembeliList.get(indexLB).getNik();
+                            nama = dataPembeliList.get(indexLB).getNama();
+                            jenis_kelamin = dataPembeliList.get(indexLB).getJenis_kelamin();
+                            tempat_lahir = dataPembeliList.get(indexLB).getTempat_lahir();
+                            tanggal_lahir = dataPembeliList.get(indexLB).getTanggal_lahir();
+                            alamat = dataPembeliList.get(indexLB).getAlamat();
+
+                            //ETnopon= noponsel;
+                        }catch (IndexOutOfBoundsException indexOutOfBoundsException){
                             //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                         }
+
 
                     }
 
@@ -343,13 +343,12 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseDataPenjual> call, Throwable t) {
-                Toast.makeText(VerifikasiEmailPenjualActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
-
+            public void onFailure(Call<ResponseDataPembeli> call, Throwable t) {
+                //Toast.makeText(ProfilePembeliActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                //pbProfPembeli.setVisibility(View.GONE);
             }
         });
 
 
     }
-
 }
