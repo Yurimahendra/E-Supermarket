@@ -159,7 +159,7 @@
           <com.google.android.material.textfield.TextInputLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/white">
+              app:boxBackgroundColor="@color/white">
             <EditText
                 android:hint="Tanggal Lahir"
                 android:id="@+id/EdtTala"
@@ -211,7 +211,7 @@
           <com.google.android.material.textfield.TextInputLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/white">
+              app:boxBackgroundColor="@color/white">
             <EditText
                 android:hint="Nama Toko"
                 android:id="@+id/EdtNato"

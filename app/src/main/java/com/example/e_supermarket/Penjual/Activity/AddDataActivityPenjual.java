@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,10 @@ import com.example.e_supermarket.Penjual.Interface.onRequestPermissionResult;
 import com.example.e_supermarket.R;
 
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -49,11 +55,17 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
 
     String nama_barang;
     String merk;
-    int harga;
+    String harga;
     String satuan;
     int stok;
     String gambar;
     String deskripsi;
+
+    /*Number number;
+    int harga1;
+    DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+    number = kursIndonesia.parse(harga);
+    harga1 = number.intValue();*/
 
     private String mediaPath;
     private String postPath;
@@ -90,6 +102,45 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
 
             }
         });
+
+        Harga.addTextChangedListener(new TextWatcher() {
+            private String edtText = Harga.getText().toString().trim();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals(edtText)){
+                    Harga.removeTextChangedListener(this);
+                    String replace = s.toString().replaceAll("[Rp. ]", "");
+                    if (!replace.isEmpty()){
+                        edtText = formatrupiah(Double.parseDouble(replace));
+                    }else {
+                        edtText = "";
+                    }
+                    Harga.setText(edtText);
+                    Harga.setSelection(edtText.length());
+                    Harga.addTextChangedListener(this);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private String formatrupiah(Double number){
+        Locale localeId = new Locale("in", "ID");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeId);
+        String formatrupiah = numberFormat.format(number);
+        String[] split = formatrupiah.split(",");
+        int length = split[0].length();
+        return split[0].substring(0,2)+". "+split[0].substring(2, length);
     }
 
     private void pilihgambar() {
@@ -130,7 +181,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
 
             nama_barang = Nama_barang.getText().toString().trim();
             merk = Merk.getText().toString().trim();
-            harga = Integer.parseInt(Harga.getText().toString().trim());
+            harga = Harga.getText().toString().trim();
             satuan = Satuan.getSelectedItem().toString().trim();
             stok = Integer.parseInt(Stok.getText().toString().trim());
             gambar = addImage.getContext().getContentResolver().getType(imageUri);
@@ -147,7 +198,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
                 Merk.setError("MERK TIDAK BOLEH KOSONG");
                 PbSimpanData.setVisibility(View.GONE);
                 btnAddData.setVisibility(View.VISIBLE);
-            } else if (harga <= 0) {
+            } else if (harga.equals("")) {
                 Harga.setError("HARGA TIDAK BOLEH KOSONG");
                 PbSimpanData.setVisibility(View.GONE);
                 btnAddData.setVisibility(View.VISIBLE);
@@ -169,7 +220,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
                 Call<ResponseDataProduk> SimpanData = requestDataProduk.SendData(
                         RequestBody.create(MediaType.parse("text/plain"), nama_barang),
                         RequestBody.create(MediaType.parse("text/plain"), merk),
-                        harga,
+                        RequestBody.create(MediaType.parse("text/plain"), harga),
                         RequestBody.create(MediaType.parse("text/plain"), satuan),
                         stok,
                         partImg,

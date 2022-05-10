@@ -48,11 +48,27 @@
                 android:layout_height="36dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="5dp">
-                <Button
+                <ImageView
+                    android:id="@+id/keranjang"
                     android:layout_gravity="center"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/shoppingcart" />
+                    android:src="@drawable/shoppingcart" />
+
+                <RelativeLayout
+                    android:background="@drawable/ic_baseline_lens_24"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="end">
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="1"
+                        android:textSize="12dp"
+                        android:maxLength="2"/>
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>

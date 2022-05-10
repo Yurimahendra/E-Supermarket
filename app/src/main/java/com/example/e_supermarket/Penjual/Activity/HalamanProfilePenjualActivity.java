@@ -82,7 +82,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                     break;
                 case R.id.logoutpenjual:
                     //Fp = new LogoutFragmentPenjual();
-                    onBackPressed();
+                    firebaseAuth.signOut();
+                    onBackPressedOut();
                     return true;
 
             }
@@ -98,7 +99,7 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
         setContentView(R.layout.activity_halaman_profile_penjual);
         bottomNavigationViewPenjual = findViewById(R.id.nav_penjual);
         bottomNavigationViewPenjual.setOnNavigationItemSelectedListener(navigation_penjual);
-        //firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         recyclerView = findViewById(R.id.recProfilepenjual);
         recyclerView.setHasFixedSize(true);
@@ -182,8 +183,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
+
+    private void onBackPressedOut() {
         new AlertDialog.Builder(this)
                 .setIcon(R.drawable.logo)
                 .setTitle(R.string.app_name)
@@ -191,8 +192,9 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        firebaseAuth.signOut();
+                        //firebaseAuth.signOut();
                         Intent intent = new Intent(HalamanProfilePenjualActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     }

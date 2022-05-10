@@ -34,7 +34,8 @@ public class HalamanNotifPenjualActivity extends AppCompatActivity {
                     startActivity(new Intent(HalamanNotifPenjualActivity.this, HalamanProfilePenjualActivity.class));
                     break;
                 case R.id.logoutpenjual:
-                    onBackPressed();
+                    firebaseAuth.signOut();
+                    onBackPressedOut();
                     return true;
 
             }
@@ -53,8 +54,8 @@ public class HalamanNotifPenjualActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    @Override
-    public void onBackPressed() {
+
+    private void onBackPressedOut() {
         new AlertDialog.Builder(this)
                 .setIcon(R.drawable.logo)
                 .setTitle(R.string.app_name)
@@ -64,6 +65,7 @@ public class HalamanNotifPenjualActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         firebaseAuth.signOut();
                         Intent intent = new Intent(HalamanNotifPenjualActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     }

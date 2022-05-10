@@ -35,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -139,6 +140,7 @@ public class FormDataPenjualActivity extends AppCompatActivity {
 
             nikS = Nik.getText().toString().trim();
             lenNik = nikS.length();
+
             if (nik <= 0 ) {
                 Nik.setError("NIK TIDAK BOLEH KOSONG");
                 PbSimpanDataS.setVisibility(View.GONE);
@@ -217,9 +219,14 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, month, dayOfMonth);
-                EdtTala.setText(dateFormat.format(newDate.getTime()));
+                if (year > calendar.get(Calendar.YEAR)){
+                    Toast.makeText(FormDataPenjualActivity.this, "Tidak bisa tahun depan", Toast.LENGTH_SHORT).show();
+                }else {
+                    Calendar newDate = Calendar.getInstance();
+                    newDate.set(year, month, dayOfMonth);
+                    EdtTala.setText(dateFormat.format(newDate.getTime()));
+                }
+
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH));
         datePickerDialog.show();

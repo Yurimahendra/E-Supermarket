@@ -27,6 +27,7 @@ import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,8 @@ public class ProfilePembeliActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<DataPembeli> dataPembeliList = new ArrayList<>();
     private AdapterProfilePembeli adapterProfilePembeli;
+
+    FirebaseAuth Fauth;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_pembeli = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -68,7 +71,8 @@ public class ProfilePembeliActivity extends AppCompatActivity {
                     break;
                 case R.id.logoutpembelil:
                     //Fp = new LogoutFragmentPenjual();
-                    onBackPressed();
+                    Fauth.signOut();
+                    onBackPressedOut();
                     return true;
 
             }
@@ -146,8 +150,8 @@ public class ProfilePembeliActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
+
+    private void onBackPressedOut() {
         new AlertDialog.Builder(this)
                 .setIcon(R.drawable.logo)
                 .setTitle(R.string.app_name)
@@ -157,6 +161,7 @@ public class ProfilePembeliActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //firebaseAuth.signOut();
                         Intent intent = new Intent(ProfilePembeliActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     }

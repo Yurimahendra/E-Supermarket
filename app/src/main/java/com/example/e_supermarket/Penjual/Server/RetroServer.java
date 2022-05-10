@@ -15,19 +15,19 @@ public class RetroServer {
     private static Retrofit retro;
     public static final String imageURL = "http://192.168.100.6/esupermarket-api23/public/storage/gambar/";
 
-
     public static Retrofit konekRetrofit(){
-        /*HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build(); .client(okHttpClient)*/
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
             if (retro == null){
                 retro = new Retrofit.Builder()
+                        .client(okHttpClient)
                         .baseUrl(baseURL)
-                        .addConverterFactory(GsonConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
             }
 

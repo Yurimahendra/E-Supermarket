@@ -10,7 +10,7 @@ public class DataProduk {
     //@SerializedName("merk")
     String merk ;
     //@SerializedName("harga")
-    int harga ;
+    String harga ;
     //@SerializedName("satuan")
     String satuan;
     //@SerializedName("stok")
@@ -44,11 +44,11 @@ public class DataProduk {
         this.merk = merk;
     }
 
-    public int getHarga() {
+    public String getHarga() {
         return harga;
     }
 
-    public void setHarga(int harga) {
+    public void setHarga(String harga) {
         this.harga = harga;
     }
 

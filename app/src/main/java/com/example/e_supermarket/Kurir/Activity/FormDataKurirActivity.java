@@ -187,9 +187,14 @@ public class FormDataKurirActivity extends AppCompatActivity {
         datePickerDialogK = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, month, dayOfMonth);
-                EdtTalaK.setText(dateFormatK.format(newDate.getTime()));
+                if (year > calendar.get(Calendar.YEAR)){
+                    Toast.makeText(FormDataKurirActivity.this, "Tidak bisa tahun depan", Toast.LENGTH_SHORT).show();
+                }else {
+                    Calendar newDate = Calendar.getInstance();
+                    newDate.set(year, month, dayOfMonth);
+                    EdtTalaK.setText(dateFormatK.format(newDate.getTime()));
+                }
+
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH));
         datePickerDialogK.show();

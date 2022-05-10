@@ -81,7 +81,8 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
                     break;
                 case R.id.logoutpenjual:
                     //Fp = new LogoutFragmentPenjual();
-                    onBackPressed();
+                    firebaseAuth.signOut();
+                    onBackPressedOut();
                     return true;
 
             }
@@ -170,8 +171,8 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
+
+    private void onBackPressedOut() {
         new AlertDialog.Builder(this)
                 .setIcon(R.drawable.logo)
                 .setTitle(R.string.app_name)
@@ -179,8 +180,9 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        firebaseAuth.signOut();
+                        //firebaseAuth.signOut();
                         Intent intent = new Intent(HalamanUtamaPenjualActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     }

@@ -1,4 +1,4 @@
-package com.example.e_supermarket.Pembeli.Activity;
+package  com.example.e_supermarket.Pembeli.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,10 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
     private RecyclerView recyclerViewPembeli;
     private List<DataProduk> dataProdukListPembeli = new ArrayList<>();
     private AdapterItemPembeli adapterItemPembeli;
+
+    ImageView keranjang;
+
+    FirebaseAuth Fauth;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_pembeli = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -67,7 +73,8 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
                     break;
                 case R.id.logoutpembelil:
                     //Fp = new LogoutFragmentPenjual();
-                    onBackPressed();
+                    Fauth.signOut();
+                    onBackPressedOut();
                     return true;
 
             }
@@ -84,6 +91,16 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
         setContentView(R.layout.activity_halaman_utama_pembeli);
         srlDataProduk = findViewById(R.id.sw_dataprodukPembeli);
         pbDataProdukPembeli = findViewById(R.id.pb_dataprodukPembeli);
+
+        Fauth = FirebaseAuth.getInstance();
+
+        keranjang = findViewById(R.id.keranjang);
+        keranjang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HalamanUtamaPembeliActivity.this, KeranjangBelanjaActivity.class));
+            }
+        });
 
         bottomNavigationViewPembeli = findViewById(R.id.nav_pembeli);
         bottomNavigationViewPembeli.setOnNavigationItemSelectedListener(navigation_pembeli);
@@ -143,8 +160,8 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
+
+    private void onBackPressedOut() {
         new AlertDialog.Builder(this)
                 .setIcon(R.drawable.logo)
                 .setTitle(R.string.app_name)
@@ -154,6 +171,7 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //firebaseAuth.signOut();
                         Intent intent = new Intent(HalamanUtamaPembeliActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     }

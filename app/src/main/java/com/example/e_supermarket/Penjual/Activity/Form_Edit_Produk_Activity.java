@@ -52,7 +52,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
 
     private String uNama_Barang;
     private String uMerk;
-    private int uHarga;
+    private String uHarga;
     private int uStok;
     private String uSatuan;
     private String uGambar;
@@ -70,7 +70,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
 
     String nama_barang;
     String merk;
-    int harga;
+    String harga;
     int stok;
     String satuan;
     String gambar;
@@ -107,7 +107,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
         uId = bundle.getInt("id");
         uNama_Barang = bundle.getString("nama_barang");
         uMerk = bundle.getString("merk");
-        uHarga = bundle.getInt("harga", 0);
+        uHarga = bundle.getString("harga");
         uStok = bundle.getInt("stok", 0);
         uSatuan = bundle.getString("satuan");
         uGambar = bundle.getString("gambar");
@@ -116,7 +116,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
 
         Nama_barang.setText(uNama_Barang);
         Merk.setText(uMerk);
-        Harga.setText(uHarga+"");
+        Harga.setText(uHarga);
         Stok.setText(uStok+"");
         if (uSatuan.equals(n_satuan[0])) id_satuan = 0;
         else if (uSatuan.equals(n_satuan[1])) id_satuan = 1;
@@ -174,7 +174,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
 
             nama_barang = Nama_barang.getText().toString().trim();
             merk = Merk.getText().toString().trim();
-            harga = Integer.parseInt(Harga.getText().toString().trim());
+            harga = Harga.getText().toString().trim();
             stok = Integer.parseInt(Stok.getText().toString().trim());
             satuan = Satuan.getSelectedItem().toString().trim();
 //            mediaPath = EditImgProduk1.getContext().getContentResolver().getType(imageUri);
@@ -198,7 +198,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
                 Merk.setError("MERK TIDAK BOLEH KOSONG");
                 PbUpdteData.setVisibility(View.GONE);
                 btnUpdt.setVisibility(View.VISIBLE);
-            } else if (harga <= 0) {
+            } else if (harga.equals("")) {
                 Harga.setError("HARGA TIDAK BOLEH KOSONG");
                 PbUpdteData.setVisibility(View.GONE);
                 btnUpdt.setVisibility(View.VISIBLE);
@@ -221,7 +221,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
                             "PUT",
                             RequestBody.create(MediaType.parse("text/plain"), nama_barang),
                             RequestBody.create(MediaType.parse("text/plain"), merk),
-                            harga,
+                            RequestBody.create(MediaType.parse("text/plain"), harga),
                             RequestBody.create(MediaType.parse("text/plain"), satuan),
                             stok,
                             partImg,

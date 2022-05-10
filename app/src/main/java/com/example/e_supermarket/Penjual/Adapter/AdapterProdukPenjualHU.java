@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.e_supermarket.Pembeli.Activity.ProfilePembeliActivity;
 import com.example.e_supermarket.Penjual.Activity.Form_Edit_Produk_Activity;
 import com.example.e_supermarket.Penjual.Activity.HalamanUtamaPenjualActivity;
 import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
@@ -29,7 +30,9 @@ import com.example.e_supermarket.R;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -41,6 +44,8 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
     private List<DataProduk> ProdukList;
     private String n_satuan[] = {"Kg", "Gr", "Pcs", "Lusin", "Kodi", "Gross", "Pack"};
     int id_satuan;
+
+    //detailHarga.setText(formatRupiah.format((double)hargarumah));
 
     public AdapterProdukPenjualHU(HalamanUtamaPenjualActivity halamanUtamaPenjualActivity, List<DataProduk> produkList) {
         this.halamanUtamaPenjualActivity = halamanUtamaPenjualActivity;
@@ -56,10 +61,14 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+       /* Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        formatRupiah.format((double)ProdukList.get(position).getHarga())*/
+
         holder.Id.setText(String.valueOf(ProdukList.get(position).getId()));
         holder.Nama_Barang.setText(ProdukList.get(position).getNama_barang());
         holder.Merk.setText(ProdukList.get(position).getMerk());
-        holder.Harga.setText(String.valueOf(ProdukList.get(position).getHarga()));
+        holder.Harga.setText(ProdukList.get(position).getHarga());
         holder.Stok.setText(String.valueOf(ProdukList.get(position).getStok()));
         holder.Satuan.setText(ProdukList.get(position).getSatuan());
         Glide.with(holder.imageProduk.getContext())
@@ -74,7 +83,7 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
                 bundle.putInt("id", item.getId());
                 bundle.putString("nama_barang", item.getNama_barang());
                 bundle.putString("merk", item.getMerk());
-                bundle.putInt("harga", item.getHarga());
+                bundle.putString("harga", item.getHarga());
                 bundle.putInt("stok", item.getStok());
                 bundle.putString("satuan", item.getSatuan());
                 bundle.putString("gambar", RetroServer.imageURL + item.getGambar());

@@ -57,7 +57,7 @@ public class SendOTPActivityPembeli extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (inputMobileB.getText().toString().trim().isEmpty()){
-                    startActivity(new Intent(SendOTPActivityPembeli.this, HalamanUtamaPembeliActivity.class));
+                    startActivity(new Intent(SendOTPActivityPembeli.this, FormDataPembeliActivity.class));
                     //Toast.makeText(SendOTPActivityPembeli.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                     return;
                 }

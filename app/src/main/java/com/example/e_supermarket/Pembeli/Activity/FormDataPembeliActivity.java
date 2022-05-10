@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,6 +26,7 @@ import com.example.e_supermarket.R;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -133,6 +135,10 @@ public class FormDataPembeliActivity extends AppCompatActivity {
                 TeLaB.setError("TEMPAT LAHIR TIDAK BOLEH KOSONG");
                 PbSimpanDataB.setVisibility(View.GONE);
                 btnsimpanDataB.setVisibility(View.VISIBLE);
+            }else if (edttalaB.equals("")) {
+                TeLaB.setError("Tanggal LAHIR TIDAK BOLEH KOSONG");
+                PbSimpanDataB.setVisibility(View.GONE);
+                btnsimpanDataB.setVisibility(View.VISIBLE);
             } else if (alamatB.equals("")) {
                 AlamatB.setError("STOK TIDAK BOLEH KOSONG");
                 PbSimpanDataB.setVisibility(View.GONE);
@@ -194,9 +200,16 @@ public class FormDataPembeliActivity extends AppCompatActivity {
         datePickerDialogB = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, month, dayOfMonth);
-                EdtTalaB.setText(dateFormatB.format(newDate.getTime()));
+                if (year > calendar.get(Calendar.YEAR)){
+                    Toast.makeText(FormDataPembeliActivity.this, "Tidak Bisa Tahun Depan", Toast.LENGTH_SHORT).show();
+                    //Log.i("tahun", ""+calendar.get(Calendar.YEAR));
+                }else {
+                    Calendar newDate = Calendar.getInstance();
+                    newDate.set(year, month, dayOfMonth);
+                    EdtTalaB.setText(dateFormatB.format(newDate.getTime()));
+                    //Log.i("tahun", ""+calendar.get(Calendar.YEAR));
+                }
+
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH));
         datePickerDialogB.show();

@@ -11,9 +11,11 @@ import android.view.MenuItem;
 import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class OrderanPembeliActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewPembeli;
+    FirebaseAuth Fauth;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_pembeli = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -40,7 +42,8 @@ public class OrderanPembeliActivity extends AppCompatActivity {
                     break;
                 case R.id.logoutpembelil:
                     //Fp = new LogoutFragmentPenjual();
-                    onBackPressed();
+                    Fauth.signOut();
+                    onBackPressedOut();
                     return true;
 
             }
@@ -57,10 +60,12 @@ public class OrderanPembeliActivity extends AppCompatActivity {
         setContentView(R.layout.activity_orderan_pembeli);
         bottomNavigationViewPembeli = findViewById(R.id.nav_pembeli);
         bottomNavigationViewPembeli.setOnNavigationItemSelectedListener(navigation_pembeli);
+
+        Fauth = FirebaseAuth.getInstance();
     }
 
-    @Override
-    public void onBackPressed() {
+
+    private void onBackPressedOut() {
         new AlertDialog.Builder(this)
                 .setIcon(R.drawable.logo)
                 .setTitle(R.string.app_name)
@@ -70,6 +75,7 @@ public class OrderanPembeliActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //firebaseAuth.signOut();
                         Intent intent = new Intent(OrderanPembeliActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     }

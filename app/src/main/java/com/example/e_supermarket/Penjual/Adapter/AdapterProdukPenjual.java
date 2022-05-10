@@ -89,7 +89,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
         holder.Id.setText(String.valueOf(ProdukList.get(position).getId()));
         holder.Nama_Barang.setText(ProdukList.get(position).getNama_barang());
         holder.Merk.setText(ProdukList.get(position).getMerk());
-        holder.Harga.setText(String.valueOf(ProdukList.get(position).getHarga()));
+        holder.Harga.setText(ProdukList.get(position).getHarga());
         holder.Stok.setText(String.valueOf(ProdukList.get(position).getStok()));
         holder.Satuan.setText(ProdukList.get(position).getSatuan());
         Glide.with(holder.imageProduk.getContext())
@@ -107,7 +107,7 @@ public class AdapterProdukPenjual extends RecyclerView.Adapter<AdapterProdukPenj
                  bundle.putInt("id", item.getId());
                  bundle.putString("nama_barang", item.getNama_barang());
                  bundle.putString("merk", item.getMerk());
-                 bundle.putInt("harga", item.getHarga());
+                 bundle.putString("harga", item.getHarga());
                  bundle.putInt("stok", item.getStok());
                  bundle.putString("satuan", item.getSatuan());
                  bundle.putString("gambar", RetroServer.imageURL + item.getGambar());

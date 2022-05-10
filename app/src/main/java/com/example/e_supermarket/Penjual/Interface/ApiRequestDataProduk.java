@@ -32,7 +32,7 @@ public interface ApiRequestDataProduk {
     Call<ResponseDataProduk> SendData(
             @Part("nama_barang") RequestBody nama_barang,
             @Part("merk") RequestBody merk,
-            @Part("harga") int harga,
+            @Part("harga") RequestBody harga,
             @Part("satuan") RequestBody satuan,
             @Part("stok") int stok,
             @Nullable @Part MultipartBody.Part gambar,
@@ -47,7 +47,7 @@ public interface ApiRequestDataProduk {
             @Query("_method") String _method,
             @Part("nama_barang") RequestBody nama_barang,
             @Part("merk") RequestBody merk,
-            @Part("harga") int harga,
+            @Part("harga") RequestBody harga,
             @Part("satuan") RequestBody satuan,
             @Part("stok") int stok,
             @Nullable @Part MultipartBody.Part gambar,
