@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pembeli.Activity.BeliProdukActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tolbarBeli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_primary"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/imgBackBeliProduk"
+            android:layout_gravity="left"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Checkout"
+            android:textStyle="bold"
+            android:textSize="19dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"/>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardBeli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/white"
+        android:layout_below="@+id/tolbarBeli">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <ImageView
+                android:src="@drawable/logo"
+                android:layout_width="80dp"
+                android:layout_height="147dp"
+                android:id="@+id/ImgItembeli"
+                />
+
+            <TextView
+                android:id="@+id/tvIdBarangbeli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="id"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/ImgItembeli"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvNamaBarangbeli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Barang"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/ImgItembeli"
+                android:layout_marginLeft="10dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvMerkbeli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Merk"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/ImgItembeli"
+                android:layout_below="@id/tvNamaBarangbeli"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvHargabeli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Harga"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/ImgItembeli"
+                android:layout_below="@id/tvMerkbeli"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"/>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvStokbeli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Stok"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/ImgItembeli"
+                android:layout_below="@id/tvHargabeli"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"/>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvAngkaJumlah"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@+id/imgKurangi"
+                android:layout_below="@id/tvHargabeli"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"/>
+
+            <ImageView
+                android:id="@+id/imgKurangi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ImgItembeli"
+                android:layout_below="@id/tvHargabeli"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_baseline_kurang_24"/>
+
+            <ImageView
+                android:id="@+id/imgTambahi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tvSatuanbeli"
+                android:layout_below="@id/tvHargabeli"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_baseline_tambah_24"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvSatuanbeli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kg"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@+id/tvAngkaJumlah"
+                android:layout_below="@id/tvStokbeli"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"/>
+
+
+           <!-- <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvDeskripsibeli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deskripsi"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@+id/ImgItembeli"
+                android:layout_below="@id/tvSatuanbeli"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"/>-->
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/alamatBeli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/white"
+        android:layout_below="@+id/cardBeli"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
+
+        <EditText
+            android:id="@+id/EdtNikB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Masukan alamat pengiriman"
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:minLines="1"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:padding="5dp"
+        android:id="@+id/tvMetodBayar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Pilih Metode Pembayaran"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/alamatBeli"/>
+
+    <Spinner
+        android:id="@+id/SpMetodebayar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:padding="5dp"
+        android:entries="@array/Metode_Bayar"
+        android:layout_below="@+id/tvMetodBayar"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tolbarBeli1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:text="Rp. 150.000" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnbuatPesanan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buat Pesanan"
+            android:layout_gravity="right" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+</RelativeLayout>

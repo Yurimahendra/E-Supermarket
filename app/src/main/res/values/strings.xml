@@ -16,6 +16,11 @@
         <item>Wanita</item>
     </string-array>
 
+    <string-array name="Metode_Bayar" tools:ignore="ExtraTranslation">
+        <item>COD</item>
+        <item>DEBET SALDO</item>
+    </string-array>
+
     <array name="Satuan">
         <item>Kg</item>
         <item>Gr</item>

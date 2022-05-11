@@ -16,6 +16,12 @@
         <item>Pria</item>
         <item>Wanita</item>
     </string-array>
+
+    <string-array name="Metode_Bayar" tools:ignore="ExtraTranslation">
+        <item>COD</item>
+        <item>DEBET SALDO</item>
+    </string-array>
+
     <string-array name="Satuan" tools:ignore="ExtraTranslation">
         <item>Kg</item>
         <item>Gr</item>

@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.e_supermarket.Pembeli.Activity.BeliProdukActivity;
 import com.example.e_supermarket.Pembeli.Activity.HalamanUtamaPembeliActivity;
 import com.example.e_supermarket.Penjual.Activity.Form_Edit_Produk_Activity;
 import com.example.e_supermarket.Penjual.Adapter.AdapterProdukPenjualHU;
@@ -32,10 +33,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.MyViewHolder>{
+public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.MyViewHolder> {
     private HalamanUtamaPembeliActivity halamanUtamaPembeliActivity;
     private List<DataProduk> ProdukListPembeli;
 
+    //String satuan;
     public AdapterItemPembeli(HalamanUtamaPembeliActivity halamanUtamaPembeliActivity, List<DataProduk> produkListPembeli) {
         this.halamanUtamaPembeliActivity = halamanUtamaPembeliActivity;
         ProdukListPembeli = produkListPembeli;
@@ -50,6 +52,7 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        //satuan = ProdukListPembeli.get(position).getSatuan();
         holder.IdPembeli.setText(String.valueOf(ProdukListPembeli.get(position).getId()));
         holder.Nama_BarangPembeli.setText(ProdukListPembeli.get(position).getNama_barang());
         holder.MerkPembeli.setText(ProdukListPembeli.get(position).getMerk());
@@ -59,7 +62,6 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
         Glide.with(holder.imageProdukPembeli.getContext())
                 .load(RetroServer.imageURL + ProdukListPembeli.get(position).getGambar()).into(holder.imageProdukPembeli);
         holder.DeskripsiPembeli.setText(ProdukListPembeli.get(position).getDeskripsi());
-
         holder.KeranjangProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,8 +73,25 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
             @Override
             public void onClick(View view) {
 
+                DataProduk item = ProdukListPembeli.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", item.getId());
+                bundle.putString("nama_barang", item.getNama_barang());
+                bundle.putString("merk", item.getMerk());
+                bundle.putString("harga", item.getHarga());
+                bundle.putInt("stok", item.getStok());
+                bundle.putString("satuan", item.getSatuan());
+                bundle.putString("gambar", RetroServer.imageURL + item.getGambar());
+                bundle.putString("deskripsi", item.getDeskripsi());
+                //bundle.putInt("jumlah", count);
+                Intent intent = new Intent(halamanUtamaPembeliActivity, BeliProdukActivity.class);
+                intent.putExtras(bundle);
+                halamanUtamaPembeliActivity.startActivity(intent);
+
+
             }
         });
+
     }
 
     @Override
@@ -90,10 +109,10 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
         TextView SatuanPembeli;
         TextView DeskripsiPembeli;
 
+
         ImageView KeranjangProduk;
         Button BeliSekrang;
         ImageView imageProdukPembeli;
-
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -107,6 +126,7 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
             SatuanPembeli = itemView.findViewById(R.id.tvSatuanPembeli);
             imageProdukPembeli = itemView.findViewById(R.id.ImgItemPembeli);
             DeskripsiPembeli = itemView.findViewById(R.id.tvDeskripsiPembeli);
+
 
             KeranjangProduk = itemView.findViewById(R.id.ImgKeranjang);
             BeliSekrang = itemView.findViewById(R.id.BtnBeliSekarang);
