@@ -3,6 +3,7 @@ package com.example.e_supermarket.Pembeli.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,6 +12,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -47,6 +54,14 @@ public class BeliProdukActivity extends AppCompatActivity {
     Button btnBuatPesanan;
 
 
+    int hasil;
+    int nilaiRp;
+    String Getharga;
+    String HargaRepl;
+    String HargaRepl1;
+    TextView TotalBayar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,12 +77,22 @@ public class BeliProdukActivity extends AppCompatActivity {
         Increment = findViewById(R.id.imgTambahi);
         Decrement = findViewById(R.id.imgKurangi);
         HitungJumlah = findViewById(R.id.tvAngkaJumlah);
+        TotalBayar = findViewById(R.id.TotalBayar);
+        Jumlah.setText(""+ count);
 
         Increment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 count++;
                 Jumlah.setText(""+ count);
+                HargaRepl = Getharga.replace("Rp. ", "");
+                HargaRepl1 = HargaRepl.replace(".", "");
+                nilaiRp = Integer.parseInt(HargaRepl1);
+                hasil = nilaiRp * count;
+
+                Locale localeID = new Locale("in", "ID");
+                NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+                TotalBayar.setText(formatRupiah.format((double)hasil));
             }
         });
 
@@ -80,6 +105,14 @@ public class BeliProdukActivity extends AppCompatActivity {
                 }else {
                     count--;
                     Jumlah.setText(""+ count);
+                    HargaRepl = Getharga.replace("Rp. ", "");
+                    HargaRepl1 = HargaRepl.replace(".", "");
+                    nilaiRp = Integer.parseInt(HargaRepl1);
+                    hasil = nilaiRp * count;
+
+                    Locale localeID = new Locale("in", "ID");
+                    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+                    TotalBayar.setText(formatRupiah.format((double)hasil));
                 }
 
             }
@@ -130,6 +163,18 @@ public class BeliProdukActivity extends AppCompatActivity {
         Glide.with(BeliImgProduk1.getContext())
                 .load(BeliGambar).into(BeliImgProduk1);
         //Deskripsi.setText(uDeskripsi);
+
+        Getharga = Hargabeli.getText().toString().trim();
+
+        HargaRepl = Getharga.replace("Rp. ", "");
+        HargaRepl1 = HargaRepl.replace(".", "");
+//        nilaiRp = Integer.parseInt(HargaRepl1);
+        hasil = nilaiRp * count;
+
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        TotalBayar.setText(formatRupiah.format((double)hasil));
+
 
     }
 }
