@@ -3,6 +3,7 @@ package com.example.e_supermarket.Pembeli.Interface;
 import androidx.annotation.Nullable;
 import androidx.versionedparcelable.ParcelField;
 
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
@@ -53,5 +54,26 @@ public interface ApiRequestPembeli {
             @Part("tanggal_lahir") RequestBody tanggal_lahir,
             @Part("no_ponsel") RequestBody no_ponsel,
             @Nullable @Part MultipartBody.Part gambar
+    );
+
+    //buat pesanan
+    @Headers({"Accept: application/json"})
+    @Multipart
+    @POST("api/dataorderan")
+    Call<ResponseBuatPesanan> SendBuatPesanan(
+            @Part("id_pesanan") RequestBody id_pesanan,
+            @Part("nama") RequestBody nama,
+            @Part("no_hp") RequestBody no_hp,
+            @Part("alamat") RequestBody alamat,
+            @Part("nama_barang") RequestBody nama_barang,
+            @Part("merk_barang") RequestBody merk_barang,
+            @Part("harga_barang") RequestBody harga_barang,
+            @Part("jumlah_pesanan") int jumlah_pesanan,
+            @Part("tanggal_pengiriman") RequestBody tanggal_pengiriman,
+            //@Part("ongkir") RequestBody ongkir,
+            @Part("total_harga") RequestBody total_harga,
+            @Part("metode_pembayaran") RequestBody metode_pembayaran
+            //@Part("status") RequestBody status,
+            //@Nullable @Part MultipartBody.Part status
     );
 }
