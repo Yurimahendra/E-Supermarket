@@ -213,7 +213,6 @@ public class BeliProdukActivity extends AppCompatActivity {
         BeliDeskripsi = bundle.getString("deskripsi");
         jumlah1 = bundle.getInt("jumlah", 0);
 
-        Log.i("gambar", ""+BeliGambar);
 
         Nama_Barangbeli.setText(BeliNama_Barang);
         Merkbeli.setText(BeliMerk);

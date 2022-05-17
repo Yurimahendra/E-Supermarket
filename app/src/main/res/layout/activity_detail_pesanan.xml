@@ -229,7 +229,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp">
                 <EditText
-                    android:id="@+id/EdtNopBeli"
+                    android:id="@+id/EdtNopOrder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -306,6 +306,7 @@
                 android:layout_below="@+id/tvMetodBayarOrder"/>
 
             <FrameLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/frOrder"
@@ -327,6 +328,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/frOrder1"
@@ -334,7 +336,7 @@
                 android:layout_marginLeft="100dp"
                 android:layout_toRightOf="@+id/frOrder">
                 <Button
-                    android:id="@+id/UpdateOrder1"
+                    android:id="@+id/BatalOrder1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BATAL" />
@@ -388,7 +390,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BAYAR"
-                android:visibility="gone"/>
+                />
 
 
         </FrameLayout>

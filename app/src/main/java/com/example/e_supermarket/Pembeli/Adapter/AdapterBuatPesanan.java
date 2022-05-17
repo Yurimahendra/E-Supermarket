@@ -59,13 +59,14 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
                 bundle.putInt("id", item.getId());
                 bundle.putString("id_pesanan", item.getId_pesanan());
                 bundle.putString("nama", item.getNama());
+                bundle.putString("no_hp", item.getNo_hp());
                 bundle.putString("alamat", item.getAlamat());
                 bundle.putString("nama_barang", item.getNama_barang());
                 bundle.putString("merk", item.getMerk_barang());
                 bundle.putString("harga", item.getHarga_barang());
                 bundle.putInt("jumlah", item.getJumlah_pesanan());
                 bundle.putString("satuan", item.getSatuan());
-                bundle.putString("gambar", RetroServer.imageURL + item.getGambar());
+                bundle.putString("gambar", item.getGambar());
                 bundle.putString("tanggal", item.getTanggal_pengiriman());
                 bundle.putString("ongkir", item.getOngkir());
                 bundle.putString("total", item.getTotal_harga());
