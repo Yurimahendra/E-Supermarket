@@ -1,147 +1,167 @@
 package com.example.e_supermarket.Pembeli.Model;
 
 public class BuatPesanan {
-    private String id;
-    private String idPesanan;
-    private String namaPemesan;
-    private String namaBarangPesan;
-    private String MerkBarangPesan;
-    private int jumlahBarangPesan;
-    private String hargaBarangPesan;
-    private String TotalHargaPesan;
-    private String ongkirPesan;
-    private String alamatKirimPesan;
-    private String NohpPesan;
-    private String tglKirimPesan;
-    private String MetodeBayar;
-    private String Status;
+    private int id;
+    private String id_pesanan;
+    private String nama;
+    private String no_hp;
+    private String alamat;
+    private String nama_barang;
+    private String merk_barang;
+    private String harga_barang;
+    private int jumlah_pesanan;
+    private String satuan;
+    private String gambar;
+    private String tanggal_pengiriman;
+    private String ongkir;
+    private String total_harga;
+    private String metode_pembayaran;
+    private String status;
 
-    public BuatPesanan(String id, String idPesanan, String namaPemesan, String namaBarangPesan, String merkBarangPesan, int jumlahBarangPesan, String hargaBarangPesan, String totalHargaPesan, String ongkirPesan, String alamatKirimPesan, String nohpPesan, String tglKirimPesan, String metodeBayar, String status) {
+    public BuatPesanan(int id, String id_pesanan, String nama, String no_hp, String alamat, String nama_barang, String merk_barang, String harga_barang, int jumlah_pesanan, String satuan, String gambar, String tanggal_pengiriman, String ongkir, String total_harga, String metode_pembayaran, String status) {
         this.id = id;
-        this.idPesanan = idPesanan;
-        this.namaPemesan = namaPemesan;
-        this.namaBarangPesan = namaBarangPesan;
-        MerkBarangPesan = merkBarangPesan;
-        this.jumlahBarangPesan = jumlahBarangPesan;
-        this.hargaBarangPesan = hargaBarangPesan;
-        TotalHargaPesan = totalHargaPesan;
-        this.ongkirPesan = ongkirPesan;
-        this.alamatKirimPesan = alamatKirimPesan;
-        NohpPesan = nohpPesan;
-        this.tglKirimPesan = tglKirimPesan;
-        MetodeBayar = metodeBayar;
-        Status = status;
+        this.id_pesanan = id_pesanan;
+        this.nama = nama;
+        this.no_hp = no_hp;
+        this.alamat = alamat;
+        this.nama_barang = nama_barang;
+        this.merk_barang = merk_barang;
+        this.harga_barang = harga_barang;
+        this.jumlah_pesanan = jumlah_pesanan;
+        this.satuan = satuan;
+        this.gambar = gambar;
+        this.tanggal_pengiriman = tanggal_pengiriman;
+        this.ongkir = ongkir;
+        this.total_harga = total_harga;
+        this.metode_pembayaran = metode_pembayaran;
+        this.status = status;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getIdPesanan() {
-        return idPesanan;
+    public String getId_pesanan() {
+        return id_pesanan;
     }
 
-    public void setIdPesanan(String idPesanan) {
-        this.idPesanan = idPesanan;
+    public void setId_pesanan(String id_pesanan) {
+        this.id_pesanan = id_pesanan;
     }
 
-    public String getNamaPemesan() {
-        return namaPemesan;
+    public String getNama() {
+        return nama;
     }
 
-    public void setNamaPemesan(String namaPemesan) {
-        this.namaPemesan = namaPemesan;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public String getNamaBarangPesan() {
-        return namaBarangPesan;
+    public String getNo_hp() {
+        return no_hp;
     }
 
-    public void setNamaBarangPesan(String namaBarangPesan) {
-        this.namaBarangPesan = namaBarangPesan;
+    public void setNo_hp(String no_hp) {
+        this.no_hp = no_hp;
     }
 
-    public String getMerkBarangPesan() {
-        return MerkBarangPesan;
+    public String getAlamat() {
+        return alamat;
     }
 
-    public void setMerkBarangPesan(String merkBarangPesan) {
-        MerkBarangPesan = merkBarangPesan;
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 
-    public int getJumlahBarangPesan() {
-        return jumlahBarangPesan;
+    public String getNama_barang() {
+        return nama_barang;
     }
 
-    public void setJumlahBarangPesan(int jumlahBarangPesan) {
-        this.jumlahBarangPesan = jumlahBarangPesan;
+    public void setNama_barang(String nama_barang) {
+        this.nama_barang = nama_barang;
     }
 
-    public String getHargaBarangPesan() {
-        return hargaBarangPesan;
+    public String getMerk_barang() {
+        return merk_barang;
     }
 
-    public void setHargaBarangPesan(String hargaBarangPesan) {
-        this.hargaBarangPesan = hargaBarangPesan;
+    public void setMerk_barang(String merk_barang) {
+        this.merk_barang = merk_barang;
     }
 
-    public String getTotalHargaPesan() {
-        return TotalHargaPesan;
+    public String getHarga_barang() {
+        return harga_barang;
     }
 
-    public void setTotalHargaPesan(String totalHargaPesan) {
-        TotalHargaPesan = totalHargaPesan;
+    public void setHarga_barang(String harga_barang) {
+        this.harga_barang = harga_barang;
     }
 
-    public String getOngkirPesan() {
-        return ongkirPesan;
+    public int getJumlah_pesanan() {
+        return jumlah_pesanan;
     }
 
-    public void setOngkirPesan(String ongkirPesan) {
-        this.ongkirPesan = ongkirPesan;
+    public void setJumlah_pesanan(int jumlah_pesanan) {
+        this.jumlah_pesanan = jumlah_pesanan;
     }
 
-    public String getAlamatKirimPesan() {
-        return alamatKirimPesan;
+    public String getSatuan() {
+        return satuan;
     }
 
-    public void setAlamatKirimPesan(String alamatKirimPesan) {
-        this.alamatKirimPesan = alamatKirimPesan;
+    public void setSatuan(String satuan) {
+        this.satuan = satuan;
     }
 
-    public String getNohpPesan() {
-        return NohpPesan;
+    public String getGambar() {
+        return gambar;
     }
 
-    public void setNohpPesan(String nohpPesan) {
-        NohpPesan = nohpPesan;
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
     }
 
-    public String getTglKirimPesan() {
-        return tglKirimPesan;
+    public String getTanggal_pengiriman() {
+        return tanggal_pengiriman;
     }
 
-    public void setTglKirimPesan(String tglKirimPesan) {
-        this.tglKirimPesan = tglKirimPesan;
+    public void setTanggal_pengiriman(String tanggal_pengiriman) {
+        this.tanggal_pengiriman = tanggal_pengiriman;
     }
 
-    public String getMetodeBayar() {
-        return MetodeBayar;
+    public String getOngkir() {
+        return ongkir;
     }
 
-    public void setMetodeBayar(String metodeBayar) {
-        MetodeBayar = metodeBayar;
+    public void setOngkir(String ongkir) {
+        this.ongkir = ongkir;
+    }
+
+    public String getTotal_harga() {
+        return total_harga;
+    }
+
+    public void setTotal_harga(String total_harga) {
+        this.total_harga = total_harga;
+    }
+
+    public String getMetode_pembayaran() {
+        return metode_pembayaran;
+    }
+
+    public void setMetode_pembayaran(String metode_pembayaran) {
+        this.metode_pembayaran = metode_pembayaran;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 }

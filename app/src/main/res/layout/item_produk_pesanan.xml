@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:src="@drawable/logo"
+            android:layout_width="80dp"
+            android:layout_height="147dp"
+            android:id="@+id/ImgItemPesanan"
+            />
+
+        <TextView
+            android:id="@+id/tvIdBarangPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="id"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPesanan"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvNamaBarangPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Barang"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPesanan"
+            android:layout_marginLeft="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvMerkPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Merk"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPesanan"
+            android:layout_below="@id/tvNamaBarangPesanan"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHargaPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Harga"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPesanan"
+            android:layout_below="@id/tvMerkPesanan"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStokPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stok"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPesanan"
+            android:layout_below="@id/tvHargaPesanan"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
+
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSatuanPesanan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kg"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/tvJumlahPesanan"
+            android:layout_below="@id/tvHargaPesanan"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvJumlahPesanan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/ImgItemPesanan"
+            android:layout_below="@id/tvHargaPesanan"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"/>
+
+        <Button
+            android:id="@+id/btnUbah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DETAIL PESANAN"
+            android:layout_below="@id/tvJumlahPesanan"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="200dp"/>
+
+
+        <!--<Button
+            android:id="@+id/BtnBayarPesanan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bayar"
+            android:layout_below="@id/tvJumlahPesanan"
+            android:layout_toRightOf="@id/btnUbah"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="90dp"
+            android:visibility="gone"/>-->
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

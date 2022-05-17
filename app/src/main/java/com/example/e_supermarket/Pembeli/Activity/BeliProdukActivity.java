@@ -86,6 +86,8 @@ public class BeliProdukActivity extends AppCompatActivity {
     private String namaBarangPesan;
     private String merkBarangPesan;
     private int jumlahBarangPesan;
+    private String satuanPesan;
+    private String gambarPesan;
     private String hargaBarangPesan;
     private String TotalHargaPesan;
     private String ongkirPesan;
@@ -211,6 +213,8 @@ public class BeliProdukActivity extends AppCompatActivity {
         BeliDeskripsi = bundle.getString("deskripsi");
         jumlah1 = bundle.getInt("jumlah", 0);
 
+        Log.i("gambar", ""+BeliGambar);
+
         Nama_Barangbeli.setText(BeliNama_Barang);
         Merkbeli.setText(BeliMerk);
         Hargabeli.setText(BeliHarga);
@@ -245,9 +249,11 @@ public class BeliProdukActivity extends AppCompatActivity {
                     //Log.i("tahun", ""+calendar.get(Calendar.YEAR));
                 }else if (year < calendar.get(Calendar.YEAR)){
                     Toast.makeText(BeliProdukActivity.this, "Tidak Bisa Tahun Lalu", Toast.LENGTH_SHORT).show();
-                }else if (year == calendar.get(Calendar.YEAR) && month < calendar.get(Calendar.MONTH)){
+                }else if (month < calendar.get(Calendar.MONTH)){
                     Toast.makeText(BeliProdukActivity.this, "Tidak Bisa Bulan Lalu", Toast.LENGTH_SHORT).show();
-                }else {
+                }else if (dayOfMonth < calendar.get(Calendar.DAY_OF_MONTH)){
+                    Toast.makeText(BeliProdukActivity.this, "Tidak Bisa Hari Kemarin", Toast.LENGTH_SHORT).show();
+                } else {
                     Calendar newDate = Calendar.getInstance();
                     newDate.set(year, month, dayOfMonth);
                     EdtTglBeli.setText(dateFormatBeli.format(newDate.getTime()));
@@ -271,6 +277,7 @@ public class BeliProdukActivity extends AppCompatActivity {
             merkBarangPesan = Merkbeli.getText().toString().trim();
             hargaBarangPesan = Hargabeli.getText().toString().trim();
             jumlahBarangPesan = Integer.parseInt(Jumlah.getText().toString().trim());
+            //jumlahBarangPesan = Satuanbeli.getText().toString().trim();
             tglKirimPesan = EdtTglBeli.getText().toString().trim();
            // ongkirPesan = Ongkir.getText().toString().trim();
             TotalHargaPesan = TotalBayar.getText().toString().trim();
@@ -310,6 +317,8 @@ public class BeliProdukActivity extends AppCompatActivity {
                         RequestBody.create(MediaType.parse("text/plain"), merkBarangPesan),
                         RequestBody.create(MediaType.parse("text/plain"), hargaBarangPesan),
                         jumlahBarangPesan,
+                        RequestBody.create(MediaType.parse("text/plain"), BeliSatuan),
+                        RequestBody.create(MediaType.parse("text/plain"), BeliGambar),
                         RequestBody.create(MediaType.parse("text/plain"), tglKirimPesan),
                         //RequestBody.create(MediaType.parse("text/plain"), ongkirPesan),
                         RequestBody.create(MediaType.parse("text/plain"), TotalHargaPesan),

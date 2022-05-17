@@ -69,6 +69,8 @@ public interface ApiRequestPembeli {
             @Part("merk_barang") RequestBody merk_barang,
             @Part("harga_barang") RequestBody harga_barang,
             @Part("jumlah_pesanan") int jumlah_pesanan,
+            @Part("satuan") RequestBody satuan,
+            @Part("gambar") RequestBody gambar,
             @Part("tanggal_pengiriman") RequestBody tanggal_pengiriman,
             //@Part("ongkir") RequestBody ongkir,
             @Part("total_harga") RequestBody total_harga,
@@ -76,4 +78,8 @@ public interface ApiRequestPembeli {
             //@Part("status") RequestBody status,
             //@Nullable @Part MultipartBody.Part status
     );
+
+    //orderan
+    @GET("api/dataorderan")
+    Call<ResponseBuatPesanan> RetrieveDataOrderan();
 }
