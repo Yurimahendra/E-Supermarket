@@ -110,11 +110,9 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
                             @Override
                             public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
                                 try {
-                                    int kode = response.body().getKode();
-                                    String pesan = response.body().getPesan();
-                                    if (kode == 200){
-                                        Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "Pesan :"+pesan, Toast.LENGTH_SHORT).show();
-                                    }
+
+                                    Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "Pesan :"+response, Toast.LENGTH_SHORT).show();
+
                                 }catch (NullPointerException nullPointerException){
                                     Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "Data Gagal Terhapus "+nullPointerException.getMessage(), Toast.LENGTH_SHORT).show();
                                 }

@@ -281,18 +281,12 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseDataPembeli> call, Response<ResponseDataPembeli> response) {
                 if (response.isSuccessful()){
-                    int kode = response.body().getKode();
-                    String pesan = response.body().getPesan();
-                    if (kode == 200){
-                        try {
-                            dataPembeliList = response.body().getDataPembeli();
-                            noponsel = dataPembeliList.get(index).getNo_ponsel();
-                            ETnopon= noponsel;
-                        }catch (IndexOutOfBoundsException indexOutOfBoundsException){
-                            //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
-                        }
-
-
+                    try {
+                        dataPembeliList = response.body().getDataPembeli();
+                        noponsel = dataPembeliList.get(index).getNo_ponsel();
+                        ETnopon= noponsel;
+                    }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                        //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -302,7 +296,7 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseDataPembeli> call, Throwable t) {
-                //Toast.makeText(ProfilePembeliActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VerifyOTPActivityPembeli.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
                 //pbProfPembeli.setVisibility(View.GONE);
             }
         });

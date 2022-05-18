@@ -13,6 +13,7 @@ import java.util.Date;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -44,7 +45,7 @@ public interface ApiRequestPembeli {
     @Multipart
     @POST("api/datapembeli/{datapembeli}")
     Call<ResponseDataPembeli> UpdateProfilePembeli(
-            @Path("dataproduk") int id,
+            @Path("datapembeli") int id,
             @Query("_method") String _method,
             @Part("nik") long nik,
             @Part("nama") RequestBody nama,
@@ -82,4 +83,34 @@ public interface ApiRequestPembeli {
     //orderan
     @GET("api/dataorderan")
     Call<ResponseBuatPesanan> RetrieveDataOrderan();
+
+    //updateDetail
+    @Headers({"Accept: application/json"})
+    @Multipart
+    @POST("api/dataorderan/{dataorderan}")
+    Call<ResponseBuatPesanan> UpdateDetailPesanan(
+            @Path("dataorderan") int id,
+            @Query("_method") String _method,
+            @Part("id_pesanan") RequestBody id_pesanan,
+            @Part("nama") RequestBody nama,
+            @Part("no_hp") RequestBody no_hp,
+            @Part("alamat") RequestBody alamat,
+            @Part("nama_barang") RequestBody nama_barang,
+            @Part("merk_barang") RequestBody merk_barang,
+            @Part("harga_barang") RequestBody harga_barang,
+            @Part("jumlah_pesanan") int jumlah_pesanan,
+            @Part("satuan") RequestBody satuan,
+            @Part("gambar") RequestBody gambar,
+            @Part("tanggal_pengiriman") RequestBody tanggal_pengiriman,
+            //@Part("ongkir") RequestBody ongkir,
+            @Part("total_harga") RequestBody total_harga,
+            @Part("metode_pembayaran") RequestBody metode_pembayaran
+            //@Part("status") RequestBody status,
+            //@Nullable @Part MultipartBody.Part status
+    );
+
+    @DELETE("api/dataorderan/{dataorderan}")
+    Call<ResponseBuatPesanan> BatalDataOrderan(
+            @Path("dataorderan") int id
+    );
 }

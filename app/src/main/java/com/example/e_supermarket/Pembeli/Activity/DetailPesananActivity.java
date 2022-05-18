@@ -2,7 +2,10 @@ package com.example.e_supermarket.Pembeli.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,12 +18,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
+import com.example.e_supermarket.Pembeli.Model.BuatPesanan;
+import com.example.e_supermarket.Pembeli.Model.DataPembeli;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailPesananActivity extends AppCompatActivity {
+    private List<BuatPesanan> buatPesananList = new ArrayList<>();
+    int index1;
+    int id;
+    int getid;
+
     TextView Nama_BarangDetail;
     TextView MerkDetail;
     TextView HargaDetail;
@@ -128,6 +154,20 @@ public class DetailPesananActivity extends AppCompatActivity {
             }
         });
 
+        UpdateDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateDetailPesan();
+            }
+        });
+
+        BatalDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BatalOrderan();
+            }
+        });
+
         Bundle bundle = getIntent().getExtras();
         Uid = bundle.getInt("id");
         UidPesanan = bundle.getString("id_pesanan");
@@ -174,6 +214,158 @@ public class DetailPesananActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void BatalOrderan() {
+        //int idOrderan = buatPesananList.get(index).getId();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Apakah yakin ingin membatalkan pesanan ?");
+        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                PbDetailBatal.setVisibility(View.VISIBLE);
+                BatalDetail.setVisibility(View.INVISIBLE);
+
+                ApiRequestPembeli haDataOrderan= RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                Call<ResponseBuatPesanan> BatalOrderan = haDataOrderan.BatalDataOrderan(Uid);
+                BatalOrderan.enqueue(new Callback<ResponseBuatPesanan>() {
+                    @Override
+                    public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+                        try {
+
+                            startActivity(new Intent(DetailPesananActivity.this, OrderanPembeliActivity.class));
+                            Toast.makeText(DetailPesananActivity.this, "Orderan Telah Dibatalkan", Toast.LENGTH_SHORT).show();
+
+                        }catch (NullPointerException nullPointerException){
+                            Toast.makeText(DetailPesananActivity.this, "Data Gagal Terhapus "+nullPointerException.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+                        Toast.makeText(DetailPesananActivity.this, "Gagal Menghubungi Server "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                PbDetailBatal.setVisibility(View.GONE);
+                BatalDetail.setVisibility(View.VISIBLE);
+                dialogInterface.dismiss();
+
+            }
+        });
+
+        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                PbDetailBatal.setVisibility(View.GONE);
+                BatalDetail.setVisibility(View.VISIBLE);
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
+   
+    private void UpdateDetailPesan(){
+        PbDetailUpdate.setVisibility(View.VISIBLE);
+        UpdateDetail.setVisibility(View.INVISIBLE);
+        try {
+            //idPesananDetail;
+            namaPemesanDetail = EdtNamaDetail.getText().toString().trim();
+            //namaBarangPesanDetail;
+            //merkBarangPesanDetail;
+            //jumlahBarangPesanDetail;
+            //satuanPesanDetail;
+            //gambarPesanDetail;
+            //hargaBarangPesanDetail;
+            //TotalHargaPesanDetail;
+            //ongkirPesanDetail;
+            alamatKirimPesanDetail = EdtAlamatDetail.getText().toString().trim();
+            NohpPesanDetail = EdtNopDetail.getText().toString().trim();
+            tglKirimPesanDetail = EdtTglDetail.getText().toString().trim();
+            MetodeBayarPesanDetail = MetodePembayaranDetail.getSelectedItem().toString().trim();
+            //StatusDetail;
+
+
+            int lenNopOrder = NohpPesanDetail.length();
+
+            if (namaPemesanDetail.equals("")){
+                EdtNamaDetail.setError("Nama TIDAK BOLEH KOSONG");
+                PbDetailUpdate.setVisibility(View.GONE);
+                UpdateDetail.setVisibility(View.VISIBLE);
+            }else if (NohpPesanDetail.equals("")) {
+                EdtNopDetail.setError("No hp TIDAK BOLEH KOSONG");
+                PbDetailUpdate.setVisibility(View.GONE);
+                UpdateDetail.setVisibility(View.VISIBLE);
+            }else if (lenNopOrder < 12) {
+                EdtNopDetail.setError("JUMLAH Nomor TIDAK SESUAI");
+                PbDetailUpdate.setVisibility(View.GONE);
+                UpdateDetail.setVisibility(View.VISIBLE);
+            }else if (alamatKirimPesanDetail.equals("")) {
+                EdtAlamatDetail.setError("Alamat TIDAK BOLEH KOSONG");
+                PbDetailUpdate.setVisibility(View.GONE);
+                UpdateDetail.setVisibility(View.VISIBLE);
+            }else {
+                Bundle bundle1 = getIntent().getExtras();
+                if (bundle1 != null) {
+                    int id = Uid;
+                    ApiRequestPembeli requestDataDetailOrder = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                    Call<ResponseBuatPesanan> UpdateDetailOrder = requestDataDetailOrder.UpdateDetailPesanan(
+                            id,
+                            "PUT",
+                            RequestBody.create(MediaType.parse("text/plain"), UidPesanan),
+                            RequestBody.create(MediaType.parse("text/plain"), namaPemesanDetail),
+                            RequestBody.create(MediaType.parse("text/plain"), NohpPesanDetail),
+                            RequestBody.create(MediaType.parse("text/plain"), alamatKirimPesanDetail),
+                            RequestBody.create(MediaType.parse("text/plain"), UnamaBarangPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UmerkBarangPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UhargaBarangPesan),
+                            UjumlahBarangPesan,
+                            RequestBody.create(MediaType.parse("text/plain"), UsatuanPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UgambarPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), tglKirimPesanDetail),
+                            //RequestBody.create(MediaType.parse("text/plain"), ongkirPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), MetodeBayarPesanDetail)
+
+                    );
+                    UpdateDetailOrder.enqueue(new Callback<ResponseBuatPesanan>() {
+                        @Override
+                        public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+                            if( response.isSuccessful()) {
+                                // int kode = response.body().getKode();
+                                //String pesan = response.body().getPesan();
+                                startActivity(new Intent(DetailPesananActivity.this, OrderanPembeliActivity.class));
+                                Toast.makeText(DetailPesananActivity.this, "berhasil update", Toast.LENGTH_SHORT).show();
+                                /*if (kode == 200){
+
+
+                                }*/
+
+                            }else {
+                                Toast.makeText(DetailPesananActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            PbDetailUpdate.setVisibility(View.GONE);
+                            UpdateDetail.setVisibility(View.VISIBLE);
+                        }
+                        @Override
+                        public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+
+                            Toast.makeText(DetailPesananActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                            PbDetailUpdate.setVisibility(View.GONE);
+                            UpdateDetail.setVisibility(View.VISIBLE);
+                            //startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
+                        }
+
+                    });
+                }
+            }
+        }catch (NumberFormatException exception) {
+            Toast.makeText(this, "Data Produk Harus Terisi Semua !", Toast.LENGTH_SHORT).show();
+            PbDetailUpdate.setVisibility(View.GONE);
+            UpdateDetail.setVisibility(View.VISIBLE);
+        }
     }
 
     private void showDateDialog() {
