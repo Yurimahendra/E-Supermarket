@@ -1,9 +1,6 @@
-package com.example.e_supermarket.Penjual.Model;
+package com.example.e_supermarket.Pembeli.Model;
 
-import com.google.gson.annotations.SerializedName;
-
-public class DataProduk {
-    //@SerializedName("id")
+public class DataKeranjang {
     int id;
     //@SerializedName("nama_barang")
     String nama_barang ;
@@ -20,7 +17,7 @@ public class DataProduk {
     //@SerializedName("deskripsi")
     String deskripsi;
 
-    public DataProduk(int id, String nama_barang, String merk, String harga, String satuan, int stok, String gambar, String deskripsi) {
+    public DataKeranjang(int id, String nama_barang, String merk, String harga, String satuan, int stok, String gambar, String deskripsi) {
         this.id = id;
         this.nama_barang = nama_barang;
         this.merk = merk;

@@ -111,7 +111,7 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
                             public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
                                 try {
 
-                                    Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "Pesan :"+response, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "Berhasil Dihapus", Toast.LENGTH_SHORT).show();
 
                                 }catch (NullPointerException nullPointerException){
                                     Toast.makeText(halamanUtamaPenjualActivity.getApplicationContext(), "Data Gagal Terhapus "+nullPointerException.getMessage(), Toast.LENGTH_SHORT).show();

@@ -108,9 +108,7 @@ public class HalamanProfilKurirActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseDataKurir> call, Response<ResponseDataKurir> response) {
                 if (response.isSuccessful()){
-                    int kode = response.body().getKode();
-                    String pesan = response.body().getPesan();
-                    if (kode == 200){
+
                         //Toast.makeText(HalamanProfilKurirActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
 
                         dataKurirList = response.body().getDataKurir();
@@ -118,7 +116,7 @@ public class HalamanProfilKurirActivity extends AppCompatActivity {
                         adapterProfileKurir = new AdapterProfileKurir(HalamanProfilKurirActivity.this, dataKurirList);
                         recyclerViewK.setAdapter(adapterProfileKurir);
                         adapterProfileKurir.notifyDataSetChanged();
-                    }
+
 
                 }
 

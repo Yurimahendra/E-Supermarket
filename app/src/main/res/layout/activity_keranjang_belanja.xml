@@ -50,7 +50,7 @@
         android:layout_below="@id/tolbar">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecviewPembeli"
+            android:id="@+id/RecviewKeranjang"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />

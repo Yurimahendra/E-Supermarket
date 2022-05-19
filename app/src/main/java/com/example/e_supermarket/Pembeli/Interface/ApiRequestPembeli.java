@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.versionedparcelable.ParcelField;
 
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataKeranjang;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
@@ -112,5 +113,45 @@ public interface ApiRequestPembeli {
     @DELETE("api/dataorderan/{dataorderan}")
     Call<ResponseBuatPesanan> BatalDataOrderan(
             @Path("dataorderan") int id
+    );
+
+    //data_keranjang
+    @GET("api/datakeranjang")
+    Call<ResponseDataKeranjang> RetrieveDataKeranjang();
+
+    @Headers({"Accept: application/json"})
+    @Multipart
+    @POST("api/datakeranjang")
+    Call<ResponseDataKeranjang> SendDataKeranjang(
+            @Part("nama_barang") RequestBody nama_barang,
+            @Part("merk") RequestBody merk,
+            @Part("harga") RequestBody harga,
+            @Part("satuan") RequestBody satuan,
+            @Part("stok") int stok,
+            @Part("gambar") RequestBody gambar,
+            //@Nullable @Part MultipartBody.Part gambar,
+            @Nullable @Part("deskripsi") RequestBody deskripsi
+    );
+
+    @Headers({"Accept: application/json"})
+    @Multipart
+    @POST("api/datakeranjang/{datakeranjang}")
+    Call<ResponseDataKeranjang> UpdateDataKeranjang(
+            @Path("datakeranjang") int id,
+            @Query("_method") String _method,
+            @Part("nama_barang") RequestBody nama_barang,
+            @Part("merk") RequestBody merk,
+            @Part("harga") RequestBody harga,
+            @Part("satuan") RequestBody satuan,
+            @Part("stok") int stok,
+            @Nullable @Part MultipartBody.Part gambar,
+            @Nullable @Part("deskripsi") RequestBody deskripsi
+    );
+
+
+
+    @DELETE("api/datakeranjang/{datakeranjang}")
+    Call<ResponseDataKeranjang> hapusDataKeranjang(
+            @Path("dataproduk") int id
     );
 }

@@ -134,9 +134,7 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseDataProduk> call, Response<ResponseDataProduk> response) {
                 if (response.isSuccessful()){
-                    int kode = response.body().getKode();
-                    String pesan = response.body().getPesan();
-                    if (kode == 200){
+
                         //Toast.makeText(HalamanUtamaPembeliActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
 
                         dataProdukListPembeli = response.body().getData();
@@ -144,7 +142,7 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
                         adapterItemPembeli = new AdapterItemPembeli(HalamanUtamaPembeliActivity.this, dataProdukListPembeli);
                         recyclerViewPembeli.setAdapter(adapterItemPembeli);
                         adapterItemPembeli.notifyDataSetChanged();
-                    }
+
 
                 }
                 pbDataProdukPembeli.setVisibility(View.GONE);
