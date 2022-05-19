@@ -22,6 +22,7 @@ import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,8 @@ public class HalamanProfilKurirActivity extends AppCompatActivity {
     private RecyclerView recyclerViewK;
     private List<DataKurir> dataKurirList = new ArrayList<>();
     private AdapterProfileKurir adapterProfileKurir;
+
+    FirebaseAuth firebaseAuth;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_kurir = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -68,6 +71,7 @@ public class HalamanProfilKurirActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_halaman_profil_kurir);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         bottomNavigationViewKurir = findViewById(R.id.nav_kurir);
         bottomNavigationViewKurir.setOnNavigationItemSelectedListener(navigation_kurir);
@@ -138,8 +142,9 @@ public class HalamanProfilKurirActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //firebaseAuth.signOut();
+                        firebaseAuth.signOut();
                         Intent intent = new Intent(HalamanProfilKurirActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
                     }

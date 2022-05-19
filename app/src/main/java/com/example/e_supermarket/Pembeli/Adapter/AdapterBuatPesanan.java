@@ -1,5 +1,7 @@
 package com.example.e_supermarket.Pembeli.Adapter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,12 +19,18 @@ import com.bumptech.glide.Glide;
 import com.example.e_supermarket.Pembeli.Activity.BeliProdukActivity;
 import com.example.e_supermarket.Pembeli.Activity.DetailPesananActivity;
 import com.example.e_supermarket.Pembeli.Activity.OrderanPembeliActivity;
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
 import com.example.e_supermarket.Pembeli.Model.BuatPesanan;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
 import com.example.e_supermarket.Penjual.Model.DataProduk;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.MyViewHolder> {
     private OrderanPembeliActivity orderanPembeliActivity;
@@ -78,6 +87,52 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
             }
         });
 
+        holder.Diterima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int idOrderan = buatPesananList.get(position).getId();
+                AlertDialog.Builder builder = new AlertDialog.Builder(holder.Id.getContext());
+                builder.setTitle("Apakah yakin pesanan Diterima ?");
+                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        ApiRequestPembeli haDataOrderan= RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                        Call<ResponseBuatPesanan> BatalOrderan = haDataOrderan.BatalDataOrderan(idOrderan);
+                        BatalOrderan.enqueue(new Callback<ResponseBuatPesanan>() {
+                            @Override
+                            public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+                                try {
+                                    //startActivity(new Intent(OrderanPembeliActivity.this, OrderanPembeliActivity.class));
+                                    Toast.makeText(orderanPembeliActivity.getApplicationContext(), "Orderan Telah Diterima", Toast.LENGTH_SHORT).show();
+
+                                }catch (NullPointerException nullPointerException){
+                                    Toast.makeText(orderanPembeliActivity.getApplicationContext(), "Error "+nullPointerException.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+                                Toast.makeText(orderanPembeliActivity.getApplicationContext(), "Gagal Menghubungi Server "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialogInterface.dismiss();
+
+                    }
+                });
+
+                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
 
     }
 
@@ -87,6 +142,7 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView Id;
         TextView IdPesanan;
         TextView Nama_BarangPesanan;
         TextView MerkPesanan;
@@ -98,12 +154,14 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
 
        // ImageView KeranjangProduk;
         Button Ubah;
+        Button Diterima;
         ImageView imageProdukPesanan;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            Id = itemView.findViewById(R.id.tvIdBarangPesanan);
             IdPesanan = itemView.findViewById(R.id.tvIdBarangPesanan);
             Nama_BarangPesanan = itemView.findViewById(R.id.tvNamaBarangPesanan);
             MerkPesanan = itemView.findViewById(R.id.tvMerkPesanan);
@@ -117,6 +175,7 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
 
            // KeranjangProduk = itemView.findViewById(R.id.ImgKeranjang);
             Ubah = itemView.findViewById(R.id.btnUbah);
+            Diterima = itemView.findViewById(R.id.BtnPesananDiterima);
 
 
         }

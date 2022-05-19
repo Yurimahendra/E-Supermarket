@@ -54,8 +54,8 @@ public class DetailPesananActivity extends AppCompatActivity {
     TextView SatuanDetail;
     //TextView DeskripsiDetail;
     TextView JumlahDetail;
-    TextView OngkirDetail;
-    TextView tvIdPesananDetail;
+    EditText OngkirDetail;
+    EditText tvIdPesananDetail;
     TextView tvTotalHarga;
     ImageView BeliImgProduk1Detail ;
     ImageView backDetail;
@@ -116,7 +116,7 @@ public class DetailPesananActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pesanan);
 
-        tvIdPesananDetail = findViewById(R.id.tvNoPesanan);
+        tvIdPesananDetail = findViewById(R.id.EdtNoPesanan);
         Nama_BarangDetail = findViewById(R.id.tvNamaBarangOrder);
         MerkDetail = findViewById(R.id.tvMerkOrder);
         HargaDetail = findViewById(R.id.tvHargaOrder);

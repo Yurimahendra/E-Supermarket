@@ -18,64 +18,64 @@
             android:src="@drawable/logo"
             android:layout_width="80dp"
             android:layout_height="147dp"
-            android:id="@+id/ImgItemPesanan"
+            android:id="@+id/ImgItemPesananKurir"
             />
 
         <TextView
-            android:id="@+id/tvIdBarangPesanan"
+            android:id="@+id/tvIdBarangPesananKurir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="id"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_toRightOf="@id/ImgItemPesanan"
+            android:layout_toRightOf="@id/ImgItemPesananKurir"
             android:layout_marginLeft="10dp"
             android:visibility="gone"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvNamaBarangPesanan"
+            android:id="@+id/tvNamaBarangPesananKurir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nama Barang"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_toRightOf="@id/ImgItemPesanan"
+            android:layout_toRightOf="@id/ImgItemPesananKurir"
             android:layout_marginLeft="10dp"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvMerkPesanan"
+            android:id="@+id/tvMerkPesananKurir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Merk"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_toRightOf="@id/ImgItemPesanan"
-            android:layout_below="@id/tvNamaBarangPesanan"
+            android:layout_toRightOf="@id/ImgItemPesananKurir"
+            android:layout_below="@id/tvNamaBarangPesananKurir"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvHargaPesanan"
+            android:id="@+id/tvHargaPesananKurir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Harga"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_toRightOf="@id/ImgItemPesanan"
-            android:layout_below="@id/tvMerkPesanan"
+            android:layout_toRightOf="@id/ImgItemPesananKurir"
+            android:layout_below="@id/tvMerkPesananKurir"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvStokPesanan"
+            android:id="@+id/tvStokPesananKurir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Stok"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_toRightOf="@id/ImgItemPesanan"
-            android:layout_below="@id/tvHargaPesanan"
+            android:layout_toRightOf="@id/ImgItemPesananKurir"
+            android:layout_below="@id/tvHargaPesananKurir"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:visibility="gone"/>
@@ -83,50 +83,50 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvSatuanPesanan"
+            android:id="@+id/tvSatuanPesananKurir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kg"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_toRightOf="@+id/tvJumlahPesanan"
-            android:layout_below="@id/tvHargaPesanan"
+            android:layout_toRightOf="@+id/tvJumlahPesananKurir"
+            android:layout_below="@id/tvHargaPesananKurir"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvJumlahPesanan"
+            android:id="@+id/tvJumlahPesananKurir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_toRightOf="@+id/ImgItemPesanan"
-            android:layout_below="@id/tvHargaPesanan"
+            android:layout_toRightOf="@+id/ImgItemPesananKurir"
+            android:layout_below="@id/tvHargaPesananKurir"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
         <Button
-            android:id="@+id/btnUbah"
+            android:id="@+id/btnUbahKurir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DETAIL PESANAN"
-            android:layout_below="@id/ImgItemPesanan"
+            android:layout_below="@id/tvJumlahPesananKurir"
             android:layout_marginTop="5dp"
-            />
+            android:layout_marginLeft="200dp"/>
 
 
-        <Button
-            android:id="@+id/BtnPesananDiterima"
+        <!--<Button
+            android:id="@+id/BtnBayarPesanan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pesanan Diterima"
-            android:layout_below="@id/ImgItemPesanan"
+            android:text="Bayar"
+            android:layout_below="@id/tvJumlahPesanan"
             android:layout_toRightOf="@id/btnUbah"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            />
+            android:layout_marginLeft="90dp"
+            android:visibility="gone"/>-->
 
 
     </RelativeLayout>

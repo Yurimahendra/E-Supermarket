@@ -1,21 +1,48 @@
 package com.example.e_supermarket.Penjual.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.e_supermarket.MainActivity;
+import com.example.e_supermarket.Pembeli.Activity.OrderanPembeliActivity;
+import com.example.e_supermarket.Pembeli.Adapter.AdapterBuatPesanan;
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
+import com.example.e_supermarket.Pembeli.Model.BuatPesanan;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
+import com.example.e_supermarket.Penjual.Adapter.AdapterPesananPenjual;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HalamanNotifPenjualActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewPenjual;
     FirebaseAuth firebaseAuth;
+
+    private SwipeRefreshLayout srlDataProdukOrderanPenjual;
+    private ProgressBar pbDataProdukOrderanPenjual;
+
+    private RecyclerView recyclerViewOrderanPenjual;
+    private List<BuatPesanan> buatPesananListPenjual = new ArrayList<>();
+    private AdapterPesananPenjual adapterPesananPenjual;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -52,6 +79,57 @@ public class HalamanNotifPenjualActivity extends AppCompatActivity {
         bottomNavigationViewPenjual = findViewById(R.id.nav_penjual);
         bottomNavigationViewPenjual.setOnNavigationItemSelectedListener(navigation_penjual);
         firebaseAuth = FirebaseAuth.getInstance();
+
+        srlDataProdukOrderanPenjual = findViewById(R.id.sw_dataprodukPesananPenjual);
+        pbDataProdukOrderanPenjual = findViewById(R.id.pb_dataprodukPesananPenjual);
+
+        recyclerViewOrderanPenjual = findViewById(R.id.recItemPesananPenjual);;
+        recyclerViewOrderanPenjual.setHasFixedSize(true);
+        recyclerViewOrderanPenjual.setLayoutManager(new LinearLayoutManager(HalamanNotifPenjualActivity.this, LinearLayoutManager.VERTICAL, false));
+
+        srlDataProdukOrderanPenjual.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srlDataProdukOrderanPenjual.setRefreshing(true);
+                retrieveDataOrderan();
+                srlDataProdukOrderanPenjual.setRefreshing(false);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        retrieveDataOrderan();
+    }
+
+    private void retrieveDataOrderan() {
+        pbDataProdukOrderanPenjual.setVisibility(View.VISIBLE);
+        ApiRequestPembeli requestDataOrderan = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+        Call<ResponseBuatPesanan> tampilDataOrderan = requestDataOrderan.RetrieveDataOrderan();
+
+        tampilDataOrderan.enqueue(new Callback<ResponseBuatPesanan>() {
+            @Override
+            public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+                if (response.isSuccessful()){
+                    //int kode = response.body().getKode();
+                    //String pesan = response.body().getPesan();
+
+                    buatPesananListPenjual = response.body().getData();
+
+                    adapterPesananPenjual = new AdapterPesananPenjual(HalamanNotifPenjualActivity.this, buatPesananListPenjual);
+                    recyclerViewOrderanPenjual.setAdapter(adapterPesananPenjual);
+                    adapterPesananPenjual.notifyDataSetChanged();
+                }
+                pbDataProdukOrderanPenjual.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+                Toast.makeText(HalamanNotifPenjualActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                pbDataProdukOrderanPenjual.setVisibility(View.GONE);
+            }
+        });
     }
 
 

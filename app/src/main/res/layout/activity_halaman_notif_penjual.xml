@@ -7,6 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".Penjual.Activity.HalamanNotifPenjualActivity">
 
+    <TextView
+        android:id="@+id/tvOrderan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Orderan"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:gravity="center"/>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sw_dataprodukPesananPenjual"
+        android:layout_above="@id/nav_penjual"
+        android:layout_below="@id/tvOrderan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/recItemPesananPenjual">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_dataprodukPesananPenjual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,11 +50,5 @@
         app:itemIconTint="@color/white"
         android:layout_alignParentBottom="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Halaman Notif"
-        android:textSize="30dp"
-        android:textColor="@color/black"/>
 
 </RelativeLayout>

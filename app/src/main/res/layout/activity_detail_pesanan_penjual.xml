@@ -5,17 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pembeli.Activity.DetailPesananActivity">
+    tools:context=".Penjual.Activity.DetailPesananPenjualActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tolbarOrder"
+        android:id="@+id/tolbarOrderPenjual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/design_default_color_primary"
         android:layout_alignParentTop="true">
 
         <ImageView
-            android:id="@+id/imgBackOrderProduk"
+            android:id="@+id/imgBackOrderProdukPenjual"
             android:layout_gravity="left"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -34,18 +34,18 @@
 
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
-        android:id="@+id/scrlOrder"
+        android:id="@+id/scrlOrderPenjual"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tolbarOrder"
-        android:layout_above="@+id/tolbarOrder1">
+        android:layout_below="@id/tolbarOrderPenjual"
+        android:layout_above="@+id/frOrder1Penjual">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardOrder"
+                android:id="@+id/cardOrderPenjual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="8dp"
@@ -62,111 +62,110 @@
                         android:src="@drawable/logo"
                         android:layout_width="80dp"
                         android:layout_height="100dp"
-                        android:id="@+id/ImgItemOrder"
+                        android:id="@+id/ImgItemOrderPenjual"
                         />
 
                     <TextView
-                        android:id="@+id/tvIdBarangOrder"
+                        android:id="@+id/tvIdBarangOrderPenjual"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="id"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:layout_toRightOf="@id/ImgItemOrder"
+                        android:layout_toRightOf="@id/ImgItemOrderPenjual"
                         android:layout_marginLeft="10dp"
                         android:visibility="gone"/>
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvNamaBarangOrder"
+                        android:id="@+id/tvNamaBarangOrderPenjual"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Nama Barang"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:layout_toRightOf="@id/ImgItemOrder"
+                        android:layout_toRightOf="@id/ImgItemOrderPenjual"
                         android:layout_marginLeft="10dp"/>
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvMerkOrder"
+                        android:id="@+id/tvMerkOrderPenjual"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Merk"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:layout_toRightOf="@id/ImgItemOrder"
-                        android:layout_below="@id/tvNamaBarangOrder"
+                        android:layout_toRightOf="@id/ImgItemOrderPenjual"
+                        android:layout_below="@id/tvNamaBarangOrderPenjual"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"/>
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvHargaOrder"
+                        android:id="@+id/tvHargaOrderPenjual"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Harga"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:layout_toRightOf="@id/ImgItemOrder"
-                        android:layout_below="@id/tvMerkOrder"
+                        android:layout_toRightOf="@id/ImgItemOrderPenjual"
+                        android:layout_below="@id/tvMerkOrderPenjual"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"/>
 
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvStokOrder"
+                        android:id="@+id/tvStokOrderPenjual"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Stok"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:layout_toRightOf="@id/ImgItemOrder"
-                        android:layout_below="@id/tvHargaOrder"
+                        android:layout_toRightOf="@id/ImgItemOrderPenjual"
+                        android:layout_below="@id/tvHargaOrderPenjual"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
                         android:visibility="gone"/>
 
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvAngkaJumlahOrder"
+                        android:id="@+id/tvAngkaJumlahOrderPenjual"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:layout_toRightOf="@+id/ImgItemOrder"
-                        android:layout_below="@id/tvHargaOrder"
+                        android:layout_toRightOf="@+id/ImgItemOrderPenjual"
+                        android:layout_below="@id/tvHargaOrderPenjual"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"/>
 
 
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvSatuanOrder"
+                        android:id="@+id/tvSatuanOrderPenjual"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kg"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:layout_toRightOf="@+id/tvAngkaJumlahOrder"
-                        android:layout_below="@id/tvStokOrder"
+                        android:layout_toRightOf="@+id/tvAngkaJumlahOrderPenjual"
+                        android:layout_below="@id/tvStokOrderPenjual"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"/>
-
-
 
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nopesan"
+                android:id="@+id/nopesanPenjual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="@color/white"
-                android:layout_below="@+id/cardOrder"
+                android:layout_below="@+id/cardOrderPenjual"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp">
                 <EditText
-                    android:id="@+id/EdtNoPesanan"
+                    android:id="@+id/EdtNoPesananPenjual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="No Pesanan"
@@ -176,63 +175,66 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/namaOrder"
+                android:id="@+id/namaOrderPenjual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="@color/white"
-                android:layout_below="@+id/nopesan"
+                android:layout_below="@+id/nopesanPenjual"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp">
                 <EditText
-                    android:id="@+id/EdtNamaOrder"
+                    android:id="@+id/EdtNamaOrderPenjual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nama Pemesan"
+                    android:focusable="false"
                     android:inputType="textCapSentences"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/alamatOrder"
+                android:id="@+id/alamatOrderPenjual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="@color/white"
-                android:layout_below="@+id/namaOrder"
+                android:layout_below="@+id/namaOrderPenjual"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp">
                 <EditText
-                    android:id="@+id/EdtAlamatOrder"
+                    android:id="@+id/EdtAlamatOrderPenjual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Alamat pengiriman"
                     android:inputType="textMultiLine"
+                    android:focusable="false"
                     android:maxLines="3"
                     android:minLines="1"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/noponOrder"
+                android:id="@+id/noponOrderPenjual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="@color/white"
-                android:layout_below="@+id/alamatOrder"
+                android:layout_below="@+id/alamatOrderPenjual"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp">
                 <EditText
-                    android:id="@+id/EdtNopOrder"
+                    android:id="@+id/EdtNopOrderPenjual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:hint="Nomor Ponsel"
+                    android:focusable="false"
                     android:inputType="number"
                     android:textSize="15sp"
                     android:maxLength="12"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tglOrder"
-                android:layout_below="@+id/noponOrder"
+                android:id="@+id/tglOrderPenjual"
+                android:layout_below="@+id/noponOrderPenjual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="@color/white"
@@ -240,7 +242,7 @@
                 android:layout_marginEnd="5dp">
                 <EditText
                     android:hint="Tanggal Pengiriman"
-                    android:id="@+id/EdtTabeOrder"
+                    android:id="@+id/EdtTabeOrderPenjual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -250,8 +252,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ongkirOrder"
-                android:layout_below="@+id/tglOrder"
+                android:id="@+id/ongkirOrderPenjual"
+                android:layout_below="@+id/tglOrderPenjual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="@color/white"
@@ -259,126 +261,123 @@
                 android:layout_marginEnd="5dp">
                 <EditText
                     android:hint="Ongkir"
-                    android:id="@+id/RpongkirOrder"
+                    android:id="@+id/RpongkirOrderPenjual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:focusable="false"
-                    android:inputType="date"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:padding="5dp"
-                android:id="@+id/tvMetodBayarOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Pilih Metode Pembayaran"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_below="@+id/ongkirOrder"/>
-
-            <Spinner
-                android:id="@+id/SpMetodebayarOrder"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/metodebayar"
+                android:layout_below="@+id/ongkirOrderPenjual"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:padding="5dp"
-                android:entries="@array/Metode_Bayar"
-                android:layout_below="@+id/tvMetodBayarOrder"/>
-
-            <FrameLayout
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/white"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/frOrder"
-                android:layout_below="@id/SpMetodebayarOrder">
-                <Button
-                    android:id="@+id/UpdateOrder"
+                android:layout_marginEnd="5dp">
+                <EditText
+                    android:hint="Metode Pembayaran"
+                    android:id="@+id/SpMetodebayarOrderPenjual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="UPDATE" />
+                    android:layout_marginTop="5dp"
+                    android:focusable="false"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <ProgressBar
-                    android:id="@+id/progressDataUpdateOrder"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:visibility="gone" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tolbarOrder1Penjual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_below="@+id/metodebayar"
+                android:padding="5dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="left">
 
-            </FrameLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total" />
 
+                    <TextView
+                        android:id="@+id/TotalBayarOrderPenjual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:text="Rp. 150.000" />
+                </LinearLayout>
+
+                <!--<FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right">
+                    <Button
+                        android:id="@+id/btnbuatPesananOrderPenjual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BAYAR"
+                        />
+
+
+                </FrameLayout>-->
+
+
+
+            </androidx.appcompat.widget.Toolbar>
 
         </RelativeLayout>
 
     </ScrollView>
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tolbarOrder1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_above="@id/frOrder1"
-        android:padding="5dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="left">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total" />
-
-            <TextView
-                android:id="@+id/TotalBayarOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:text="Rp. 150.000" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right">
-            <Button
-                android:id="@+id/btnbuatPesananOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BAYAR"
-                />
-        </FrameLayout>
-
-    </androidx.appcompat.widget.Toolbar>
-
     <FrameLayout
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/frOrder1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp">
+        android:id="@+id/frOrder1Penjual"
+        android:layout_alignParentBottom="true">
         <Button
-            android:id="@+id/BatalOrder1"
+            android:id="@+id/BatalOrder1Penjual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="BATALKAN PESANAN" />
 
         <ProgressBar
-            android:id="@+id/progressDataBatalOrder1"
+            android:id="@+id/progressDataBatalOrder1Penjual"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:visibility="gone" />
 
     </FrameLayout>
+
+    <!--<FrameLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frOrderPenjual"
+        android:layout_above="@id/frOrder1Penjual">
+        <Button
+            android:id="@+id/UpdateOrderPenjual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selesai" />
+
+        <ProgressBar
+            android:id="@+id/progressDataUpdateOrderPenjual"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+    </FrameLayout>-->
 
 </RelativeLayout>
