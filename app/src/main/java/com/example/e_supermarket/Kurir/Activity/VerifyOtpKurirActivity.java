@@ -66,8 +66,8 @@ public class VerifyOtpKurirActivity extends AppCompatActivity {
 
         setupOTPInputs();
 
-        final ProgressBar progressBarVK = findViewById(R.id.progressBarVB);
-        final Button buttonVK = findViewById(R.id.btnVerifyPemb);
+        final ProgressBar progressBarVK = findViewById(R.id.progressBarVK);
+        final Button buttonVK = findViewById(R.id.btnVerifyK);
 
         verificationIdK = getIntent().getStringExtra("verificationId");
 
@@ -109,11 +109,11 @@ public class VerifyOtpKurirActivity extends AppCompatActivity {
                                         compare = ETnopon.compareTo(noponsel);
                                         if (task.isSuccessful()){
                                             if (compare == 0){
-                                                Intent intent = new Intent(getApplicationContext(), HalamanUtamaKurirActivity.class);
+                                                Intent intent = new Intent(VerifyOtpKurirActivity.this, HalamanUtamaKurirActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                 startActivity(intent);
                                             }else {
-                                                Intent intent = new Intent(getApplicationContext(), FormDataKurirActivity.class);
+                                                Intent intent = new Intent(VerifyOtpKurirActivity.this, FormDataKurirActivity.class);
                                                 intent.putExtra("mobile", textMobile.getText().toString());
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                 startActivity(intent);
@@ -125,7 +125,7 @@ public class VerifyOtpKurirActivity extends AppCompatActivity {
                                     }catch (NullPointerException exception){
                                         progressBarVK.setVisibility(View.GONE);
                                         buttonVK.setVisibility(View.VISIBLE);
-                                        Intent intent = new Intent(getApplicationContext(), FormDataKurirActivity.class);
+                                        Intent intent = new Intent(VerifyOtpKurirActivity.this, FormDataKurirActivity.class);
                                         intent.putExtra("mobile", textMobile.getText().toString());
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);

@@ -39,7 +39,7 @@ public interface ApiRequestDataKurir {
     @Multipart
     @POST("api/datakurir/{datakurir}")
     Call<ResponseDataKurir> UpdateProfileKurir(
-            @Path("dataproduk") int id,
+            @Path("datakurir") int id,
             @Query("_method") String _method,
             @Part("nik") long nik,
             @Part("nama") RequestBody nama,

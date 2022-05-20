@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.e_supermarket.Kurir.Activity.FormEditProfileKurirActivity;
 import com.example.e_supermarket.Kurir.Activity.HalamanProfilKurirActivity;
 import com.example.e_supermarket.Kurir.Model.DataKurir;
 import com.example.e_supermarket.Pembeli.Model.DataPembeli;
@@ -68,7 +69,7 @@ public class AdapterProfileKurir extends RecyclerView.Adapter<AdapterProfileKuri
                 bundle.putString("no_ponsel", item.getNo_ponsel());
                 bundle.putString("gambar", RetroServer.imageURL + item.getGambar());
 
-                Intent intent = new Intent(halamanProfilKurirActivity, FormEditProfilePenjualActivity.class);
+                Intent intent = new Intent(halamanProfilKurirActivity, FormEditProfileKurirActivity.class);
                 intent.putExtras(bundle);
                 halamanProfilKurirActivity.startActivity(intent);
             }

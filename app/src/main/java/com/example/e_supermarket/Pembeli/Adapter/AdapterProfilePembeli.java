@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.e_supermarket.Pembeli.Activity.FormEditProfilePembeliActivity;
 import com.example.e_supermarket.Pembeli.Activity.ProfilePembeliActivity;
 import com.example.e_supermarket.Pembeli.Model.DataPembeli;
 import com.example.e_supermarket.Penjual.Activity.FormEditProfilePenjualActivity;
@@ -68,7 +69,7 @@ public class AdapterProfilePembeli extends RecyclerView.Adapter<AdapterProfilePe
                 bundle.putString("no_ponsel", item.getNo_ponsel());
                 bundle.putString("gambar", RetroServer.imageURL + item.getGambar());
 
-                Intent intent = new Intent(profilePembeliActivity, FormEditProfilePenjualActivity.class);
+                Intent intent = new Intent(profilePembeliActivity, FormEditProfilePembeliActivity.class);
                 intent.putExtras(bundle);
                 profilePembeliActivity.startActivity(intent);
             }

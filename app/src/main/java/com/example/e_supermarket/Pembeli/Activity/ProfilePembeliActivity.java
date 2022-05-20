@@ -92,7 +92,7 @@ public class ProfilePembeliActivity extends AppCompatActivity {
 
         srlProfPembeli = findViewById(R.id.sw_profpembeli);
         pbProfPembeli = findViewById(R.id.pb_profilePembeli);
-
+        Fauth = FirebaseAuth.getInstance();
 
         recyclerView = findViewById(R.id.recProfilepembeli);;
         recyclerView.setHasFixedSize(true);
@@ -159,7 +159,7 @@ public class ProfilePembeliActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //firebaseAuth.signOut();
+
                         Intent intent = new Intent(ProfilePembeliActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

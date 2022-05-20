@@ -144,7 +144,7 @@ public class SendOtpKurirActivity extends AppCompatActivity {
                                 public void onCodeSent(@NonNull String verificationIdB, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                     progressBarK.setVisibility(View.GONE);
                                     buttonK.setVisibility(View.VISIBLE);
-                                    Intent intent = new Intent(getApplicationContext(), VerifyOTPActivityPembeli.class);
+                                    Intent intent = new Intent(SendOtpKurirActivity.this, VerifyOtpKurirActivity.class);
                                     intent.putExtra("mobile", inputMobileK.getText().toString());
                                     intent.putExtra("verificationId", verificationIdB);
                                     startActivity(intent);
