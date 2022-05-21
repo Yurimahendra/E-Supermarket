@@ -152,6 +152,6 @@ public interface ApiRequestPembeli {
 
     @DELETE("api/datakeranjang/{datakeranjang}")
     Call<ResponseDataKeranjang> hapusDataKeranjang(
-            @Path("dataproduk") int id
+            @Path("datakeranjang") int id
     );
 }

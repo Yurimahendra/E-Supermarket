@@ -45,7 +45,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
     EditText Nama_barang;
     EditText Merk;
     EditText Harga;
-    EditText Stok;
+    EditText MinBelanja;
     Spinner Satuan;
     EditText Deskripsi;
     FirebaseFirestore db;
@@ -53,7 +53,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
     private String uNama_Barang;
     private String uMerk;
     private String uHarga;
-    private int uStok;
+    private int uMinBelanja;
     private String uSatuan;
     private String uGambar;
     private String uDeskripsi;
@@ -71,7 +71,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
     String nama_barang;
     String merk;
     String harga;
-    int stok;
+    int min_belanja;
     String satuan;
     String gambar;
     MultipartBody.Part partImg;
@@ -87,7 +87,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
         Nama_barang = findViewById(R.id.UpdtNaBa);
         Merk = findViewById(R.id.UpdtMerk);
         Harga = findViewById(R.id.UpdtHarga);
-        Stok = findViewById(R.id.UpdtStok);
+        MinBelanja = findViewById(R.id.UpdtMinBelanja);
         Satuan = findViewById(R.id.UpdtSpSatuan);
         EditImgProduk1 = findViewById(R.id.GambarProdukEdit);
         EditImgProduk1.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +108,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
         uNama_Barang = bundle.getString("nama_barang");
         uMerk = bundle.getString("merk");
         uHarga = bundle.getString("harga");
-        uStok = bundle.getInt("stok", 0);
+        uMinBelanja = bundle.getInt("min_belanja", 0);
         uSatuan = bundle.getString("satuan");
         uGambar = bundle.getString("gambar");
         uDeskripsi = bundle.getString("deskripsi");
@@ -117,7 +117,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
         Nama_barang.setText(uNama_Barang);
         Merk.setText(uMerk);
         Harga.setText(uHarga);
-        Stok.setText(uStok+"");
+        MinBelanja.setText(uMinBelanja+"");
         if (uSatuan.equals(n_satuan[0])) id_satuan = 0;
         else if (uSatuan.equals(n_satuan[1])) id_satuan = 1;
         else if (uSatuan.equals(n_satuan[2])) id_satuan = 2;
@@ -175,7 +175,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
             nama_barang = Nama_barang.getText().toString().trim();
             merk = Merk.getText().toString().trim();
             harga = Harga.getText().toString().trim();
-            stok = Integer.parseInt(Stok.getText().toString().trim());
+            min_belanja = Integer.parseInt(MinBelanja.getText().toString().trim());
             satuan = Satuan.getSelectedItem().toString().trim();
 //            mediaPath = EditImgProduk1.getContext().getContentResolver().getType(imageUri);
 
@@ -202,8 +202,8 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
                 Harga.setError("HARGA TIDAK BOLEH KOSONG");
                 PbUpdteData.setVisibility(View.GONE);
                 btnUpdt.setVisibility(View.VISIBLE);
-            } else if (stok <= 0) {
-                Stok.setError("STOK TIDAK BOLEH KOSONG");
+            } else if (min_belanja <= 0) {
+                MinBelanja.setError("Minimal Beli TIDAK BOLEH KOSONG");
                 PbUpdteData.setVisibility(View.GONE);
                 btnUpdt.setVisibility(View.VISIBLE);
             } else if (satuan.equals("")) {
@@ -223,7 +223,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
                             RequestBody.create(MediaType.parse("text/plain"), merk),
                             RequestBody.create(MediaType.parse("text/plain"), harga),
                             RequestBody.create(MediaType.parse("text/plain"), satuan),
-                            stok,
+                            min_belanja,
                             partImg,
                             RequestBody.create(MediaType.parse("text/plain"), deskripsi)
                     );

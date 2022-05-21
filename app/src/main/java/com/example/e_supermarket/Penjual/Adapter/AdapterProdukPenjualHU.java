@@ -69,7 +69,7 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
         holder.Nama_Barang.setText(ProdukList.get(position).getNama_barang());
         holder.Merk.setText(ProdukList.get(position).getMerk());
         holder.Harga.setText(ProdukList.get(position).getHarga());
-        holder.Stok.setText(String.valueOf(ProdukList.get(position).getStok()));
+        holder.Min_belanja.setText(""+ProdukList.get(position).getMin_belanja());
         holder.Satuan.setText(ProdukList.get(position).getSatuan());
         Glide.with(holder.imageProduk.getContext())
                 .load(RetroServer.imageURL + ProdukList.get(position).getGambar()).into(holder.imageProduk);
@@ -84,7 +84,7 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
                 bundle.putString("nama_barang", item.getNama_barang());
                 bundle.putString("merk", item.getMerk());
                 bundle.putString("harga", item.getHarga());
-                bundle.putInt("stok", item.getStok());
+                bundle.putInt("min_belanja", item.getMin_belanja());
                 bundle.putString("satuan", item.getSatuan());
                 bundle.putString("gambar", RetroServer.imageURL + item.getGambar());
                 bundle.putString("deskripsi", item.getDeskripsi());
@@ -150,7 +150,7 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
         TextView Nama_Barang;
         TextView Merk;
         TextView Harga;
-        TextView Stok;
+        TextView Min_belanja;
         TextView Satuan;
         TextView Deskripsi;
 
@@ -167,7 +167,7 @@ public class AdapterProdukPenjualHU extends RecyclerView.Adapter<AdapterProdukPe
             Nama_Barang = itemView.findViewById(R.id.tvNamaBarang);
             Merk = itemView.findViewById(R.id.tvMerk);
             Harga = itemView.findViewById(R.id.tvHarga);
-            Stok = itemView.findViewById(R.id.tvStok);
+            Min_belanja = itemView.findViewById(R.id.tvMinBelanjaPenjual);
             Satuan = itemView.findViewById(R.id.tvSatuan);
             imageProduk = (CircleImageView) itemView.findViewById(R.id.ImgProdukView);
             Deskripsi = itemView.findViewById(R.id.tvDeskripsi);

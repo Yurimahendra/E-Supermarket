@@ -126,11 +126,11 @@
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="@color/white">
                 <EditText
-                    android:id="@+id/UpdtStok"
+                    android:id="@+id/UpdtMinBelanja"
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Stok"
+                    android:hint="Min. Belanja"
                     android:textSize="20sp"
                     android:inputType="number|numberDecimal"/>
             </com.google.android.material.textfield.TextInputLayout>

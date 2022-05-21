@@ -34,7 +34,7 @@ public interface ApiRequestDataProduk {
             @Part("merk") RequestBody merk,
             @Part("harga") RequestBody harga,
             @Part("satuan") RequestBody satuan,
-            @Part("stok") int stok,
+            @Part("min_belanja") int min_belanja,
             @Nullable @Part MultipartBody.Part gambar,
             @Nullable @Part("deskripsi") RequestBody deskripsi
     );
@@ -49,7 +49,7 @@ public interface ApiRequestDataProduk {
             @Part("merk") RequestBody merk,
             @Part("harga") RequestBody harga,
             @Part("satuan") RequestBody satuan,
-            @Part("stok") int stok,
+            @Part("min_belanja") int min_belanja,
             @Nullable @Part MultipartBody.Part gambar,
             @Nullable @Part("deskripsi") RequestBody deskripsi
     );

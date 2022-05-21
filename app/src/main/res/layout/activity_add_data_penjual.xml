@@ -84,8 +84,8 @@
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="@color/white">
                 <EditText
-                    android:id="@+id/EdtStok"
-                    android:hint="Stok"
+                    android:id="@+id/EdtminBelanja"
+                    android:hint="Min. Belanja"
                     android:background="@null"
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"

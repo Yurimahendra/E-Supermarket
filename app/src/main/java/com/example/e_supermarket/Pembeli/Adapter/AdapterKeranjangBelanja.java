@@ -1,11 +1,15 @@
 package com.example.e_supermarket.Pembeli.Adapter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,12 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.Pembeli.Activity.HalamanUtamaPembeliActivity;
 import com.example.e_supermarket.Pembeli.Activity.KeranjangBelanjaActivity;
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
 import com.example.e_supermarket.Pembeli.Model.DataKeranjang;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataKeranjang;
 import com.example.e_supermarket.Penjual.Model.DataProduk;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdapterKeranjangBelanja extends RecyclerView.Adapter<AdapterKeranjangBelanja.MyViewHolder>{
     private KeranjangBelanjaActivity keranjangBelanjaActivity;
@@ -46,6 +57,59 @@ public class AdapterKeranjangBelanja extends RecyclerView.Adapter<AdapterKeranja
         holder.SatuanKeranjang.setText(dataKeranjangList.get(position).getSatuan());
         Glide.with(holder.imageProdukKeranjang.getContext())
                 .load(RetroServer.imageURL + dataKeranjangList.get(position).getGambar()).into(holder.imageProdukKeranjang);
+
+        holder.hapusitmKeranjg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int idOrderan = dataKeranjangList.get(position).getId();
+                AlertDialog.Builder builder = new AlertDialog.Builder(holder.IdKeranjang.getContext());
+                builder.setTitle("Apakah yakin ingin Di hapus ?");
+                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        ApiRequestPembeli haDataKeranjang= RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                        Call<ResponseDataKeranjang> hapusItmKeranjg = haDataKeranjang.hapusDataKeranjang(idOrderan);
+                        hapusItmKeranjg.enqueue(new Callback<ResponseDataKeranjang>() {
+                            @Override
+                            public void onResponse(Call<ResponseDataKeranjang> call, Response<ResponseDataKeranjang> response) {
+                                try {
+                                    //startActivity(new Intent(OrderanPembeliActivity.this, OrderanPembeliActivity.class));
+                                    Toast.makeText(keranjangBelanjaActivity.getApplicationContext(), "Produk Berhasil Dihapus", Toast.LENGTH_SHORT).show();
+
+                                }catch (NullPointerException nullPointerException){
+                                    Toast.makeText(keranjangBelanjaActivity.getApplicationContext(), "Error "+nullPointerException.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseDataKeranjang> call, Throwable t) {
+                                Toast.makeText(keranjangBelanjaActivity.getApplicationContext(), "Gagal Menghubungi Server "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialogInterface.dismiss();
+
+                    }
+                });
+
+                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
+        holder.pilihItmKeranjng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -63,9 +127,12 @@ public class AdapterKeranjangBelanja extends RecyclerView.Adapter<AdapterKeranja
         TextView DeskripsiKeranjang;
 
 
-        //ImageView KeranjangProduk;
-        //Button BeliSekrang;
+
         ImageView imageProdukKeranjang;
+        ImageView hapusitmKeranjg;
+        ImageView tambahJumlah;
+        ImageView KurangJumlah;
+        CheckBox pilihItmKeranjng;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -78,6 +145,10 @@ public class AdapterKeranjangBelanja extends RecyclerView.Adapter<AdapterKeranja
             StokKeranjang = itemView.findViewById(R.id.tvStokKeranjang);
             SatuanKeranjang = itemView.findViewById(R.id.tvSatuanKeranjang);
             imageProdukKeranjang = itemView.findViewById(R.id.ImgItemKeranjang);
+            hapusitmKeranjg = itemView.findViewById(R.id.DeleteItmKeranjng);
+            pilihItmKeranjng = itemView.findViewById(R.id.CbItemKeranjng);
+            tambahJumlah = itemView.findViewById(R.id.imgTambahiKeranjang);
+            KurangJumlah = itemView.findViewById(R.id.imgKurangiKeranjang);
             //DeskripsiKeranjang = itemView.findViewById(R.id.tvDeskripsi);
 
 

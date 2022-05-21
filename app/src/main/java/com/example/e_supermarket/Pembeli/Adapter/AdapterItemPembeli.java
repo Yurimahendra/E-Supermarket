@@ -64,7 +64,7 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
         holder.Nama_BarangPembeli.setText(ProdukListPembeli.get(position).getNama_barang());
         holder.MerkPembeli.setText(ProdukListPembeli.get(position).getMerk());
         holder.HargaPembeli.setText(String.valueOf(ProdukListPembeli.get(position).getHarga()));
-        holder.StokPembeli.setText(String.valueOf(ProdukListPembeli.get(position).getStok()));
+        holder.MinBelanja.setText(String.valueOf(ProdukListPembeli.get(position).getMin_belanja()));
         holder.SatuanPembeli.setText(ProdukListPembeli.get(position).getSatuan());
         Glide.with(holder.imageProdukPembeli.getContext())
                 .load(RetroServer.imageURL + ProdukListPembeli.get(position).getGambar()).into(holder.imageProdukPembeli);
@@ -78,7 +78,7 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
                         RequestBody.create(MediaType.parse("text/plain"), ProdukListPembeli.get(position).getMerk()),
                         RequestBody.create(MediaType.parse("text/plain"), ProdukListPembeli.get(position).getHarga()),
                         RequestBody.create(MediaType.parse("text/plain"), ProdukListPembeli.get(position).getSatuan()),
-                        ProdukListPembeli.get(position).getStok(),
+                        ProdukListPembeli.get(position).getMin_belanja(),
                         RequestBody.create(MediaType.parse("text/plain"), ProdukListPembeli.get(position).getGambar()),
                         RequestBody.create(MediaType.parse("text/plain"), ProdukListPembeli.get(position).getDeskripsi())
                 );
@@ -122,7 +122,7 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
                 bundle.putString("nama_barang", item.getNama_barang());
                 bundle.putString("merk", item.getMerk());
                 bundle.putString("harga", item.getHarga());
-                bundle.putInt("stok", item.getStok());
+                bundle.putInt("min_belanja", item.getMin_belanja());
                 bundle.putString("satuan", item.getSatuan());
                 bundle.putString("gambar", RetroServer.imageURL + item.getGambar());
                 bundle.putString("deskripsi", item.getDeskripsi());
@@ -148,7 +148,7 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
         TextView Nama_BarangPembeli;
         TextView MerkPembeli;
         TextView HargaPembeli;
-        TextView StokPembeli;
+        TextView MinBelanja;
         TextView SatuanPembeli;
         TextView DeskripsiPembeli;
 
@@ -165,7 +165,7 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
             Nama_BarangPembeli = itemView.findViewById(R.id.tvNamaBarangPembeli);
             MerkPembeli = itemView.findViewById(R.id.tvMerkPembeli);
             HargaPembeli = itemView.findViewById(R.id.tvHargaPembeli);
-            StokPembeli = itemView.findViewById(R.id.tvStokPembeli);
+            MinBelanja = itemView.findViewById(R.id.tvStokPembeli);
             SatuanPembeli = itemView.findViewById(R.id.tvSatuanPembeli);
             imageProdukPembeli = itemView.findViewById(R.id.ImgItemPembeli);
             DeskripsiPembeli = itemView.findViewById(R.id.tvDeskripsiPembeli);

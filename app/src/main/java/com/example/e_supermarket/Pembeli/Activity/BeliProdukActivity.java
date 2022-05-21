@@ -44,10 +44,10 @@ public class BeliProdukActivity extends AppCompatActivity {
     TextView Nama_Barangbeli;
     TextView Merkbeli;
     TextView Hargabeli;
-    //TextView Stokbeli;
+    TextView MinBelanjabeli;
     TextView Satuanbeli;
     //TextView Deskripsibeli;
-    TextView Jumlah;
+    //TextView Jumlah;
     TextView Ongkir;
     ImageView BeliImgProduk1 ;
     ImageView backBeli;
@@ -66,7 +66,8 @@ public class BeliProdukActivity extends AppCompatActivity {
     ImageView Increment;
     ImageView Decrement;
     TextView HitungJumlah;
-    int count = 0;
+    int getMinBel ;
+    //int hasilDecInc;
 
     int id_satuan;
     private String n_satuan[] = {"Kg", "Gr", "Pcs", "Lusin", "Kodi", "Gross", "Pack"};
@@ -74,18 +75,19 @@ public class BeliProdukActivity extends AppCompatActivity {
     private String BeliNama_Barang;
     private String BeliMerk;
     private String BeliHarga;
-    private int BeliStok;
+    private int BeliMin_belanja;
+    private int BeliMin_belanja1;
     private String BeliSatuan;
     private String BeliGambar;
     private String BeliDeskripsi;
     private int BeliId;
-    private int jumlah1;
+    //private int jumlah1;
 
     private String idPesanan;
     private String namaPemesan;
     private String namaBarangPesan;
     private String merkBarangPesan;
-    private int jumlahBarangPesan;
+    private int minBelanjaPesan;
     private String satuanPesan;
     private String gambarPesan;
     private String hargaBarangPesan;
@@ -118,7 +120,8 @@ public class BeliProdukActivity extends AppCompatActivity {
         Merkbeli = findViewById(R.id.tvMerkbeli);
         Hargabeli = findViewById(R.id.tvHargabeli);
         Satuanbeli = findViewById(R.id.tvSatuanbeli);
-        Jumlah = findViewById(R.id.tvAngkaJumlah);
+        MinBelanjabeli = findViewById(R.id.tvMinBelanjaBeli);
+        //Jumlah = findViewById(R.id.tvAngkaJumlah);
         Ongkir = findViewById(R.id.Rpongkir);
         BeliImgProduk1 = findViewById(R.id.ImgItembeli);
         MetodePembayaran = findViewById(R.id.SpMetodebayar);
@@ -140,23 +143,24 @@ public class BeliProdukActivity extends AppCompatActivity {
 
         Increment = findViewById(R.id.imgTambahi);
         Decrement = findViewById(R.id.imgKurangi);
-        HitungJumlah = findViewById(R.id.tvAngkaJumlah);
+        HitungJumlah = findViewById(R.id.tvMinBelanjaBeli);
         TotalBayar = findViewById(R.id.TotalBayar);
-        Jumlah.setText(""+ count);
 
         Increment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count++;
-                Jumlah.setText(""+ count);
+                BeliMin_belanja += 1;
+                MinBelanjabeli.setText(""+BeliMin_belanja);
+                minBelanjaPesan =  Integer.parseInt(MinBelanjabeli.getText().toString().trim());
                 HargaRepl = Getharga.replace("Rp. ", "");
                 HargaRepl1 = HargaRepl.replace(".", "");
                 nilaiRp = Integer.parseInt(HargaRepl1);
-                hasil = nilaiRp * count;
+                hasil = nilaiRp * minBelanjaPesan;
 
                 Locale localeID = new Locale("in", "ID");
                 NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
                 TotalBayar.setText(formatRupiah.format((double)hasil));
+
             }
         });
 
@@ -164,15 +168,16 @@ public class BeliProdukActivity extends AppCompatActivity {
         Decrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count <= 0){
-                    count = 0;
+                if (BeliMin_belanja <= BeliMin_belanja1){
+                    MinBelanjabeli.setText(""+BeliMin_belanja1);
                 }else {
-                    count--;
-                    Jumlah.setText(""+ count);
+                    BeliMin_belanja -= 1;
+                    MinBelanjabeli.setText(""+BeliMin_belanja);
+                    minBelanjaPesan =  Integer.parseInt(MinBelanjabeli.getText().toString().trim());
                     HargaRepl = Getharga.replace("Rp. ", "");
                     HargaRepl1 = HargaRepl.replace(".", "");
                     nilaiRp = Integer.parseInt(HargaRepl1);
-                    hasil = nilaiRp * count;
+                    hasil = nilaiRp * minBelanjaPesan;
 
                     Locale localeID = new Locale("in", "ID");
                     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
@@ -186,7 +191,7 @@ public class BeliProdukActivity extends AppCompatActivity {
         btnBuatPesanan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Integer.parseInt(Jumlah.getText().toString().trim()) == 0){
+                if (Integer.parseInt(MinBelanjabeli.getText().toString().trim()) == 0){
                     Toast.makeText(BeliProdukActivity.this, "Jumlah Satuan Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
                 }else {
                     insertbuatPesanan();
@@ -207,28 +212,31 @@ public class BeliProdukActivity extends AppCompatActivity {
         BeliNama_Barang = bundle.getString("nama_barang");
         BeliMerk = bundle.getString("merk");
         BeliHarga = bundle.getString("harga");
-        BeliStok = bundle.getInt("stok", 0);
+        BeliMin_belanja = bundle.getInt("min_belanja", 0);
+        BeliMin_belanja1 = bundle.getInt("min_belanja", 0);
         BeliSatuan = bundle.getString("satuan");
         BeliGambar = bundle.getString("gambar");
         BeliDeskripsi = bundle.getString("deskripsi");
-        jumlah1 = bundle.getInt("jumlah", 0);
+
 
 
         Nama_Barangbeli.setText(BeliNama_Barang);
         Merkbeli.setText(BeliMerk);
         Hargabeli.setText(BeliHarga);
         Satuanbeli.setText(BeliSatuan);
-        Jumlah.setText(""+jumlah1);
+        MinBelanjabeli.setText(""+BeliMin_belanja);
+        //getMinBel = BeliMin_belanja;
         Glide.with(BeliImgProduk1.getContext())
                 .load(BeliGambar).into(BeliImgProduk1);
 
 
         Getharga = Hargabeli.getText().toString().trim();
+        //minBelanjaPesan =  Integer.parseInt(MinBelanjabeli.getText().toString().trim());
 
         HargaRepl = Getharga.replace("Rp. ", "");
         HargaRepl1 = HargaRepl.replace(".", "");
-//        nilaiRp = Integer.parseInt(HargaRepl1);
-        hasil = nilaiRp * count;
+        nilaiRp = Integer.parseInt(HargaRepl1);
+        hasil = nilaiRp * BeliMin_belanja;
 
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
@@ -275,7 +283,7 @@ public class BeliProdukActivity extends AppCompatActivity {
             namaBarangPesan = Nama_Barangbeli.getText().toString().trim();
             merkBarangPesan = Merkbeli.getText().toString().trim();
             hargaBarangPesan = Hargabeli.getText().toString().trim();
-            jumlahBarangPesan = Integer.parseInt(Jumlah.getText().toString().trim());
+            minBelanjaPesan = Integer.parseInt(MinBelanjabeli.getText().toString().trim());
             //jumlahBarangPesan = Satuanbeli.getText().toString().trim();
             tglKirimPesan = EdtTglBeli.getText().toString().trim();
            // ongkirPesan = Ongkir.getText().toString().trim();
@@ -315,7 +323,7 @@ public class BeliProdukActivity extends AppCompatActivity {
                         RequestBody.create(MediaType.parse("text/plain"), namaBarangPesan),
                         RequestBody.create(MediaType.parse("text/plain"), merkBarangPesan),
                         RequestBody.create(MediaType.parse("text/plain"), hargaBarangPesan),
-                        jumlahBarangPesan,
+                        minBelanjaPesan,
                         RequestBody.create(MediaType.parse("text/plain"), BeliSatuan),
                         RequestBody.create(MediaType.parse("text/plain"), BeliGambar),
                         RequestBody.create(MediaType.parse("text/plain"), tglKirimPesan),

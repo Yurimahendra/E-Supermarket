@@ -107,21 +107,7 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvStokbeli"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Stok"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:layout_toRightOf="@id/ImgItembeli"
-                    android:layout_below="@id/tvHargabeli"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:visibility="gone"/>
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvAngkaJumlah"
+                    android:id="@+id/tvMinBelanjaBeli"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -130,7 +116,9 @@
                     android:layout_toRightOf="@+id/imgKurangi"
                     android:layout_below="@id/tvHargabeli"
                     android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    />
+
 
                 <ImageView
                     android:id="@+id/imgKurangi"
@@ -159,8 +147,8 @@
                     android:text="Kg"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:layout_toRightOf="@+id/tvAngkaJumlah"
-                    android:layout_below="@id/tvStokbeli"
+                    android:layout_toRightOf="@+id/tvMinBelanjaBeli"
+                    android:layout_below="@+id/tvHargabeli"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"/>
 

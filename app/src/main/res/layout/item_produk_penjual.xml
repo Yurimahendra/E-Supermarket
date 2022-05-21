@@ -69,10 +69,10 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvStok"
+            android:id="@+id/tvMinBelanjaPenjual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="yuri"
+            android:text="min belanja"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_toRightOf="@id/ImgProdukView"
@@ -88,7 +88,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_toRightOf="@+id/ImgProdukView"
-            android:layout_below="@id/tvStok"
+            android:layout_below="@id/tvMinBelanjaPenjual"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 

@@ -1,27 +1,18 @@
 package com.example.e_supermarket.Penjual.Fragment;
 
-import android.app.DownloadManager;
-import android.content.ContentProvider;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.e_supermarket.Penjual.Adapter.AdapterProdukPenjual;
 import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
 import com.example.e_supermarket.Penjual.Model.DataProduk;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
@@ -31,12 +22,9 @@ import com.example.e_supermarket.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,7 +35,7 @@ public class HomeFragmentPenjual extends Fragment {
 
     private RecyclerView recyclerView;
     private List<DataProduk> dataProdukList = new ArrayList<>();
-    private AdapterProdukPenjual adapterProdukPenjual;
+    //private AdapterProdukPenjual adapterProdukPenjual;
     private SwipeRefreshLayout srlDataProduk;
     private ProgressBar pbDataProduk;
    // private FirebaseFirestore db;
@@ -155,9 +143,9 @@ public class HomeFragmentPenjual extends Fragment {
 
                     dataProdukList = response.body().getData();
 
-                    adapterProdukPenjual = new AdapterProdukPenjual(HomeFragmentPenjual.this, dataProdukList);
-                    recyclerView.setAdapter(adapterProdukPenjual);
-                    adapterProdukPenjual.notifyDataSetChanged();
+                    //adapterProdukPenjual = new AdapterProdukPenjual(HomeFragmentPenjual.this, dataProdukList);
+                    //recyclerView.setAdapter(adapterProdukPenjual);
+                    //adapterProdukPenjual.notifyDataSetChanged();
                     //Toast.makeText(getContext(), ""+pesan, Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getContext(), "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();

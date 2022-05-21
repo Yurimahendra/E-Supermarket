@@ -46,7 +46,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
     EditText Nama_barang;
     EditText Merk;
     EditText Harga;
-    EditText Stok;
+    EditText Min_belanja;
     Spinner Satuan;
     EditText Deskripsi;
     ImageView addImage;
@@ -57,7 +57,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
     String merk;
     String harga;
     String satuan;
-    int stok;
+    int minbelanja;
     String gambar;
     String deskripsi;
 
@@ -81,7 +81,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
         Merk = findViewById(R.id.EdtMerk);
         Harga = findViewById(R.id.EdtHarga);
         Satuan = findViewById(R.id.SpSatuan);
-        Stok = findViewById(R.id.EdtStok);
+        Min_belanja = findViewById(R.id.EdtminBelanja);
         addImage = findViewById(R.id.ImgProduk);
         Deskripsi = findViewById(R.id.EdtDeskripsi);
         btnAddData = findViewById(R.id.btnAddData);
@@ -183,7 +183,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
             merk = Merk.getText().toString().trim();
             harga = Harga.getText().toString().trim();
             satuan = Satuan.getSelectedItem().toString().trim();
-            stok = Integer.parseInt(Stok.getText().toString().trim());
+            minbelanja = Integer.parseInt(Min_belanja.getText().toString().trim());
             gambar = addImage.getContext().getContentResolver().getType(imageUri);
             File imgFile = new File(mediaPath);
             RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-data"), imgFile);
@@ -202,8 +202,8 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
                 Harga.setError("HARGA TIDAK BOLEH KOSONG");
                 PbSimpanData.setVisibility(View.GONE);
                 btnAddData.setVisibility(View.VISIBLE);
-            } else if (stok <= 0) {
-                Stok.setError("STOK TIDAK BOLEH KOSONG");
+            } else if (minbelanja <= 0) {
+                Min_belanja.setError("Minimal Belanja TIDAK BOLEH KOSONG");
                 PbSimpanData.setVisibility(View.GONE);
                 btnAddData.setVisibility(View.VISIBLE);
             } else if (satuan.equals("")) {
@@ -222,7 +222,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
                         RequestBody.create(MediaType.parse("text/plain"), merk),
                         RequestBody.create(MediaType.parse("text/plain"), harga),
                         RequestBody.create(MediaType.parse("text/plain"), satuan),
-                        stok,
+                        minbelanja,
                         partImg,
                         RequestBody.create(MediaType.parse("text/plain"), deskripsi)
                 );

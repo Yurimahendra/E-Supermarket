@@ -13,11 +13,24 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
 
+        <CheckBox
+            android:id="@+id/CbItemKeranjng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DeleteItmKeranjng"
+            android:src="@drawable/delete"
+            android:layout_below="@+id/ImgItemKeranjang" />
+
         <ImageView
             android:id="@+id/ImgItemKeranjang"
             android:layout_width="80dp"
             android:layout_height="147dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            android:layout_toRightOf="@+id/CbItemKeranjng"/>
 
         <TextView
             android:id="@+id/tvIdBarangKeranjang"

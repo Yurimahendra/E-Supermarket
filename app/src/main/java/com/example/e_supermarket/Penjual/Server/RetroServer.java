@@ -11,7 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroServer {
-    private static final String baseURL = "http://192.168.100.6/esupermarket-api23/public/"; //192.168.45.192, 192.168.100.6
+    private static final String baseURL = "http://192.168.100.6/esupermarket-api23/public/";
     private static Retrofit retro;
     public static final String imageURL = "http://192.168.100.6/esupermarket-api23/public/storage/gambar/";
 
