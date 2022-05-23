@@ -13,12 +13,173 @@
         android:layout_height="match_parent"
         android:layout_above="@id/nav_kurir">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <!--<androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:id="@+id/recProfileKurir">
-        </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:id="@+id/Frameheader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/bg"
+
+                            />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ImgProfileK"
+                            android:layout_width="300px"
+                            android:layout_height="300px"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="30dp"
+                            android:src="@drawable/ktm" />
+
+                        <TextView
+                            android:id="@+id/tvIdKurir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="id"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tvnamaKurir"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="55dp"
+                            android:text="Nama"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                    </FrameLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/tvnikKurir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="NIK"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/tvtmptlahirKurir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Tempat Lahir"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:layout_marginTop="5dp" >
+                        <EditText
+                            android:id="@+id/tvtgllahirKurir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Tanggal Lahir"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/tvjkKurir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Jenis Kelamin"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white" >
+                        <EditText
+                            android:id="@+id/tvalamatKurir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:hint="Alamat"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/tvnoponselKurir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="No Ponsel"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--<Button
+                        android:id="@+id/btnEditProfileKurir"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:text="EDIT"
+                        android:textSize="25sp" />-->
+
+                </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -39,5 +200,17 @@
         android:background="@color/design_default_color_primary"
         app:itemIconTint="@color/white"
         app:menu="@menu/menu_kurir" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_edtKurir"
+        android:layout_above="@id/nav_kurir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/edit"
+        android:layout_alignEnd="@id/nav_kurir"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/design_default_color_primary"
+        app:tint="@color/white"/>
 
 </RelativeLayout>

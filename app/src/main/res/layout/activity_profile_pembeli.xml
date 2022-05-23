@@ -13,12 +13,180 @@
         android:layout_height="match_parent"
         android:layout_above="@id/nav_pembeli">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <!--<androidx.recyclerview.widget.RecyclerView
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/recProfilepembeli">
-        </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <!-- TODO: Update blank fragment layout -->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/Frameheader">
+                        <ImageView
+                            android:id="@+id/tvimgprofilepemb"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/bg"
+                            android:adjustViewBounds="true"
+
+                            />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ImgProfilePembeli"
+                            android:layout_width="300px"
+                            android:layout_height="300px"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ktm"
+                            android:layout_marginBottom="30dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tvIdPmbl"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="id"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_toRightOf="@id/ImgProdukView"
+                            android:layout_marginLeft="10dp"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/tvnamapembeli"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="55dp"
+                            android:text="Nama"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_gravity="center"/>
+
+                    </FrameLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white">
+                        <EditText
+                            android:id="@+id/tvnikpembeli"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:hint="NIK"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/tvtmptlahirpembeli"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Tempat Lahir"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/tvtgllahirpembeli"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Tanggal Lahir"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/tvjkpembeli"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Jenis Kelamin"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/tvalamatpembeli"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Alamat"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/tvnoponselpembeli"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="No Ponsel"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <!--<Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:id="@+id/btnEditProfilePembeli"
+                        android:text="EDIT"
+                        android:textSize="25sp" />-->
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -38,5 +206,17 @@
         android:background="@color/design_default_color_primary"
         app:itemIconTint="@color/white"
         android:layout_alignParentBottom="true"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_edtPmbli"
+        android:layout_above="@id/nav_pembeli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/edit"
+        android:layout_alignEnd="@id/nav_pembeli"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/design_default_color_primary"
+        app:tint="@color/white"/>
 
 </RelativeLayout>

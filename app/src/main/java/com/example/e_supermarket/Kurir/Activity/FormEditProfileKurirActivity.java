@@ -125,7 +125,7 @@ public class FormEditProfileKurirActivity extends AppCompatActivity implements o
         Bundle bundle = getIntent().getExtras();
         uIdKurir = bundle.getInt("id");
         uNikKurir = bundle.getLong("nik");
-        uNamaKurir = bundle.getString("nama_penjual");
+        uNamaKurir = bundle.getString("nama_kurir");
         uJkKurir = bundle.getString("jenis_kelamin");
         uNoponsKurir = bundle.getString("no_ponsel");
         uTelaKurir = bundle.getString("tempat_lahir");

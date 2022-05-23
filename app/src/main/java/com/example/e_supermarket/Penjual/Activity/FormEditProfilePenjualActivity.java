@@ -254,14 +254,10 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
                         @Override
                         public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
                             if( response.isSuccessful()) {
-                                int kode = response.body().getKode();
-                                String pesan = response.body().getPesan();
+                                //int kode = response.body().getKode();
+                                //String pesan = response.body().getPesan();
                                 startActivity(new Intent(FormEditProfilePenjualActivity.this, HalamanUtamaPenjualActivity.class));
                                 Toast.makeText(FormEditProfilePenjualActivity.this, "berhasil update", Toast.LENGTH_SHORT).show();
-                                if (kode == 200){
-
-
-                                }
 
                             }else {
                                 Toast.makeText(FormEditProfilePenjualActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();

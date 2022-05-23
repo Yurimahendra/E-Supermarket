@@ -224,7 +224,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gambar Pembeli"
+                android:text="Gambar"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>

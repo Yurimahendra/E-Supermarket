@@ -6,15 +6,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.Pembeli.Activity.ProfilePembeliActivity;
 import com.example.e_supermarket.Pembeli.Adapter.AdapterProfilePembeli;
@@ -31,6 +37,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,6 +48,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +58,9 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     private RecyclerView recyclerView;
     private List<DataPenjual> dataPenjualList = new ArrayList<>();
-    private AdapterProfilePenjual adapterProfilePenjual;
+    private DataPenjual dataPenjual = new DataPenjual();
+   // private AdapterProfilePenjual adapterProfilePenjual;
+    private int index;
 
     private FirebaseFirestore db;
 
@@ -59,6 +69,28 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
 
     private FirebaseStorage storage;
     private StorageReference storageReference;
+
+    TextView idPnjl;
+    TextView Nama_penjual;
+    EditText Nik;
+    EditText Tmptlahirpenjual;
+    EditText Tgllahirpenjual;
+    EditText Jkpenjual;
+    EditText Alamatpenjual;
+    EditText Noponselpenjual;
+    EditText Namatokopenjual;
+    CircleImageView imgProfilePenjual;
+
+    private int id;
+    private long nik ;
+    private String nama ;
+    private String jenis_kelamin ;
+    private String no_ponsel ;
+    private String tempat_lahir;
+    private String tanggal_lahir ;
+    private String alamat ;
+    private String nama_toko ;
+    private String gambar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -101,15 +133,50 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
         bottomNavigationViewPenjual.setOnNavigationItemSelectedListener(navigation_penjual);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        recyclerView = findViewById(R.id.recProfilepenjual);
+        /*recyclerView = findViewById(R.id.recProfilepenjual);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));*/
 
         //db = FirebaseFirestore.getInstance();
 
         //adapterProfilePenjual = new AdapterProfilePenjual(HalamanProfilePenjualActivity.this, dataPenjualList);
 
         //recyclerView.setAdapter(adapterProfilePenjual);
+
+        idPnjl = findViewById(R.id.tvIdPnjl);
+        Nama_penjual = findViewById(R.id.tvnamapenjual);
+        Nik = findViewById(R.id.tvnikpenjual);
+        Tmptlahirpenjual = findViewById(R.id.tvtmptlahirpenjual);
+        Tgllahirpenjual = findViewById(R.id.tvtgllahirpenjual);
+        Jkpenjual = findViewById(R.id.tvjkpenjual);
+        Alamatpenjual = findViewById(R.id.tvalamatpenjual);
+        Noponselpenjual = findViewById(R.id.tvnoponselpenjual);
+        Namatokopenjual = findViewById(R.id.tvnamatokopenjual);
+        imgProfilePenjual = findViewById(R.id.ImgProfilePenjual);
+
+
+        FloatingActionButton fabEdtPnjl = (FloatingActionButton) findViewById(R.id.fab_edtPnjl);
+        fabEdtPnjl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //DataPenjual item = dataPenjualList.get(index);
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", Integer.parseInt(idPnjl.getText().toString().trim()));
+                bundle.putString("nama_penjual", Nama_penjual.getText().toString().trim());
+                bundle.putLong("nik", Long.parseLong(Nik.getText().toString().trim()));
+                bundle.putString("tempat_lahir", Tmptlahirpenjual.getText().toString().trim());
+                bundle.putString("tanggal_lahir", Tgllahirpenjual.getText().toString().trim());
+                bundle.putString("jenis_kelamin", Jkpenjual.getText().toString().trim());
+                bundle.putString("alamat", Alamatpenjual.getText().toString().trim());
+                bundle.putString("no_ponsel", Noponselpenjual.getText().toString().trim());
+                bundle.putString("nama_toko", Namatokopenjual.getText().toString().trim());
+                bundle.putString("gambar", RetroServer.imageURL + imgProfilePenjual.getContext().toString().trim());
+
+                Intent intent = new Intent(HalamanProfilePenjualActivity.this, FormEditProfilePenjualActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         srlDataPenjual = findViewById(R.id.sw_datapenjual);
         pbDataPenjual = findViewById(R.id.pb_datapenjual);
@@ -140,17 +207,42 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
                 if (response.isSuccessful()){
-                    int kode = response.body().getKode();
-                    String pesan = response.body().getPesan();
-                    if (kode == 200){
-                        //Toast.makeText(HalamanProfilePenjualActivity.this, ""+pesan, Toast.LENGTH_SHORT).show();
-
+                    try {
                         dataPenjualList = response.body().getDataPenjual();
 
-                        adapterProfilePenjual = new AdapterProfilePenjual(HalamanProfilePenjualActivity.this, dataPenjualList);
-                        recyclerView.setAdapter(adapterProfilePenjual);
-                        adapterProfilePenjual.notifyDataSetChanged();
+                        id = dataPenjualList.get(index).getId();
+                        nama = dataPenjualList.get(index).getNama();
+                        nik = dataPenjualList.get(index).getNik();
+                        tempat_lahir = dataPenjualList.get(index).getTempat_lahir();
+                        tanggal_lahir = dataPenjualList.get(index).getTanggal_lahir();
+                        jenis_kelamin = dataPenjualList.get(index).getJenis_kelamin();
+                        alamat = dataPenjualList.get(index).getAlamat();
+                        no_ponsel = dataPenjualList.get(index).getNo_ponsel();
+                        nama_toko = dataPenjualList.get(index).getNama_toko();
+                        gambar = dataPenjualList.get(index).getGambar();
+
+                       // Log.i("tes", ""+nik);
+
+                        idPnjl.setText(""+id);
+                        Nama_penjual.setText(nama);
+                        Nik.setText(""+nik);
+                        Tmptlahirpenjual.setText(tempat_lahir);
+                        Tgllahirpenjual.setText(tanggal_lahir);
+                        Jkpenjual.setText(jenis_kelamin);
+                        Alamatpenjual.setText(alamat);
+                        Noponselpenjual.setText(no_ponsel);
+                        Namatokopenjual.setText(nama_toko);
+                        Glide.with(imgProfilePenjual.getContext())
+                                .load(RetroServer.imageURL + gambar).into(imgProfilePenjual);
+
+                    }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                       // Log.i("tes", ""+nik);
                     }
+
+
+                    /*adapterProfilePenjual = new AdapterProfilePenjual(HalamanProfilePenjualActivity.this, dataPenjualList);
+                    recyclerView.setAdapter(adapterProfilePenjual);
+                    adapterProfilePenjual.notifyDataSetChanged();*/
 
                 }
 
@@ -163,23 +255,6 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                 pbDataPenjual.setVisibility(View.GONE);
             }
         });
-       /* db.collection("data_penjual").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        dataPenjualList.clear();
-                        for (DocumentSnapshot snapshot : task.getResult()){
-                            DataPenjual dataPenjual = new DataPenjual( snapshot.getLong("nik"), snapshot.getString("nama"), snapshot.getString("jenis_kelamin"), snapshot.getString("no_ponsel"), snapshot.getString("tempat_lahir"), snapshot.getString("tanggal_lahir"), snapshot.getString("alamat"), snapshot.getString("nama_toko"));
-                            dataPenjualList.add(dataPenjual);
-                        }
-                        adapterProfilePenjual.notifyDataSetChanged();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
     }
 

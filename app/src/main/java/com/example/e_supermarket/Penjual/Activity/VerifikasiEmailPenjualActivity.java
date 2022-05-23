@@ -315,26 +315,20 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
                 if (response.isSuccessful()) {
-                    int kode = response.body().getKode();
-                    String pesan = response.body().getPesan();
-                    if (kode == 200) {
-
-                        try {
-                            dataPenjualList = response.body().getDataPenjual();
-                            id = dataPenjualList.get(indexLS).getId();
-                            nik = dataPenjualList.get(indexLS).getNik();
-                            nama = dataPenjualList.get(indexLS).getNama();
-                            jenis_kelamin = dataPenjualList.get(indexLS).getJenis_kelamin();
-                            tempat_lahir = dataPenjualList.get(indexLS).getTempat_lahir();
-                            tanggal_lahir = dataPenjualList.get(indexLS).getTanggal_lahir();
-                            alamat = dataPenjualList.get(indexLS).getAlamat();
-                            nama_toko = dataPenjualList.get(indexLS).getNama_toko();
-                            //noponselLS = dataPenjualList.get(indexLS).getNo_ponsel();
-                            //EnoponLS = noponselLS;
-                        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                            //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
-                        }
-
+                    try {
+                        dataPenjualList = response.body().getDataPenjual();
+                        id = dataPenjualList.get(indexLS).getId();
+                        nik = dataPenjualList.get(indexLS).getNik();
+                        nama = dataPenjualList.get(indexLS).getNama();
+                        jenis_kelamin = dataPenjualList.get(indexLS).getJenis_kelamin();
+                        tempat_lahir = dataPenjualList.get(indexLS).getTempat_lahir();
+                        tanggal_lahir = dataPenjualList.get(indexLS).getTanggal_lahir();
+                        alamat = dataPenjualList.get(indexLS).getAlamat();
+                        nama_toko = dataPenjualList.get(indexLS).getNama_toko();
+                        //noponselLS = dataPenjualList.get(indexLS).getNo_ponsel();
+                        //EnoponLS = noponselLS;
+                    } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                        //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                     }
 
                 }

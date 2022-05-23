@@ -177,18 +177,14 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
                 if (response.isSuccessful()){
-                    int kode = response.body().getKode();
-                    String pesan = response.body().getPesan();
-                    if (kode == 200){
 
-                        try {
-                            dataPenjualList = response.body().getDataPenjual();
-                            noponsel = dataPenjualList.get(index).getNo_ponsel();
-                            //Enopon = noponsel;
-                        }catch (IndexOutOfBoundsException indexOutOfBoundsException){
-                            //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
-                        }
-
+                    try {
+                        dataPenjualList = response.body().getDataPenjual();
+                        noponsel = dataPenjualList.get(index).getNo_ponsel();
+                        //Enopon = noponsel;
+                        //Log.i("no", ""+noponsel);
+                    }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                        //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                     }
 
                 }

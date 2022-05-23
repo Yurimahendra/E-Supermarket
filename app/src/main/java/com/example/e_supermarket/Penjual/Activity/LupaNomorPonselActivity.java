@@ -136,18 +136,13 @@ public class LupaNomorPonselActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
                 if (response.isSuccessful()){
-                    int kode = response.body().getKode();
-                    String pesan = response.body().getPesan();
-                    if (kode == 200){
 
-                        try {
-                            dataPenjualList = response.body().getDataPenjual();
-                            noponselLS = dataPenjualList.get(indexLS).getNo_ponsel();
-                            //EnoponLS = noponselLS;
-                        }catch (IndexOutOfBoundsException indexOutOfBoundsException){
-                            //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
-                        }
-
+                    try {
+                        dataPenjualList = response.body().getDataPenjual();
+                        noponselLS = dataPenjualList.get(indexLS).getNo_ponsel();
+                        //EnoponLS = noponselLS;
+                    }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                        //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                     }
 
                 }

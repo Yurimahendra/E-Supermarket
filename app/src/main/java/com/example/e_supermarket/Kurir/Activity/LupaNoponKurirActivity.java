@@ -140,16 +140,13 @@ public class LupaNoponKurirActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseDataKurir> call, Response<ResponseDataKurir> response) {
                 if (response.isSuccessful()){
-                    int kode = response.body().getKode();
-                    String pesan = response.body().getPesan();
-                    if (kode == 200){
-                        try {
-                            dataKurirList = response.body().getDataKurir();
-                            noponselLK = dataKurirList.get(indexLK).getNo_ponsel();
-                            //ETnopon= noponsel;
-                        }catch (IndexOutOfBoundsException indexOutOfBoundsException){
-                            //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
-                        }
+
+                    try {
+                        dataKurirList = response.body().getDataKurir();
+                        noponselLK = dataKurirList.get(indexLK).getNo_ponsel();
+                        //ETnopon= noponsel;
+                    }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                        //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                     }
 
                 }

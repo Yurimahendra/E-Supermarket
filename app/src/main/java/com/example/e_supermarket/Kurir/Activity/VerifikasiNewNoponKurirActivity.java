@@ -314,22 +314,19 @@ public class VerifikasiNewNoponKurirActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseDataKurir> call, Response<ResponseDataKurir> response) {
                 if (response.isSuccessful()){
-                    int kode = response.body().getKode();
-                    String pesan = response.body().getPesan();
-                    if (kode == 200){
-                        try {
-                            dataKurirList = response.body().getDataKurir();
-                            id = dataKurirList.get(indexLK).getId();
-                            nik = dataKurirList.get(indexLK).getNik();
-                            nama = dataKurirList.get(indexLK).getNama();
-                            jenis_kelamin = dataKurirList.get(indexLK).getJenis_kelamin();
-                            tempat_lahir = dataKurirList.get(indexLK).getTempat_lahir();
-                            tanggal_lahir = dataKurirList.get(indexLK).getTanggal_lahir();
-                            alamat = dataKurirList.get(indexLK).getAlamat();
-                            //ETnopon= noponsel;
-                        }catch (IndexOutOfBoundsException indexOutOfBoundsException){
-                            //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
-                        }
+
+                    try {
+                        dataKurirList = response.body().getDataKurir();
+                        id = dataKurirList.get(indexLK).getId();
+                        nik = dataKurirList.get(indexLK).getNik();
+                        nama = dataKurirList.get(indexLK).getNama();
+                        jenis_kelamin = dataKurirList.get(indexLK).getJenis_kelamin();
+                        tempat_lahir = dataKurirList.get(indexLK).getTempat_lahir();
+                        tanggal_lahir = dataKurirList.get(indexLK).getTanggal_lahir();
+                        alamat = dataKurirList.get(indexLK).getAlamat();
+                        //ETnopon= noponsel;
+                    }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                        //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                     }
 
                 }

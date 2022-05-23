@@ -125,7 +125,7 @@ public class FormEditProfilePembeliActivity extends AppCompatActivity implements
         Bundle bundle = getIntent().getExtras();
         uIdPmbl = bundle.getInt("id");
         uNikPmbl = bundle.getLong("nik");
-        uNamaPmbl = bundle.getString("nama_penjual");
+        uNamaPmbl = bundle.getString("nama_pembeli");
         uJkPmbl = bundle.getString("jenis_kelamin");
         uNoponsPmbl = bundle.getString("no_ponsel");
         uTelaPmbl = bundle.getString("tempat_lahir");

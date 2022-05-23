@@ -16,18 +16,216 @@
         app:itemIconTint="@color/white"
         android:layout_alignParentBottom="true" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_edtPnjl"
+        android:layout_above="@id/nav_penjual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/edit"
+        android:layout_alignEnd="@id/nav_penjual"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/design_default_color_primary"
+        app:tint="@color/white"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/sw_datapenjual"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/nav_penjual">
+        android:layout_above="@id/nav_penjual" >
 
-        <androidx.recyclerview.widget.RecyclerView
+        <!--<androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:id="@+id/recProfilepenjual">
-        </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <!-- TODO: Update blank fragment layout -->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/Frameheader">
+                        <ImageView
+                            android:id="@+id/tvimgprofile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/bg"
+                            android:adjustViewBounds="true"
+
+                            />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ImgProfilePenjual"
+                            android:layout_width="300px"
+                            android:layout_height="300px"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ktm"
+                            android:layout_marginBottom="30dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tvIdPnjl"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="id"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_toRightOf="@id/ImgProdukView"
+                            android:layout_marginLeft="10dp"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/tvnamapenjual"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="55dp"
+                            android:text="Nama"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:layout_gravity="center"/>
+
+                    </FrameLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white">
+                        <EditText
+                            android:id="@+id/tvnikpenjual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:focusable="false"
+                            android:hint="NIK"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white">
+                        <EditText
+                            android:id="@+id/tvtmptlahirpenjual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:focusable="false"
+                            android:hint="Tempat Lahir"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white" >
+                        <EditText
+                            android:id="@+id/tvtgllahirpenjual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:hint="Tanggal Lahir"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white" >
+                        <EditText
+                            android:id="@+id/tvjkpenjual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:hint="Jenis Kelamin"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:focusable="false"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white" >
+                        <EditText
+                            android:id="@+id/tvalamatpenjual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:hint="Alamat"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:focusable="false"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white" >
+                        <EditText
+                            android:id="@+id/tvnoponselpenjual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:hint="No Ponsel"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white">
+                        <EditText
+                            android:id="@+id/tvnamatokopenjual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:hint="Nama Toko"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--<Button
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:id="@+id/btnEditProfilePenjual"
+                        android:text="EDIT"
+                        android:textSize="17sp" />-->
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
