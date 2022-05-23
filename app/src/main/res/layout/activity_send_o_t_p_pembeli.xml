@@ -75,7 +75,8 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:maxLength="12"/>
 
 
         </LinearLayout>

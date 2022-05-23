@@ -33,7 +33,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SendOTPActivityPembeli extends AppCompatActivity {
-
+    String noponPemb;
+    int lenNoponPemb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,46 +57,52 @@ public class SendOTPActivityPembeli extends AppCompatActivity {
         buttonB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                noponPemb = inputMobileB.getText().toString().trim();
+                lenNoponPemb = noponPemb.length();
                 if (inputMobileB.getText().toString().trim().isEmpty()){
                     startActivity(new Intent(SendOTPActivityPembeli.this, HalamanUtamaPembeliActivity.class));
                     //Toast.makeText(SendOTPActivityPembeli.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                     return;
+                }else if (lenNoponPemb < 12){
+                    Toast.makeText(SendOTPActivityPembeli.this, "Jumlah Nomor Tidak Sesuai", Toast.LENGTH_SHORT).show();
+                }else {
+                    progressBarB.setVisibility(View.VISIBLE);
+                    buttonB.setVisibility(View.INVISIBLE);
+
+                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                            "+62" + inputMobileB.getText().toString(),
+                            60,
+                            TimeUnit.SECONDS,
+                            SendOTPActivityPembeli.this,
+                            new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
+                                @Override
+                                public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                    progressBarB.setVisibility(View.GONE);
+                                    buttonB.setVisibility(View.VISIBLE);
+
+                                }
+
+                                @Override
+                                public void onVerificationFailed(@NonNull FirebaseException e) {
+                                    progressBarB.setVisibility(View.GONE);
+                                    buttonB.setVisibility(View.VISIBLE);
+                                    Toast.makeText(SendOTPActivityPembeli.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onCodeSent(@NonNull String verificationIdB, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                    progressBarB.setVisibility(View.GONE);
+                                    buttonB.setVisibility(View.VISIBLE);
+                                    Intent intent = new Intent(getApplicationContext(), VerifyOTPActivityPembeli.class);
+                                    intent.putExtra("mobile", inputMobileB.getText().toString());
+                                    intent.putExtra("verificationId", verificationIdB);
+                                    startActivity(intent);
+                                }
+                            }
+                    );
                 }
 
-                progressBarB.setVisibility(View.VISIBLE);
-                buttonB.setVisibility(View.INVISIBLE);
 
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        "+62" + inputMobileB.getText().toString(),
-                        60,
-                        TimeUnit.SECONDS,
-                        SendOTPActivityPembeli.this,
-                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                progressBarB.setVisibility(View.GONE);
-                                buttonB.setVisibility(View.VISIBLE);
-
-                            }
-
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-                                progressBarB.setVisibility(View.GONE);
-                                buttonB.setVisibility(View.VISIBLE);
-                                Toast.makeText(SendOTPActivityPembeli.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onCodeSent(@NonNull String verificationIdB, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                progressBarB.setVisibility(View.GONE);
-                                buttonB.setVisibility(View.VISIBLE);
-                                Intent intent = new Intent(getApplicationContext(), VerifyOTPActivityPembeli.class);
-                                intent.putExtra("mobile", inputMobileB.getText().toString());
-                                intent.putExtra("verificationId", verificationIdB);
-                                startActivity(intent);
-                            }
-                        }
-                );
 
             }
         });

@@ -41,6 +41,8 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
     String Enopon;
     int compare;
 
+    int lenNopon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,12 +69,16 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                 try {
                     Enopon = inputMobileS.getText().toString().trim();
                     compare = Enopon.compareTo(noponsel);
+                    lenNopon = Enopon.length();
                     if (inputMobileS.getText().toString().trim().isEmpty()){
                         Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
                         startActivity(intent);
                         //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                         //return;
-                    }else if (compare != 0){
+                    }else if (lenNopon < 12){
+                        Toast.makeText(SendOTPActivityPenjual.this, "Jumlah Nomor Tidak Sesuai", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (compare != 0){
                         Toast.makeText(SendOTPActivityPenjual.this, "Penjual Hanya Boleh Satu User", Toast.LENGTH_SHORT).show();
                     }else {
                         progressBarS.setVisibility(View.VISIBLE);

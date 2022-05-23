@@ -42,6 +42,8 @@ public class SendOtpKurirActivity extends AppCompatActivity {
     String ETnopon;
     int compare;
 
+    int lenNopon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +68,13 @@ public class SendOtpKurirActivity extends AppCompatActivity {
                 try {
                     ETnopon = inputMobileK.getText().toString().trim();
                     compare = ETnopon.compareTo(noponsel);
+                    lenNopon = ETnopon.length();
                     if (inputMobileK.getText().toString().trim().isEmpty()){
                         startActivity(new Intent(SendOtpKurirActivity.this, HalamanUtamaKurirActivity.class));
                         //Toast.makeText(SendOtpKurirActivity.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                         return;
+                    }else if (lenNopon < 12){
+                        Toast.makeText(SendOtpKurirActivity.this, "Jumlah Nomor Tidak Sesuai", Toast.LENGTH_SHORT).show();
                     }else if (compare != 0){
                         Toast.makeText(SendOtpKurirActivity.this, "Kurir Hanya Boleh Satu User", Toast.LENGTH_SHORT).show();
                     }else {
@@ -100,7 +105,7 @@ public class SendOtpKurirActivity extends AppCompatActivity {
                                     public void onCodeSent(@NonNull String verificationIdB, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                         progressBarK.setVisibility(View.GONE);
                                         buttonK.setVisibility(View.VISIBLE);
-                                        Intent intent = new Intent(getApplicationContext(), VerifyOTPActivityPembeli.class);
+                                        Intent intent = new Intent(getApplicationContext(), VerifyOtpKurirActivity.class);
                                         intent.putExtra("mobile", inputMobileK.getText().toString());
                                         intent.putExtra("verificationId", verificationIdB);
                                         startActivity(intent);
