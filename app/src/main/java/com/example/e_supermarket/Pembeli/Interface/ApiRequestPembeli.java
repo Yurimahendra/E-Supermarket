@@ -60,24 +60,24 @@ public interface ApiRequestPembeli {
 
     //buat pesanan
     @Headers({"Accept: application/json"})
-    @Multipart
+    @FormUrlEncoded
     @POST("api/dataorderan")
     Call<ResponseBuatPesanan> SendBuatPesanan(
-            @Part("id_pesanan") RequestBody id_pesanan,
-            @Part("nama") RequestBody nama,
-            @Part("no_hp") RequestBody no_hp,
-            @Part("alamat") RequestBody alamat,
-            @Part("nama_barang") RequestBody nama_barang,
-            @Part("merk_barang") RequestBody merk_barang,
-            @Part("harga_barang") RequestBody harga_barang,
-            @Part("jumlah_pesanan") int jumlah_pesanan,
-            @Part("satuan") RequestBody satuan,
-            @Part("gambar") RequestBody gambar,
-            @Part("tanggal_pengiriman") RequestBody tanggal_pengiriman,
-            //@Part("ongkir") RequestBody ongkir,
-            @Part("total_harga") RequestBody total_harga,
-            @Part("metode_pembayaran") RequestBody metode_pembayaran
-            //@Part("status") RequestBody status,
+            @Field("id_pesanan") String id_pesanan,
+            @Field("nama") String nama,
+            @Field("no_hp") String no_hp,
+            @Field("alamat") String alamat,
+            @Field("nama_barang") String nama_barang,
+            @Field("merk_barang") String merk_barang,
+            @Field("harga_barang") String harga_barang,
+            @Field("jumlah_pesanan") int jumlah_pesanan,
+            @Field("satuan") String satuan,
+            @Field("gambar") String gambar,
+            @Field("tanggal_pengiriman") String tanggal_pengiriman,
+            @Nullable @Field("ongkir") String ongkir,
+            @Field("total_harga") String total_harga,
+            @Field("metode_pembayaran") String metode_pembayaran,
+            @Nullable @Field("status") String status
             //@Nullable @Part MultipartBody.Part status
     );
 

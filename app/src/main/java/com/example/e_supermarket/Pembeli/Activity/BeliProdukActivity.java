@@ -53,6 +53,8 @@ public class BeliProdukActivity extends AppCompatActivity {
     ImageView backBeli;
 
     Spinner MetodePembayaran;
+    private int index;
+    private String n_metode[] = {"COD", "DEBET SALDO"};
 
     EditText EdtNamaBeli;
     EditText EdtAlamatBeli;
@@ -288,7 +290,7 @@ public class BeliProdukActivity extends AppCompatActivity {
             tglKirimPesan = EdtTglBeli.getText().toString().trim();
            // ongkirPesan = Ongkir.getText().toString().trim();
             TotalHargaPesan = TotalBayar.getText().toString().trim();
-            MetodeBayarPesan = MetodePembayaran.getSelectedItem().toString().trim();
+            MetodeBayarPesan = MetodePembayaran.getSelectedItem().toString();
 
             int lenNopBeli = NohpPesan.length();
 
@@ -313,23 +315,24 @@ public class BeliProdukActivity extends AppCompatActivity {
                 EdtTglBeli.setError("Tanggal TIDAK BOLEH KOSONG");
                 PbBuatPesan.setVisibility(View.GONE);
                 btnBuatPesanan.setVisibility(View.VISIBLE);
-            }else {
+            }else if (MetodeBayarPesan != n_metode[0]){
                 ApiRequestPembeli requestBuatPesanan = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
                 Call<ResponseBuatPesanan> SimpanBuatPesanan = requestBuatPesanan.SendBuatPesanan(
-                        RequestBody.create(MediaType.parse("text/plain"), idPesanan),
-                        RequestBody.create(MediaType.parse("text/plain"), namaPemesan),
-                        RequestBody.create(MediaType.parse("text/plain"), NohpPesan),
-                        RequestBody.create(MediaType.parse("text/plain"), alamatKirimPesan),
-                        RequestBody.create(MediaType.parse("text/plain"), namaBarangPesan),
-                        RequestBody.create(MediaType.parse("text/plain"), merkBarangPesan),
-                        RequestBody.create(MediaType.parse("text/plain"), hargaBarangPesan),
+                        idPesanan,
+                        namaPemesan,
+                        NohpPesan,
+                        alamatKirimPesan,
+                        namaBarangPesan,
+                        merkBarangPesan,
+                        hargaBarangPesan,
                         minBelanjaPesan,
-                        RequestBody.create(MediaType.parse("text/plain"), BeliSatuan),
-                        RequestBody.create(MediaType.parse("text/plain"), BeliGambar),
-                        RequestBody.create(MediaType.parse("text/plain"), tglKirimPesan),
-                        //RequestBody.create(MediaType.parse("text/plain"), ongkirPesan),
-                        RequestBody.create(MediaType.parse("text/plain"), TotalHargaPesan),
-                        RequestBody.create(MediaType.parse("text/plain"), MetodeBayarPesan)
+                        BeliSatuan,
+                        BeliGambar,
+                        tglKirimPesan,
+                        ongkirPesan,
+                        TotalHargaPesan,
+                        MetodeBayarPesan,
+                        "belum dibayar"
                 );
 
 
@@ -347,7 +350,58 @@ public class BeliProdukActivity extends AppCompatActivity {
                                 //Toast.makeText(FormDataPembeliActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
                             }*/
                         }else {
-                            Log.i("idpesanan", ""+idPesanan);
+                            //Log.i("idpesanan", ""+idPesanan);
+                            Toast.makeText(BeliProdukActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        PbBuatPesan.setVisibility(View.GONE);
+                        btnBuatPesanan.setVisibility(View.VISIBLE);
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+                        Toast.makeText(BeliProdukActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                        PbBuatPesan.setVisibility(View.GONE);
+                        btnBuatPesanan.setVisibility(View.VISIBLE);
+                        //startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
+                    }
+
+                });
+            }else {
+                ApiRequestPembeli requestBuatPesanan = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                Call<ResponseBuatPesanan> SimpanBuatPesanan = requestBuatPesanan.SendBuatPesanan(
+                        idPesanan,
+                        namaPemesan,
+                        NohpPesan,
+                        alamatKirimPesan,
+                        namaBarangPesan,
+                        merkBarangPesan,
+                        hargaBarangPesan,
+                        minBelanjaPesan,
+                        BeliSatuan,
+                        BeliGambar,
+                        tglKirimPesan,
+                        ongkirPesan,
+                        TotalHargaPesan,
+                        MetodeBayarPesan,
+                        Status
+                );
+
+
+                SimpanBuatPesanan.enqueue(new Callback<ResponseBuatPesanan>() {
+                    @Override
+                    public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+
+                        if( response.isSuccessful()) {
+                            //int kode = response.body().getKode();
+                            //String pesan = response.body().getPesan();
+                            startActivity(new Intent(getApplicationContext(), OrderanPembeliActivity.class));
+                            Toast.makeText(BeliProdukActivity.this, "berhasil disimpan", Toast.LENGTH_SHORT).show();
+                            /*if (kode == 200){
+
+                                //Toast.makeText(FormDataPembeliActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
+                            }*/
+                        }else {
+                            //Log.i("idpesanan", ""+idPesanan);
                             Toast.makeText(BeliProdukActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                         }
 

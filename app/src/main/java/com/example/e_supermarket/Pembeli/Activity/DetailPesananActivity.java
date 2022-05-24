@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -57,6 +58,8 @@ public class DetailPesananActivity extends AppCompatActivity {
     EditText OngkirDetail;
     EditText tvIdPesananDetail;
     TextView tvTotalHarga;
+    TextView tvStatusDetail;
+    TextView tvstatus;
     ImageView BeliImgProduk1Detail ;
     ImageView backDetail;
 
@@ -106,6 +109,7 @@ public class DetailPesananActivity extends AppCompatActivity {
     private String tglKirimPesanDetail;
     private String MetodeBayarPesanDetail;
     private String StatusDetail;
+    private String status = "belum dibayar";
 
     Button Bayar;
     Button UpdateDetail;
@@ -125,6 +129,8 @@ public class DetailPesananActivity extends AppCompatActivity {
         OngkirDetail = findViewById(R.id.RpongkirOrder);
         BeliImgProduk1Detail = findViewById(R.id.ImgItemOrder);
         MetodePembayaranDetail = findViewById(R.id.SpMetodebayarOrder);
+        tvStatusDetail = findViewById(R.id.tvStatusDetail);
+        tvstatus = findViewById(R.id.tvStatus);
         tvTotalHarga = findViewById(R.id.TotalBayarOrder);
 
         EdtNamaDetail = findViewById(R.id.EdtNamaOrder);
@@ -133,12 +139,8 @@ public class DetailPesananActivity extends AppCompatActivity {
         EdtTglDetail = findViewById(R.id.EdtTabeOrder);
         dateFormatDetail = new SimpleDateFormat("yyyy-MM-dd");
 
-        EdtTglDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDateDialog();
-            }
-        });
+
+
 
         PbDetailBatal = findViewById(R.id.progressDataBatalOrder1);
         PbDetailUpdate = findViewById(R.id.progressDataUpdateOrder);
@@ -184,6 +186,7 @@ public class DetailPesananActivity extends AppCompatActivity {
         UongkirPesan = bundle.getString("ongkir");
         UTotalHargaPesan = bundle.getString("total");
         UMetodeBayarPesan = bundle.getString("metode");
+        UStatus = bundle.getString("status");
 
         tvIdPesananDetail.setText(UidPesanan);
         EdtNamaDetail.setText(UnamaPemesan);
@@ -202,6 +205,33 @@ public class DetailPesananActivity extends AppCompatActivity {
         if (UMetodeBayarPesan.equals(n_metode[0])) index = 0;
         else if (UMetodeBayarPesan.equals(n_metode[1])) index = 1;
         MetodePembayaranDetail.setSelection(index);
+        tvStatusDetail.setText(UStatus);
+        //Log.i("status", ""+UStatus);
+
+        if (index == 0){
+            EdtNamaDetail.setFocusable(false);
+            EdtAlamatDetail.setFocusable(false);
+            EdtNopDetail.setFocusable(false);
+            MetodePembayaranDetail.setEnabled(false);
+            Bayar.setVisibility(View.INVISIBLE);
+            UpdateDetail.setVisibility(View.INVISIBLE);
+            tvStatusDetail.setVisibility(View.INVISIBLE);
+            tvstatus.setVisibility(View.INVISIBLE);
+        }else if (UStatus.equals(status)){
+            EdtTglDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showDateDialog();
+                }
+            });
+        }else {
+            EdtNamaDetail.setFocusable(false);
+            EdtAlamatDetail.setFocusable(false);
+            EdtNopDetail.setFocusable(false);
+            MetodePembayaranDetail.setEnabled(false);
+            Bayar.setVisibility(View.INVISIBLE);
+            UpdateDetail.setVisibility(View.INVISIBLE);
+        }
 
         Bayar.setOnClickListener(new View.OnClickListener() {
             @Override
