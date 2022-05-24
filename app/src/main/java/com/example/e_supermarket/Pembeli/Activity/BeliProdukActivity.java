@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
+import com.example.e_supermarket.Pembeli.Model.DataPembeli;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
@@ -28,7 +29,9 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -111,6 +114,10 @@ public class BeliProdukActivity extends AppCompatActivity {
     String HargaRepl;
     String HargaRepl1;
     TextView TotalBayar;
+
+    private List<DataPembeli> dataPembeliList = new ArrayList<>();
+    private int indexno;
+    private String no_ponsel ;
 
 
     @Override
@@ -429,6 +436,54 @@ public class BeliProdukActivity extends AppCompatActivity {
             PbBuatPesan.setVisibility(View.GONE);
             btnBuatPesanan.setVisibility(View.VISIBLE);
         }
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getProfilePembeli();
+    }
+
+    private void getProfilePembeli() {
+        //pbProfPembeli.setVisibility(View.VISIBLE);
+        ApiRequestPembeli requestDataPembeli = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+        Call<ResponseDataPembeli> tampilData = requestDataPembeli.RetrieveDataPembeli();
+
+        tampilData.enqueue(new Callback<ResponseDataPembeli>() {
+            @Override
+            public void onResponse(Call<ResponseDataPembeli> call, Response<ResponseDataPembeli> response) {
+                if (response.isSuccessful()){
+                    try {
+                        dataPembeliList = response.body().getDataPembeli();
+
+
+                        no_ponsel = dataPembeliList.get(indexno).getNo_ponsel();
+
+
+                        EdtNopBeli.setText(no_ponsel);
+
+                    }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+
+                    }
+
+
+                        /*adapterProfilePembeli = new AdapterProfilePembeli(ProfilePembeliActivity.this, dataPembeliList);
+                        recyclerView.setAdapter(adapterProfilePembeli);
+                        adapterProfilePembeli.notifyDataSetChanged();*/
+
+                }
+
+                //pbProfPembeli.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataPembeli> call, Throwable t) {
+                Toast.makeText(BeliProdukActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                //pbProfPembeli.setVisibility(View.GONE);
+            }
+        });
 
 
     }
