@@ -255,7 +255,8 @@
                     android:hint="Nomor Ponsel"
                     android:inputType="number"
                     android:textSize="15sp"
-                    android:maxLength="12"/>
+                    android:maxLength="12"
+                    android:focusable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
