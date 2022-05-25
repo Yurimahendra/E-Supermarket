@@ -32,7 +32,8 @@
         android:id="@+id/sw_datapenjual"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/nav_penjual" >
+        android:layout_above="@id/nav_penjual"
+        android:layout_marginBottom="5dp">
 
         <!--<androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -213,6 +214,35 @@
                             android:focusable="false"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white">
+
+                        <EditText
+                            android:id="@+id/tvNaBank"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:hint="E-Wallet / Bank"
+                            android:focusable="false"
+                            android:textSize="20sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white">
+
+                        <EditText
+                            android:id="@+id/tvNo_Rek"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:hint="No. Rekening"
+                            android:focusable="false"
+                            android:textSize="20sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
                     <!--<Button
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"

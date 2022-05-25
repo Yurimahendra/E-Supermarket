@@ -47,6 +47,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
     EditText TalaPnjl;
     EditText AlamatPnjl;
     EditText NatoPnjl;
+    EditText NaBankPnjl;
+    EditText NoRekPnjl;
     CircleImageView eFtoPnjl;
     Button BtnUpdateProfilePenjual;
     ProgressBar PbUpdteProfilPnjl;
@@ -65,6 +67,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
     private String uTalaPnjl;
     private String uAlamatPnjl;
     private String uNatoPnjl;
+    private String uNamaBankPnjl;
+    private long uNorekeningPnjl;
     private String uFtoPnjl;
 
     private String mediaPathPnjl;
@@ -82,6 +86,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
     String tala_pnjl;
     String alamat_pnjl;
     String nato_pnjl;
+    String nabankPnjl;
+    long noRekeningPnjl;
     MultipartBody.Part foto_pnjl;
 
     @Override
@@ -97,6 +103,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         TalaPnjl = findViewById(R.id.EdtTalaPnjl);
         AlamatPnjl = findViewById(R.id.EdtAlamatPnjl);
         NatoPnjl = findViewById(R.id.EdtNatoPnjl);
+        NaBankPnjl = findViewById(R.id.EdtNaBankPnjl);
+        NoRekPnjl = findViewById(R.id.EdtNo_RekPnjl);
         eFtoPnjl = findViewById(R.id.EdtImgProfilePnjl);
         eFtoPnjl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +140,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         uTalaPnjl = bundle.getString("tanggal_lahir");
         uAlamatPnjl = bundle.getString("alamat");
         uNatoPnjl = bundle.getString("nama_toko");
+        uNamaBankPnjl = bundle.getString("nama_bank");
+        uNorekeningPnjl = bundle.getLong("no_rek");
         uFtoPnjl = bundle.getString("gambar");
 
         NikPnjl.setText(""+uNikPnjl);
@@ -144,6 +154,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         TalaPnjl.setText(uTalaPnjl);
         AlamatPnjl.setText(uAlamatPnjl);
         NatoPnjl.setText(uNatoPnjl);
+        NaBankPnjl.setText(uNamaBankPnjl);
+        NoRekPnjl.setText(""+uNorekeningPnjl);
         /*if (uFtoPnjl == null){
             eFtoPnjl.setImageURI(null);
         }else {
@@ -192,6 +204,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
             tala_pnjl = TalaPnjl.getText().toString().trim();
             alamat_pnjl = AlamatPnjl.getText().toString().trim();
             nato_pnjl = NatoPnjl.getText().toString().trim();
+            nabankPnjl = NaBankPnjl.getText().toString().trim();
+            noRekeningPnjl = Long.parseLong(NoRekPnjl.getText().toString().trim());
             if (mediaPathPnjl != null){
                 File imgFile = new File(mediaPathPnjl);
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-data"), imgFile);
@@ -231,6 +245,14 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
                 NatoPnjl.setError("NAMA TOKO TIDAK BOLEH KOSONG");
                 PbUpdteProfilPnjl.setVisibility(View.GONE);
                 BtnUpdateProfilePenjual.setVisibility(View.VISIBLE);
+            }else if (nabankPnjl.isEmpty()) {
+                NaBankPnjl.setError("NAMA Bank TIDAK BOLEH KOSONG");
+                PbUpdteProfilPnjl.setVisibility(View.GONE);
+                BtnUpdateProfilePenjual.setVisibility(View.VISIBLE);
+            }else if (noRekeningPnjl <= 0) {
+                NoRekPnjl.setError("No rekening TIDAK BOLEH KOSONG");
+                PbUpdteProfilPnjl.setVisibility(View.GONE);
+                BtnUpdateProfilePenjual.setVisibility(View.VISIBLE);
             }else {
                 Bundle bundle1 = getIntent().getExtras();
                 if (bundle1 != null) {
@@ -247,6 +269,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
                             RequestBody.create(MediaType.parse("text/plain"), tala_pnjl),
                             RequestBody.create(MediaType.parse("text/plain"), nopons_pnjl),
                             RequestBody.create(MediaType.parse("text/plain"), nato_pnjl),
+                            RequestBody.create(MediaType.parse("text/plain"), nabankPnjl),
+                            noRekeningPnjl,
                             foto_pnjl
 
                     );

@@ -79,6 +79,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
     EditText Alamatpenjual;
     EditText Noponselpenjual;
     EditText Namatokopenjual;
+    EditText Namabankpenjual;
+    EditText NoRek;
     CircleImageView imgProfilePenjual;
 
     private int id;
@@ -90,6 +92,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
     private String tanggal_lahir ;
     private String alamat ;
     private String nama_toko ;
+    private String nama_bank ;
+    private long no_rekening ;
     private String gambar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -152,6 +156,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
         Alamatpenjual = findViewById(R.id.tvalamatpenjual);
         Noponselpenjual = findViewById(R.id.tvnoponselpenjual);
         Namatokopenjual = findViewById(R.id.tvnamatokopenjual);
+        Namabankpenjual = findViewById(R.id.tvNaBank);
+        NoRek = findViewById(R.id.tvNo_Rek);
         imgProfilePenjual = findViewById(R.id.ImgProfilePenjual);
 
 
@@ -170,6 +176,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                 bundle.putString("alamat", Alamatpenjual.getText().toString().trim());
                 bundle.putString("no_ponsel", Noponselpenjual.getText().toString().trim());
                 bundle.putString("nama_toko", Namatokopenjual.getText().toString().trim());
+                bundle.putString("nama_bank", Namabankpenjual.getText().toString().trim());
+                bundle.putLong("no_rek", Long.parseLong(NoRek.getText().toString().trim()));
                 bundle.putString("gambar", RetroServer.imageURL + imgProfilePenjual.getContext().toString().trim());
 
                 Intent intent = new Intent(HalamanProfilePenjualActivity.this, FormEditProfilePenjualActivity.class);
@@ -219,6 +227,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                         alamat = dataPenjualList.get(index).getAlamat();
                         no_ponsel = dataPenjualList.get(index).getNo_ponsel();
                         nama_toko = dataPenjualList.get(index).getNama_toko();
+                        nama_bank = dataPenjualList.get(index).getNama_bank();
+                        no_rekening = dataPenjualList.get(index).getNo_rekening();
                         gambar = dataPenjualList.get(index).getGambar();
 
                        // Log.i("tes", ""+nik);
@@ -232,6 +242,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                         Alamatpenjual.setText(alamat);
                         Noponselpenjual.setText(no_ponsel);
                         Namatokopenjual.setText(nama_toko);
+                        Namabankpenjual.setText(nama_bank);
+                        NoRek.setText(""+no_rekening);
                         Glide.with(imgProfilePenjual.getContext())
                                 .load(RetroServer.imageURL + gambar).into(imgProfilePenjual);
 

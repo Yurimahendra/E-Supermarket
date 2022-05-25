@@ -18,6 +18,8 @@ public class ResponseDataPenjual {
     private String tanggal_lahir ;
     private String alamat ;
     private String nama_toko ;
+    private String nama_bank ;
+    private long no_rekening ;
     private String gambar;
 
 
@@ -107,6 +109,22 @@ public class ResponseDataPenjual {
 
     public void setNama_toko(String nama_toko) {
         this.nama_toko = nama_toko;
+    }
+
+    public String getNama_bank() {
+        return nama_bank;
+    }
+
+    public void setNama_bank(String nama_bank) {
+        this.nama_bank = nama_bank;
+    }
+
+    public long getNo_rekening() {
+        return no_rekening;
+    }
+
+    public void setNo_rekening(long no_rekening) {
+        this.no_rekening = no_rekening;
     }
 
     public String getGambar() {

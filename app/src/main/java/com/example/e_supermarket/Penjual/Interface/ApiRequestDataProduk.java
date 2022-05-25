@@ -73,7 +73,9 @@ public interface ApiRequestDataProduk {
             @Field("tempat_lahir") String tempat_lahir,
             @Field("tanggal_lahir") String tanggal_lahir,
             @Field("no_ponsel") String no_ponsel,
-            @Field("nama_toko") String nama_toko
+            @Field("nama_toko") String nama_toko,
+            @Field("nama_bank") String nama_bank,
+            @Field("no_rekening") long no_rekening
     );
 
     @GET("api/datapenjual")
@@ -93,6 +95,8 @@ public interface ApiRequestDataProduk {
             @Part("tanggal_lahir") RequestBody tanggal_lahir,
             @Part("no_ponsel") RequestBody no_ponsel,
             @Part("nama_toko") RequestBody nama_toko,
+            @Part("nama_bank") RequestBody nama_bank,
+            @Part("no_rekening") long no_rekening,
             @Nullable @Part MultipartBody.Part gambar
     );
 

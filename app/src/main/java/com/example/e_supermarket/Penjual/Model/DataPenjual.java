@@ -12,13 +12,15 @@ public class DataPenjual {
     String tanggal_lahir ;
     String alamat ;
     String nama_toko ;
+    String nama_bank ;
+    long no_rekening ;
     String gambar;
 
     public DataPenjual() {
 
     }
 
-    public DataPenjual(int id, long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko, String gambar) {
+    public DataPenjual(int id, long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko, String nama_bank, long no_rekening, String gambar) {
         this.id = id;
         this.nik = nik;
         this.nama = nama;
@@ -28,6 +30,8 @@ public class DataPenjual {
         this.tanggal_lahir = tanggal_lahir;
         this.alamat = alamat;
         this.nama_toko = nama_toko;
+        this.nama_bank = nama_bank;
+        this.no_rekening = no_rekening;
         this.gambar = gambar;
     }
 
@@ -101,6 +105,22 @@ public class DataPenjual {
 
     public void setNama_toko(String nama_toko) {
         this.nama_toko = nama_toko;
+    }
+
+    public String getNama_bank() {
+        return nama_bank;
+    }
+
+    public void setNama_bank(String nama_bank) {
+        this.nama_bank = nama_bank;
+    }
+
+    public long getNo_rekening() {
+        return no_rekening;
+    }
+
+    public void setNo_rekening(long no_rekening) {
+        this.no_rekening = no_rekening;
     }
 
     public String getGambar() {

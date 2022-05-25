@@ -233,6 +233,36 @@
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/white">
+
+                <EditText
+                    android:id="@+id/EdtNaBankPnjl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="E-Wallet / Bank"
+                    android:inputType="textCapSentences|textAutoCorrect"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/white">
+
+                <EditText
+                    android:id="@+id/EdtNo_RekPnjl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="No. Rekening"
+                    android:inputType="number"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"

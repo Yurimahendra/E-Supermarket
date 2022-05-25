@@ -51,6 +51,8 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
     String tanggal_lahir;
     String alamat;
     String nama_toko;
+    String nama_bank;
+    long no_rekening;
 
 
     private List<DataPenjual> dataPenjualList = new ArrayList<>();
@@ -131,6 +133,8 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
                                                 RequestBody.create(MediaType.parse("text/plain"), tanggal_lahir),
                                                 RequestBody.create(MediaType.parse("text/plain"), NewPonS),
                                                 RequestBody.create(MediaType.parse("text/plain"), nama_toko),
+                                                RequestBody.create(MediaType.parse("text/plain"), nama_bank),
+                                                no_rekening,
                                                 null
 
                                         );
@@ -325,6 +329,8 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
                         tanggal_lahir = dataPenjualList.get(indexLS).getTanggal_lahir();
                         alamat = dataPenjualList.get(indexLS).getAlamat();
                         nama_toko = dataPenjualList.get(indexLS).getNama_toko();
+                        nama_toko = dataPenjualList.get(indexLS).getNama_bank();
+                        no_rekening = dataPenjualList.get(indexLS).getNo_rekening();
                         //noponselLS = dataPenjualList.get(indexLS).getNo_ponsel();
                         //EnoponLS = noponselLS;
                     } catch (IndexOutOfBoundsException indexOutOfBoundsException) {

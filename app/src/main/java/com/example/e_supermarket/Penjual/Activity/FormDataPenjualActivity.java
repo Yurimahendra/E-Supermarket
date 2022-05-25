@@ -53,6 +53,8 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     EditText EdtTala;
     EditText Alamat;
     EditText Nato;
+    EditText Nabank;
+    EditText Norek;
     Button BtnUpdate;
     DatePickerDialog datePickerDialog;
     SimpleDateFormat dateFormat;
@@ -79,6 +81,8 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     String tanggal_lahir;
     String alamat;
     String nama_toko;
+    String nama_bank;
+    long no_rekening;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +95,8 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         TeLa = (EditText) findViewById(R.id.EdtTeLa);
         Alamat = (EditText) findViewById(R.id.EdtAlamat);
         Nato = (EditText) findViewById(R.id.EdtNato);
+        Nabank = findViewById(R.id.EdtNaBank);
+        Norek = findViewById(R.id.EdtNo_Rek);
         EdtTala = (EditText) findViewById(R.id.EdtTala);
         PbSimpanDataS = findViewById(R.id.progressDataS);
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -137,6 +143,8 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             tanggal_lahir = EdtTala.getText().toString().trim();
             alamat = Alamat.getText().toString().trim();
             nama_toko = Nato.getText().toString().trim();
+            nama_bank = Nabank.getText().toString().trim();
+            no_rekening = Long.parseLong(Norek.getText().toString().trim());
 
             nikS = Nik.getText().toString().trim();
             lenNik = nikS.length();
@@ -165,9 +173,17 @@ public class FormDataPenjualActivity extends AppCompatActivity {
                 Nato.setError("NAMA TOKO TIDAK BOLEH KOSONG");
                 PbSimpanDataS.setVisibility(View.GONE);
                 BtnUpdate.setVisibility(View.VISIBLE);
-            }else {
+            }else if (nama_bank.isEmpty()) {
+                Nabank.setError("NAMA Bank TIDAK BOLEH KOSONG");
+                PbSimpanDataS.setVisibility(View.GONE);
+                BtnUpdate.setVisibility(View.VISIBLE);
+            }else if (no_rekening <= 0) {
+                Norek.setError("No rekening TIDAK BOLEH KOSONG");
+                PbSimpanDataS.setVisibility(View.GONE);
+                BtnUpdate.setVisibility(View.VISIBLE);
+            } else {
                 ApiRequestDataProduk requestDataPenjual = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
-                Call<ResponseDataPenjual> SimpanDataPenjual = requestDataPenjual.SendDataPenjual(nik, nama, jenis_kelamin, alamat, tempat_lahir, tanggal_lahir, no_ponsel, nama_toko);
+                Call<ResponseDataPenjual> SimpanDataPenjual = requestDataPenjual.SendDataPenjual(nik, nama, jenis_kelamin, alamat, tempat_lahir, tanggal_lahir, no_ponsel, nama_toko, nama_bank, no_rekening);
 
 
                 SimpanDataPenjual.enqueue(new Callback<ResponseDataPenjual>() {
