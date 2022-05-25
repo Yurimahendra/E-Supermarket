@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +26,8 @@ import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesana
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +51,15 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
     EditText EdtAlamatDetailPenjual;
     EditText EdtNopDetailPenjual;
     EditText EdtTglDetailPenjual;
+
+    TextView tvStatusDetailPnjl;
+    TextView tvstatusPnjl;
+
+    private String MetodeBayarPnjl;
+
+    private String status = "lunas";
+    private String n_metode[] = {"COD", "DEBET SALDO"};
+    Button btnLunas;
 
     private int Uid;
     private String UidPesanan;
@@ -81,6 +95,10 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
         OngkirDetailPenjual = findViewById(R.id.RpongkirOrderPenjual);
         BeliImgProduk1DetailPenjual = findViewById(R.id.ImgItemOrderPenjual);
         MetodePembayaranDetailPenjual = findViewById(R.id.SpMetodebayarOrderPenjual);
+
+        tvStatusDetailPnjl = findViewById(R.id.tvStatusDetailPnjl);
+        tvstatusPnjl = findViewById(R.id.tvStatusPnjl);
+
         tvTotalHargaPenjual = findViewById(R.id.TotalBayarOrderPenjual);
         EdtNamaDetailPenjual = findViewById(R.id.EdtNamaOrderPenjual);
         EdtAlamatDetailPenjual = findViewById(R.id.EdtAlamatOrderPenjual);
@@ -90,6 +108,10 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
         backDetailPenjual = findViewById(R.id.imgBackOrderProdukPenjual);
         BatalDetailPenjual = findViewById(R.id.BatalOrder1Penjual);
         PbDetailBatalPenjual = findViewById(R.id.progressDataBatalOrder1Penjual);
+
+        btnLunas = findViewById(R.id.btnLunas);
+
+
 
         BatalDetailPenjual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +143,7 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
         UongkirPesan = bundle.getString("ongkir");
         UTotalHargaPesan = bundle.getString("total");
         UMetodeBayarPesan = bundle.getString("metode");
+        UStatus = bundle.getString("status");
 
         tvIdPesananDetailPenjual.setText(UidPesanan);
         EdtNamaDetailPenjual.setText(UnamaPemesan);
@@ -137,6 +160,83 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
         OngkirDetailPenjual.setText(UongkirPesan);
         tvTotalHargaPenjual.setText(UTotalHargaPesan);
         MetodePembayaranDetailPenjual.setText(UMetodeBayarPesan);
+        tvStatusDetailPnjl.setText(UStatus);
+
+        MetodeBayarPnjl = MetodePembayaranDetailPenjual.getText().toString();
+
+
+        if (MetodeBayarPnjl.equals("COD")){
+            btnLunas.setVisibility(View.GONE);
+            tvStatusDetailPnjl.setVisibility(View.GONE);
+            tvstatusPnjl.setVisibility(View.GONE);
+        }else if (UStatus.equals("lunas")){
+            btnLunas.setVisibility(View.GONE);
+            tvStatusDetailPnjl.setTextColor(Color.parseColor("#008001"));
+        }
+        //Log.i("bayar", ""+MetodeBayarPnjl);
+
+        btnLunas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PbDetailBatalPenjual.setVisibility(View.VISIBLE);
+                BatalDetailPenjual.setVisibility(View.INVISIBLE);
+                Bundle bundle1 = getIntent().getExtras();
+                if (bundle1 != null) {
+                    int id = Uid;
+                    ApiRequestPembeli requestDataDetailOrder = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                    Call<ResponseBuatPesanan> UpdateDetailOrder = requestDataDetailOrder.UpdateDetailPesanan(
+                            id,
+                            "PUT",
+                            RequestBody.create(MediaType.parse("text/plain"), UidPesanan),
+                            RequestBody.create(MediaType.parse("text/plain"), UnamaPemesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UNohpPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UalamatKirimPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UnamaBarangPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UmerkBarangPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UhargaBarangPesan),
+                            UjumlahBarangPesan,
+                            RequestBody.create(MediaType.parse("text/plain"), UsatuanPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UgambarPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UtglKirimPesan),
+                            //RequestBody.create(MediaType.parse("text/plain"), ongkirPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), UMetodeBayarPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), status)
+
+                    );
+                    UpdateDetailOrder.enqueue(new Callback<ResponseBuatPesanan>() {
+                        @Override
+                        public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+                            if( response.isSuccessful()) {
+                                // int kode = response.body().getKode();
+                                //String pesan = response.body().getPesan();
+                                startActivity(new Intent(DetailPesananPenjualActivity.this, HalamanNotifPenjualActivity.class));
+                                Toast.makeText(DetailPesananPenjualActivity.this, "Pesanan telah LUNAS", Toast.LENGTH_SHORT).show();
+                                /*if (kode == 200){
+
+
+                                }*/
+
+                            }else {
+                                Toast.makeText(DetailPesananPenjualActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            PbDetailBatalPenjual.setVisibility(View.GONE);
+                            BatalDetailPenjual.setVisibility(View.VISIBLE);
+                        }
+                        @Override
+                        public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+
+                            Toast.makeText(DetailPesananPenjualActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                            PbDetailBatalPenjual.setVisibility(View.GONE);
+                            BatalDetailPenjual.setVisibility(View.VISIBLE);
+                            //startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
+                        }
+
+                    });
+                }
+            }
+        });
     }
 
     private void BatalOrderan() {

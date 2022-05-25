@@ -105,8 +105,8 @@ public interface ApiRequestPembeli {
             @Part("tanggal_pengiriman") RequestBody tanggal_pengiriman,
             //@Part("ongkir") RequestBody ongkir,
             @Part("total_harga") RequestBody total_harga,
-            @Part("metode_pembayaran") RequestBody metode_pembayaran
-            //@Part("status") RequestBody status,
+            @Part("metode_pembayaran") RequestBody metode_pembayaran,
+            @Part("status") RequestBody status
             //@Nullable @Part MultipartBody.Part status
     );
 

@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +48,8 @@ public class DetailPesananActivity extends AppCompatActivity {
     int index1;
     int id;
     int getid;
+
+    Button btnPesananDiterima;
 
     TextView Nama_BarangDetail;
     TextView MerkDetail;
@@ -139,6 +142,7 @@ public class DetailPesananActivity extends AppCompatActivity {
         EdtTglDetail = findViewById(R.id.EdtTabeOrder);
         dateFormatDetail = new SimpleDateFormat("yyyy-MM-dd");
 
+        btnPesananDiterima = findViewById(R.id.BtnPesananDiterima);
 
 
 
@@ -218,6 +222,7 @@ public class DetailPesananActivity extends AppCompatActivity {
             tvStatusDetail.setVisibility(View.INVISIBLE);
             tvstatus.setVisibility(View.INVISIBLE);
         }else if (UStatus.equals(status)){
+            btnPesananDiterima.setVisibility(View.GONE);
             EdtTglDetail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -231,6 +236,7 @@ public class DetailPesananActivity extends AppCompatActivity {
             MetodePembayaranDetail.setEnabled(false);
             Bayar.setVisibility(View.INVISIBLE);
             UpdateDetail.setVisibility(View.INVISIBLE);
+            tvStatusDetail.setTextColor(Color.parseColor("#008001"));
         }
 
         Bayar.setOnClickListener(new View.OnClickListener() {
@@ -356,7 +362,8 @@ public class DetailPesananActivity extends AppCompatActivity {
                             RequestBody.create(MediaType.parse("text/plain"), tglKirimPesanDetail),
                             //RequestBody.create(MediaType.parse("text/plain"), ongkirPesan),
                             RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
-                            RequestBody.create(MediaType.parse("text/plain"), MetodeBayarPesanDetail)
+                            RequestBody.create(MediaType.parse("text/plain"), MetodeBayarPesanDetail),
+                            RequestBody.create(MediaType.parse("text/plain"), UStatus)
 
                     );
                     UpdateDetailOrder.enqueue(new Callback<ResponseBuatPesanan>() {

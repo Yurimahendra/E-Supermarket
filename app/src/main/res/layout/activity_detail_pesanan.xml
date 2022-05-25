@@ -350,7 +350,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:layout_above="@id/frOrder1"
+        android:layout_above="@id/BtnPesananDiterima"
         android:padding="5dp">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -409,5 +409,17 @@
             android:visibility="gone" />
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/BtnPesananDiterima"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pesanan Diterima"
+        android:layout_above="@+id/frOrder1"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        />
+
 
 </RelativeLayout>

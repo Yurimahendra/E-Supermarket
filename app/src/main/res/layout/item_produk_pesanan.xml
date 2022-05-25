@@ -32,6 +32,17 @@
             android:layout_marginLeft="10dp"
             android:visibility="gone"/>
 
+        <TextView
+            android:id="@+id/tvStatusBayarPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="status"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPesanan"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvNamaBarangPesanan"
             android:layout_width="match_parent"
@@ -114,19 +125,10 @@
             android:text="DETAIL PESANAN"
             android:layout_below="@id/ImgItemPesanan"
             android:layout_marginTop="5dp"
-            />
+            android:layout_toRightOf="@id/tvSatuanPesanan"
+            android:layout_marginLeft="50dp"/>
 
 
-        <Button
-            android:id="@+id/BtnPesananDiterima"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pesanan Diterima"
-            android:layout_below="@id/ImgItemPesanan"
-            android:layout_toRightOf="@id/btnUbah"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            />
 
 
     </RelativeLayout>

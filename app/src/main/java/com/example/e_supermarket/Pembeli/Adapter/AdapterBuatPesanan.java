@@ -59,6 +59,7 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
         holder.JumlahPesanan.setText(""+buatPesananList.get(position).getJumlah_pesanan());
         Glide.with(holder.imageProdukPesanan.getContext())
                 .load(buatPesananList.get(position).getGambar()).into(holder.imageProdukPesanan);
+        holder.StatusbayarPesanan.setText(buatPesananList.get(position).getStatus());
         //holder.DeskripsiPembeli.setText(ProdukListPembeli.get(position).getDeskripsi());
         holder.Ubah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +89,10 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
             }
         });
 
-        holder.Diterima.setOnClickListener(new View.OnClickListener() {
+        //String status = holder.StatusbayarPesanan.getText().toString().trim();
+
+
+        /*holder.Diterima.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int idOrderan = buatPesananList.get(position).getId();
@@ -132,7 +136,7 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
 
                 builder.show();
             }
-        });
+        });*/
 
 
     }
@@ -151,11 +155,12 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
        // TextView StokPesanan;
         TextView SatuanPesanan;
         TextView JumlahPesanan;
+        TextView StatusbayarPesanan;
 
 
        // ImageView KeranjangProduk;
         Button Ubah;
-        Button Diterima;
+       // Button Diterima;
         ImageView imageProdukPesanan;
 
 
@@ -168,6 +173,7 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
             MerkPesanan = itemView.findViewById(R.id.tvMerkPesanan);
             HargaPesanan = itemView.findViewById(R.id.tvHargaPesanan);
             JumlahPesanan = itemView.findViewById(R.id.tvJumlahPesanan);
+            StatusbayarPesanan = itemView.findViewById(R.id.tvStatusBayarPesanan);
             //StokPembeli = itemView.findViewById(R.id.tvStokPembeli);
             SatuanPesanan = itemView.findViewById(R.id.tvSatuanPesanan);
             imageProdukPesanan = itemView.findViewById(R.id.ImgItemPesanan);
@@ -176,7 +182,7 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
 
            // KeranjangProduk = itemView.findViewById(R.id.ImgKeranjang);
             Ubah = itemView.findViewById(R.id.btnUbah);
-            Diterima = itemView.findViewById(R.id.BtnPesananDiterima);
+           // Diterima = itemView.findViewById(R.id.BtnPesananDiterima);
 
 
         }
