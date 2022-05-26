@@ -219,10 +219,10 @@ public class DetailPesananActivity extends AppCompatActivity {
             EdtAlamatDetail.setFocusable(false);
             EdtNopDetail.setFocusable(false);
             MetodePembayaranDetail.setEnabled(false);
-            Bayar.setVisibility(View.INVISIBLE);
-            UpdateDetail.setVisibility(View.INVISIBLE);
-            tvStatusDetail.setVisibility(View.INVISIBLE);
-            tvstatus.setVisibility(View.INVISIBLE);
+            Bayar.setVisibility(View.GONE);
+            UpdateDetail.setVisibility(View.GONE);
+            tvStatusDetail.setVisibility(View.GONE);
+            tvstatus.setVisibility(View.GONE);
         }else if (UStatus.equals(status)){
             btnPesananDiterima.setVisibility(View.GONE);
             EdtTglDetail.setOnClickListener(new View.OnClickListener() {
@@ -236,8 +236,9 @@ public class DetailPesananActivity extends AppCompatActivity {
             EdtAlamatDetail.setFocusable(false);
             EdtNopDetail.setFocusable(false);
             MetodePembayaranDetail.setEnabled(false);
-            Bayar.setVisibility(View.INVISIBLE);
-            UpdateDetail.setVisibility(View.INVISIBLE);
+            Bayar.setVisibility(View.GONE);
+            BatalDetail.setVisibility(View.GONE);
+            UpdateDetail.setVisibility(View.GONE);
             tvStatusDetail.setTextColor(Color.parseColor("#008001"));
         }
 
