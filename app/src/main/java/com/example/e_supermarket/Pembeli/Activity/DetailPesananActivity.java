@@ -242,11 +242,82 @@ public class DetailPesananActivity extends AppCompatActivity {
         Bayar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (index == 0){
-                    Toast.makeText(DetailPesananActivity.this, "Pembelian ini menggunakan metode COD", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(DetailPesananActivity.this, "Bisa Bayar Debet", Toast.LENGTH_SHORT).show();
+                PbDetailUpdate.setVisibility(View.VISIBLE);
+                UpdateDetail.setVisibility(View.INVISIBLE);
+                try {
+                    //idPesananDetail;
+                    namaPemesanDetail = EdtNamaDetail.getText().toString().trim();
+                    //namaBarangPesanDetail;
+                    //merkBarangPesanDetail;
+                    //jumlahBarangPesanDetail;
+                    //satuanPesanDetail;
+                    //gambarPesanDetail;
+                    //hargaBarangPesanDetail;
+                    //TotalHargaPesanDetail;
+                    //ongkirPesanDetail;
+                    alamatKirimPesanDetail = EdtAlamatDetail.getText().toString().trim();
+                    NohpPesanDetail = EdtNopDetail.getText().toString().trim();
+                    tglKirimPesanDetail = EdtTglDetail.getText().toString().trim();
+                    MetodeBayarPesanDetail = MetodePembayaranDetail.getSelectedItem().toString().trim();
+                    //StatusDetail;
+
+                    int lenNopOrder = NohpPesanDetail.length();
+
+                    if (MetodeBayarPesanDetail.equals(n_metode[0])){
+                        Toast.makeText(DetailPesananActivity.this, "Metode Pembayaran Telah Di ubah, Silahkan Update Data", Toast.LENGTH_SHORT).show();
+                        PbDetailUpdate.setVisibility(View.GONE);
+                        UpdateDetail.setVisibility(View.VISIBLE);
+                    }else if (namaPemesanDetail.equals("")){
+                        EdtNamaDetail.setError("Nama TIDAK BOLEH KOSONG");
+                        PbDetailUpdate.setVisibility(View.GONE);
+                        UpdateDetail.setVisibility(View.VISIBLE);
+                    }else if (NohpPesanDetail.equals("")) {
+                        EdtNopDetail.setError("No hp TIDAK BOLEH KOSONG");
+                        PbDetailUpdate.setVisibility(View.GONE);
+                        UpdateDetail.setVisibility(View.VISIBLE);
+                    }else if (lenNopOrder < 12) {
+                        EdtNopDetail.setError("JUMLAH Nomor TIDAK SESUAI");
+                        PbDetailUpdate.setVisibility(View.GONE);
+                        UpdateDetail.setVisibility(View.VISIBLE);
+                    }else if (alamatKirimPesanDetail.equals("")) {
+                        EdtAlamatDetail.setError("Alamat TIDAK BOLEH KOSONG");
+                        PbDetailUpdate.setVisibility(View.GONE);
+                        UpdateDetail.setVisibility(View.VISIBLE);
+                    }else if (tglKirimPesanDetail.equals("")){
+                        EdtTglDetail.setError("Tanggal TIDAK BOLEH KOSONG");
+                        PbDetailUpdate.setVisibility(View.GONE);
+                        UpdateDetail.setVisibility(View.VISIBLE);
+                    }else {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("id", Uid);
+                        bundle.putString("id_pesanan", UidPesanan);
+                        bundle.putString("nama", namaPemesanDetail);
+                        bundle.putString("no_hp", NohpPesanDetail);
+                        bundle.putString("alamat", alamatKirimPesanDetail);
+                        bundle.putString("nama_barang", UnamaBarangPesan);
+                        bundle.putString("merk", UmerkBarangPesan);
+                        bundle.putString("harga", UhargaBarangPesan);
+                        bundle.putInt("jumlah", UjumlahBarangPesan);
+                        bundle.putString("satuan", UsatuanPesan);
+                        bundle.putString("gambar", UgambarPesan);
+                        bundle.putString("tanggal", tglKirimPesanDetail);
+                        bundle.putString("ongkir", UongkirPesan);
+                        bundle.putString("total", UTotalHargaPesan);
+                        bundle.putString("metode", MetodeBayarPesanDetail);
+                        bundle.putString("status", UStatus);
+                        //bundle.putInt("jumlah", count);
+                        Intent intent = new Intent(DetailPesananActivity.this, BayarPesananPembeliActivity.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+
+                        //Toast.makeText(DetailPesananActivity.this, "Bisa Bayar Debet", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (NumberFormatException exception){
+                    Toast.makeText(DetailPesananActivity.this, "Data Harus Terisi Semua !", Toast.LENGTH_SHORT).show();
+                    PbDetailUpdate.setVisibility(View.GONE);
+                    UpdateDetail.setVisibility(View.VISIBLE);
                 }
+
             }
         });
 
@@ -341,7 +412,11 @@ public class DetailPesananActivity extends AppCompatActivity {
                 EdtAlamatDetail.setError("Alamat TIDAK BOLEH KOSONG");
                 PbDetailUpdate.setVisibility(View.GONE);
                 UpdateDetail.setVisibility(View.VISIBLE);
-            }else {
+            }else if (tglKirimPesanDetail.equals("")){
+                EdtTglDetail.setError("Tanggal TIDAK BOLEH KOSONG");
+                PbDetailUpdate.setVisibility(View.GONE);
+                UpdateDetail.setVisibility(View.VISIBLE);
+            } else {
                 Bundle bundle1 = getIntent().getExtras();
                 if (bundle1 != null) {
                     int id = Uid;
@@ -399,7 +474,7 @@ public class DetailPesananActivity extends AppCompatActivity {
                 }
             }
         }catch (NumberFormatException exception) {
-            Toast.makeText(this, "Data Produk Harus Terisi Semua !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DetailPesananActivity.this, "Data Harus Terisi Semua !", Toast.LENGTH_SHORT).show();
             PbDetailUpdate.setVisibility(View.GONE);
             UpdateDetail.setVisibility(View.VISIBLE);
         }
