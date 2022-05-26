@@ -284,7 +284,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:focusable="false"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:visibility="gone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.Toolbar
@@ -317,7 +318,7 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-            <FrameLayout
+            <!--<FrameLayout
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginTop="5dp"
@@ -338,7 +339,7 @@
                     android:layout_gravity="center"
                     android:visibility="gone" />
 
-            </FrameLayout>
+            </FrameLayout>-->
 
         </RelativeLayout>
 

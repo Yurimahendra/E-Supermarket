@@ -96,6 +96,8 @@ public class DetailPesananActivity extends AppCompatActivity {
     private String UtglKirimPesan;
     private String UMetodeBayarPesan;
     private String UStatus;
+    //private String UBukti_transfer;
+    private MultipartBody.Part UBukti_transfer1;
 
     private String idPesananDetail;
     private String namaPemesanDetail;
@@ -438,7 +440,8 @@ public class DetailPesananActivity extends AppCompatActivity {
                             //RequestBody.create(MediaType.parse("text/plain"), ongkirPesan),
                             RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
                             RequestBody.create(MediaType.parse("text/plain"), MetodeBayarPesanDetail),
-                            RequestBody.create(MediaType.parse("text/plain"), UStatus)
+                            RequestBody.create(MediaType.parse("text/plain"), UStatus),
+                            null
 
                     );
                     UpdateDetailOrder.enqueue(new Callback<ResponseBuatPesanan>() {

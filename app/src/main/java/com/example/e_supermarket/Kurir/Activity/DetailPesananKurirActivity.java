@@ -86,15 +86,15 @@ public class DetailPesananKurirActivity extends AppCompatActivity {
         EdtTglDetailKurir = findViewById(R.id.EdtTabeOrderKurir);
 
         backDetailKurir = findViewById(R.id.imgBackOrderProdukKurir);
-        TerkirimDetailKurir = findViewById(R.id.TerkirimOrder1Kurir);
-        PbDetailTerkirimKurir = findViewById(R.id.progressDataTerkirimOrder1Kurir);
+        //TerkirimDetailKurir = findViewById(R.id.TerkirimOrder1Kurir);
+        //PbDetailTerkirimKurir = findViewById(R.id.progressDataTerkirimOrder1Kurir);
 
-        TerkirimDetailKurir.setOnClickListener(new View.OnClickListener() {
+        /*TerkirimDetailKurir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BatalOrderan();
             }
-        });
+        });*/
 
         backDetailKurir.setOnClickListener(new View.OnClickListener() {
             @Override

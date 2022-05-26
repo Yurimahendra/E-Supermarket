@@ -27,6 +27,7 @@ import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,7 +59,7 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
     private String MetodeBayarPnjl;
 
     private String status = "lunas";
-    private String n_metode[] = {"COD", "DEBET SALDO"};
+    private String n_metode[] = {"COD", "TRANSFER"};
     Button btnLunas;
 
     private int Uid;
@@ -77,6 +78,7 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
     private String UtglKirimPesan;
     private String UMetodeBayarPesan;
     private String UStatus;
+    private MultipartBody.Part UBukti_transfer1;
 
     Button BatalDetailPenjual;
     ProgressBar PbDetailBatalPenjual;
@@ -169,8 +171,9 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
             btnLunas.setVisibility(View.GONE);
             tvStatusDetailPnjl.setVisibility(View.GONE);
             tvstatusPnjl.setVisibility(View.GONE);
-        }else if (UStatus.equals("lunas")){
+        }else if (UStatus.equals(status)){
             btnLunas.setVisibility(View.GONE);
+            BatalDetailPenjual.setVisibility(View.GONE);
             tvStatusDetailPnjl.setTextColor(Color.parseColor("#008001"));
         }
         //Log.i("bayar", ""+MetodeBayarPnjl);
@@ -201,7 +204,8 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
                             //RequestBody.create(MediaType.parse("text/plain"), ongkirPesan),
                             RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
                             RequestBody.create(MediaType.parse("text/plain"), UMetodeBayarPesan),
-                            RequestBody.create(MediaType.parse("text/plain"), status)
+                            RequestBody.create(MediaType.parse("text/plain"), status),
+                            UBukti_transfer1
 
                     );
                     UpdateDetailOrder.enqueue(new Callback<ResponseBuatPesanan>() {
@@ -237,6 +241,7 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     private void BatalOrderan() {

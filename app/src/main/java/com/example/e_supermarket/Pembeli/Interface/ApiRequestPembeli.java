@@ -77,8 +77,8 @@ public interface ApiRequestPembeli {
             @Nullable @Field("ongkir") String ongkir,
             @Field("total_harga") String total_harga,
             @Field("metode_pembayaran") String metode_pembayaran,
-            @Nullable @Field("status") String status
-            //@Nullable @Part MultipartBody.Part status
+            @Nullable @Field("status") String status,
+            @Nullable @Field("bukti_transfer") String bukti_transfer
     );
 
     //orderan
@@ -106,8 +106,8 @@ public interface ApiRequestPembeli {
             //@Part("ongkir") RequestBody ongkir,
             @Part("total_harga") RequestBody total_harga,
             @Part("metode_pembayaran") RequestBody metode_pembayaran,
-            @Part("status") RequestBody status
-            //@Nullable @Part MultipartBody.Part status
+            @Part("status") RequestBody status,
+            @Nullable @Part MultipartBody.Part bukti_transfer
     );
 
     @DELETE("api/dataorderan/{dataorderan}")
