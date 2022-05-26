@@ -68,7 +68,7 @@ public class DetailPesananActivity extends AppCompatActivity {
 
     Spinner MetodePembayaranDetail;
     int index;
-    private String n_metode[] = {"COD", "DEBET SALDO"};
+    private String n_metode[] = {"COD", "TRANSFER"};
 
     EditText EdtNamaDetail;
     EditText EdtAlamatDetail;

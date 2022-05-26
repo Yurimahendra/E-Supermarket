@@ -18,7 +18,7 @@
 
     <string-array name="Metode_Bayar" tools:ignore="ExtraTranslation">
         <item>COD</item>
-        <item>DEBET SALDO</item>
+        <item>TRANSFER</item>
     </string-array>
 
     <array name="Satuan">

@@ -57,7 +57,7 @@ public class BeliProdukActivity extends AppCompatActivity {
 
     Spinner MetodePembayaran;
     private int index;
-    private String n_metode[] = {"COD", "DEBET SALDO"};
+    private String n_metode[] = {"COD", "TRANSFER"};
 
     EditText EdtNamaBeli;
     EditText EdtAlamatBeli;
