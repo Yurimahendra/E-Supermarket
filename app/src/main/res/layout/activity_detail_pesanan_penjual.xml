@@ -367,6 +367,23 @@
 
             </androidx.appcompat.widget.Toolbar>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BUKTI TRANSFER"
+                android:id="@+id/tvBuktiTf"
+                android:layout_below="@+id/tolbarOrder1Penjual"
+                android:layout_margin="5dp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvBuktiTf"
+                android:id="@+id/ImgBuktiTransferBayar"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"/>
+
         </RelativeLayout>
 
     </ScrollView>
