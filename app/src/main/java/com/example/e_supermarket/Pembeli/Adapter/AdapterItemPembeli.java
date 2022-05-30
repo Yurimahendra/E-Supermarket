@@ -123,6 +123,7 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
                 bundle.putString("merk", item.getMerk());
                 bundle.putString("harga", item.getHarga());
                 bundle.putInt("min_belanja", item.getMin_belanja());
+                bundle.putString("ongkir", item.getOngkir());
                 bundle.putString("satuan", item.getSatuan());
                 bundle.putString("gambar", RetroServer.imageURL + item.getGambar());
                 bundle.putString("deskripsi", item.getDeskripsi());

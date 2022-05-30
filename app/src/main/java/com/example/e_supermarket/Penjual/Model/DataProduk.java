@@ -15,18 +15,21 @@ public class DataProduk {
     String satuan;
     //@SerializedName("stok")
     int min_belanja ;
+
+    String ongkir ;
     //@SerializedName("gambar")
     String gambar;
     //@SerializedName("deskripsi")
     String deskripsi;
 
-    public DataProduk(int id, String nama_barang, String merk, String harga, String satuan, int min_belanja, String gambar, String deskripsi) {
+    public DataProduk(int id, String nama_barang, String merk, String harga, String satuan, int min_belanja, String ongkir, String gambar, String deskripsi) {
         this.id = id;
         this.nama_barang = nama_barang;
         this.merk = merk;
         this.harga = harga;
         this.satuan = satuan;
         this.min_belanja = min_belanja;
+        this.ongkir = ongkir;
         this.gambar = gambar;
         this.deskripsi = deskripsi;
     }
@@ -77,6 +80,14 @@ public class DataProduk {
 
     public void setMin_belanja(int min_belanja) {
         this.min_belanja = min_belanja;
+    }
+
+    public String getOngkir() {
+        return ongkir;
+    }
+
+    public void setOngkir(String ongkir) {
+        this.ongkir = ongkir;
     }
 
     public String getGambar() {

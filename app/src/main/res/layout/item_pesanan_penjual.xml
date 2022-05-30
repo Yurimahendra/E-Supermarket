@@ -32,6 +32,17 @@
             android:layout_marginLeft="10dp"
             android:visibility="gone"/>
 
+        <TextView
+            android:id="@+id/tvStatusterimaPesananPenjual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="terima"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPesananPenjual"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvNamaBarangPesananPenjual"
             android:layout_width="match_parent"
@@ -112,21 +123,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DETAIL PESANAN"
-            android:layout_below="@id/tvJumlahPesananPenjual"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="200dp"/>
+            android:layout_below="@id/tvJumlahPesananPenjual"
+            android:layout_marginLeft="160dp"
+            android:visibility="gone"/>
 
 
-        <!--<Button
-            android:id="@+id/BtnBayarPesanan"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bayar"
-            android:layout_below="@id/tvJumlahPesanan"
-            android:layout_toRightOf="@id/btnUbah"
+            android:layout_below="@id/tvJumlahPesananPenjual"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="90dp"
-            android:visibility="gone"/>-->
+            android:id="@+id/frBtnTerima">
+            <Button
+                android:id="@+id/BtnTerimaPesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Terima" />
+
+            <ProgressBar
+                android:id="@+id/PbBtnTerima"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+
+        <Button
+            android:id="@+id/btnTolakPesanan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tolak"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/tvJumlahPesananPenjual"
+            android:layout_toRightOf="@id/frBtnTerima"
+            android:layout_marginLeft="130dp" />
 
 
     </RelativeLayout>

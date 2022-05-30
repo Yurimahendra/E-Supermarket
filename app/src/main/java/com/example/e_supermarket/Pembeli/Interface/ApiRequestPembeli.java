@@ -78,6 +78,7 @@ public interface ApiRequestPembeli {
             @Field("total_harga") String total_harga,
             @Field("metode_pembayaran") String metode_pembayaran,
             @Nullable @Field("status") String status,
+            @Nullable @Field("status_pesanan") String status_pesanan,
             @Nullable @Field("bukti_transfer") String bukti_transfer
     );
 
@@ -103,10 +104,11 @@ public interface ApiRequestPembeli {
             @Part("satuan") RequestBody satuan,
             @Part("gambar") RequestBody gambar,
             @Part("tanggal_pengiriman") RequestBody tanggal_pengiriman,
-            //@Part("ongkir") RequestBody ongkir,
+            @Part("ongkir") RequestBody ongkir,
             @Part("total_harga") RequestBody total_harga,
             @Part("metode_pembayaran") RequestBody metode_pembayaran,
             @Part("status") RequestBody status,
+            @Part("status_pesanan") RequestBody status_pesanan,
             @Nullable @Part MultipartBody.Part bukti_transfer
     );
 

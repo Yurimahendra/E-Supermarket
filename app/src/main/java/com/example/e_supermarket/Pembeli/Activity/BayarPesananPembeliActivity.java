@@ -69,6 +69,7 @@ public class BayarPesananPembeliActivity extends AppCompatActivity implements on
     private String UtglKirimPesan;
     private String UMetodeBayarPesan;
     private String UStatus;
+    private String UStatus_pesanan;
     //private String UBukti_transfer;
     //private MultipartBody.Part UBukti_transfer1;
 
@@ -118,6 +119,7 @@ public class BayarPesananPembeliActivity extends AppCompatActivity implements on
         UTotalHargaPesan = bundle.getString("total");
         UMetodeBayarPesan = bundle.getString("metode");
         UStatus = bundle.getString("status");
+        UStatus_pesanan = bundle.getString("status_pesanan");
 
 
 
@@ -163,10 +165,11 @@ public class BayarPesananPembeliActivity extends AppCompatActivity implements on
                         RequestBody.create(MediaType.parse("text/plain"), UsatuanPesan),
                         RequestBody.create(MediaType.parse("text/plain"), UgambarPesan),
                         RequestBody.create(MediaType.parse("text/plain"), UtglKirimPesan),
-                        //RequestBody.create(MediaType.parse("text/plain"), ongkirPesan),
+                        RequestBody.create(MediaType.parse("text/plain"), UongkirPesan),
                         RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
                         RequestBody.create(MediaType.parse("text/plain"), UMetodeBayarPesan),
                         RequestBody.create(MediaType.parse("text/plain"), UStatus),
+                        RequestBody.create(MediaType.parse("text/plain"), UStatus_pesanan),
                         UBukti_transfer1
 
                 );

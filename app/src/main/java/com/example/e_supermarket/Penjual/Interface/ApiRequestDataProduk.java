@@ -35,6 +35,7 @@ public interface ApiRequestDataProduk {
             @Part("harga") RequestBody harga,
             @Part("satuan") RequestBody satuan,
             @Part("min_belanja") int min_belanja,
+            @Part("ongkir") RequestBody ongkir,
             @Nullable @Part MultipartBody.Part gambar,
             @Nullable @Part("deskripsi") RequestBody deskripsi
     );
@@ -50,6 +51,7 @@ public interface ApiRequestDataProduk {
             @Part("harga") RequestBody harga,
             @Part("satuan") RequestBody satuan,
             @Part("min_belanja") int min_belanja,
+            @Part("ongkir") RequestBody ongkir,
             @Nullable @Part MultipartBody.Part gambar,
             @Nullable @Part("deskripsi") RequestBody deskripsi
     );

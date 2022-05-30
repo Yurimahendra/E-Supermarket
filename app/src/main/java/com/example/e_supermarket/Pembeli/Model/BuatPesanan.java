@@ -17,9 +17,10 @@ public class BuatPesanan {
     private String total_harga;
     private String metode_pembayaran;
     private String status;
+    private String status_pesanan;
     private String bukti_transfer;
 
-    public BuatPesanan(int id, String id_pesanan, String nama, String no_hp, String alamat, String nama_barang, String merk_barang, String harga_barang, int jumlah_pesanan, String satuan, String gambar, String tanggal_pengiriman, String ongkir, String total_harga, String metode_pembayaran, String status, String bukti_transfer) {
+    public BuatPesanan(int id, String id_pesanan, String nama, String no_hp, String alamat, String nama_barang, String merk_barang, String harga_barang, int jumlah_pesanan, String satuan, String gambar, String tanggal_pengiriman, String ongkir, String total_harga, String metode_pembayaran, String status, String status_pesanan, String bukti_transfer) {
         this.id = id;
         this.id_pesanan = id_pesanan;
         this.nama = nama;
@@ -36,6 +37,7 @@ public class BuatPesanan {
         this.total_harga = total_harga;
         this.metode_pembayaran = metode_pembayaran;
         this.status = status;
+        this.status_pesanan = status_pesanan;
         this.bukti_transfer = bukti_transfer;
     }
 
@@ -165,6 +167,14 @@ public class BuatPesanan {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getStatus_pesanan() {
+        return status_pesanan;
+    }
+
+    public void setStatus_pesanan(String status_pesanan) {
+        this.status_pesanan = status_pesanan;
     }
 
     public String getBukti_transfer() {

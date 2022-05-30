@@ -78,6 +78,7 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
     private String UtglKirimPesan;
     private String UMetodeBayarPesan;
     private String UStatus;
+    private String UStatus_pesanan;
     private String UBukti_Transfer;
 
 
@@ -150,6 +151,7 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
         UTotalHargaPesan = bundle.getString("total");
         UMetodeBayarPesan = bundle.getString("metode");
         UStatus = bundle.getString("status");
+        UStatus_pesanan = bundle.getString("status_pesanan");
         UBukti_Transfer = bundle.getString("bukti_transfer");
 
         tvIdPesananDetailPenjual.setText(UidPesanan);
@@ -212,10 +214,11 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
                                 RequestBody.create(MediaType.parse("text/plain"), UsatuanPesan),
                                 RequestBody.create(MediaType.parse("text/plain"), UgambarPesan),
                                 RequestBody.create(MediaType.parse("text/plain"), UtglKirimPesan),
-                                //RequestBody.create(MediaType.parse("text/plain"), ongkirPesan),
+                                RequestBody.create(MediaType.parse("text/plain"), UongkirPesan),
                                 RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
                                 RequestBody.create(MediaType.parse("text/plain"), UMetodeBayarPesan),
                                 RequestBody.create(MediaType.parse("text/plain"), status),
+                                RequestBody.create(MediaType.parse("text/plain"), UStatus_pesanan),
                                 UBukti_transfer1
 
                         );

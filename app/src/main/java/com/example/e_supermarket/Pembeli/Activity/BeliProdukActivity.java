@@ -82,6 +82,7 @@ public class BeliProdukActivity extends AppCompatActivity {
     private String BeliHarga;
     private int BeliMin_belanja;
     private int BeliMin_belanja1;
+    private String BeliOngkir;
     private String BeliSatuan;
     private String BeliGambar;
     private String BeliDeskripsi;
@@ -113,7 +114,15 @@ public class BeliProdukActivity extends AppCompatActivity {
     String Getharga;
     String HargaRepl;
     String HargaRepl1;
+
+    int hasilOngkir;
+    int nilaiRpongkir;
+    String Gethargaongkir;
+    String HargaReplongkir;
+    String HargaRepl1ongkir;
+
     TextView TotalBayar;
+    int totalBayar;
 
     private List<DataPembeli> dataPembeliList = new ArrayList<>();
     private int indexno;
@@ -166,9 +175,20 @@ public class BeliProdukActivity extends AppCompatActivity {
                 nilaiRp = Integer.parseInt(HargaRepl1);
                 hasil = nilaiRp * minBelanjaPesan;
 
+                Gethargaongkir = Ongkir.getText().toString().trim();
+                HargaReplongkir = Gethargaongkir.replace("Rp. ", "");
+                HargaRepl1ongkir = HargaReplongkir.replace(".", "");
+//                nilaiRpongkir = Integer.parseInt(HargaRepl1ongkir);
+                hasilOngkir = nilaiRpongkir * minBelanjaPesan;
+
+
+
+                totalBayar = hasil + hasilOngkir;
+
                 Locale localeID = new Locale("in", "ID");
                 NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-                TotalBayar.setText(formatRupiah.format((double)hasil));
+                TotalBayar.setText(formatRupiah.format((double)totalBayar));
+                Ongkir.setText(formatRupiah.format((double)hasilOngkir));
 
             }
         });
@@ -179,6 +199,9 @@ public class BeliProdukActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (BeliMin_belanja <= BeliMin_belanja1){
                     MinBelanjabeli.setText(""+BeliMin_belanja1);
+                    Locale localeID = new Locale("in", "ID");
+                    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+                    Ongkir.setText(formatRupiah.format((double)hasilOngkir));
                 }else {
                     BeliMin_belanja -= 1;
                     MinBelanjabeli.setText(""+BeliMin_belanja);
@@ -188,9 +211,20 @@ public class BeliProdukActivity extends AppCompatActivity {
                     nilaiRp = Integer.parseInt(HargaRepl1);
                     hasil = nilaiRp * minBelanjaPesan;
 
+                    Gethargaongkir = Ongkir.getText().toString().trim();
+                    HargaReplongkir = Gethargaongkir.replace("Rp. ", "");
+                    HargaRepl1ongkir = HargaReplongkir.replace(".", "");
+//                    nilaiRpongkir = Integer.parseInt(HargaRepl1ongkir);
+                    hasilOngkir = nilaiRpongkir * minBelanjaPesan;
+
+
+
+                    totalBayar = hasil + hasilOngkir;
+
                     Locale localeID = new Locale("in", "ID");
                     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-                    TotalBayar.setText(formatRupiah.format((double)hasil));
+                    TotalBayar.setText(formatRupiah.format((double)totalBayar));
+                    Ongkir.setText(formatRupiah.format((double)hasilOngkir));
                 }
 
             }
@@ -223,6 +257,7 @@ public class BeliProdukActivity extends AppCompatActivity {
         BeliHarga = bundle.getString("harga");
         BeliMin_belanja = bundle.getInt("min_belanja", 0);
         BeliMin_belanja1 = bundle.getInt("min_belanja", 0);
+        BeliOngkir = bundle.getString("ongkir");
         BeliSatuan = bundle.getString("satuan");
         BeliGambar = bundle.getString("gambar");
         BeliDeskripsi = bundle.getString("deskripsi");
@@ -234,7 +269,7 @@ public class BeliProdukActivity extends AppCompatActivity {
         Hargabeli.setText(BeliHarga);
         Satuanbeli.setText(BeliSatuan);
         MinBelanjabeli.setText(""+BeliMin_belanja);
-        //getMinBel = BeliMin_belanja;
+        Ongkir.setText(BeliOngkir);
         Glide.with(BeliImgProduk1.getContext())
                 .load(BeliGambar).into(BeliImgProduk1);
 
@@ -245,11 +280,22 @@ public class BeliProdukActivity extends AppCompatActivity {
         HargaRepl = Getharga.replace("Rp. ", "");
         HargaRepl1 = HargaRepl.replace(".", "");
         nilaiRp = Integer.parseInt(HargaRepl1);
-        hasil = nilaiRp * BeliMin_belanja;
+        hasil = nilaiRp * BeliMin_belanja ;
+
+        Gethargaongkir = Ongkir.getText().toString().trim();
+        HargaReplongkir = Gethargaongkir.replace("Rp. ", "");
+        HargaRepl1ongkir = HargaReplongkir.replace(".", "");
+        nilaiRpongkir = Integer.parseInt(HargaRepl1ongkir);
+        hasilOngkir = nilaiRpongkir * BeliMin_belanja;
+
+
+
+        totalBayar = hasil + hasilOngkir;
 
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        TotalBayar.setText(formatRupiah.format((double)hasil));
+        TotalBayar.setText(formatRupiah.format((double)totalBayar));
+        Ongkir.setText(formatRupiah.format((double)hasilOngkir));
 
 
     }
@@ -295,7 +341,7 @@ public class BeliProdukActivity extends AppCompatActivity {
             minBelanjaPesan = Integer.parseInt(MinBelanjabeli.getText().toString().trim());
             //jumlahBarangPesan = Satuanbeli.getText().toString().trim();
             tglKirimPesan = EdtTglBeli.getText().toString().trim();
-           // ongkirPesan = Ongkir.getText().toString().trim();
+            ongkirPesan = Ongkir.getText().toString().trim();
             TotalHargaPesan = TotalBayar.getText().toString().trim();
             MetodeBayarPesan = MetodePembayaran.getSelectedItem().toString();
 
@@ -340,6 +386,7 @@ public class BeliProdukActivity extends AppCompatActivity {
                         TotalHargaPesan,
                         MetodeBayarPesan,
                         "belum dibayar",
+                        null,
                         null
                 );
 
@@ -392,6 +439,7 @@ public class BeliProdukActivity extends AppCompatActivity {
                         TotalHargaPesan,
                         MetodeBayarPesan,
                         Status,
+                        null,
                         null
                 );
 

@@ -37,7 +37,7 @@
             android:id="@+id/tvNamaBarang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="yuri"
+            android:text="nama"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_toRightOf="@id/ImgProdukView"
@@ -47,7 +47,7 @@
             android:id="@+id/tvMerk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="yuri"
+            android:text="merk"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_toRightOf="@id/ImgProdukView"
@@ -57,9 +57,9 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvHarga"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="yuri"
+            android:text="harga"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_toRightOf="@id/ImgProdukView"
@@ -70,7 +70,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvMinBelanjaPenjual"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="min belanja"
             android:textColor="@color/black"
@@ -81,26 +81,98 @@
             android:layout_marginLeft="10dp"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvSatuan"
-            android:layout_width="match_parent"
+            android:id="@+id/tvOngkirPenjual"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="yuri"
+            android:text="Ongkir"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_toRightOf="@+id/ImgProdukView"
+            android:layout_toRightOf="@id/ImgProdukView"
             android:layout_below="@id/tvMinBelanjaPenjual"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSatuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="satuan"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_below="@+id/tvHarga"
+            android:layout_toRightOf="@+id/PerPenjual"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSatuan1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="satuan1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_below="@+id/tvMinBelanjaPenjual"
+            android:layout_toRightOf="@+id/PerPenjual2"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSatuan2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="satuan2"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_below="@+id/tvMerk"
+            android:layout_toRightOf="@+id/PerPenjual1"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="/"
+            android:textStyle="bold"
+            android:id="@+id/PerPenjual"
+            android:layout_below="@+id/tvHarga"
+            android:layout_toRightOf="@+id/tvMinBelanjaPenjual"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="/"
+            android:textStyle="bold"
+            android:id="@+id/PerPenjual1"
+            android:layout_below="@+id/tvMerk"
+            android:layout_toRightOf="@+id/tvHarga"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="/"
+            android:textStyle="bold"
+            android:id="@+id/PerPenjual2"
+            android:layout_below="@+id/tvMinBelanjaPenjual"
+            android:layout_toRightOf="@+id/tvOngkirPenjual"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvDeskripsi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="yuri"
+            android:text="deskripsi"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_toRightOf="@+id/ImgProdukView"
-            android:layout_below="@id/tvSatuan"
+            android:layout_below="@id/tvOngkirPenjual"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 

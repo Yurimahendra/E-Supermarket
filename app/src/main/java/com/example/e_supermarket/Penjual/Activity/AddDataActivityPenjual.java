@@ -47,6 +47,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
     EditText Merk;
     EditText Harga;
     EditText Min_belanja;
+    EditText Ongkir;
     Spinner Satuan;
     EditText Deskripsi;
     ImageView addImage;
@@ -58,6 +59,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
     String harga;
     String satuan;
     int minbelanja;
+    String ongkir;
     String gambar;
     String deskripsi;
 
@@ -82,6 +84,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
         Harga = findViewById(R.id.EdtHarga);
         Satuan = findViewById(R.id.SpSatuan);
         Min_belanja = findViewById(R.id.EdtminBelanja);
+        Ongkir = findViewById(R.id.EdtOngkir);
         addImage = findViewById(R.id.ImgProduk);
         Deskripsi = findViewById(R.id.EdtDeskripsi);
         btnAddData = findViewById(R.id.btnAddData);
@@ -123,6 +126,36 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
                     Harga.setText(edtText);
                     Harga.setSelection(edtText.length());
                     Harga.addTextChangedListener(this);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        Ongkir.addTextChangedListener(new TextWatcher() {
+            private String edtText1 = Ongkir.getText().toString().trim();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals(edtText1)){
+                    Ongkir.removeTextChangedListener(this);
+                    String replace = s.toString().replaceAll("[Rp. ]", "");
+                    if (!replace.isEmpty()){
+                        edtText1 = formatrupiah(Double.parseDouble(replace));
+                    }else {
+                        edtText1 = "";
+                    }
+                    Ongkir.setText(edtText1);
+                    Ongkir.setSelection(edtText1.length());
+                    Ongkir.addTextChangedListener(this);
                 }
 
             }
@@ -184,6 +217,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
             harga = Harga.getText().toString().trim();
             satuan = Satuan.getSelectedItem().toString().trim();
             minbelanja = Integer.parseInt(Min_belanja.getText().toString().trim());
+            ongkir = Ongkir.getText().toString().trim();
             gambar = addImage.getContext().getContentResolver().getType(imageUri);
             File imgFile = new File(mediaPath);
             RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-data"), imgFile);
@@ -206,6 +240,10 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
                 Min_belanja.setError("Minimal Belanja TIDAK BOLEH KOSONG");
                 PbSimpanData.setVisibility(View.GONE);
                 btnAddData.setVisibility(View.VISIBLE);
+            } else if (ongkir.equals("")) {
+                Ongkir.setError("Ongkir TIDAK BOLEH KOSONG");
+                PbSimpanData.setVisibility(View.GONE);
+                btnAddData.setVisibility(View.VISIBLE);
             } else if (satuan.equals("")) {
                  Toast.makeText(getApplicationContext(), "SATUAN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
                 PbSimpanData.setVisibility(View.GONE);
@@ -223,6 +261,7 @@ public class AddDataActivityPenjual extends AppCompatActivity implements onReque
                         RequestBody.create(MediaType.parse("text/plain"), harga),
                         RequestBody.create(MediaType.parse("text/plain"), satuan),
                         minbelanja,
+                        RequestBody.create(MediaType.parse("text/plain"), ongkir),
                         partImg,
                         RequestBody.create(MediaType.parse("text/plain"), deskripsi)
                 );

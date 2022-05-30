@@ -96,6 +96,8 @@ public class DetailPesananActivity extends AppCompatActivity {
     private String UtglKirimPesan;
     private String UMetodeBayarPesan;
     private String UStatus;
+    private String UStatus_pesanan;
+    private String UuStatus_pesanan;
     //private String UBukti_transfer;
     private MultipartBody.Part UBukti_transfer1;
 
@@ -119,6 +121,8 @@ public class DetailPesananActivity extends AppCompatActivity {
     Button Bayar;
     Button UpdateDetail;
     Button BatalDetail;
+
+    private String status_pesanan = "terima";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +197,8 @@ public class DetailPesananActivity extends AppCompatActivity {
         UTotalHargaPesan = bundle.getString("total");
         UMetodeBayarPesan = bundle.getString("metode");
         UStatus = bundle.getString("status");
+        UStatus_pesanan = bundle.getString("status_pesanan");
+        UuStatus_pesanan = String.valueOf(UStatus_pesanan);
 
         tvIdPesananDetail.setText(UidPesanan);
         EdtNamaDetail.setText(UnamaPemesan);
@@ -212,35 +218,43 @@ public class DetailPesananActivity extends AppCompatActivity {
         else if (UMetodeBayarPesan.equals(n_metode[1])) index = 1;
         MetodePembayaranDetail.setSelection(index);
         tvStatusDetail.setText(UStatus);
-        //Log.i("status", ""+UStatus);
+        Log.i("status", ""+UStatus_pesanan);
 
-        if (index == 0){
-            EdtNamaDetail.setFocusable(false);
-            EdtAlamatDetail.setFocusable(false);
-            EdtNopDetail.setFocusable(false);
-            MetodePembayaranDetail.setEnabled(false);
+        if (UuStatus_pesanan.equals(status_pesanan)){
+            if (index == 0){
+                EdtNamaDetail.setFocusable(false);
+                EdtAlamatDetail.setFocusable(false);
+                EdtNopDetail.setFocusable(false);
+                MetodePembayaranDetail.setEnabled(false);
+                Bayar.setVisibility(View.GONE);
+                UpdateDetail.setVisibility(View.GONE);
+                tvStatusDetail.setVisibility(View.GONE);
+                tvstatus.setVisibility(View.GONE);
+            }else if (UStatus.equals(status)){
+                btnPesananDiterima.setVisibility(View.GONE);
+                EdtTglDetail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showDateDialog();
+                    }
+                });
+            }else {
+                EdtNamaDetail.setFocusable(false);
+                EdtAlamatDetail.setFocusable(false);
+                EdtNopDetail.setFocusable(false);
+                MetodePembayaranDetail.setEnabled(false);
+                Bayar.setVisibility(View.GONE);
+                BatalDetail.setVisibility(View.GONE);
+                UpdateDetail.setVisibility(View.GONE);
+                tvStatusDetail.setTextColor(Color.parseColor("#008001"));
+            }
+        }else {
             Bayar.setVisibility(View.GONE);
-            UpdateDetail.setVisibility(View.GONE);
+            btnPesananDiterima.setVisibility(View.GONE);
             tvStatusDetail.setVisibility(View.GONE);
             tvstatus.setVisibility(View.GONE);
-        }else if (UStatus.equals(status)){
-            btnPesananDiterima.setVisibility(View.GONE);
-            EdtTglDetail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showDateDialog();
-                }
-            });
-        }else {
-            EdtNamaDetail.setFocusable(false);
-            EdtAlamatDetail.setFocusable(false);
-            EdtNopDetail.setFocusable(false);
-            MetodePembayaranDetail.setEnabled(false);
-            Bayar.setVisibility(View.GONE);
-            BatalDetail.setVisibility(View.GONE);
-            UpdateDetail.setVisibility(View.GONE);
-            tvStatusDetail.setTextColor(Color.parseColor("#008001"));
         }
+
 
         Bayar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -308,6 +322,7 @@ public class DetailPesananActivity extends AppCompatActivity {
                         bundle.putString("total", UTotalHargaPesan);
                         bundle.putString("metode", MetodeBayarPesanDetail);
                         bundle.putString("status", UStatus);
+                        bundle.putString("status_pesanan", UStatus_pesanan);
                         //bundle.putInt("jumlah", count);
                         Intent intent = new Intent(DetailPesananActivity.this, BayarPesananPembeliActivity.class);
                         intent.putExtras(bundle);
@@ -389,7 +404,7 @@ public class DetailPesananActivity extends AppCompatActivity {
             //gambarPesanDetail;
             //hargaBarangPesanDetail;
             //TotalHargaPesanDetail;
-            //ongkirPesanDetail;
+            ongkirPesanDetail = OngkirDetail.getText().toString();
             alamatKirimPesanDetail = EdtAlamatDetail.getText().toString().trim();
             NohpPesanDetail = EdtNopDetail.getText().toString().trim();
             tglKirimPesanDetail = EdtTglDetail.getText().toString().trim();
@@ -438,10 +453,11 @@ public class DetailPesananActivity extends AppCompatActivity {
                             RequestBody.create(MediaType.parse("text/plain"), UsatuanPesan),
                             RequestBody.create(MediaType.parse("text/plain"), UgambarPesan),
                             RequestBody.create(MediaType.parse("text/plain"), tglKirimPesanDetail),
-                            //RequestBody.create(MediaType.parse("text/plain"), ongkirPesan),
+                            RequestBody.create(MediaType.parse("text/plain"), ongkirPesanDetail),
                             RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
                             RequestBody.create(MediaType.parse("text/plain"), MetodeBayarPesanDetail),
                             RequestBody.create(MediaType.parse("text/plain"), UStatus),
+                            RequestBody.create(MediaType.parse("text/plain"), UStatus_pesanan),
                             null
 
                     );

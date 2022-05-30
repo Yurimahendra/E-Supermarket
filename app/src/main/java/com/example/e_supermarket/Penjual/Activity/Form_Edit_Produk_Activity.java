@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +34,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.File;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
@@ -46,6 +50,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
     EditText Merk;
     EditText Harga;
     EditText MinBelanja;
+    EditText Ongkir;
     Spinner Satuan;
     EditText Deskripsi;
     FirebaseFirestore db;
@@ -54,6 +59,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
     private String uMerk;
     private String uHarga;
     private int uMinBelanja;
+    private String uOngkir;
     private String uSatuan;
     private String uGambar;
     private String uDeskripsi;
@@ -72,6 +78,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
     String merk;
     String harga;
     int min_belanja;
+    String ongkir;
     String satuan;
     String gambar;
     MultipartBody.Part partImg;
@@ -88,6 +95,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
         Merk = findViewById(R.id.UpdtMerk);
         Harga = findViewById(R.id.UpdtHarga);
         MinBelanja = findViewById(R.id.UpdtMinBelanja);
+        Ongkir = findViewById(R.id.UpdtOngkir);
         Satuan = findViewById(R.id.UpdtSpSatuan);
         EditImgProduk1 = findViewById(R.id.GambarProdukEdit);
         EditImgProduk1.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +109,66 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
         btnUpdt = findViewById(R.id.btnUpdtData);
         PbUpdteData = findViewById(R.id.progressUDataP);
 
+        Harga.addTextChangedListener(new TextWatcher() {
+            private String edtText = Harga.getText().toString().trim();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals(edtText)){
+                    Harga.removeTextChangedListener(this);
+                    String replace = s.toString().replaceAll("[Rp. ]", "");
+                    if (!replace.isEmpty()){
+                        edtText = formatrupiah(Double.parseDouble(replace));
+                    }else {
+                        edtText = "";
+                    }
+                    Harga.setText(edtText);
+                    Harga.setSelection(edtText.length());
+                    Harga.addTextChangedListener(this);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        Ongkir.addTextChangedListener(new TextWatcher() {
+            private String edtText1 = Ongkir.getText().toString().trim();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals(edtText1)){
+                    Ongkir.removeTextChangedListener(this);
+                    String replace = s.toString().replaceAll("[Rp. ]", "");
+                    if (!replace.isEmpty()){
+                        edtText1 = formatrupiah(Double.parseDouble(replace));
+                    }else {
+                        edtText1 = "";
+                    }
+                    Ongkir.setText(edtText1);
+                    Ongkir.setSelection(edtText1.length());
+                    Ongkir.addTextChangedListener(this);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
        // db = FirebaseFirestore.getInstance();
 
         Bundle bundle = getIntent().getExtras();
@@ -109,6 +177,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
         uMerk = bundle.getString("merk");
         uHarga = bundle.getString("harga");
         uMinBelanja = bundle.getInt("min_belanja", 0);
+        uOngkir = bundle.getString("ongkir");
         uSatuan = bundle.getString("satuan");
         uGambar = bundle.getString("gambar");
         uDeskripsi = bundle.getString("deskripsi");
@@ -118,6 +187,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
         Merk.setText(uMerk);
         Harga.setText(uHarga);
         MinBelanja.setText(uMinBelanja+"");
+        Ongkir.setText(uOngkir);
         if (uSatuan.equals(n_satuan[0])) id_satuan = 0;
         else if (uSatuan.equals(n_satuan[1])) id_satuan = 1;
         else if (uSatuan.equals(n_satuan[2])) id_satuan = 2;
@@ -138,6 +208,15 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
         });
 
 
+    }
+
+    private String formatrupiah(Double number){
+        Locale localeId = new Locale("in", "ID");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeId);
+        String formatrupiah = numberFormat.format(number);
+        String[] split = formatrupiah.split(",");
+        int length = split[0].length();
+        return split[0].substring(0,2)+". "+split[0].substring(2, length);
     }
 
     private void pilihgambar(){
@@ -176,6 +255,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
             merk = Merk.getText().toString().trim();
             harga = Harga.getText().toString().trim();
             min_belanja = Integer.parseInt(MinBelanja.getText().toString().trim());
+            harga = Ongkir.getText().toString().trim();
             satuan = Satuan.getSelectedItem().toString().trim();
 //            mediaPath = EditImgProduk1.getContext().getContentResolver().getType(imageUri);
 
@@ -206,7 +286,12 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
                 MinBelanja.setError("Minimal Beli TIDAK BOLEH KOSONG");
                 PbUpdteData.setVisibility(View.GONE);
                 btnUpdt.setVisibility(View.VISIBLE);
-            } else if (satuan.equals("")) {
+            }else if (ongkir.equals("")) {
+                Ongkir.setError("Ongkir TIDAK BOLEH KOSONG");
+                PbUpdteData.setVisibility(View.GONE);
+                btnUpdt.setVisibility(View.VISIBLE);
+            }
+            else if (satuan.equals("")) {
                 Toast.makeText(getApplicationContext(), "SATUAN TIDAK BOLEH KOSONG", Toast.LENGTH_SHORT).show();
                 PbUpdteData.setVisibility(View.GONE);
                 btnUpdt.setVisibility(View.VISIBLE);
@@ -224,6 +309,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
                             RequestBody.create(MediaType.parse("text/plain"), harga),
                             RequestBody.create(MediaType.parse("text/plain"), satuan),
                             min_belanja,
+                            RequestBody.create(MediaType.parse("text/plain"), ongkir),
                             partImg,
                             RequestBody.create(MediaType.parse("text/plain"), deskripsi)
                     );

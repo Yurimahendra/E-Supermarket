@@ -56,7 +56,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvHargaPembeli"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Harga"
             android:textColor="@color/black"
@@ -87,8 +87,8 @@
             android:text="/"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_toRightOf="@id/ImgItemPembeli"
-            android:layout_below="@id/tvHargaPembeli"
+            android:layout_toRightOf="@id/tvHargaPembeli"
+            android:layout_below="@id/tvMerkPembeli"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             />
@@ -103,7 +103,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_toRightOf="@+id/per"
-            android:layout_below="@id/tvHargaPembeli"
+            android:layout_below="@id/tvMerkPembeli"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"/>
 
@@ -126,7 +126,7 @@
             android:layout_height="40dp"
             android:src="@drawable/shoppingcart"
             android:layout_below="@+id/ImgItemPembeli"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="13dp"/>
 
 
         <Button
@@ -134,7 +134,7 @@
             android:layout_width="193dp"
             android:layout_height="40dp"
             android:text="Beli Sekarang"
-            android:layout_below="@id/tvDeskripsiPembeli"
+            android:layout_below="@id/ImgItemPembeli"
             android:layout_toRightOf="@id/ImgKeranjang"
             android:layout_marginTop="13dp" />
 
