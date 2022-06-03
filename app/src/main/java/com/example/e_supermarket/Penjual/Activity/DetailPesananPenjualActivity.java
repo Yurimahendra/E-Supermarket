@@ -59,8 +59,11 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
     private String MetodeBayarPnjl;
 
     private String status = "lunas";
+    private String status1 = "belum dibayar";
+    private String status2 = "menunggu validasi";
     private String n_metode[] = {"COD", "TRANSFER"};
     Button btnLunas;
+    Button btnTolak;
 
     private int Uid;
     private String UidPesanan;
@@ -116,6 +119,7 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
         PbDetailBatalPenjual = findViewById(R.id.progressDataBatalOrder1Penjual);
 
         btnLunas = findViewById(R.id.btnLunas);
+        btnTolak = findViewById(R.id.btnTolak);
 
         imgBuktiTransfer = findViewById(R.id.ImgBuktiTransferBayar);
 
@@ -189,75 +193,197 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
         }
         //Log.i("bayar", ""+MetodeBayarPnjl);
 
+        if (UStatus.equals(status2)){
+            btnLunas.setVisibility(View.VISIBLE);
+            btnTolak.setVisibility(View.VISIBLE);
+            tvStatusDetailPnjl.setTextColor(Color.parseColor("#FF7F00"));
+        }
         btnLunas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PbDetailBatalPenjual.setVisibility(View.VISIBLE);
-                BatalDetailPenjual.setVisibility(View.INVISIBLE);
-                try {
-                    MultipartBody.Part UBukti_transfer1 = MultipartBody.Part.createFormData("bukti_transfer", UBukti_Transfer);
-                    Bundle bundle1 = getIntent().getExtras();
-                    if (bundle1 != null) {
-                        int id = Uid;
-                        ApiRequestPembeli requestDataDetailOrder = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
-                        Call<ResponseBuatPesanan> UpdateDetailOrder = requestDataDetailOrder.UpdateDetailPesanan(
-                                id,
-                                "PUT",
-                                RequestBody.create(MediaType.parse("text/plain"), UidPesanan),
-                                RequestBody.create(MediaType.parse("text/plain"), UnamaPemesan),
-                                RequestBody.create(MediaType.parse("text/plain"), UNohpPesan),
-                                RequestBody.create(MediaType.parse("text/plain"), UalamatKirimPesan),
-                                RequestBody.create(MediaType.parse("text/plain"), UnamaBarangPesan),
-                                RequestBody.create(MediaType.parse("text/plain"), UmerkBarangPesan),
-                                RequestBody.create(MediaType.parse("text/plain"), UhargaBarangPesan),
-                                UjumlahBarangPesan,
-                                RequestBody.create(MediaType.parse("text/plain"), UsatuanPesan),
-                                RequestBody.create(MediaType.parse("text/plain"), UgambarPesan),
-                                RequestBody.create(MediaType.parse("text/plain"), UtglKirimPesan),
-                                RequestBody.create(MediaType.parse("text/plain"), UongkirPesan),
-                                RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
-                                RequestBody.create(MediaType.parse("text/plain"), UMetodeBayarPesan),
-                                RequestBody.create(MediaType.parse("text/plain"), status),
-                                RequestBody.create(MediaType.parse("text/plain"), UStatus_pesanan),
-                                UBukti_transfer1
+                AlertDialog.Builder builder = new AlertDialog.Builder(DetailPesananPenjualActivity.this);
+                builder.setTitle("Apakah yakin sudah lunas ?");
+                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        PbDetailBatalPenjual.setVisibility(View.VISIBLE);
+                        BatalDetailPenjual.setVisibility(View.INVISIBLE);
+                        try {
+                            MultipartBody.Part UBukti_transfer1 = MultipartBody.Part.createFormData("bukti_transfer", UBukti_Transfer);
+                            Bundle bundle1 = getIntent().getExtras();
+                            if (bundle1 != null) {
+                                int id = Uid;
+                                ApiRequestPembeli requestDataDetailOrder = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                                Call<ResponseBuatPesanan> UpdateDetailOrder = requestDataDetailOrder.UpdateDetailPesanan(
+                                        id,
+                                        "PUT",
+                                        RequestBody.create(MediaType.parse("text/plain"), UidPesanan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UnamaPemesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UNohpPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UalamatKirimPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UnamaBarangPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UmerkBarangPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UhargaBarangPesan),
+                                        UjumlahBarangPesan,
+                                        RequestBody.create(MediaType.parse("text/plain"), UsatuanPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UgambarPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UtglKirimPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UongkirPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UMetodeBayarPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), status),
+                                        RequestBody.create(MediaType.parse("text/plain"), UStatus_pesanan),
+                                        UBukti_transfer1
 
-                        );
-                        UpdateDetailOrder.enqueue(new Callback<ResponseBuatPesanan>() {
-                            @Override
-                            public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
-                                if( response.isSuccessful()) {
-                                    // int kode = response.body().getKode();
-                                    //String pesan = response.body().getPesan();
-                                    startActivity(new Intent(DetailPesananPenjualActivity.this, HalamanNotifPenjualActivity.class));
-                                    Toast.makeText(DetailPesananPenjualActivity.this, "Pesanan telah LUNAS", Toast.LENGTH_SHORT).show();
+                                );
+                                UpdateDetailOrder.enqueue(new Callback<ResponseBuatPesanan>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+                                        if( response.isSuccessful()) {
+                                            // int kode = response.body().getKode();
+                                            //String pesan = response.body().getPesan();
+                                            startActivity(new Intent(DetailPesananPenjualActivity.this, HalamanNotifPenjualActivity.class));
+                                            Toast.makeText(DetailPesananPenjualActivity.this, "Pesanan telah LUNAS", Toast.LENGTH_SHORT).show();
                                 /*if (kode == 200){
 
 
                                 }*/
 
-                                }else {
-                                    Toast.makeText(DetailPesananPenjualActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
-                                }
+                                        }else {
+                                            Toast.makeText(DetailPesananPenjualActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                                        }
 
-                                PbDetailBatalPenjual.setVisibility(View.GONE);
-                                BatalDetailPenjual.setVisibility(View.VISIBLE);
+                                        PbDetailBatalPenjual.setVisibility(View.GONE);
+                                        BatalDetailPenjual.setVisibility(View.VISIBLE);
+                                    }
+                                    @Override
+                                    public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+
+                                        Toast.makeText(DetailPesananPenjualActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                                        PbDetailBatalPenjual.setVisibility(View.GONE);
+                                        BatalDetailPenjual.setVisibility(View.VISIBLE);
+                                        //startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
+                                    }
+
+                                });
                             }
-                            @Override
-                            public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+                        }catch (NullPointerException pointerException){
+                            Toast.makeText(DetailPesananPenjualActivity.this, "Gambar Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+                            PbDetailBatalPenjual.setVisibility(View.GONE);
+                            BatalDetailPenjual.setVisibility(View.VISIBLE);
+                        }
+                        PbDetailBatalPenjual.setVisibility(View.GONE);
+                        BatalDetailPenjual.setVisibility(View.VISIBLE);
+                        dialogInterface.dismiss();
 
-                                Toast.makeText(DetailPesananPenjualActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
-                                PbDetailBatalPenjual.setVisibility(View.GONE);
-                                BatalDetailPenjual.setVisibility(View.VISIBLE);
-                                //startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
-                            }
-
-                        });
                     }
-                }catch (NullPointerException pointerException){
-                    Toast.makeText(DetailPesananPenjualActivity.this, "Gambar Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
-                    PbDetailBatalPenjual.setVisibility(View.GONE);
-                    BatalDetailPenjual.setVisibility(View.VISIBLE);
-                }
+                });
+
+                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        PbDetailBatalPenjual.setVisibility(View.GONE);
+                        BatalDetailPenjual.setVisibility(View.VISIBLE);
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.show();
+
+
+            }
+        });
+
+        btnTolak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DetailPesananPenjualActivity.this);
+                builder.setTitle("Apakah yakin bukti transfer tidak valid ?");
+                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        PbDetailBatalPenjual.setVisibility(View.VISIBLE);
+                        BatalDetailPenjual.setVisibility(View.INVISIBLE);
+                        try {
+                            MultipartBody.Part UBukti_transfer1 = MultipartBody.Part.createFormData("bukti_transfer", UBukti_Transfer);
+                            Bundle bundle1 = getIntent().getExtras();
+                            if (bundle1 != null) {
+                                int id = Uid;
+                                ApiRequestPembeli requestDataDetailOrder = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                                Call<ResponseBuatPesanan> UpdateDetailOrder = requestDataDetailOrder.UpdateDetailPesanan(
+                                        id,
+                                        "PUT",
+                                        RequestBody.create(MediaType.parse("text/plain"), UidPesanan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UnamaPemesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UNohpPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UalamatKirimPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UnamaBarangPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UmerkBarangPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UhargaBarangPesan),
+                                        UjumlahBarangPesan,
+                                        RequestBody.create(MediaType.parse("text/plain"), UsatuanPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UgambarPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UtglKirimPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UongkirPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), UMetodeBayarPesan),
+                                        RequestBody.create(MediaType.parse("text/plain"), status1),
+                                        RequestBody.create(MediaType.parse("text/plain"), UStatus_pesanan),
+                                        null
+
+                                );
+                                UpdateDetailOrder.enqueue(new Callback<ResponseBuatPesanan>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+                                        if( response.isSuccessful()) {
+                                            // int kode = response.body().getKode();
+                                            //String pesan = response.body().getPesan();
+                                            startActivity(new Intent(DetailPesananPenjualActivity.this, HalamanNotifPenjualActivity.class));
+                                            Toast.makeText(DetailPesananPenjualActivity.this, "Pesanan belum bayar", Toast.LENGTH_SHORT).show();
+                                /*if (kode == 200){
+
+
+                                }*/
+
+                                        }else {
+                                            Toast.makeText(DetailPesananPenjualActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        PbDetailBatalPenjual.setVisibility(View.GONE);
+                                        BatalDetailPenjual.setVisibility(View.VISIBLE);
+                                    }
+                                    @Override
+                                    public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+
+                                        Toast.makeText(DetailPesananPenjualActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                                        PbDetailBatalPenjual.setVisibility(View.GONE);
+                                        BatalDetailPenjual.setVisibility(View.VISIBLE);
+                                        //startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
+                                    }
+
+                                });
+                            }
+                        }catch (NullPointerException pointerException){
+                            Toast.makeText(DetailPesananPenjualActivity.this, "Gambar Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+                            PbDetailBatalPenjual.setVisibility(View.GONE);
+                            BatalDetailPenjual.setVisibility(View.VISIBLE);
+                        }
+                        dialogInterface.dismiss();
+
+                    }
+                });
+
+                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        PbDetailBatalPenjual.setVisibility(View.GONE);
+                        BatalDetailPenjual.setVisibility(View.VISIBLE);
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.show();
+
 
             }
         });

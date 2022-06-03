@@ -251,7 +251,8 @@
                     android:layout_marginTop="5dp"
                     android:hint="No. Rekening"
                     android:inputType="number"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:maxLength="15"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 

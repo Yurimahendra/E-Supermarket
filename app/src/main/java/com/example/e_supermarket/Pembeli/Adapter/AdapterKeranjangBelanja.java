@@ -53,7 +53,8 @@ public class AdapterKeranjangBelanja extends RecyclerView.Adapter<AdapterKeranja
         holder.Nama_BarangKeranjang.setText(dataKeranjangList.get(position).getNama_barang());
         holder.MerkKeranjang.setText(dataKeranjangList.get(position).getMerk());
         holder.HargaKeranjang.setText(String.valueOf(dataKeranjangList.get(position).getHarga()));
-        holder.StokKeranjang.setText(String.valueOf(dataKeranjangList.get(position).getStok()));
+        holder.StokKeranjang.setText(String.valueOf(dataKeranjangList.get(position).getMin_belanja()));
+        holder.OngkirKeranjang.setText(dataKeranjangList.get(position).getOngkir());
         holder.SatuanKeranjang.setText(dataKeranjangList.get(position).getSatuan());
         Glide.with(holder.imageProdukKeranjang.getContext())
                 .load(RetroServer.imageURL + dataKeranjangList.get(position).getGambar()).into(holder.imageProdukKeranjang);
@@ -123,6 +124,7 @@ public class AdapterKeranjangBelanja extends RecyclerView.Adapter<AdapterKeranja
         TextView MerkKeranjang;
         TextView HargaKeranjang;
         TextView StokKeranjang;
+        TextView OngkirKeranjang;
         TextView SatuanKeranjang;
         TextView DeskripsiKeranjang;
 
@@ -144,6 +146,7 @@ public class AdapterKeranjangBelanja extends RecyclerView.Adapter<AdapterKeranja
             HargaKeranjang = itemView.findViewById(R.id.tvHargaKeranjang);
             StokKeranjang = itemView.findViewById(R.id.tvStokKeranjang);
             SatuanKeranjang = itemView.findViewById(R.id.tvSatuanKeranjang);
+            OngkirKeranjang = itemView.findViewById(R.id.tvOngkirKeranjang);
             imageProdukKeranjang = itemView.findViewById(R.id.ImgItemKeranjang);
             hapusitmKeranjg = itemView.findViewById(R.id.DeleteItmKeranjng);
             pilihItmKeranjng = itemView.findViewById(R.id.CbItemKeranjng);

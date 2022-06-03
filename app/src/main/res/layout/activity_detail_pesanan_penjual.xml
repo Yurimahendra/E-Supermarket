@@ -55,7 +55,7 @@
                     android:id="@+id/tvStatusPnjl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status pembayaran : "
+                    android:text="Status : "
                     android:textSize="15sp" />
 
                 <TextView
@@ -68,11 +68,22 @@
                     android:textStyle="bold"/>
 
                 <Button
-                    android:layout_width="wrap_content"
+                    app:backgroundTint="@color/green"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="LUNAS"
+                    android:background="@drawable/ic_check_24"
                     android:id="@+id/btnLunas"
-                    android:layout_marginLeft="8dp"/>
+                    android:layout_marginLeft="8dp"
+                    android:visibility="gone"/>
+
+                <Button
+                    app:backgroundTint="@color/red"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_close_24"
+                    android:id="@+id/btnTolak"
+                    android:layout_marginLeft="20dp"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

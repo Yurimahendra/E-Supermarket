@@ -83,7 +83,7 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
                 bundle.putString("metode", item.getMetode_pembayaran());
                 bundle.putString("status", item.getStatus());
                 bundle.putString("status_pesanan", item.getStatus_pesanan());
-                //bundle.putInt("jumlah", count);
+                bundle.putString("bukti_transfer", RetroServer.imageURL + item.getBukti_transfer());
                 Intent intent = new Intent(orderanPembeliActivity, DetailPesananActivity.class);
                 intent.putExtras(bundle);
                 orderanPembeliActivity.startActivity(intent);

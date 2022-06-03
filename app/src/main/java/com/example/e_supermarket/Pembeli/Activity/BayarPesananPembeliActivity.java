@@ -168,7 +168,7 @@ public class BayarPesananPembeliActivity extends AppCompatActivity implements on
                         RequestBody.create(MediaType.parse("text/plain"), UongkirPesan),
                         RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
                         RequestBody.create(MediaType.parse("text/plain"), UMetodeBayarPesan),
-                        RequestBody.create(MediaType.parse("text/plain"), UStatus),
+                        RequestBody.create(MediaType.parse("text/plain"), "menunggu validasi"),
                         RequestBody.create(MediaType.parse("text/plain"), UStatus_pesanan),
                         UBukti_transfer1
 

@@ -11,19 +11,21 @@ public class DataKeranjang {
     //@SerializedName("satuan")
     String satuan;
     //@SerializedName("stok")
-    int stok ;
+    int min_belanja ;
     //@SerializedName("gambar")
+    String ongkir;
     String gambar;
     //@SerializedName("deskripsi")
     String deskripsi;
 
-    public DataKeranjang(int id, String nama_barang, String merk, String harga, String satuan, int stok, String gambar, String deskripsi) {
+    public DataKeranjang(int id, String nama_barang, String merk, String harga, String satuan, int min_belanja, String ongkir, String gambar, String deskripsi) {
         this.id = id;
         this.nama_barang = nama_barang;
         this.merk = merk;
         this.harga = harga;
         this.satuan = satuan;
-        this.stok = stok;
+        this.min_belanja = min_belanja;
+        this.ongkir = ongkir;
         this.gambar = gambar;
         this.deskripsi = deskripsi;
     }
@@ -68,12 +70,20 @@ public class DataKeranjang {
         this.satuan = satuan;
     }
 
-    public int getStok() {
-        return stok;
+    public int getMin_belanja() {
+        return min_belanja;
     }
 
-    public void setStok(int stok) {
-        this.stok = stok;
+    public void setMin_belanja(int min_belanja) {
+        this.min_belanja = min_belanja;
+    }
+
+    public String getOngkir() {
+        return ongkir;
+    }
+
+    public void setOngkir(String ongkir) {
+        this.ongkir = ongkir;
     }
 
     public String getGambar() {

@@ -91,6 +91,17 @@
             android:textSize="20sp"
             android:visibility="gone" />
 
+        <TextView
+            android:id="@+id/tvOngkirKeranjang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/ImgItemKeranjang"
+            android:text="ongkir"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvAngkaJumlahKeranjang"

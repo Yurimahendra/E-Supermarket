@@ -79,6 +79,7 @@ public class AdapterItemPembeli extends RecyclerView.Adapter<AdapterItemPembeli.
                         RequestBody.create(MediaType.parse("text/plain"), ProdukListPembeli.get(position).getHarga()),
                         RequestBody.create(MediaType.parse("text/plain"), ProdukListPembeli.get(position).getSatuan()),
                         ProdukListPembeli.get(position).getMin_belanja(),
+                        RequestBody.create(MediaType.parse("text/plain"), ProdukListPembeli.get(position).getOngkir()),
                         RequestBody.create(MediaType.parse("text/plain"), ProdukListPembeli.get(position).getGambar()),
                         RequestBody.create(MediaType.parse("text/plain"), ProdukListPembeli.get(position).getDeskripsi())
                 );

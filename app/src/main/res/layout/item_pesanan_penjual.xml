@@ -124,7 +124,7 @@
             android:layout_height="wrap_content"
             android:text="DETAIL PESANAN"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/tvJumlahPesananPenjual"
+            android:layout_below="@id/ImgItemPesananPenjual"
             android:layout_marginLeft="160dp"
             android:visibility="gone"/>
 
@@ -132,7 +132,7 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvJumlahPesananPenjual"
+            android:layout_below="@id/ImgItemPesananPenjual"
             android:layout_marginTop="5dp"
             android:id="@+id/frBtnTerima">
             <Button
@@ -156,7 +156,7 @@
             android:layout_height="wrap_content"
             android:text="Tolak"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/tvJumlahPesananPenjual"
+            android:layout_below="@id/ImgItemPesananPenjual"
             android:layout_toRightOf="@id/frBtnTerima"
             android:layout_marginLeft="130dp" />
 

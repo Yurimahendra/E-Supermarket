@@ -98,7 +98,7 @@ public class DetailPesananActivity extends AppCompatActivity {
     private String UStatus;
     private String UStatus_pesanan;
     private String UuStatus_pesanan;
-    //private String UBukti_transfer;
+    private String UBukti_transfer;
     private MultipartBody.Part UBukti_transfer1;
 
     private String idPesananDetail;
@@ -117,6 +117,7 @@ public class DetailPesananActivity extends AppCompatActivity {
     private String MetodeBayarPesanDetail;
     private String StatusDetail;
     private String status = "belum dibayar";
+    private String status1 = "menunggu validasi";
 
     Button Bayar;
     Button UpdateDetail;
@@ -140,6 +141,7 @@ public class DetailPesananActivity extends AppCompatActivity {
         MetodePembayaranDetail = findViewById(R.id.SpMetodebayarOrder);
         tvStatusDetail = findViewById(R.id.tvStatusDetail);
         tvstatus = findViewById(R.id.tvStatus);
+
         tvTotalHarga = findViewById(R.id.TotalBayarOrder);
 
         EdtNamaDetail = findViewById(R.id.EdtNamaOrder);
@@ -157,6 +159,12 @@ public class DetailPesananActivity extends AppCompatActivity {
         Bayar = findViewById(R.id.btnbuatPesananOrder);
         UpdateDetail = findViewById(R.id.UpdateOrder);
         BatalDetail = findViewById(R.id.BatalOrder1);
+        BatalDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BatalOrderan();
+            }
+        });
 
         backDetail = findViewById(R.id.imgBackOrderProduk);
         backDetail.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +188,13 @@ public class DetailPesananActivity extends AppCompatActivity {
             }
         });
 
+        btnPesananDiterima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TerimaOrderan();
+            }
+        });
+
         Bundle bundle = getIntent().getExtras();
         Uid = bundle.getInt("id");
         UidPesanan = bundle.getString("id_pesanan");
@@ -199,6 +214,7 @@ public class DetailPesananActivity extends AppCompatActivity {
         UStatus = bundle.getString("status");
         UStatus_pesanan = bundle.getString("status_pesanan");
         UuStatus_pesanan = String.valueOf(UStatus_pesanan);
+        UBukti_transfer = bundle.getString("bukti_transfer");
 
         tvIdPesananDetail.setText(UidPesanan);
         EdtNamaDetail.setText(UnamaPemesan);
@@ -218,7 +234,20 @@ public class DetailPesananActivity extends AppCompatActivity {
         else if (UMetodeBayarPesan.equals(n_metode[1])) index = 1;
         MetodePembayaranDetail.setSelection(index);
         tvStatusDetail.setText(UStatus);
-        Log.i("status", ""+UStatus_pesanan);
+        tvStatusDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id_pesanan", UidPesanan);
+                bundle.putString("total", UTotalHargaPesan);
+                bundle.putString("bukti_transfer", UBukti_transfer);
+                //bundle.putInt("jumlah", count);
+                Intent intent = new Intent(DetailPesananActivity.this, ReportPembayaranActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        //Log.i("status", ""+UStatus_pesanan);
 
         if (UuStatus_pesanan.equals(status_pesanan)){
             if (index == 0){
@@ -230,27 +259,41 @@ public class DetailPesananActivity extends AppCompatActivity {
                 UpdateDetail.setVisibility(View.GONE);
                 tvStatusDetail.setVisibility(View.GONE);
                 tvstatus.setVisibility(View.GONE);
+                btnPesananDiterima.setVisibility(View.VISIBLE);
+
             }else if (UStatus.equals(status)){
-                btnPesananDiterima.setVisibility(View.GONE);
-                EdtTglDetail.setOnClickListener(new View.OnClickListener() {
+                EdtNamaDetail.setFocusable(false);
+                EdtAlamatDetail.setFocusable(false);
+                EdtNopDetail.setFocusable(false);
+                MetodePembayaranDetail.setEnabled(false);
+                UpdateDetail.setVisibility(View.GONE);
+                /*EdtTglDetail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         showDateDialog();
                     }
-                });
+                });*/
+            }else if (UStatus.equals(status1)){
+                EdtNamaDetail.setFocusable(false);
+                EdtAlamatDetail.setFocusable(false);
+                EdtNopDetail.setFocusable(false);
+                MetodePembayaranDetail.setEnabled(false);
+                Bayar.setVisibility(View.GONE);
+                UpdateDetail.setVisibility(View.GONE);
+                tvStatusDetail.setTextColor(Color.parseColor("#FF7F00"));
             }else {
                 EdtNamaDetail.setFocusable(false);
                 EdtAlamatDetail.setFocusable(false);
                 EdtNopDetail.setFocusable(false);
                 MetodePembayaranDetail.setEnabled(false);
                 Bayar.setVisibility(View.GONE);
-                BatalDetail.setVisibility(View.GONE);
+                btnPesananDiterima.setVisibility(View.VISIBLE);
                 UpdateDetail.setVisibility(View.GONE);
                 tvStatusDetail.setTextColor(Color.parseColor("#008001"));
             }
         }else {
+            BatalDetail.setVisibility(View.VISIBLE);
             Bayar.setVisibility(View.GONE);
-            btnPesananDiterima.setVisibility(View.GONE);
             tvStatusDetail.setVisibility(View.GONE);
             tvstatus.setVisibility(View.GONE);
         }
@@ -383,6 +426,55 @@ public class DetailPesananActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 PbDetailBatal.setVisibility(View.GONE);
                 BatalDetail.setVisibility(View.VISIBLE);
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void TerimaOrderan() {
+        //int idOrderan = buatPesananList.get(index).getId();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Apakah yakin pesanan diterima ?");
+        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                PbDetailBatal.setVisibility(View.VISIBLE);
+                BatalDetail.setVisibility(View.INVISIBLE);
+
+                ApiRequestPembeli haDataOrderan= RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                Call<ResponseBuatPesanan> BatalOrderan = haDataOrderan.BatalDataOrderan(Uid);
+                BatalOrderan.enqueue(new Callback<ResponseBuatPesanan>() {
+                    @Override
+                    public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+                        try {
+
+                            startActivity(new Intent(DetailPesananActivity.this, OrderanPembeliActivity.class));
+                            Toast.makeText(DetailPesananActivity.this, "Orderan Telah Diterima", Toast.LENGTH_SHORT).show();
+
+                        }catch (NullPointerException nullPointerException){
+                            Toast.makeText(DetailPesananActivity.this, "Data Gagal "+nullPointerException.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+                        Toast.makeText(DetailPesananActivity.this, "Gagal Menghubungi Server "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                PbDetailBatal.setVisibility(View.GONE);
+                BatalDetail.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+
+        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+               // PbDetailBatal.setVisibility(View.GONE);
+                //BatalDetail.setVisibility(View.VISIBLE);
                 dialogInterface.dismiss();
             }
         });
