@@ -55,6 +55,7 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
 
     TextView tvStatusDetailPnjl;
     TextView tvstatusPnjl;
+    TextView buktitf;
 
     private String MetodeBayarPnjl;
 
@@ -121,6 +122,7 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
         btnLunas = findViewById(R.id.btnLunas);
         btnTolak = findViewById(R.id.btnTolak);
 
+        buktitf = findViewById(R.id.tvBuktiTf);
         imgBuktiTransfer = findViewById(R.id.ImgBuktiTransferBayar);
 
 
@@ -186,6 +188,7 @@ public class DetailPesananPenjualActivity extends AppCompatActivity {
             btnLunas.setVisibility(View.GONE);
             tvStatusDetailPnjl.setVisibility(View.GONE);
             tvstatusPnjl.setVisibility(View.GONE);
+            buktitf.setVisibility(View.GONE);
         }else if (UStatus.equals(status)){
             btnLunas.setVisibility(View.GONE);
             BatalDetailPenjual.setVisibility(View.GONE);
