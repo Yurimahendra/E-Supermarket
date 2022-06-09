@@ -128,7 +128,38 @@
             android:layout_toRightOf="@id/tvSatuanPesanan"
             android:layout_marginLeft="50dp"/>
 
+        <Button
+            android:id="@+id/btnHapusPesananPembeli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HAPUS PESANAN"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/ImgItemPesanan"
+            android:layout_marginLeft="160dp"
+            android:visibility="gone"/>
 
+        <TextView
+            android:id="@+id/tvTolakPesananPembeli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pesanan Ditolak"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/ImgItemPesanan"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvStatusterimaPesananPembeli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tolak"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPesanan"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
 
 
     </RelativeLayout>

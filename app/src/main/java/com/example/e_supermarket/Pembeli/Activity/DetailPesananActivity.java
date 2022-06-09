@@ -267,6 +267,7 @@ public class DetailPesananActivity extends AppCompatActivity {
                 EdtNopDetail.setFocusable(false);
                 MetodePembayaranDetail.setEnabled(false);
                 UpdateDetail.setVisibility(View.GONE);
+                BatalDetail.setVisibility(View.VISIBLE);
                 /*EdtTglDetail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

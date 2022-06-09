@@ -72,6 +72,11 @@ public class AdapterPesananPenjual extends RecyclerView.Adapter<AdapterPesananPe
             holder.UbahPenjual.setVisibility(View.VISIBLE);
             holder.TerimaPenjual.setVisibility(View.GONE);
             holder.TolakPenjual.setVisibility(View.GONE);
+        }else if (holder.StatusTerimaPesanan.getText().toString().equals("tolak")) {
+            holder.TerimaPenjual.setVisibility(View.GONE);
+            holder.TolakPenjual.setVisibility(View.GONE);
+            holder.statusTolakPesanan.setVisibility(View.VISIBLE);
+
         }
 
         holder.TerimaPenjual.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +162,89 @@ public class AdapterPesananPenjual extends RecyclerView.Adapter<AdapterPesananPe
             }
         });
 
+        holder.TolakPenjual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.pbBtnTolak.setVisibility(View.VISIBLE);
+                holder.TolakPenjual.setVisibility(View.INVISIBLE);
+                try {
+                    int id = buatPesananListPenjual.get(position).getId();
+                    String id_pesanan = buatPesananListPenjual.get(position).getId_pesanan();
+                    String nama = buatPesananListPenjual.get(position).getNama();
+                    String no_hp = buatPesananListPenjual.get(position).getNo_hp();
+                    String alamat = buatPesananListPenjual.get(position).getAlamat();
+                    String nama_barang = buatPesananListPenjual.get(position).getNama_barang();
+                    String merk_barang = buatPesananListPenjual.get(position).getMerk_barang();
+                    String harga_barang = buatPesananListPenjual.get(position).getHarga_barang();
+                    int jumlah_pesanan = buatPesananListPenjual.get(position).getJumlah_pesanan();
+                    String satuan = buatPesananListPenjual.get(position).getSatuan();
+                    String gambar = buatPesananListPenjual.get(position).getGambar();
+                    String tanggal_pengiriman = buatPesananListPenjual.get(position).getTanggal_pengiriman();
+                    String ongkir = buatPesananListPenjual.get(position).getOngkir();
+                    String total_harga = buatPesananListPenjual.get(position).getTotal_harga();
+                    String metode_pembayaran = buatPesananListPenjual.get(position).getMetode_pembayaran();
+                    String status = buatPesananListPenjual.get(position).getStatus();
+                    String status_pesanan = buatPesananListPenjual.get(position).getStatus_pesanan();
+                    String bukti_transfer = buatPesananListPenjual.get(position).getBukti_transfer();
+                    ApiRequestPembeli requestDataDetailOrder = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                    Call<ResponseBuatPesanan> UpdateDetailOrder = requestDataDetailOrder.UpdateDetailPesanan(
+                            id,
+                            "PUT",
+                            RequestBody.create(MediaType.parse("text/plain"), id_pesanan),
+                            RequestBody.create(MediaType.parse("text/plain"), nama),
+                            RequestBody.create(MediaType.parse("text/plain"), no_hp),
+                            RequestBody.create(MediaType.parse("text/plain"), alamat),
+                            RequestBody.create(MediaType.parse("text/plain"), nama_barang),
+                            RequestBody.create(MediaType.parse("text/plain"), merk_barang),
+                            RequestBody.create(MediaType.parse("text/plain"), harga_barang),
+                            jumlah_pesanan,
+                            RequestBody.create(MediaType.parse("text/plain"), satuan),
+                            RequestBody.create(MediaType.parse("text/plain"), gambar),
+                            RequestBody.create(MediaType.parse("text/plain"), tanggal_pengiriman),
+                            RequestBody.create(MediaType.parse("text/plain"), ongkir),
+                            RequestBody.create(MediaType.parse("text/plain"), total_harga),
+                            RequestBody.create(MediaType.parse("text/plain"), metode_pembayaran),
+                            RequestBody.create(MediaType.parse("text/plain"), status),
+                            RequestBody.create(MediaType.parse("text/plain"), "tolak"),
+                            null
+
+                    );
+                    UpdateDetailOrder.enqueue(new Callback<ResponseBuatPesanan>() {
+                        @Override
+                        public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+                            if (response.isSuccessful()) {
+                                Intent intent = new Intent(halamanNotifPenjualActivity, HalamanUtamaPenjualActivity.class);
+                                halamanNotifPenjualActivity.startActivity(intent);
+                                Toast.makeText(halamanNotifPenjualActivity.getApplicationContext(), "pesanan ditolak", Toast.LENGTH_SHORT).show();
+
+
+                            } else {
+                                Toast.makeText(halamanNotifPenjualActivity.getApplicationContext(), "Data Gagal Tersimpan " + response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            holder.pbBtnTolak.setVisibility(View.VISIBLE);
+                            holder.TolakPenjual.setVisibility(View.INVISIBLE);
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+
+                            Toast.makeText(halamanNotifPenjualActivity.getApplicationContext(), "Gagal Menghubungi Server " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            holder.pbBtnTolak.setVisibility(View.VISIBLE);
+                            holder.TolakPenjual.setVisibility(View.INVISIBLE);
+                            //startActivity(new Intent(AddDataActivityPenjual.this, HalamanUtamaPenjualActivity.class));
+                        }
+
+                    });
+
+                } catch (NullPointerException pointerException) {
+                    Toast.makeText(halamanNotifPenjualActivity.getApplicationContext(), "Gambar Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+                    holder.pbBtnTolak.setVisibility(View.VISIBLE);
+                    holder.TolakPenjual.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
 
         holder.UbahPenjual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,7 +289,7 @@ public class AdapterPesananPenjual extends RecyclerView.Adapter<AdapterPesananPe
         TextView Nama_BarangPesananPenjual;
         TextView MerkPesananPenjual;
         TextView HargaPesananPenjual;
-         TextView StatusTerimaPesanan;
+        TextView StatusTerimaPesanan;
         TextView SatuanPesananPenjual;
         TextView JumlahPesananPenjual;
 
@@ -210,8 +298,11 @@ public class AdapterPesananPenjual extends RecyclerView.Adapter<AdapterPesananPe
         Button UbahPenjual;
         Button TerimaPenjual;
         ProgressBar pbBtnTerima;
+        ProgressBar pbBtnTolak;
         Button TolakPenjual;
         ImageView imageProdukPesananPenjual;
+
+        TextView statusTolakPesanan;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -233,6 +324,9 @@ public class AdapterPesananPenjual extends RecyclerView.Adapter<AdapterPesananPe
             TerimaPenjual = itemView.findViewById(R.id.BtnTerimaPesanan);
             pbBtnTerima = itemView.findViewById(R.id.PbBtnTerima);
             TolakPenjual = itemView.findViewById(R.id.btnTolakPesanan);
+            pbBtnTolak = itemView.findViewById(R.id.PbBtnTolak);
+
+            statusTolakPesanan = itemView.findViewById(R.id.tvTolakPesananPenjual);
 
 
         }

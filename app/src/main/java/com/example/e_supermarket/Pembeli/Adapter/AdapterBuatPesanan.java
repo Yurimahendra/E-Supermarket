@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.Pembeli.Activity.BeliProdukActivity;
 import com.example.e_supermarket.Pembeli.Activity.DetailPesananActivity;
+import com.example.e_supermarket.Pembeli.Activity.HalamanUtamaPembeliActivity;
 import com.example.e_supermarket.Pembeli.Activity.OrderanPembeliActivity;
 import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
 import com.example.e_supermarket.Pembeli.Model.BuatPesanan;
@@ -60,6 +61,7 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
         Glide.with(holder.imageProdukPesanan.getContext())
                 .load(buatPesananList.get(position).getGambar()).into(holder.imageProdukPesanan);
         holder.StatusbayarPesanan.setText(buatPesananList.get(position).getStatus());
+        holder.StatusTerimaPesananPembeli.setText(buatPesananList.get(position).getStatus_pesanan());
         //holder.DeskripsiPembeli.setText(ProdukListPembeli.get(position).getDeskripsi());
         holder.Ubah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +89,59 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
                 Intent intent = new Intent(orderanPembeliActivity, DetailPesananActivity.class);
                 intent.putExtras(bundle);
                 orderanPembeliActivity.startActivity(intent);
+            }
+        });
+
+        if (holder.StatusTerimaPesananPembeli.getText().toString().equals("tolak")) {
+            holder.statusTolakPesananPembeli.setVisibility(View.VISIBLE);
+            holder.Ubah.setVisibility(View.GONE);
+            holder.btnHapusPesananPembeli.setVisibility(View.VISIBLE);
+        }
+        holder.btnHapusPesananPembeli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int idOrderan = buatPesananList.get(position).getId();
+                ApiRequestPembeli haDataOrderan= RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                Call<ResponseBuatPesanan> BatalOrderan = haDataOrderan.BatalDataOrderan(idOrderan);
+                BatalOrderan.enqueue(new Callback<ResponseBuatPesanan>() {
+                    @Override
+                    public void onResponse(Call<ResponseBuatPesanan> call, Response<ResponseBuatPesanan> response) {
+                        try {
+                            Intent intent = new Intent(orderanPembeliActivity, HalamanUtamaPembeliActivity.class);
+                            orderanPembeliActivity.startActivity(intent);
+                            Toast.makeText(orderanPembeliActivity.getApplicationContext(), "Orderan Telah Dihapus", Toast.LENGTH_SHORT).show();
+
+                        }catch (NullPointerException nullPointerException){
+                            Toast.makeText(orderanPembeliActivity.getApplicationContext(), "Error "+nullPointerException.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBuatPesanan> call, Throwable t) {
+                        Toast.makeText(orderanPembeliActivity.getApplicationContext(), "Gagal Menghubungi Server "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(holder.IdPesanan.getContext());
+                builder.setTitle("");
+                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                        dialogInterface.dismiss();
+
+                    }
+                });
+
+                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.show();*/
             }
         });
 
@@ -164,6 +219,10 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
        // Button Diterima;
         ImageView imageProdukPesanan;
 
+        TextView StatusTerimaPesananPembeli;
+        TextView statusTolakPesananPembeli;
+        Button btnHapusPesananPembeli;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -179,6 +238,9 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
             SatuanPesanan = itemView.findViewById(R.id.tvSatuanPesanan);
             imageProdukPesanan = itemView.findViewById(R.id.ImgItemPesanan);
             //DeskripsiPembeli = itemView.findViewById(R.id.tvDeskripsiPembeli);
+            StatusTerimaPesananPembeli = itemView.findViewById(R.id.tvStatusterimaPesananPembeli);
+            statusTolakPesananPembeli = itemView.findViewById(R.id.tvTolakPesananPembeli);
+            btnHapusPesananPembeli = itemView.findViewById(R.id.btnHapusPesananPembeli);
 
 
            // KeranjangProduk = itemView.findViewById(R.id.ImgKeranjang);
