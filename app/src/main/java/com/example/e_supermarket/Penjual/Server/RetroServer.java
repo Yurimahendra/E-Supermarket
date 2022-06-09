@@ -11,9 +11,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroServer {
-    private static final String baseURL = "http://192.168.100.6/esupermarket-api23/public/";
+    private static final String baseURL = "http://api-esupermarket23.herokuapp.com/"; //http://192.168.100.6/esupermarket-api23/public/
     private static Retrofit retro;
-    public static final String imageURL = "http://192.168.100.6/esupermarket-api23/public/storage/gambar/";
+    public static final String imageURL = "http://api-esupermarket23.herokuapp.com/storage/gambar/"; //http://192.168.100.6/esupermarket-api23/public/storage/gambar/
 
     public static Retrofit konekRetrofit(){
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
