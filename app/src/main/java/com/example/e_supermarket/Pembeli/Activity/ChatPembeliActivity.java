@@ -7,15 +7,29 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatPembeliActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewPembeli;
     FirebaseAuth Fauth;
+
+    ImageView backChatPembeli;
+    CircleImageView proflChatPembli;
+    TextView tvNamaChatPemb;
+    TextView chatPemb;
+    LinearLayout lnChatPembl;
+    FloatingActionButton BtnPilihKontak;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_pembeli = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -59,6 +73,27 @@ public class ChatPembeliActivity extends AppCompatActivity {
         bottomNavigationViewPembeli = findViewById(R.id.nav_pembeli);
         bottomNavigationViewPembeli.setOnNavigationItemSelectedListener(navigation_pembeli);
         Fauth = FirebaseAuth.getInstance();
+
+        proflChatPembli = findViewById(R.id.profilChatPembli);
+        tvNamaChatPemb = findViewById(R.id.tvNamaChatPembeli);
+        chatPemb = findViewById(R.id.textchatpemb);
+
+        lnChatPembl = findViewById(R.id.lnchatPemb);
+        lnChatPembl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        BtnPilihKontak = findViewById(R.id.fab_msgpemb);
+        BtnPilihKontak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ChatPembeliActivity.this, HalamanKontakPembeliActivity.class));
+            }
+        });
+
     }
 
 
