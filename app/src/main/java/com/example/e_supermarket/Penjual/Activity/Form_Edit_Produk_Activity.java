@@ -255,7 +255,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
             merk = Merk.getText().toString().trim();
             harga = Harga.getText().toString().trim();
             min_belanja = Integer.parseInt(MinBelanja.getText().toString().trim());
-            harga = Ongkir.getText().toString().trim();
+            ongkir = Ongkir.getText().toString().trim();
             satuan = Satuan.getSelectedItem().toString().trim();
 //            mediaPath = EditImgProduk1.getContext().getContentResolver().getType(imageUri);
 

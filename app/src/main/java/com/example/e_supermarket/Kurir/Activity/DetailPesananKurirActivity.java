@@ -64,6 +64,7 @@ public class DetailPesananKurirActivity extends AppCompatActivity {
 
     Button TerkirimDetailKurir;
     ProgressBar PbDetailTerkirimKurir;
+    Button btnLihatMaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +136,14 @@ public class DetailPesananKurirActivity extends AppCompatActivity {
         OngkirDetailKurir.setText(UongkirPesan);
         tvTotalHargaKurir.setText(UTotalHargaPesan);
         MetodePembayaranDetailKurir.setText(UMetodeBayarPesan);
+
+        btnLihatMaps = findViewById(R.id.LihatMapKurir);
+        btnLihatMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DetailPesananKurirActivity.this, KurirMapsActivity.class));
+            }
+        });
     }
 
     private void BatalOrderan() {
