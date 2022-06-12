@@ -98,7 +98,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnKirimChatPemb"
             android:src="@drawable/ic_send_24"
-            android:backgroundTint="@color/design_default_color_primary"/>
+            android:backgroundTint="@color/design_default_color_primary"
+            app:tint="@color/white"/>
 
 
     </LinearLayout>
