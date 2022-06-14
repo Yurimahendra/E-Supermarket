@@ -3,47 +3,44 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Kurir.Activity.KurirMapsActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".Penjual.Activity.MapsEditPenjualActivity" >
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/lat"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lat"
-        android:text="latidu"
-        android:layout_above="@+id/longi"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/longi"
-        android:text="longitud"
-        android:layout_above="@+id/alamatlatlon"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/alamatlatlon"
-        android:text="alamat"
-        android:layout_above="@+id/btnsimpanlokasi"/>
+        android:layout_above="@+id/btnsimpanlokasiPenjualMapsEdt"/>
 
     <Button
-        android:id="@+id/btnsimpanlokasi"
+        android:id="@+id/btnsimpanlokasiPenjualMapsEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="SIMPAN"
         android:layout_alignParentBottom="true"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/latPenjualMapsEdt"
+        android:text="latidu"
+        android:layout_above="@+id/longiPenjualMapsEdt"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/longiPenjualMapsEdt"
+        android:text="longitud"
+        android:layout_above="@+id/alamatMapsPenjualEdt"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/alamatMapsPenjualEdt"
+        android:text="alamat"
+        android:layout_above="@+id/btnsimpanlokasiPenjualMapsEdt"
+        android:visibility="gone"/>
 </RelativeLayout>
-
-
-
-

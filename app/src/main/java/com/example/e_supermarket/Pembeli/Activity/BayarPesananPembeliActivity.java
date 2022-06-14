@@ -65,6 +65,8 @@ public class BayarPesananPembeliActivity extends AppCompatActivity implements on
     private String UTotalHargaPesan;
     private String UongkirPesan;
     private String UalamatKirimPesan;
+    private String Ulatitude;
+    private String Ulongitude;
     private String UNohpPesan;
     private String UtglKirimPesan;
     private String UMetodeBayarPesan;
@@ -158,6 +160,8 @@ public class BayarPesananPembeliActivity extends AppCompatActivity implements on
                         RequestBody.create(MediaType.parse("text/plain"), UnamaPemesan),
                         RequestBody.create(MediaType.parse("text/plain"), UNohpPesan),
                         RequestBody.create(MediaType.parse("text/plain"), UalamatKirimPesan),
+                        RequestBody.create(MediaType.parse("text/plain"), Ulatitude),
+                        RequestBody.create(MediaType.parse("text/plain"), Ulongitude),
                         RequestBody.create(MediaType.parse("text/plain"), UnamaBarangPesan),
                         RequestBody.create(MediaType.parse("text/plain"), UmerkBarangPesan),
                         RequestBody.create(MediaType.parse("text/plain"), UhargaBarangPesan),

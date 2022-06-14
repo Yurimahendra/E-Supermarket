@@ -186,24 +186,59 @@
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <RelativeLayout
             android:id="@+id/alamatBeli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/white"
-            android:layout_below="@+id/namaBeli"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp">
-            <EditText
-                android:id="@+id/EdtAlamatBeli"
+            android:layout_below="@+id/namaBeli">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/white"
+                android:id="@+id/alamtpenjl">
+                <EditText
+                    android:id="@+id/EdtAlamatBeli"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="Alamat Pengiriman"
+                    android:inputType="textCapSentences"
+                    android:textSize="20sp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukan alamat pengiriman"
-                android:inputType="textMultiLine"
-                android:maxLines="3"
-                android:minLines="1"
-                android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:id="@+id/latOrder"
+                android:text="latidu"
+                android:layout_above="@+id/longi"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/longiOrder"
+                android:text="longitud"
+                android:layout_above="@+id/alamatlatlon"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/alamatMapsOrder"
+                android:text="alamat"
+                android:layout_above="@+id/btnBukaMapsOrder"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btnBukaMapsOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_location_24"
+                android:layout_toRightOf="@+id/alamtpenjl"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/noponBeli"

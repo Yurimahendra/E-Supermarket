@@ -1,4 +1,4 @@
-package com.example.e_supermarket.Kurir.Activity;
+package com.example.e_supermarket.Pembeli.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -14,8 +15,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.e_supermarket.Penjual.Activity.FormDataPenjualActivity;
+import com.example.e_supermarket.Penjual.Activity.PenjualMapsActivity;
 import com.example.e_supermarket.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,26 +33,41 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private Boolean oke = false;
-    TextView latitud;
-    TextView longitude;
-    TextView alamat;
+    TextView latitudOrder;
+    TextView longitudeOrder;
+    TextView alamatOrder;
+
+    Button btnSimpanMapsOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kurir_maps);
+        setContentView(R.layout.activity_maps_order);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        latitud = findViewById(R.id.lat);
-        longitude = findViewById(R.id.longi);
-        alamat = findViewById(R.id.alamatlatlon);
+        latitudOrder = findViewById(R.id.latPenjualMaps);
+        longitudeOrder = findViewById(R.id.longiPenjualMaps);
+        alamatOrder = findViewById(R.id.alamatMapsPenjual);
+        btnSimpanMapsOrder = findViewById(R.id.btnsimpanlokasiPenjualMaps);
+        btnSimpanMapsOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("latitude", latitudOrder.getText().toString());
+                bundle1.putString("longitude", longitudeOrder.getText().toString());
+                bundle1.putString("alamat", alamatOrder.getText().toString());
+                Intent intent = new Intent(MapsOrderActivity.this, BeliProdukActivity.class);
+                intent.putExtras(bundle1);
+                startActivity(intent);
+            }
+        });
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -83,9 +103,9 @@ public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCal
                     LatLng lokasisekarang = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.addMarker(new MarkerOptions().position(lokasisekarang).title(addres));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(lokasisekarang));
-                    latitud.setText(String.valueOf(location.getLatitude()));
-                    longitude.setText(String.valueOf(location.getLongitude()));
-                    alamat.setText(addres);
+                    latitudOrder.setText(String.valueOf(location.getLatitude()));
+                    longitudeOrder.setText(String.valueOf(location.getLongitude()));
+                    alamatOrder.setText(addres);
                 }
             }
         });
@@ -103,12 +123,12 @@ public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        oke = true;
-        // Add a marker in Sydney and move the camera
-        /*LatLng phb = new LatLng(-6.868345, 109.107206);
-        mMap.addMarker(new MarkerOptions().position(phb).title("Marker in Politeknik Harapan Bersama"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(phb));*/
 
+        // Add a marker in Sydney and move the camera
+        /*LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
+        oke = true;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions

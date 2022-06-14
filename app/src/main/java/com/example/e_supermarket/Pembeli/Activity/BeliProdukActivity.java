@@ -21,6 +21,8 @@ import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
 import com.example.e_supermarket.Pembeli.Model.DataPembeli;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Penjual.Activity.FormDataPenjualActivity;
+import com.example.e_supermarket.Penjual.Activity.PenjualMapsActivity;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 
@@ -106,6 +108,7 @@ public class BeliProdukActivity extends AppCompatActivity {
     private String Status;
 
 
+
     Button btnBuatPesanan;
 
 
@@ -128,6 +131,15 @@ public class BeliProdukActivity extends AppCompatActivity {
     private int indexno;
     private String no_ponsel ;
 
+    TextView LatOrder, LongOrder;
+    Button btnBukaMapsOrder;
+
+    private String ulatitude;
+    private String ulongitude;
+    private String ualamat;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +161,16 @@ public class BeliProdukActivity extends AppCompatActivity {
         EdtNopBeli = findViewById(R.id.EdtNopBeli);
         EdtTglBeli = findViewById(R.id.EdtTabe);
         dateFormatBeli = new SimpleDateFormat("yyyy-MM-dd");
+
+        LatOrder = findViewById(R.id.latOrder);
+        LongOrder = findViewById(R.id.longiOrder);
+        btnBukaMapsOrder = findViewById(R.id.btnBukaMapsOrder);
+        btnBukaMapsOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BeliProdukActivity.this, MapsOrderActivity.class));
+            }
+        });
 
         EdtTglBeli.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -297,6 +319,18 @@ public class BeliProdukActivity extends AppCompatActivity {
         TotalBayar.setText(formatRupiah.format((double)totalBayar));
         Ongkir.setText(formatRupiah.format((double)hasilOngkir));
 
+        Bundle bundle1 = getIntent().getExtras();
+        if (bundle1 != null){
+            ulatitude = bundle1.getString("latitude");
+            ulongitude = bundle1.getString("longitude");
+            ualamat = bundle1.getString("alamat");
+
+            LatOrder.setText(ulatitude);
+            LongOrder.setText(ulongitude);
+            EdtAlamatBeli.setText(ualamat);
+        }
+
+
 
     }
 
@@ -375,6 +409,8 @@ public class BeliProdukActivity extends AppCompatActivity {
                         namaPemesan,
                         NohpPesan,
                         alamatKirimPesan,
+                        ulatitude,
+                        ulongitude,
                         namaBarangPesan,
                         merkBarangPesan,
                         hargaBarangPesan,
@@ -428,6 +464,8 @@ public class BeliProdukActivity extends AppCompatActivity {
                         namaPemesan,
                         NohpPesan,
                         alamatKirimPesan,
+                        ulatitude,
+                        ulongitude,
                         namaBarangPesan,
                         merkBarangPesan,
                         hargaBarangPesan,

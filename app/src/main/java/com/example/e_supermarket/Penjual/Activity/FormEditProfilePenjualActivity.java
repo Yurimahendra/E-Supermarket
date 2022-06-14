@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FormEditProfilePenjualActivity extends AppCompatActivity implements onRequestPermissionResultPnjl {
+    TextView idPnjl;
     EditText NikPnjl;
     EditText NamaPnjl;
     Spinner JkPnjl;
@@ -49,6 +51,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
     EditText NatoPnjl;
     EditText NaBankPnjl;
     EditText NoRekPnjl;
+    EditText LatPnjl;
+    EditText LongPnjl;
     CircleImageView eFtoPnjl;
     Button BtnUpdateProfilePenjual;
     ProgressBar PbUpdteProfilPnjl;
@@ -70,6 +74,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
     private String uNamaBankPnjl;
     private long uNorekeningPnjl;
     private String uFtoPnjl;
+    private String uLatPnjl;
+    private String uLongPnjl;
 
     private String mediaPathPnjl;
     private String postPathPnjl;
@@ -87,13 +93,18 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
     String alamat_pnjl;
     String nato_pnjl;
     String nabankPnjl;
+    String latitudePnjl;
+    String longitudePnjl;
     long noRekeningPnjl;
     MultipartBody.Part foto_pnjl;
+
+    Button btnMapsEditPenjual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_edit_profile_penjual);
+        idPnjl = findViewById(R.id.tvIdProfPnjl);
 
         NikPnjl = findViewById(R.id.EdtNikPnjl);
         NamaPnjl = findViewById(R.id.EdtNamaPnjl);
@@ -106,6 +117,34 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         NaBankPnjl = findViewById(R.id.EdtNaBankPnjl);
         NoRekPnjl = findViewById(R.id.EdtNo_RekPnjl);
         eFtoPnjl = findViewById(R.id.EdtImgProfilePnjl);
+        LatPnjl = findViewById(R.id.tvLatProfPnjl);
+        LongPnjl = findViewById(R.id.tvlongProfPnjl);
+        btnMapsEditPenjual = findViewById(R.id.btnBukaMapsDataPenjualedtt);
+        btnMapsEditPenjual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", Integer.parseInt(idPnjl.getText().toString().trim()));
+                bundle.putString("nama_penjual", NamaPnjl.getText().toString().trim());
+                bundle.putLong("nik", Long.parseLong(NikPnjl.getText().toString().trim()));
+                bundle.putString("tempat_lahir", TeLaPnjl.getText().toString().trim());
+                bundle.putString("tanggal_lahir", TalaPnjl.getText().toString().trim());
+                bundle.putString("jenis_kelamin", JkPnjl.getSelectedItem().toString());
+                bundle.putString("alamat", AlamatPnjl.getText().toString().trim());
+                bundle.putString("no_ponsel", NoPonsPnjl.getText().toString().trim());
+                bundle.putString("nama_toko", NatoPnjl.getText().toString().trim());
+                bundle.putString("nama_bank", NaBankPnjl.getText().toString().trim());
+                bundle.putLong("no_rek", Long.parseLong(NoRekPnjl.getText().toString().trim()));
+                bundle.putString("latitude", LatPnjl.getText().toString().trim());
+                bundle.putString("longitude", LongPnjl.getText().toString().trim());
+
+
+                Intent intent = new Intent(FormEditProfilePenjualActivity.this, MapsEditPenjualActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         eFtoPnjl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,8 +181,30 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         uNatoPnjl = bundle.getString("nama_toko");
         uNamaBankPnjl = bundle.getString("nama_bank");
         uNorekeningPnjl = bundle.getLong("no_rek");
+        uLatPnjl = bundle.getString("latitude");
+        uLongPnjl = bundle.getString("longitude");
         uFtoPnjl = bundle.getString("gambar");
 
+        //darimaps
+        Bundle bundle1 = getIntent().getExtras();
+        if (bundle1 != null){
+            uIdPnjl = bundle.getInt("id");
+            uNikPnjl = bundle1.getLong("nik");
+            uNamaPnjl = bundle1.getString("nama_penjual");
+            uJkPnjl = bundle.getString("jenis_kelamin");
+            uNoponsPnjl = bundle.getString("no_ponsel");
+            uTelaPnjl = bundle1.getString("tempat_lahir");
+            uTalaPnjl = bundle1.getString("tanggal_lahir");
+            uAlamatPnjl = bundle1.getString("alamat");
+            uNatoPnjl = bundle1.getString("nama_toko");
+            uNamaBankPnjl = bundle1.getString("nama_bank");
+            uNorekeningPnjl = bundle1.getLong("no_rek");
+            uLatPnjl = bundle1.getString("latitude");
+            uLongPnjl = bundle1.getString("longitude");
+        }
+
+
+        idPnjl.setText(uIdPnjl);
         NikPnjl.setText(""+uNikPnjl);
         NamaPnjl.setText(uNamaPnjl);
         if (uJkPnjl.equals(jk[0])) index_jk = 0;
@@ -156,12 +217,16 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         NatoPnjl.setText(uNatoPnjl);
         NaBankPnjl.setText(uNamaBankPnjl);
         NoRekPnjl.setText(""+uNorekeningPnjl);
+        LatPnjl.setText(uLatPnjl);
+        LongPnjl.setText(uLongPnjl);
         /*if (uFtoPnjl == null){
             eFtoPnjl.setImageURI(null);
         }else {
             Glide.with(eFtoPnjl.getContext())
                     .load(uFtoPnjl).into(eFtoPnjl);
         }*/
+
+
 
     }
 
@@ -206,6 +271,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
             nato_pnjl = NatoPnjl.getText().toString().trim();
             nabankPnjl = NaBankPnjl.getText().toString().trim();
             noRekeningPnjl = Long.parseLong(NoRekPnjl.getText().toString().trim());
+            latitudePnjl = LatPnjl.getText().toString();
+            longitudePnjl = LongPnjl.getText().toString();
             if (mediaPathPnjl != null){
                 File imgFile = new File(mediaPathPnjl);
                 RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-data"), imgFile);
@@ -265,6 +332,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
                             RequestBody.create(MediaType.parse("text/plain"), nama_pnjl),
                             RequestBody.create(MediaType.parse("text/plain"), jk_pnjl),
                             RequestBody.create(MediaType.parse("text/plain"), alamat_pnjl),
+                            RequestBody.create(MediaType.parse("text/plain"), latitudePnjl),
+                            RequestBody.create(MediaType.parse("text/plain"), longitudePnjl),
                             RequestBody.create(MediaType.parse("text/plain"), tela_pnjl),
                             RequestBody.create(MediaType.parse("text/plain"), tala_pnjl),
                             RequestBody.create(MediaType.parse("text/plain"), nopons_pnjl),

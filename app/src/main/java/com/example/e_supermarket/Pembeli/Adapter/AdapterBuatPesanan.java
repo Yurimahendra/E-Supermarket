@@ -73,6 +73,8 @@ public class AdapterBuatPesanan extends RecyclerView.Adapter<AdapterBuatPesanan.
                 bundle.putString("nama", item.getNama());
                 bundle.putString("no_hp", item.getNo_hp());
                 bundle.putString("alamat", item.getAlamat());
+                bundle.putString("latitude", item.getLatitude());
+                bundle.putString("longitude", item.getLongitude());
                 bundle.putString("nama_barang", item.getNama_barang());
                 bundle.putString("merk", item.getMerk_barang());
                 bundle.putString("harga", item.getHarga_barang());

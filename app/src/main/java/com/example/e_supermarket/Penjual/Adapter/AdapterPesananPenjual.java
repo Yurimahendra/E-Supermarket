@@ -90,6 +90,8 @@ public class AdapterPesananPenjual extends RecyclerView.Adapter<AdapterPesananPe
                     String nama = buatPesananListPenjual.get(position).getNama();
                     String no_hp = buatPesananListPenjual.get(position).getNo_hp();
                     String alamat = buatPesananListPenjual.get(position).getAlamat();
+                    String latitude = buatPesananListPenjual.get(position).getLatitude();
+                    String longitude = buatPesananListPenjual.get(position).getLongitude();
                     String nama_barang = buatPesananListPenjual.get(position).getNama_barang();
                     String merk_barang = buatPesananListPenjual.get(position).getMerk_barang();
                     String harga_barang = buatPesananListPenjual.get(position).getHarga_barang();
@@ -111,6 +113,8 @@ public class AdapterPesananPenjual extends RecyclerView.Adapter<AdapterPesananPe
                             RequestBody.create(MediaType.parse("text/plain"), nama),
                             RequestBody.create(MediaType.parse("text/plain"), no_hp),
                             RequestBody.create(MediaType.parse("text/plain"), alamat),
+                            RequestBody.create(MediaType.parse("text/plain"), latitude),
+                            RequestBody.create(MediaType.parse("text/plain"), longitude),
                             RequestBody.create(MediaType.parse("text/plain"), nama_barang),
                             RequestBody.create(MediaType.parse("text/plain"), merk_barang),
                             RequestBody.create(MediaType.parse("text/plain"), harga_barang),
@@ -173,6 +177,8 @@ public class AdapterPesananPenjual extends RecyclerView.Adapter<AdapterPesananPe
                     String nama = buatPesananListPenjual.get(position).getNama();
                     String no_hp = buatPesananListPenjual.get(position).getNo_hp();
                     String alamat = buatPesananListPenjual.get(position).getAlamat();
+                    String latitude = buatPesananListPenjual.get(position).getLatitude();
+                    String longitude = buatPesananListPenjual.get(position).getLongitude();
                     String nama_barang = buatPesananListPenjual.get(position).getNama_barang();
                     String merk_barang = buatPesananListPenjual.get(position).getMerk_barang();
                     String harga_barang = buatPesananListPenjual.get(position).getHarga_barang();
@@ -194,6 +200,8 @@ public class AdapterPesananPenjual extends RecyclerView.Adapter<AdapterPesananPe
                             RequestBody.create(MediaType.parse("text/plain"), nama),
                             RequestBody.create(MediaType.parse("text/plain"), no_hp),
                             RequestBody.create(MediaType.parse("text/plain"), alamat),
+                            RequestBody.create(MediaType.parse("text/plain"), latitude),
+                            RequestBody.create(MediaType.parse("text/plain"), longitude),
                             RequestBody.create(MediaType.parse("text/plain"), nama_barang),
                             RequestBody.create(MediaType.parse("text/plain"), merk_barang),
                             RequestBody.create(MediaType.parse("text/plain"), harga_barang),
@@ -256,6 +264,8 @@ public class AdapterPesananPenjual extends RecyclerView.Adapter<AdapterPesananPe
                 bundle.putString("nama", item.getNama());
                 bundle.putString("no_hp", item.getNo_hp());
                 bundle.putString("alamat", item.getAlamat());
+                bundle.putString("latitude", item.getLatitude());
+                bundle.putString("longitude", item.getLongitude());
                 bundle.putString("nama_barang", item.getNama_barang());
                 bundle.putString("merk", item.getMerk_barang());
                 bundle.putString("harga", item.getHarga_barang());

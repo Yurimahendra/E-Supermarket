@@ -92,6 +92,8 @@ public class DetailPesananActivity extends AppCompatActivity {
     private String UTotalHargaPesan;
     private String UongkirPesan;
     private String UalamatKirimPesan;
+    private String Ulatitude;
+    private String Ulongitude;
     private String UNohpPesan;
     private String UtglKirimPesan;
     private String UMetodeBayarPesan;
@@ -201,6 +203,8 @@ public class DetailPesananActivity extends AppCompatActivity {
         UnamaPemesan = bundle.getString("nama");
         UNohpPesan = bundle.getString("no_hp");
         UalamatKirimPesan = bundle.getString("alamat");
+        Ulatitude = bundle.getString("latitude");
+        Ulongitude = bundle.getString("longitude");
         UnamaBarangPesan = bundle.getString("nama_barang");
         UmerkBarangPesan = bundle.getString("merk");
         UhargaBarangPesan = bundle.getString("harga");
@@ -355,6 +359,8 @@ public class DetailPesananActivity extends AppCompatActivity {
                         bundle.putString("nama", namaPemesanDetail);
                         bundle.putString("no_hp", NohpPesanDetail);
                         bundle.putString("alamat", alamatKirimPesanDetail);
+                        bundle.putString("latitude", Ulatitude);
+                        bundle.putString("longitude", Ulongitude);
                         bundle.putString("nama_barang", UnamaBarangPesan);
                         bundle.putString("merk", UmerkBarangPesan);
                         bundle.putString("harga", UhargaBarangPesan);
@@ -539,6 +545,8 @@ public class DetailPesananActivity extends AppCompatActivity {
                             RequestBody.create(MediaType.parse("text/plain"), namaPemesanDetail),
                             RequestBody.create(MediaType.parse("text/plain"), NohpPesanDetail),
                             RequestBody.create(MediaType.parse("text/plain"), alamatKirimPesanDetail),
+                            RequestBody.create(MediaType.parse("text/plain"), Ulatitude),
+                            RequestBody.create(MediaType.parse("text/plain"), Ulongitude),
                             RequestBody.create(MediaType.parse("text/plain"), UnamaBarangPesan),
                             RequestBody.create(MediaType.parse("text/plain"), UmerkBarangPesan),
                             RequestBody.create(MediaType.parse("text/plain"), UhargaBarangPesan),

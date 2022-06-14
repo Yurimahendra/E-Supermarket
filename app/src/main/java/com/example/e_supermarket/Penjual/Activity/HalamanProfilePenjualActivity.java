@@ -81,6 +81,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
     EditText Namatokopenjual;
     EditText Namabankpenjual;
     EditText NoRek;
+    TextView LatitudePenjual;
+    TextView LongitudePenjual;
     CircleImageView imgProfilePenjual;
 
     private int id;
@@ -95,6 +97,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
     private String nama_bank ;
     private long no_rekening ;
     private String gambar;
+    private String latitude;
+    private String longitude;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -158,6 +162,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
         Namatokopenjual = findViewById(R.id.tvnamatokopenjual);
         Namabankpenjual = findViewById(R.id.tvNaBank);
         NoRek = findViewById(R.id.tvNo_Rek);
+        LatitudePenjual = findViewById(R.id.tvLatitudePnjl);
+        LongitudePenjual = findViewById(R.id.tvLongiPnjl);
         imgProfilePenjual = findViewById(R.id.ImgProfilePenjual);
 
 
@@ -178,6 +184,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                 bundle.putString("nama_toko", Namatokopenjual.getText().toString().trim());
                 bundle.putString("nama_bank", Namabankpenjual.getText().toString().trim());
                 bundle.putLong("no_rek", Long.parseLong(NoRek.getText().toString().trim()));
+                bundle.putString("latitude", LatitudePenjual.getText().toString().trim());
+                bundle.putString("longitude", LongitudePenjual.getText().toString().trim());
                 bundle.putString("gambar", RetroServer.imageURL + imgProfilePenjual.getContext().toString().trim());
 
                 Intent intent = new Intent(HalamanProfilePenjualActivity.this, FormEditProfilePenjualActivity.class);

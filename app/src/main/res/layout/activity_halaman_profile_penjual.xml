@@ -92,6 +92,28 @@
                             android:visibility="gone"/>
 
                         <TextView
+                            android:id="@+id/tvLatitudePnjl"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="lat"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_toRightOf="@id/ImgProdukView"
+                            android:layout_marginLeft="10dp"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/tvLongiPnjl"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="longi"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_toRightOf="@id/ImgProdukView"
+                            android:layout_marginLeft="10dp"
+                            android:visibility="gone"/>
+
+                        <TextView
                             android:id="@+id/tvnamapenjual"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

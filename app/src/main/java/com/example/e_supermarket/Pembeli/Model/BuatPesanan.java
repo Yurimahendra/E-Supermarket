@@ -6,6 +6,8 @@ public class BuatPesanan {
     private String nama;
     private String no_hp;
     private String alamat;
+    private String latitude;
+    private String longitude;
     private String nama_barang;
     private String merk_barang;
     private String harga_barang;
@@ -20,12 +22,14 @@ public class BuatPesanan {
     private String status_pesanan;
     private String bukti_transfer;
 
-    public BuatPesanan(int id, String id_pesanan, String nama, String no_hp, String alamat, String nama_barang, String merk_barang, String harga_barang, int jumlah_pesanan, String satuan, String gambar, String tanggal_pengiriman, String ongkir, String total_harga, String metode_pembayaran, String status, String status_pesanan, String bukti_transfer) {
+    public BuatPesanan(int id, String id_pesanan, String nama, String no_hp, String alamat, String latitude, String longitude, String nama_barang, String merk_barang, String harga_barang, int jumlah_pesanan, String satuan, String gambar, String tanggal_pengiriman, String ongkir, String total_harga, String metode_pembayaran, String status, String status_pesanan, String bukti_transfer) {
         this.id = id;
         this.id_pesanan = id_pesanan;
         this.nama = nama;
         this.no_hp = no_hp;
         this.alamat = alamat;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.nama_barang = nama_barang;
         this.merk_barang = merk_barang;
         this.harga_barang = harga_barang;
@@ -79,6 +83,22 @@ public class BuatPesanan {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getNama_barang() {

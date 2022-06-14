@@ -1,4 +1,4 @@
-package com.example.e_supermarket.Kurir.Activity;
+package com.example.e_supermarket.Penjual.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -14,6 +15,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.e_supermarket.R;
@@ -28,26 +31,80 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsEditPenjualActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private Boolean oke = false;
-    TextView latitud;
-    TextView longitude;
-    TextView alamat;
+    private Boolean okeEdt = false;
+    TextView latitudPenjEdt;
+    TextView longitudePenjEdt;
+    TextView alamatPenjEdt;
+
+    Button btnSimpanMapsPenjualEdt;
+
+    private int uIdPnjl;
+    private long uNikPnjl;
+    private String uNamaPnjl;
+    private String uJkPnjl;
+    private String uNoponsPnjl;
+    private String uTelaPnjl;
+    private String uTalaPnjl;
+    private String uAlamatPnjl;
+    private String uNatoPnjl;
+    private String uNamaBankPnjl;
+    private long uNorekeningPnjl;
+    private String uFtoPnjl;
+    private String uLatPnjl;
+    private String uLongPnjl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kurir_maps);
+        setContentView(R.layout.activity_maps_edit_penjual);
+        Bundle bundle = getIntent().getExtras();
+        uIdPnjl = bundle.getInt("id");
+        uNikPnjl = bundle.getLong("nik");
+        uNamaPnjl = bundle.getString("nama_penjual");
+        uJkPnjl = bundle.getString("jenis_kelamin");
+        uNoponsPnjl = bundle.getString("no_ponsel");
+        uTelaPnjl = bundle.getString("tempat_lahir");
+        uTalaPnjl = bundle.getString("tanggal_lahir");
+        uAlamatPnjl = bundle.getString("alamat");
+        uNatoPnjl = bundle.getString("nama_toko");
+        uNamaBankPnjl = bundle.getString("nama_bank");
+        uNorekeningPnjl = bundle.getLong("no_rek");
+        uLatPnjl = bundle.getString("latitude");
+        uLongPnjl = bundle.getString("longitude");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        latitud = findViewById(R.id.lat);
-        longitude = findViewById(R.id.longi);
-        alamat = findViewById(R.id.alamatlatlon);
+        latitudPenjEdt = findViewById(R.id.latPenjualMapsEdt);
+        longitudePenjEdt = findViewById(R.id.longiPenjualMapsEdt);
+        alamatPenjEdt = findViewById(R.id.alamatMapsPenjualEdt);
+        btnSimpanMapsPenjualEdt = findViewById(R.id.btnsimpanlokasiPenjualMapsEdt);
+        btnSimpanMapsPenjualEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("id", uIdPnjl);
+                bundle1.putString("nama_penjual", uNamaPnjl);
+                bundle1.putLong("nik", uNikPnjl);
+                bundle1.putString("tempat_lahir", uTelaPnjl);
+                bundle1.putString("tanggal_lahir", uTalaPnjl);
+                bundle1.putString("jenis_kelamin", uJkPnjl);
+                bundle1.putString("no_ponsel", uNoponsPnjl);
+                bundle1.putString("nama_toko", uNatoPnjl);
+                bundle1.putString("nama_bank", uNamaBankPnjl);
+                bundle1.putLong("no_rek", uNorekeningPnjl);
+                bundle1.putString("latitude", latitudPenjEdt.getText().toString());
+                bundle1.putString("longitude", longitudePenjEdt.getText().toString().trim());
+                bundle1.putString("alamat", alamatPenjEdt.getText().toString().trim());
+                Intent intent = new Intent(MapsEditPenjualActivity.this, FormEditProfilePenjualActivity.class);
+                intent.putExtras(bundle1);
+                startActivity(intent);
+            }
+        });
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -78,14 +135,14 @@ public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCal
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if (oke) {
+                if (okeEdt) {
                     String addres = addressList.get(0).getAddressLine(0);
                     LatLng lokasisekarang = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.addMarker(new MarkerOptions().position(lokasisekarang).title(addres));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(lokasisekarang));
-                    latitud.setText(String.valueOf(location.getLatitude()));
-                    longitude.setText(String.valueOf(location.getLongitude()));
-                    alamat.setText(addres);
+                    latitudPenjEdt.setText(String.valueOf(location.getLatitude()));
+                    longitudePenjEdt.setText(String.valueOf(location.getLongitude()));
+                    alamatPenjEdt.setText(addres);
                 }
             }
         });
@@ -103,12 +160,12 @@ public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        oke = true;
-        // Add a marker in Sydney and move the camera
-        /*LatLng phb = new LatLng(-6.868345, 109.107206);
-        mMap.addMarker(new MarkerOptions().position(phb).title("Marker in Politeknik Harapan Bersama"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(phb));*/
 
+        // Add a marker in Sydney and move the camera
+        /*LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
+        okeEdt = true;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions

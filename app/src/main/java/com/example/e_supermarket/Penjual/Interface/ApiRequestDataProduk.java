@@ -72,12 +72,15 @@ public interface ApiRequestDataProduk {
             @Field("nama") String nama,
             @Field("jenis_kelamin") String jenis_kelamin,
             @Field("alamat") String alamat,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
             @Field("tempat_lahir") String tempat_lahir,
             @Field("tanggal_lahir") String tanggal_lahir,
             @Field("no_ponsel") String no_ponsel,
             @Field("nama_toko") String nama_toko,
             @Field("nama_bank") String nama_bank,
             @Field("no_rekening") long no_rekening
+
     );
 
     @GET("api/datapenjual")
@@ -93,6 +96,8 @@ public interface ApiRequestDataProduk {
             @Part("nama") RequestBody nama,
             @Part("jenis_kelamin") RequestBody jenis_kelamin,
             @Part("alamat") RequestBody alamat,
+            @Part("latitude") RequestBody latitude,
+            @Part("longitude") RequestBody longitude,
             @Part("tempat_lahir") RequestBody tempat_lahir,
             @Part("tanggal_lahir") RequestBody tanggal_lahir,
             @Part("no_ponsel") RequestBody no_ponsel,

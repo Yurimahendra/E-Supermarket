@@ -50,6 +50,8 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
     String tempat_lahir;
     String tanggal_lahir;
     String alamat;
+    String latitude;
+    String longitude;
     String nama_toko;
     String nama_bank;
     long no_rekening;
@@ -129,6 +131,8 @@ public class VerifikasiEmailPenjualActivity extends AppCompatActivity {
                                                 RequestBody.create(MediaType.parse("text/plain"), nama),
                                                 RequestBody.create(MediaType.parse("text/plain"), jenis_kelamin),
                                                 RequestBody.create(MediaType.parse("text/plain"), alamat),
+                                                RequestBody.create(MediaType.parse("text/plain"), latitude),
+                                                RequestBody.create(MediaType.parse("text/plain"), longitude),
                                                 RequestBody.create(MediaType.parse("text/plain"), tempat_lahir),
                                                 RequestBody.create(MediaType.parse("text/plain"), tanggal_lahir),
                                                 RequestBody.create(MediaType.parse("text/plain"), NewPonS),

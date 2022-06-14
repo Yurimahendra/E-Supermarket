@@ -48,6 +48,28 @@
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"/>
 
+            <EditText
+                android:id="@+id/tvLatProfPnjl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="lat"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/ImgProdukView"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/tvlongProfPnjl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="long"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/ImgProdukView"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -194,19 +216,57 @@
                 android:textStyle="bold" />
                 -->
 
-            <com.google.android.material.textfield.TextInputLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:boxBackgroundColor="@color/white">
-                <EditText
-                    android:hint="Alamat"
-                    android:id="@+id/EdtAlamatPnjl"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="@color/white"
+                    android:id="@+id/alamtpenjl">
+
+                    <EditText
+                        android:id="@+id/EdtAlamatPnjl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:hint="Alamat"
+                        android:inputType="textCapSentences"
+                        android:textSize="20sp"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:inputType="textCapSentences"
-                    android:textSize="20sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:id="@+id/latPenjualedt"
+                    android:text="latidu"
+                    android:layout_above="@+id/longi"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/longiPenjualedt"
+                    android:text="longitud"
+                    android:layout_above="@+id/alamatlatlon"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/alamatMapsPenjualedt"
+                    android:text="alamat"
+                    android:layout_above="@+id/btnBukaMapsDataPenjual"
+                    android:visibility="gone"/>
+                <Button
+                    android:id="@+id/btnBukaMapsDataPenjualedtt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_location_24"
+                    android:layout_toRightOf="@+id/alamtpenjl"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
 
 

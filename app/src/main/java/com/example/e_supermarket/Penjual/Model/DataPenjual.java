@@ -11,16 +11,19 @@ public class DataPenjual {
     String tempat_lahir;
     String tanggal_lahir ;
     String alamat ;
+    String latitude;
+    String longitude;
     String nama_toko ;
     String nama_bank ;
     long no_rekening ;
     String gambar;
 
+
     public DataPenjual() {
 
     }
 
-    public DataPenjual(int id, long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko, String nama_bank, long no_rekening, String gambar) {
+    public DataPenjual(int id, long nik, String nama, String jenis_kelamin, String no_ponsel, String tempat_lahir, String tanggal_lahir, String alamat, String nama_toko, String nama_bank, long no_rekening, String gambar, String latitude, String longitude) {
         this.id = id;
         this.nik = nik;
         this.nama = nama;
@@ -33,6 +36,8 @@ public class DataPenjual {
         this.nama_bank = nama_bank;
         this.no_rekening = no_rekening;
         this.gambar = gambar;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -129,5 +134,21 @@ public class DataPenjual {
 
     public void setGambar(String gambar) {
         this.gambar = gambar;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

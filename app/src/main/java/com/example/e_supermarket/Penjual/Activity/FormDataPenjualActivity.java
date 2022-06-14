@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e_supermarket.Pembeli.Activity.FormDataPembeliActivity;
@@ -80,13 +81,34 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     String tempat_lahir;
     String tanggal_lahir;
     String alamat;
+    String latitude;
+    String longitude;
     String nama_toko;
     String nama_bank;
     long no_rekening;
+
+    String ualamat;
+    String ulatitude;
+    String ulongitude;
+
+    TextView LatPenj, LongPenj;
+    Button btnBukaMapsdtaPenj;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_data_penjual);
+
+        LatPenj = findViewById(R.id.latPenjual);
+        LongPenj = findViewById(R.id.longiPenjual);
+        btnBukaMapsdtaPenj = findViewById(R.id.btnBukaMapsDataPenjual);
+        btnBukaMapsdtaPenj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(FormDataPenjualActivity.this, PenjualMapsActivity.class));
+            }
+        });
+
+
 
         Nik = (EditText) findViewById(R.id.EdtNik);
         Nama = (EditText) findViewById(R.id.EdtNama);
@@ -128,6 +150,16 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         dataPenjualList = new ArrayList<>();
 
 
+        Bundle bundle = getIntent().getExtras();
+        ulatitude = bundle.getString("latitude");
+        ulongitude = bundle.getString("longitude");
+        ualamat = bundle.getString("alamat");
+
+        LatPenj.setText(ulatitude);
+        LongPenj.setText(ulongitude);
+        Alamat.setText(ualamat);
+
+
     }
 
     private void insertdatapenjual() {
@@ -145,6 +177,8 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             nama_toko = Nato.getText().toString().trim();
             nama_bank = Nabank.getText().toString().trim();
             no_rekening = Long.parseLong(Norek.getText().toString().trim());
+            latitude = LatPenj.getText().toString().trim();
+            longitude = LongPenj.getText().toString().trim();
 
             nikS = Nik.getText().toString().trim();
             lenNik = nikS.length();
@@ -183,7 +217,7 @@ public class FormDataPenjualActivity extends AppCompatActivity {
                 BtnUpdate.setVisibility(View.VISIBLE);
             } else {
                 ApiRequestDataProduk requestDataPenjual = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
-                Call<ResponseDataPenjual> SimpanDataPenjual = requestDataPenjual.SendDataPenjual(nik, nama, jenis_kelamin, alamat, tempat_lahir, tanggal_lahir, no_ponsel, nama_toko, nama_bank, no_rekening);
+                Call<ResponseDataPenjual> SimpanDataPenjual = requestDataPenjual.SendDataPenjual(nik, nama, jenis_kelamin, alamat, latitude, longitude, tempat_lahir, tanggal_lahir, no_ponsel, nama_toko, nama_bank, no_rekening);
 
 
                 SimpanDataPenjual.enqueue(new Callback<ResponseDataPenjual>() {
