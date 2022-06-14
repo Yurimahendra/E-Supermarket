@@ -11,10 +11,10 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btnsimpanlokasiOrder"/>
+        android:layout_above="@+id/btnsimpanlokasiMapsOrder"/>
 
     <Button
-        android:id="@+id/btnsimpanlokasiOrder"
+        android:id="@+id/btnsimpanlokasiMapsOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="SIMPAN"
@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/latPenjualMaps"
+        android:id="@+id/latMapsOrder"
         android:text="latidu"
         android:layout_above="@+id/longiOrder"
         android:visibility="gone"/>
@@ -31,7 +31,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/longiOrder"
+        android:id="@+id/longiMapsOrder"
         android:text="longitud"
         android:layout_above="@+id/alamatOrder"
         android:visibility="gone"/>
@@ -41,6 +41,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/alamatMapsOrder"
         android:text="alamat"
-        android:layout_above="@+id/btnsimpanlokasiOrder"
+        android:layout_above="@+id/btnsimpanlokasiMapsOrder"
         android:visibility="gone"/>
 </RelativeLayout>

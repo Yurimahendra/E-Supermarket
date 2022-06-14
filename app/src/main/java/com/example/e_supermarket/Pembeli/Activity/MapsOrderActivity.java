@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.e_supermarket.Penjual.Activity.FormDataPenjualActivity;
 import com.example.e_supermarket.Penjual.Activity.PenjualMapsActivity;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,6 +44,17 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
 
     Button btnSimpanMapsOrder;
 
+    private String BeliNama_Barang;
+    private String BeliMerk;
+    private String BeliHarga;
+    private int BeliMin_belanja;
+    private int BeliMin_belanja1;
+    private String BeliOngkir;
+    private String BeliSatuan;
+    private String BeliGambar;
+    private String BeliDeskripsi;
+    private int BeliId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +64,35 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        latitudOrder = findViewById(R.id.latPenjualMaps);
-        longitudeOrder = findViewById(R.id.longiPenjualMaps);
-        alamatOrder = findViewById(R.id.alamatMapsPenjual);
-        btnSimpanMapsOrder = findViewById(R.id.btnsimpanlokasiPenjualMaps);
+        Bundle bundle = getIntent().getExtras();
+        BeliId = bundle.getInt("id");
+        BeliNama_Barang = bundle.getString("nama_barang");
+        BeliMerk = bundle.getString("merk");
+        BeliHarga = bundle.getString("harga");
+        BeliMin_belanja = bundle.getInt("min_belanja", 0);
+        BeliMin_belanja1 = bundle.getInt("min_belanja", 0);
+        BeliOngkir = bundle.getString("ongkir");
+        BeliSatuan = bundle.getString("satuan");
+        BeliGambar = bundle.getString("gambar");
+        BeliDeskripsi = bundle.getString("deskripsi");
+
+        latitudOrder = findViewById(R.id.latMapsOrder);
+        longitudeOrder = findViewById(R.id.longiMapsOrder);
+        alamatOrder = findViewById(R.id.alamatMapsOrder);
+        btnSimpanMapsOrder = findViewById(R.id.btnsimpanlokasiMapsOrder);
         btnSimpanMapsOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle1 = new Bundle();
+                bundle1.putInt("id", BeliId);
+                bundle1.putString("nama_barang", BeliNama_Barang);
+                bundle1.putString("merk", BeliMerk);
+                bundle1.putString("harga", BeliHarga);
+                bundle1.putInt("min_belanja", BeliMin_belanja);
+                bundle1.putString("ongkir", BeliOngkir);
+                bundle1.putString("satuan", BeliSatuan);
+                bundle1.putString("gambar", BeliGambar);
+                bundle1.putString("deskripsi", BeliDeskripsi);
                 bundle1.putString("latitude", latitudOrder.getText().toString());
                 bundle1.putString("longitude", longitudeOrder.getText().toString());
                 bundle1.putString("alamat", alamatOrder.getText().toString());

@@ -192,7 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/namaBeli">
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="350dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="@color/white"
                 android:id="@+id/alamtpenjl">

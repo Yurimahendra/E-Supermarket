@@ -165,12 +165,7 @@ public class BeliProdukActivity extends AppCompatActivity {
         LatOrder = findViewById(R.id.latOrder);
         LongOrder = findViewById(R.id.longiOrder);
         btnBukaMapsOrder = findViewById(R.id.btnBukaMapsOrder);
-        btnBukaMapsOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(BeliProdukActivity.this, MapsOrderActivity.class));
-            }
-        });
+
 
         EdtTglBeli.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,7 +280,6 @@ public class BeliProdukActivity extends AppCompatActivity {
         BeliDeskripsi = bundle.getString("deskripsi");
 
 
-
         Nama_Barangbeli.setText(BeliNama_Barang);
         Merkbeli.setText(BeliMerk);
         Hargabeli.setText(BeliHarga);
@@ -319,12 +313,50 @@ public class BeliProdukActivity extends AppCompatActivity {
         TotalBayar.setText(formatRupiah.format((double)totalBayar));
         Ongkir.setText(formatRupiah.format((double)hasilOngkir));
 
+        btnBukaMapsOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", BeliId);
+                bundle.putString("nama_barang", BeliNama_Barang);
+                bundle.putString("merk", BeliMerk);
+                bundle.putString("harga", BeliHarga);
+                bundle.putInt("min_belanja", BeliMin_belanja);
+                bundle.putString("ongkir", BeliOngkir);
+                bundle.putString("satuan", BeliSatuan);
+                bundle.putString("gambar", BeliGambar);
+                bundle.putString("deskripsi", BeliDeskripsi);
+                //bundle.putInt("jumlah", count);
+                Intent intent = new Intent(BeliProdukActivity.this, MapsOrderActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         Bundle bundle1 = getIntent().getExtras();
         if (bundle1 != null){
+            BeliId = bundle.getInt("id");
+            BeliNama_Barang = bundle.getString("nama_barang");
+            BeliMerk = bundle.getString("merk");
+            BeliHarga = bundle.getString("harga");
+            BeliMin_belanja = bundle.getInt("min_belanja", 0);
+            BeliMin_belanja1 = bundle.getInt("min_belanja", 0);
+            BeliOngkir = bundle.getString("ongkir");
+            BeliSatuan = bundle.getString("satuan");
+            BeliGambar = bundle.getString("gambar");
+            BeliDeskripsi = bundle.getString("deskripsi");
             ulatitude = bundle1.getString("latitude");
             ulongitude = bundle1.getString("longitude");
             ualamat = bundle1.getString("alamat");
 
+            Nama_Barangbeli.setText(BeliNama_Barang);
+            Merkbeli.setText(BeliMerk);
+            Hargabeli.setText(BeliHarga);
+            Satuanbeli.setText(BeliSatuan);
+            MinBelanjabeli.setText(""+BeliMin_belanja);
+            Ongkir.setText(BeliOngkir);
+            Glide.with(BeliImgProduk1.getContext())
+                    .load(BeliGambar).into(BeliImgProduk1);
             LatOrder.setText(ulatitude);
             LongOrder.setText(ulongitude);
             EdtAlamatBeli.setText(ualamat);

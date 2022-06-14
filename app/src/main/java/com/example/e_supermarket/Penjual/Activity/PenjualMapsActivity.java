@@ -53,7 +53,7 @@ public class PenjualMapsActivity extends FragmentActivity implements OnMapReadyC
         latitudPenj = findViewById(R.id.latOrder);
         longitudePenj = findViewById(R.id.longiOrder);
         alamatPenj = findViewById(R.id.alamatOrder);
-        btnSimpanMapsPenjual = findViewById(R.id.btnsimpanlokasiOrder);
+        btnSimpanMapsPenjual = findViewById(R.id.btnsimpanlokasiMapsOrder);
         btnSimpanMapsPenjual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
