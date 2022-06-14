@@ -72,6 +72,9 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
 
+    int index_jk;
+    private String jk[] = {"Pria", "Wanita"};
+
     long nik;
     String nikS;
     int lenNik;
@@ -87,9 +90,6 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     String nama_bank;
     long no_rekening;
 
-    String ualamat;
-    String ulatitude;
-    String ulongitude;
 
     TextView LatPenj, LongPenj;
     Button btnBukaMapsdtaPenj;
@@ -98,38 +98,67 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_data_penjual);
 
+
+        Nik = findViewById(R.id.EdtNik);
+        Nama =  findViewById(R.id.EdtNama);
+        Jk = findViewById(R.id.SpJk);
+        NoPons =  findViewById(R.id.EdtNop);
+        TeLa = findViewById(R.id.EdtTeLa);
+        Alamat = findViewById(R.id.EdtAlamat);
+        Nato =  findViewById(R.id.EdtNato);
+        Nabank = findViewById(R.id.EdtNaBank);
+        Norek = findViewById(R.id.EdtNo_Rek);
+        EdtTala = findViewById(R.id.EdtTala);
         LatPenj = findViewById(R.id.latPenjual);
         LongPenj = findViewById(R.id.longiPenjual);
         btnBukaMapsdtaPenj = findViewById(R.id.btnBukaMapsDataPenjual);
-        btnBukaMapsdtaPenj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(FormDataPenjualActivity.this, PenjualMapsActivity.class));
-            }
-        });
 
-
-
-        Nik = (EditText) findViewById(R.id.EdtNik);
-        Nama = (EditText) findViewById(R.id.EdtNama);
-        Jk = (Spinner) findViewById(R.id.SpJk);
-        NoPons = (EditText) findViewById(R.id.EdtNop);
-        TeLa = (EditText) findViewById(R.id.EdtTeLa);
-        Alamat = (EditText) findViewById(R.id.EdtAlamat);
-        Nato = (EditText) findViewById(R.id.EdtNato);
-        Nabank = findViewById(R.id.EdtNaBank);
-        Norek = findViewById(R.id.EdtNo_Rek);
-        EdtTala = (EditText) findViewById(R.id.EdtTala);
         PbSimpanDataS = findViewById(R.id.progressDataS);
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         BtnUpdate = (Button) findViewById(R.id.btnUpdateData);
         Dbroot = FirebaseFirestore.getInstance();
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            nik = bundle.getLong("nik");
+            nama = bundle.getString("nama_penjual");
+            jenis_kelamin = bundle.getString("jenis_kelamin");
+            no_ponsel = bundle.getString("no_ponsel");
+            tempat_lahir = bundle.getString("tempat_lahir");
+            tanggal_lahir = bundle.getString("tanggal_lahir");
+            alamat = bundle.getString("alamat");
+            latitude = bundle.getString("latitude");
+            longitude = bundle.getString("longitude");
+            nama_toko = bundle.getString("nama_toko");
+            nama_bank = bundle.getString("nama_bank");
+            no_rekening = bundle.getLong("no_rek");
 
-        EditText editTextS = findViewById(R.id.EdtNop);
-        editTextS.setText(getIntent().getStringExtra("mobile")
+
+        }
+        Nik.setText(""+nik);
+        Nama.setText(nama);
+        if (Jk.equals(jk[0])) index_jk = 0;
+        else if (Jk.equals(jk[1])) index_jk = 1;
+        Jk.setSelection(index_jk);
+        NoPons.setText(no_ponsel);
+        TeLa.setText(tempat_lahir);
+        EdtTala.setText(tanggal_lahir);
+        Alamat.setText(alamat);
+        LatPenj.setText(latitude);
+        LongPenj.setText(longitude);
+        Nato.setText(nama_toko);
+        Nabank.setText(nama_bank);
+        Norek.setText(""+no_rekening);
+
+
+
+
+        //EditText editTextS = findViewById(R.id.EdtNop);
+        NoPons.setText(getIntent().getStringExtra("mobile")
         );
+
+        Log.i("no ponsel", ": "+no_ponsel);
 
 
         EdtTala.setOnClickListener(new View.OnClickListener() {
@@ -146,18 +175,36 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             }
         });
 
+        btnBukaMapsdtaPenj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("nama_penjual", Nama.getText().toString().trim());
+                bundle.putLong("nik", Long.parseLong(Nik.getText().toString().trim()));
+                bundle.putString("tempat_lahir", TeLa.getText().toString().trim());
+                bundle.putString("tanggal_lahir", EdtTala.getText().toString().trim());
+                bundle.putString("jenis_kelamin", Jk.getSelectedItem().toString());
+                bundle.putString("alamat", Alamat.getText().toString().trim());
+                bundle.putString("no_ponsel", NoPons.getText().toString().trim());
+                bundle.putString("nama_toko", Nato.getText().toString().trim());
+                bundle.putString("nama_bank", Nabank.getText().toString().trim());
+                bundle.putLong("no_rek", Long.parseLong(Norek.getText().toString().trim()));
+                bundle.putString("latitude", LatPenj.getText().toString().trim());
+                bundle.putString("longitude", LongPenj.getText().toString().trim());
+
+
+                Intent intent = new Intent(FormDataPenjualActivity.this, PenjualMapsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         db = FirebaseFirestore.getInstance();
         dataPenjualList = new ArrayList<>();
 
 
-        Bundle bundle = getIntent().getExtras();
-        ulatitude = bundle.getString("latitude");
-        ulongitude = bundle.getString("longitude");
-        ualamat = bundle.getString("alamat");
 
-        LatPenj.setText(ulatitude);
-        LongPenj.setText(ulongitude);
-        Alamat.setText(ualamat);
+
 
 
     }

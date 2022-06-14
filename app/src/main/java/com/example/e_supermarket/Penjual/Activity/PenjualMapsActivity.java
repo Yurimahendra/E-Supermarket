@@ -41,6 +41,21 @@ public class PenjualMapsActivity extends FragmentActivity implements OnMapReadyC
 
     Button btnSimpanMapsPenjual;
 
+    long nik;
+    String nikS;
+    int lenNik;
+    String nama;
+    String jenis_kelamin;
+    String no_ponsel;
+    String tempat_lahir;
+    String tanggal_lahir;
+    String alamat;
+    String latitude;
+    String longitude;
+    String nama_toko;
+    String nama_bank;
+    long no_rekening;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,17 +65,46 @@ public class PenjualMapsActivity extends FragmentActivity implements OnMapReadyC
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        latitudPenj = findViewById(R.id.latOrder);
-        longitudePenj = findViewById(R.id.longiOrder);
-        alamatPenj = findViewById(R.id.alamatOrder);
-        btnSimpanMapsPenjual = findViewById(R.id.btnsimpanlokasiMapsOrder);
+        latitudPenj = findViewById(R.id.latPenjualMaps);
+        longitudePenj = findViewById(R.id.longiPenjualMaps);
+        alamatPenj = findViewById(R.id.alamatMapsPenjual);
+        btnSimpanMapsPenjual = findViewById(R.id.btnsimpanlokasiPenjualMaps);
+
+        Bundle bundle = getIntent().getExtras();
+        nik = bundle.getLong("nik");
+        nama = bundle.getString("nama_penjual");
+        jenis_kelamin = bundle.getString("jenis_kelamin");
+        no_ponsel = bundle.getString("no_ponsel");
+        tempat_lahir = bundle.getString("tempat_lahir");
+        tanggal_lahir = bundle.getString("tanggal_lahir");
+        alamat = bundle.getString("alamat");
+        nama_toko = bundle.getString("nama_toko");
+        nama_bank = bundle.getString("nama_bank");
+        no_rekening = bundle.getLong("no_rek");
+
+       // Log.i("noponsel", ": "+no_ponsel);
+
+
+
         btnSimpanMapsPenjual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
+                bundle.putLong("nik", nik);
+                bundle.putString("nama_penjual", nama);
+                bundle.putString("jenis_kelamin", jenis_kelamin);
+                bundle.putString("no_ponsel", no_ponsel);
+                bundle.putString("tempat_lahir", tempat_lahir);
+                bundle.putString("tanggal_lahir", tanggal_lahir);
+                bundle.putString("alamat", alamatPenj.getText().toString().trim());
                 bundle.putString("latitude", latitudPenj.getText().toString());
                 bundle.putString("longitude", longitudePenj.getText().toString().trim());
-                bundle.putString("alamat", alamatPenj.getText().toString().trim());
+                bundle.putString("nama_toko", nama_toko);
+                bundle.putString("nama_bank", nama_bank);
+                bundle.putLong("no_rek", no_rekening);
+               // Log.i("noponsel", ": "+no_ponsel);
+
+
                 Intent intent = new Intent(PenjualMapsActivity.this, FormDataPenjualActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);

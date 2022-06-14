@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,25 +14,24 @@
             android:id="@+id/tolbarBeli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/design_default_color_primary"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentTop="true"
+            android:background="@color/design_default_color_primary">
 
             <ImageView
                 android:id="@+id/imgBackBeliProduk"
-                android:layout_gravity="left"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                />
+                android:layout_gravity="left"
+                android:src="@drawable/ic_baseline_arrow_back_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Checkout"
-                android:textStyle="bold"
-                android:textSize="19dp"
                 android:textColor="@color/white"
-                android:layout_gravity="center"/>
+                android:textSize="19dp"
+                android:textStyle="bold" />
 
 
         </androidx.appcompat.widget.Toolbar>
@@ -42,11 +40,11 @@
             android:id="@+id/cardBeli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tolbarBeli"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardBackgroundColor="@color/white"
-            android:layout_below="@+id/tolbarBeli">
+            app:cardUseCompatPadding="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -54,103 +52,125 @@
                 android:padding="10dp">
 
                 <ImageView
-                    android:src="@drawable/logo"
+                    android:id="@+id/ImgItembeli"
                     android:layout_width="80dp"
                     android:layout_height="147dp"
-                    android:id="@+id/ImgItembeli"
-                    />
+                    android:src="@drawable/logo" />
 
                 <TextView
                     android:id="@+id/tvIdBarangbeli"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/ImgItembeli"
                     android:text="id"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:layout_toRightOf="@id/ImgItembeli"
-                    android:layout_marginLeft="10dp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/latOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/longi"
+                    android:text="latidu"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/longiOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/alamatlatlon"
+                    android:text="longitud"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/alamatMapsOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="alamat"
+                    android:visibility="gone" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvNamaBarangbeli"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/ImgItembeli"
                     android:text="Nama Barang"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:layout_toRightOf="@id/ImgItembeli"
-                    android:layout_marginLeft="10dp"/>
+                    android:textSize="20sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvMerkbeli"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvNamaBarangbeli"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/ImgItembeli"
                     android:text="Merk"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:layout_toRightOf="@id/ImgItembeli"
-                    android:layout_below="@id/tvNamaBarangbeli"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"/>
+                    android:textSize="20sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvHargabeli"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvMerkbeli"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/ImgItembeli"
                     android:text="Harga"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/lnjumlah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvHargabeli"
+                    android:orientation="horizontal"
                     android:layout_toRightOf="@id/ImgItembeli"
-                    android:layout_below="@id/tvMerkbeli"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"/>
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvMinBelanjaBeli"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:layout_toRightOf="@+id/imgKurangi"
-                    android:layout_below="@id/tvHargabeli"
-                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginTop="5dp">
 
 
-                <ImageView
-                    android:id="@+id/imgKurangi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/ImgItembeli"
-                    android:layout_below="@id/tvHargabeli"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_baseline_kurang_24"/>
+                    <ImageView
+                        android:id="@+id/imgKurangi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_kurang_24" />
 
-                <ImageView
-                    android:id="@+id/imgTambahi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tvSatuanbeli"
-                    android:layout_below="@id/tvHargabeli"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_baseline_tambah_24"/>
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvMinBelanjaBeli"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvSatuanbeli"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kg"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:layout_toRightOf="@+id/tvMinBelanjaBeli"
-                    android:layout_below="@+id/tvHargabeli"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"/>
+
+                    <ImageView
+                        android:id="@+id/imgTambahi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/ic_baseline_tambah_24" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvSatuanbeli"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Kg"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+
 
 
                 <!-- <com.google.android.material.textview.MaterialTextView
@@ -173,10 +193,11 @@
             android:id="@+id/namaBeli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/white"
             android:layout_below="@+id/cardBeli"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp">
+            android:layout_marginEnd="5dp"
+            app:boxBackgroundColor="@color/white">
+
             <EditText
                 android:id="@+id/EdtNamaBeli"
                 android:layout_width="match_parent"
@@ -186,16 +207,19 @@
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/alamatBeli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/namaBeli">
+            android:layout_below="@+id/namaBeli"
+            android:orientation="horizontal">
+
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/alamtpenjl"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:boxBackgroundColor="@color/white"
-                android:id="@+id/alamtpenjl">
+                app:boxBackgroundColor="@color/white">
+
                 <EditText
                     android:id="@+id/EdtAlamatBeli"
                     android:layout_width="match_parent"
@@ -203,141 +227,120 @@
                     android:layout_marginTop="5dp"
                     android:hint="Alamat Pengiriman"
                     android:inputType="textCapSentences"
-                    android:textSize="20sp"
-                    />
+                    android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/latOrder"
-                android:text="latidu"
-                android:layout_above="@+id/longi"
-                android:visibility="gone"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/longiOrder"
-                android:text="longitud"
-                android:layout_above="@+id/alamatlatlon"
-                android:visibility="gone"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/alamatMapsOrder"
-                android:text="alamat"
-                android:layout_above="@+id/btnBukaMapsOrder"
-                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btnBukaMapsOrder"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_location_24"
-                android:layout_toRightOf="@+id/alamtpenjl"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_location_24" />
+            <!--android:layout_toRightOf="@+id/alamtpenjl"
+            android:layout_centerVertical="true"-->
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/noponBeli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/white"
             android:layout_below="@+id/alamatBeli"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp">
+            android:layout_marginEnd="5dp"
+            app:boxBackgroundColor="@color/white">
+
             <EditText
                 android:id="@+id/EdtNopBeli"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:focusable="false"
                 android:hint="Nomor Ponsel"
                 android:inputType="number"
-                android:textSize="20sp"
                 android:maxLength="12"
-                android:focusable="false"/>
+                android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tglBeli"
-            android:layout_below="@+id/noponBeli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/white"
+            android:layout_below="@+id/noponBeli"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp">
+            android:layout_marginEnd="5dp"
+            app:boxBackgroundColor="@color/white">
+
             <EditText
-                android:hint="Tanggal Pengiriman"
                 android:id="@+id/EdtTabe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:focusable="false"
+                android:hint="Tanggal Pengiriman"
                 android:inputType="date"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
             android:id="@+id/ongkir"
-            android:layout_below="@+id/tglBeli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_below="@+id/tglBeli"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="vertical">
 
             <TextView
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ongkir"
-                android:textSize="15dp"/>
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/Rpongkir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Rp. 150.000"
                 android:textColor="@color/black"
-                android:textSize="15dp"
-                android:text="Rp. 150.000" />
+                android:textSize="15dp" />
         </LinearLayout>
 
         <TextView
-            android:padding="5dp"
             android:id="@+id/tvMetodBayar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/ongkir"
             android:layout_marginTop="5dp"
+            android:padding="5dp"
             android:text="Pilih Metode Pembayaran"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_below="@+id/ongkir"/>
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/SpMetodebayar"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:padding="5dp"
+            android:layout_below="@+id/tvMetodBayar"
             android:entries="@array/Metode_Bayar"
-            android:layout_below="@+id/tvMetodBayar"/>
+            android:padding="5dp" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tolbarBeli1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:layout_below="@+id/SpMetodebayar"
+            android:background="@color/white"
             android:padding="5dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="left">
+                android:layout_gravity="left"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -348,22 +351,22 @@
                     android:id="@+id/TotalBayar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Rp. 150.000"
                     android:textColor="@color/black"
                     android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:text="Rp. 150.000" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right">
+
                 <Button
                     android:id="@+id/btnbuatPesanan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Buat Pesanan"
-                    />
+                    android:text="Buat Pesanan" />
 
                 <ProgressBar
                     android:id="@+id/progressDataBeli"
@@ -375,10 +378,7 @@
             </FrameLayout>
 
 
-
         </androidx.appcompat.widget.Toolbar>
     </RelativeLayout>
-
-
 
 </ScrollView>

@@ -93,12 +93,13 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
     private String tempat_lahir;
     private String tanggal_lahir ;
     private String alamat ;
+    private String latitude;
+    private String longitude;
     private String nama_toko ;
     private String nama_bank ;
     private long no_rekening ;
     private String gambar;
-    private String latitude;
-    private String longitude;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override

@@ -177,6 +177,7 @@ public class BeliProdukActivity extends AppCompatActivity {
         PbBuatPesan = findViewById(R.id.progressDataBeli);
 
         Increment = findViewById(R.id.imgTambahi);
+        Increment.setVisibility(View.VISIBLE);
         Decrement = findViewById(R.id.imgKurangi);
         HitungJumlah = findViewById(R.id.tvMinBelanjaBeli);
         TotalBayar = findViewById(R.id.TotalBayar);
@@ -197,8 +198,6 @@ public class BeliProdukActivity extends AppCompatActivity {
                 HargaRepl1ongkir = HargaReplongkir.replace(".", "");
 //                nilaiRpongkir = Integer.parseInt(HargaRepl1ongkir);
                 hasilOngkir = nilaiRpongkir * minBelanjaPesan;
-
-
 
                 totalBayar = hasil + hasilOngkir;
 
@@ -233,8 +232,6 @@ public class BeliProdukActivity extends AppCompatActivity {
                     HargaRepl1ongkir = HargaReplongkir.replace(".", "");
 //                    nilaiRpongkir = Integer.parseInt(HargaRepl1ongkir);
                     hasilOngkir = nilaiRpongkir * minBelanjaPesan;
-
-
 
                     totalBayar = hasil + hasilOngkir;
 
@@ -304,8 +301,6 @@ public class BeliProdukActivity extends AppCompatActivity {
         nilaiRpongkir = Integer.parseInt(HargaRepl1ongkir);
         hasilOngkir = nilaiRpongkir * BeliMin_belanja;
 
-
-
         totalBayar = hasil + hasilOngkir;
 
         Locale localeID = new Locale("in", "ID");
@@ -354,7 +349,7 @@ public class BeliProdukActivity extends AppCompatActivity {
             Hargabeli.setText(BeliHarga);
             Satuanbeli.setText(BeliSatuan);
             MinBelanjabeli.setText(""+BeliMin_belanja);
-            Ongkir.setText(BeliOngkir);
+            //Ongkir.setText(BeliOngkir);
             Glide.with(BeliImgProduk1.getContext())
                     .load(BeliGambar).into(BeliImgProduk1);
             LatOrder.setText(ulatitude);
