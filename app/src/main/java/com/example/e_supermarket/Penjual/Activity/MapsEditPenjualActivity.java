@@ -182,5 +182,5 @@ public class MapsEditPenjualActivity extends FragmentActivity implements OnMapRe
         mMap.setMyLocationEnabled(true);
     }
 
-    
+
 }
