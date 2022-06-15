@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.e_supermarket.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -148,6 +149,8 @@ public class MapsEditPenjualActivity extends FragmentActivity implements OnMapRe
         });
     }
 
+
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -178,4 +181,6 @@ public class MapsEditPenjualActivity extends FragmentActivity implements OnMapRe
         }
         mMap.setMyLocationEnabled(true);
     }
+
+    
 }

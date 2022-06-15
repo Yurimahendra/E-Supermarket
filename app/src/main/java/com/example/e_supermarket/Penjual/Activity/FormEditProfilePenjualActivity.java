@@ -26,6 +26,8 @@ import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -100,10 +102,14 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
 
     Button btnMapsEditPenjual;
 
+    private FusedLocationProviderClient locationProviderClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_edit_profile_penjual);
+        locationProviderClient = LocationServices.getFusedLocationProviderClient(FormEditProfilePenjualActivity.this);
+
         idPnjl = findViewById(R.id.tvIdProfPnjl);
 
         NikPnjl = findViewById(R.id.EdtNikPnjl);
@@ -159,6 +165,8 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
             }
         });
 
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         BtnUpdateProfilePenjual = findViewById(R.id.btnSimpanEdtDataPnjl);
         BtnUpdateProfilePenjual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,7 +212,7 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         }
 
 
-        idPnjl.setText(uIdPnjl);
+        idPnjl.setText(""+uIdPnjl);
         NikPnjl.setText(""+uNikPnjl);
         NamaPnjl.setText(uNamaPnjl);
         if (uJkPnjl.equals(jk[0])) index_jk = 0;
@@ -383,9 +391,14 @@ public class FormEditProfilePenjualActivity extends AppCompatActivity implements
         datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, month, dayOfMonth);
-                TalaPnjl.setText(dateFormat.format(newDate.getTime()));
+                if (year > calendar.get(Calendar.YEAR)){
+                    Toast.makeText(FormEditProfilePenjualActivity.this, "Tidak bisa tahun depan", Toast.LENGTH_SHORT).show();
+                }else {
+                    Calendar newDate = Calendar.getInstance();
+                    newDate.set(year, month, dayOfMonth);
+                    TalaPnjl.setText(dateFormat.format(newDate.getTime()));
+                }
+
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH));
         datePickerDialog.show();

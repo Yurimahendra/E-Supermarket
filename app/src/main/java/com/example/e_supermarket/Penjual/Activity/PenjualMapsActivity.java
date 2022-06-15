@@ -70,6 +70,7 @@ public class PenjualMapsActivity extends FragmentActivity implements OnMapReadyC
         alamatPenj = findViewById(R.id.alamatMapsPenjual);
         btnSimpanMapsPenjual = findViewById(R.id.btnsimpanlokasiPenjualMaps);
 
+
         Bundle bundle = getIntent().getExtras();
         nik = bundle.getLong("nik");
         nama = bundle.getString("nama_penjual");
@@ -77,12 +78,13 @@ public class PenjualMapsActivity extends FragmentActivity implements OnMapReadyC
         no_ponsel = bundle.getString("no_ponsel");
         tempat_lahir = bundle.getString("tempat_lahir");
         tanggal_lahir = bundle.getString("tanggal_lahir");
-        alamat = bundle.getString("alamat");
+        //alamat = bundle.getString("alamat");
         nama_toko = bundle.getString("nama_toko");
         nama_bank = bundle.getString("nama_bank");
         no_rekening = bundle.getLong("no_rek");
 
-       // Log.i("noponsel", ": "+no_ponsel);
+        //Log.i("noponsel", ": "+no_ponsel);
+
 
 
 
@@ -96,14 +98,13 @@ public class PenjualMapsActivity extends FragmentActivity implements OnMapReadyC
                 bundle.putString("no_ponsel", no_ponsel);
                 bundle.putString("tempat_lahir", tempat_lahir);
                 bundle.putString("tanggal_lahir", tanggal_lahir);
-                bundle.putString("alamat", alamatPenj.getText().toString().trim());
-                bundle.putString("latitude", latitudPenj.getText().toString());
-                bundle.putString("longitude", longitudePenj.getText().toString().trim());
+                bundle.putString("alamat", alamat);
+                bundle.putString("latitude", latitude);
+                bundle.putString("longitude", longitude);
                 bundle.putString("nama_toko", nama_toko);
                 bundle.putString("nama_bank", nama_bank);
                 bundle.putLong("no_rek", no_rekening);
                // Log.i("noponsel", ": "+no_ponsel);
-
 
                 Intent intent = new Intent(PenjualMapsActivity.this, FormDataPenjualActivity.class);
                 intent.putExtras(bundle);
@@ -148,6 +149,14 @@ public class PenjualMapsActivity extends FragmentActivity implements OnMapReadyC
                     latitudPenj.setText(String.valueOf(location.getLatitude()));
                     longitudePenj.setText(String.valueOf(location.getLongitude()));
                     alamatPenj.setText(addres);
+
+                    alamat = alamatPenj.getText().toString().trim();
+                    latitude = latitudPenj.getText().toString();
+                    longitude = longitudePenj.getText().toString().trim();
+
+                    Log.i("alamat", ": "+alamat);
+                    Log.i("latitude", ": "+ latitude);
+                    Log.i("longitud", ": "+longitude);
                 }
             }
         });

@@ -90,6 +90,8 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     String nama_bank;
     long no_rekening;
 
+    String newNopon ;
+
 
     TextView LatPenj, LongPenj;
     Button btnBukaMapsdtaPenj;
@@ -134,31 +136,43 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             nama_bank = bundle.getString("nama_bank");
             no_rekening = bundle.getLong("no_rek");
 
+            Nik.setText(""+nik);
+            Nama.setText(nama);
+            if (Jk.equals(jk[0])) index_jk = 0;
+            else if (Jk.equals(jk[1])) index_jk = 1;
+            Jk.setSelection(index_jk);
+            NoPons.setText(no_ponsel);
+            TeLa.setText(tempat_lahir);
+            EdtTala.setText(tanggal_lahir);
+            Alamat.setText(alamat);
+            LatPenj.setText(latitude);
+            LongPenj.setText(longitude);
+            Nato.setText(nama_toko);
+            Nabank.setText(nama_bank);
+            Norek.setText(""+no_rekening);
+
+            Log.i("noponsel", ": "+alamat);
+            Log.i("nlat", ": "+latitude);
+            Log.i("longitude", ": "+longitude);
 
         }
-        Nik.setText(""+nik);
-        Nama.setText(nama);
-        if (Jk.equals(jk[0])) index_jk = 0;
-        else if (Jk.equals(jk[1])) index_jk = 1;
-        Jk.setSelection(index_jk);
-        NoPons.setText(no_ponsel);
-        TeLa.setText(tempat_lahir);
-        EdtTala.setText(tanggal_lahir);
-        Alamat.setText(alamat);
-        LatPenj.setText(latitude);
-        LongPenj.setText(longitude);
-        Nato.setText(nama_toko);
-        Nabank.setText(nama_bank);
-        Norek.setText(""+no_rekening);
+
+        newNopon = NoPons.getText().toString().trim();
+        if (newNopon.equals("")){
+            NoPons.setText(getIntent().getStringExtra("mobile"));
+        }
+
+
+
 
 
 
 
         //EditText editTextS = findViewById(R.id.EdtNop);
-        NoPons.setText(getIntent().getStringExtra("mobile")
-        );
 
-        Log.i("no ponsel", ": "+no_ponsel);
+
+
+       // Log.i("no ponsel", ": "+no_ponsel);
 
 
         EdtTala.setOnClickListener(new View.OnClickListener() {
@@ -184,13 +198,13 @@ public class FormDataPenjualActivity extends AppCompatActivity {
                 bundle.putString("tempat_lahir", TeLa.getText().toString().trim());
                 bundle.putString("tanggal_lahir", EdtTala.getText().toString().trim());
                 bundle.putString("jenis_kelamin", Jk.getSelectedItem().toString());
-                bundle.putString("alamat", Alamat.getText().toString().trim());
+                //bundle.putString("alamat", Alamat.getText().toString().trim());
                 bundle.putString("no_ponsel", NoPons.getText().toString().trim());
                 bundle.putString("nama_toko", Nato.getText().toString().trim());
                 bundle.putString("nama_bank", Nabank.getText().toString().trim());
                 bundle.putLong("no_rek", Long.parseLong(Norek.getText().toString().trim()));
-                bundle.putString("latitude", LatPenj.getText().toString().trim());
-                bundle.putString("longitude", LongPenj.getText().toString().trim());
+                //bundle.putString("latitude", LatPenj.getText().toString().trim());
+                //bundle.putString("longitude", LongPenj.getText().toString().trim());
 
 
                 Intent intent = new Intent(FormDataPenjualActivity.this, PenjualMapsActivity.class);
