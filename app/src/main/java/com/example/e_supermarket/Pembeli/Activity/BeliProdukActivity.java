@@ -22,7 +22,11 @@ import com.example.e_supermarket.Pembeli.Model.DataPembeli;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
 import com.example.e_supermarket.Penjual.Activity.FormDataPenjualActivity;
+import com.example.e_supermarket.Penjual.Activity.HalamanProfilePenjualActivity;
 import com.example.e_supermarket.Penjual.Activity.PenjualMapsActivity;
+import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
+import com.example.e_supermarket.Penjual.Model.DataPenjual;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 
@@ -138,8 +142,26 @@ public class BeliProdukActivity extends AppCompatActivity {
     private String ulongitude;
     private String ualamat;
 
+    private List<DataPenjual> dataPenjualList = new ArrayList<>();
+    private int index1;
 
+    private int id;
+    private long nik ;
+    private String nama ;
+    private String jenis_kelamin ;
+    private String no_ponsel1 ;
+    private String tempat_lahir;
+    private String tanggal_lahir ;
+    private String alamat ;
+    private String latitude;
+    private String longitude;
+    private String nama_toko ;
+    private String nama_bank ;
+    private long no_rekening ;
+    private String gambar;
 
+    private String newLatitude;
+    private String newLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -277,6 +299,7 @@ public class BeliProdukActivity extends AppCompatActivity {
         BeliDeskripsi = bundle.getString("deskripsi");
 
 
+
         Nama_Barangbeli.setText(BeliNama_Barang);
         Merkbeli.setText(BeliMerk);
         Hargabeli.setText(BeliHarga);
@@ -285,6 +308,54 @@ public class BeliProdukActivity extends AppCompatActivity {
         Ongkir.setText(BeliOngkir);
         Glide.with(BeliImgProduk1.getContext())
                 .load(BeliGambar).into(BeliImgProduk1);
+
+        Bundle bundle1 = getIntent().getExtras();
+        if (bundle1 != null){
+            BeliId = bundle1.getInt("id");
+            BeliNama_Barang = bundle1.getString("nama_barang");
+            BeliMerk = bundle1.getString("merk");
+            BeliHarga = bundle1.getString("harga");
+            BeliMin_belanja = bundle1.getInt("min_belanja", 0);
+            BeliMin_belanja1 = bundle1.getInt("min_belanja", 0);
+            BeliOngkir = bundle1.getString("ongkir");
+            BeliSatuan = bundle1.getString("satuan");
+            BeliGambar = bundle1.getString("gambar");
+            BeliDeskripsi = bundle1.getString("deskripsi");
+            //TotalHargaPesan = bundle1.getString("total");
+            //BeliOngkir = bundle1.getString("ongkir");
+            NohpPesan = bundle1.getString("no_ponsel");
+            tglKirimPesan = bundle1.getString("tanggal");
+            MetodeBayarPesan = bundle1.getString("metode_bayar");
+            namaPemesan = bundle1.getString("nama");
+            ulatitude = bundle1.getString("latitude");
+            ulongitude = bundle1.getString("longitude");
+            ualamat = bundle1.getString("alamat");
+
+
+
+            Nama_Barangbeli.setText(BeliNama_Barang);
+            Merkbeli.setText(BeliMerk);
+            Hargabeli.setText(BeliHarga);
+            Satuanbeli.setText(BeliSatuan);
+            MinBelanjabeli.setText(""+BeliMin_belanja);
+            //Ongkir.setText(BeliOngkir);
+            Glide.with(BeliImgProduk1.getContext())
+                    .load(BeliGambar).into(BeliImgProduk1);
+            LatOrder.setText(ulatitude);
+            LongOrder.setText(ulongitude);
+            EdtAlamatBeli.setText(ualamat);
+            EdtNamaBeli.setText(namaPemesan);
+            EdtTglBeli.setText(tglKirimPesan);
+            EdtNopBeli.setText(NohpPesan);
+            //TotalBayar.setText(TotalHargaPesan);
+            if (MetodeBayarPesan != null){
+                if (MetodeBayarPesan.equals(n_metode[0])) index = 0;
+                else if (MetodeBayarPesan.equals(n_metode[1])) index = 1;
+                MetodePembayaran.setSelection(index);
+            }
+            Log.i("latOrder", ""+ LatOrder.getText().toString());
+            Log.i("longOrder", ""+LongOrder.getText().toString());
+        }
 
 
         Getharga = Hargabeli.getText().toString().trim();
@@ -316,11 +387,18 @@ public class BeliProdukActivity extends AppCompatActivity {
                 bundle.putString("nama_barang", BeliNama_Barang);
                 bundle.putString("merk", BeliMerk);
                 bundle.putString("harga", BeliHarga);
-                bundle.putInt("min_belanja", BeliMin_belanja);
+                //bundle.putInt("min_belanja", BeliMin_belanja);
                 bundle.putString("ongkir", BeliOngkir);
                 bundle.putString("satuan", BeliSatuan);
                 bundle.putString("gambar", BeliGambar);
                 bundle.putString("deskripsi", BeliDeskripsi);
+                bundle.putString("nama", EdtNamaBeli.getText().toString().trim());
+                bundle.putString("no_ponsel", EdtNopBeli.getText().toString().trim());
+                bundle.putInt("min_belanja", Integer.parseInt(MinBelanjabeli.getText().toString().trim()));
+                bundle.putString("tanggal", EdtTglBeli.getText().toString().trim());
+                //bundle.putString("ongkir", Ongkir.getText().toString().trim());
+                //bundle.putString("total", TotalBayar.getText().toString().trim());
+                bundle.putString("metode_bayar", MetodePembayaran.getSelectedItem().toString());
                 //bundle.putInt("jumlah", count);
                 Intent intent = new Intent(BeliProdukActivity.this, MapsOrderActivity.class);
                 intent.putExtras(bundle);
@@ -328,34 +406,7 @@ public class BeliProdukActivity extends AppCompatActivity {
             }
         });
 
-        Bundle bundle1 = getIntent().getExtras();
-        if (bundle1 != null){
-            BeliId = bundle.getInt("id");
-            BeliNama_Barang = bundle.getString("nama_barang");
-            BeliMerk = bundle.getString("merk");
-            BeliHarga = bundle.getString("harga");
-            BeliMin_belanja = bundle.getInt("min_belanja", 0);
-            BeliMin_belanja1 = bundle.getInt("min_belanja", 0);
-            BeliOngkir = bundle.getString("ongkir");
-            BeliSatuan = bundle.getString("satuan");
-            BeliGambar = bundle.getString("gambar");
-            BeliDeskripsi = bundle.getString("deskripsi");
-            ulatitude = bundle1.getString("latitude");
-            ulongitude = bundle1.getString("longitude");
-            ualamat = bundle1.getString("alamat");
 
-            Nama_Barangbeli.setText(BeliNama_Barang);
-            Merkbeli.setText(BeliMerk);
-            Hargabeli.setText(BeliHarga);
-            Satuanbeli.setText(BeliSatuan);
-            MinBelanjabeli.setText(""+BeliMin_belanja);
-            //Ongkir.setText(BeliOngkir);
-            Glide.with(BeliImgProduk1.getContext())
-                    .load(BeliGambar).into(BeliImgProduk1);
-            LatOrder.setText(ulatitude);
-            LongOrder.setText(ulongitude);
-            EdtAlamatBeli.setText(ualamat);
-        }
 
 
 
@@ -405,9 +456,18 @@ public class BeliProdukActivity extends AppCompatActivity {
             ongkirPesan = Ongkir.getText().toString().trim();
             TotalHargaPesan = TotalBayar.getText().toString().trim();
             MetodeBayarPesan = MetodePembayaran.getSelectedItem().toString();
+            newLatitude = LatOrder.getText().toString();
+            newLongitude = LongOrder.getText().toString();
 
             int lenNopBeli = NohpPesan.length();
 
+            double lattujuan = Double.valueOf(LatOrder.getText().toString());
+            double longtujuan = Double.valueOf(LongOrder.getText().toString());
+            double lattoko = Double.valueOf(latitude);
+            double longtoko = Double.valueOf(longitude);
+
+            double jarakMaks = 10000;
+            double jarak = getJarak(lattujuan,longtujuan, lattoko, longtoko);
 
             if (namaPemesan.equals("")) {
                 EdtNamaBeli.setError("Nama TIDAK BOLEH KOSONG");
@@ -429,15 +489,19 @@ public class BeliProdukActivity extends AppCompatActivity {
                 EdtTglBeli.setError("Tanggal TIDAK BOLEH KOSONG");
                 PbBuatPesan.setVisibility(View.GONE);
                 btnBuatPesanan.setVisibility(View.VISIBLE);
-            }else if (MetodeBayarPesan != n_metode[0]){
+            }else if (jarak > jarakMaks) {
+                Toast.makeText(this, "Alamat Pengiriman Lebih dari 10 KM", Toast.LENGTH_SHORT).show();
+                PbBuatPesan.setVisibility(View.GONE);
+                btnBuatPesanan.setVisibility(View.VISIBLE);
+            } else if (MetodeBayarPesan != n_metode[0]){
                 ApiRequestPembeli requestBuatPesanan = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
                 Call<ResponseBuatPesanan> SimpanBuatPesanan = requestBuatPesanan.SendBuatPesanan(
                         idPesanan,
                         namaPemesan,
                         NohpPesan,
                         alamatKirimPesan,
-                        ulatitude,
-                        ulongitude,
+                        newLatitude,
+                        newLongitude,
                         namaBarangPesan,
                         merkBarangPesan,
                         hargaBarangPesan,
@@ -491,8 +555,8 @@ public class BeliProdukActivity extends AppCompatActivity {
                         namaPemesan,
                         NohpPesan,
                         alamatKirimPesan,
-                        ulatitude,
-                        ulongitude,
+                        newLatitude,
+                        newLongitude,
                         namaBarangPesan,
                         merkBarangPesan,
                         hargaBarangPesan,
@@ -559,6 +623,7 @@ public class BeliProdukActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         getProfilePembeli();
+        getProfilePenjual();
     }
 
     private void getProfilePembeli() {
@@ -601,5 +666,83 @@ public class BeliProdukActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    private void getProfilePenjual() {
+        //pbDataPenjual.setVisibility(View.VISIBLE);
+        ApiRequestDataProduk requestDataPenjual = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+        Call<ResponseDataPenjual> tampilData = requestDataPenjual.RetrieveDataPenjual();
+
+        tampilData.enqueue(new Callback<ResponseDataPenjual>() {
+            @Override
+            public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
+                if (response.isSuccessful()){
+                    try {
+                        dataPenjualList = response.body().getDataPenjual();
+
+                        id = dataPenjualList.get(index).getId();
+                        nama = dataPenjualList.get(index).getNama();
+                        nik = dataPenjualList.get(index).getNik();
+                        tempat_lahir = dataPenjualList.get(index).getTempat_lahir();
+                        tanggal_lahir = dataPenjualList.get(index).getTanggal_lahir();
+                        jenis_kelamin = dataPenjualList.get(index).getJenis_kelamin();
+                        alamat = dataPenjualList.get(index).getAlamat();
+                        latitude = dataPenjualList.get(index).getLatitude();
+                        longitude = dataPenjualList.get(index).getLongitude();
+                        no_ponsel1 = dataPenjualList.get(index).getNo_ponsel();
+                        nama_toko = dataPenjualList.get(index).getNama_toko();
+                        nama_bank = dataPenjualList.get(index).getNama_bank();
+                        no_rekening = dataPenjualList.get(index).getNo_rekening();
+                        gambar = dataPenjualList.get(index).getGambar();
+
+                        // Log.i("tes", ""+nik);
+
+
+                    }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                        // Log.i("tes", ""+nik);
+                    }
+
+
+                    /*adapterProfilePenjual = new AdapterProfilePenjual(HalamanProfilePenjualActivity.this, dataPenjualList);
+                    recyclerView.setAdapter(adapterProfilePenjual);
+                    adapterProfilePenjual.notifyDataSetChanged();*/
+
+                }
+
+                //pbDataPenjual.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataPenjual> call, Throwable t) {
+                Toast.makeText(BeliProdukActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+               // pbDataPenjual.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    private Double getJarak(Double latTujuan, Double longTujuan, Double latToko, Double longToko){
+        Double pi = 3.14;
+
+        Double latTuj = latTujuan;
+        Double longTuj = longTujuan;
+
+        Double latTo = latToko;
+        Double longTo = longToko;
+        Double R = 6371e3;
+
+        Double latTujRad = latTuj * (pi / 180);
+        Double latToRad = latTo * (pi / 180);
+
+        Double deltalatRad = (latTo - latTuj) * (pi / 180);
+        Double deltaLonRad = (longTo - longTuj) * (pi / 180);
+
+        //rumus haversine
+        Double a = Math.sin(deltalatRad / 2) * Math.sin(deltalatRad / 2) + Math.cos(latTujRad) * Math.cos(latToRad) * Math.sin(deltaLonRad /2) * Math.sin(deltaLonRad /2);
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 -a));
+        Double s = R * c ; //jarak (meter)
+
+        return  s;
     }
 }

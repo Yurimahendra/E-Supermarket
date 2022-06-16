@@ -234,6 +234,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                         tanggal_lahir = dataPenjualList.get(index).getTanggal_lahir();
                         jenis_kelamin = dataPenjualList.get(index).getJenis_kelamin();
                         alamat = dataPenjualList.get(index).getAlamat();
+                        latitude = dataPenjualList.get(index).getLatitude();
+                        longitude = dataPenjualList.get(index).getLongitude();
                         no_ponsel = dataPenjualList.get(index).getNo_ponsel();
                         nama_toko = dataPenjualList.get(index).getNama_toko();
                         nama_bank = dataPenjualList.get(index).getNama_bank();
@@ -249,6 +251,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                         Tgllahirpenjual.setText(tanggal_lahir);
                         Jkpenjual.setText(jenis_kelamin);
                         Alamatpenjual.setText(alamat);
+                        LatitudePenjual.setText(latitude);
+                        LongitudePenjual.setText(longitude);
                         Noponselpenjual.setText(no_ponsel);
                         Namatokopenjual.setText(nama_toko);
                         Namabankpenjual.setText(nama_bank);

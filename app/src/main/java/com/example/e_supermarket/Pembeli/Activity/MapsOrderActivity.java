@@ -55,6 +55,19 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
     private String BeliDeskripsi;
     private int BeliId;
 
+    private int minBelanjaPesan;
+    private String TotalHargaPesan;
+    private String ongkirPesan;
+    private String NohpPesan;
+    private String tglKirimPesan;
+    private String MetodeBayarPesan;
+    private String namaPemesan;
+
+    private String ConvOngkir;
+    private  String ConvTotalHarga;
+    private String ConvOngkir1;
+    private String ConvTotalHarga1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +82,27 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
         BeliNama_Barang = bundle.getString("nama_barang");
         BeliMerk = bundle.getString("merk");
         BeliHarga = bundle.getString("harga");
-        BeliMin_belanja = bundle.getInt("min_belanja", 0);
-        BeliMin_belanja1 = bundle.getInt("min_belanja", 0);
+        minBelanjaPesan = bundle.getInt("min_belanja", 0);
+        //BeliMin_belanja1 = bundle.getInt("min_belanja", 0);
         BeliOngkir = bundle.getString("ongkir");
         BeliSatuan = bundle.getString("satuan");
         BeliGambar = bundle.getString("gambar");
         BeliDeskripsi = bundle.getString("deskripsi");
+        //TotalHargaPesan = bundle.getString("total");
+        //ongkirPesan = bundle.getString("ongkir");
+        NohpPesan = bundle.getString("no_ponsel");
+        tglKirimPesan = bundle.getString("tanggal");
+        MetodeBayarPesan = bundle.getString("metode_bayar");
+        namaPemesan = bundle.getString("nama");
+
+
+        /*ConvOngkir = ongkirPesan.replace("Rp", "Rp. ");
+        ConvOngkir1 = ConvOngkir.replace(",00", "");
+
+        ConvTotalHarga = TotalHargaPesan.replace("Rp", "Rp. ");
+        ConvTotalHarga1 = ConvTotalHarga.replace(",00", "");*/
+
+
 
         latitudOrder = findViewById(R.id.latMapsOrder);
         longitudeOrder = findViewById(R.id.longiMapsOrder);
@@ -88,7 +116,7 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
                 bundle1.putString("nama_barang", BeliNama_Barang);
                 bundle1.putString("merk", BeliMerk);
                 bundle1.putString("harga", BeliHarga);
-                bundle1.putInt("min_belanja", BeliMin_belanja);
+                bundle1.putInt("min_belanja", minBelanjaPesan);
                 bundle1.putString("ongkir", BeliOngkir);
                 bundle1.putString("satuan", BeliSatuan);
                 bundle1.putString("gambar", BeliGambar);
@@ -96,6 +124,13 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
                 bundle1.putString("latitude", latitudOrder.getText().toString());
                 bundle1.putString("longitude", longitudeOrder.getText().toString());
                 bundle1.putString("alamat", alamatOrder.getText().toString());
+                //bundle1.putString("ongkir", ConvOngkir1);
+                //bundle1.putString("total", ConvTotalHarga1);
+                bundle1.putString("no_ponsel", NohpPesan);
+                bundle1.putString("tanggal", tglKirimPesan);
+                bundle1.putString("metode_bayar", MetodeBayarPesan);
+                bundle1.putString("nama", namaPemesan);
+
                 Intent intent = new Intent(MapsOrderActivity.this, BeliProdukActivity.class);
                 intent.putExtras(bundle1);
                 startActivity(intent);
