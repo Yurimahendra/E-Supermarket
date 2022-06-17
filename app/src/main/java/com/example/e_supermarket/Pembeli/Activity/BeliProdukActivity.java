@@ -162,6 +162,8 @@ public class BeliProdukActivity extends AppCompatActivity {
 
     private String newLatitude;
     private String newLongitude;
+    TextView LatToko;
+    TextView LongToko;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,6 +188,8 @@ public class BeliProdukActivity extends AppCompatActivity {
 
         LatOrder = findViewById(R.id.latOrder);
         LongOrder = findViewById(R.id.longiOrder);
+        LatToko = findViewById(R.id.latTokoOrder);
+        LongToko = findViewById(R.id.longTokoOrder);
         btnBukaMapsOrder = findViewById(R.id.btnBukaMapsOrder);
 
 
@@ -266,6 +270,11 @@ public class BeliProdukActivity extends AppCompatActivity {
             }
         });
 
+        //latTokobaru = latitude;
+        //longTokobaru = longitude;
+        getProfilePembeli();
+        getProfilePenjual();
+
         btnBuatPesanan = findViewById(R.id.btnbuatPesanan);
         btnBuatPesanan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,7 +339,8 @@ public class BeliProdukActivity extends AppCompatActivity {
             ulatitude = bundle1.getString("latitude");
             ulongitude = bundle1.getString("longitude");
             ualamat = bundle1.getString("alamat");
-
+            latitude = bundle1.getString("lattoko");
+            longitude = bundle1.getString("longtoko");
 
 
             Nama_Barangbeli.setText(BeliNama_Barang);
@@ -347,14 +357,16 @@ public class BeliProdukActivity extends AppCompatActivity {
             EdtNamaBeli.setText(namaPemesan);
             EdtTglBeli.setText(tglKirimPesan);
             EdtNopBeli.setText(NohpPesan);
+            LatToko.setText(latitude);
+            LongToko.setText(longitude);
             //TotalBayar.setText(TotalHargaPesan);
             if (MetodeBayarPesan != null){
                 if (MetodeBayarPesan.equals(n_metode[0])) index = 0;
                 else if (MetodeBayarPesan.equals(n_metode[1])) index = 1;
                 MetodePembayaran.setSelection(index);
             }
-            Log.i("latOrder", ""+ LatOrder.getText().toString());
-            Log.i("longOrder", ""+LongOrder.getText().toString());
+            //Log.i("latOrder", ""+ LatOrder.getText().toString());
+            //Log.i("longOrder", ""+LongOrder.getText().toString());
         }
 
 
@@ -396,8 +408,8 @@ public class BeliProdukActivity extends AppCompatActivity {
                 bundle.putString("no_ponsel", EdtNopBeli.getText().toString().trim());
                 bundle.putInt("min_belanja", Integer.parseInt(MinBelanjabeli.getText().toString().trim()));
                 bundle.putString("tanggal", EdtTglBeli.getText().toString().trim());
-                //bundle.putString("ongkir", Ongkir.getText().toString().trim());
-                //bundle.putString("total", TotalBayar.getText().toString().trim());
+                bundle.putString("lattoko", LatToko.getText().toString());
+                bundle.putString("longtoko", LongToko.getText().toString());
                 bundle.putString("metode_bayar", MetodePembayaran.getSelectedItem().toString());
                 //bundle.putInt("jumlah", count);
                 Intent intent = new Intent(BeliProdukActivity.this, MapsOrderActivity.class);
@@ -438,6 +450,12 @@ public class BeliProdukActivity extends AppCompatActivity {
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH));
         datePickerDialogBeli.show();
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        getProfilePembeli();
+        getProfilePenjual();
+    }
 
     private void insertbuatPesanan() {
         PbBuatPesan.setVisibility(View.VISIBLE);
@@ -461,10 +479,13 @@ public class BeliProdukActivity extends AppCompatActivity {
 
             int lenNopBeli = NohpPesan.length();
 
+            Log.i("latToko", ""+LatToko.getText().toString());
+            Log.i("LongToko", ""+LongToko.getText().toString());
+
             double lattujuan = Double.valueOf(LatOrder.getText().toString());
             double longtujuan = Double.valueOf(LongOrder.getText().toString());
-            double lattoko = Double.valueOf(latitude);
-            double longtoko = Double.valueOf(longitude);
+            double lattoko = Double.valueOf(LatToko.getText().toString());
+            double longtoko = Double.valueOf(LongToko.getText().toString());
 
             double jarakMaks = 10000;
             double jarak = getJarak(lattujuan,longtujuan, lattoko, longtoko);
@@ -619,13 +640,6 @@ public class BeliProdukActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getProfilePembeli();
-        getProfilePenjual();
-    }
-
     private void getProfilePembeli() {
         //pbProfPembeli.setVisibility(View.VISIBLE);
         ApiRequestPembeli requestDataPembeli = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
@@ -681,23 +695,14 @@ public class BeliProdukActivity extends AppCompatActivity {
                     try {
                         dataPenjualList = response.body().getDataPenjual();
 
-                        id = dataPenjualList.get(index).getId();
-                        nama = dataPenjualList.get(index).getNama();
-                        nik = dataPenjualList.get(index).getNik();
-                        tempat_lahir = dataPenjualList.get(index).getTempat_lahir();
-                        tanggal_lahir = dataPenjualList.get(index).getTanggal_lahir();
-                        jenis_kelamin = dataPenjualList.get(index).getJenis_kelamin();
-                        alamat = dataPenjualList.get(index).getAlamat();
                         latitude = dataPenjualList.get(index).getLatitude();
                         longitude = dataPenjualList.get(index).getLongitude();
-                        no_ponsel1 = dataPenjualList.get(index).getNo_ponsel();
-                        nama_toko = dataPenjualList.get(index).getNama_toko();
-                        nama_bank = dataPenjualList.get(index).getNama_bank();
-                        no_rekening = dataPenjualList.get(index).getNo_rekening();
-                        gambar = dataPenjualList.get(index).getGambar();
 
-                        // Log.i("tes", ""+nik);
+                        LatToko.setText(latitude);
+                        LongToko.setText(longitude);
 
+                        Log.i("latToko", ""+latitude);
+                        Log.i("LongToko", ""+longitude);
 
                     }catch (IndexOutOfBoundsException indexOutOfBoundsException){
                         // Log.i("tes", ""+nik);

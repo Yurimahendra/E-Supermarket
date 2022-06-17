@@ -63,8 +63,8 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
     private String MetodeBayarPesan;
     private String namaPemesan;
 
-    private String ConvOngkir;
-    private  String ConvTotalHarga;
+    private String LatToko;
+    private  String LongToko;
     private String ConvOngkir1;
     private String ConvTotalHarga1;
 
@@ -94,6 +94,8 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
         tglKirimPesan = bundle.getString("tanggal");
         MetodeBayarPesan = bundle.getString("metode_bayar");
         namaPemesan = bundle.getString("nama");
+        LatToko = bundle.getString("lattoko");
+        LongToko = bundle.getString("longtoko");
 
 
         /*ConvOngkir = ongkirPesan.replace("Rp", "Rp. ");
@@ -130,6 +132,8 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
                 bundle1.putString("tanggal", tglKirimPesan);
                 bundle1.putString("metode_bayar", MetodeBayarPesan);
                 bundle1.putString("nama", namaPemesan);
+                bundle1.putString("lattoko", LatToko);
+                bundle1.putString("longtoko", LongToko);
 
                 Intent intent = new Intent(MapsOrderActivity.this, BeliProdukActivity.class);
                 intent.putExtras(bundle1);

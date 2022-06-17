@@ -7,10 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HalamanChatPenjualActivity extends AppCompatActivity {
@@ -59,6 +61,14 @@ public class HalamanChatPenjualActivity extends AppCompatActivity {
         bottomNavigationViewPenjual = findViewById(R.id.nav_penjual);
         bottomNavigationViewPenjual.setOnNavigationItemSelectedListener(navigation_penjual);
         firebaseAuth = FirebaseAuth.getInstance();
+
+        FloatingActionButton btnKontakChat = findViewById(R.id.fab_msgpenj);
+        btnKontakChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HalamanChatPenjualActivity.this, KontakChatPenjualActivity.class));
+            }
+        });
     }
 
 

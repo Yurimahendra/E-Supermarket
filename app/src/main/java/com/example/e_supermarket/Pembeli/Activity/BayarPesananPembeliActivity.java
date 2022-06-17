@@ -110,6 +110,8 @@ public class BayarPesananPembeliActivity extends AppCompatActivity implements on
         UnamaPemesan = bundle.getString("nama");
         UNohpPesan = bundle.getString("no_hp");
         UalamatKirimPesan = bundle.getString("alamat");
+        Ulatitude = bundle.getString("latitude");
+        Ulongitude = bundle.getString("longitude");
         UnamaBarangPesan = bundle.getString("nama_barang");
         UmerkBarangPesan = bundle.getString("merk");
         UhargaBarangPesan = bundle.getString("harga");

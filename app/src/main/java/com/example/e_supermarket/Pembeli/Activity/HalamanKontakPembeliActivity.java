@@ -70,7 +70,6 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
         lnkontakPembl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HalamanKontakPembeliActivity.this, ChattinganActivity.class));
                 Bundle bundle = new Bundle();
                 bundle.putString("foto", RetroServer.imageURL + gambar);
                 bundle.putString("nama", tvNamaKontakPemb.getText().toString());
