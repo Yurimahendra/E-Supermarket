@@ -1,0 +1,37 @@
+package com.example.e_supermarket.Pembeli.Model;
+
+public class Chat {
+    private String isiPesan;
+    private String pengirim;
+    private String penerima;
+
+    public Chat(String isiPesan, String pengirim, String penerima) {
+        this.isiPesan = isiPesan;
+        this.pengirim = pengirim;
+        this.penerima = penerima;
+    }
+
+    public String getIsiPesan() {
+        return isiPesan;
+    }
+
+    public void setIsiPesan(String isiPesan) {
+        this.isiPesan = isiPesan;
+    }
+
+    public String getPengirim() {
+        return pengirim;
+    }
+
+    public void setPengirim(String pengirim) {
+        this.pengirim = pengirim;
+    }
+
+    public String getPenerima() {
+        return penerima;
+    }
+
+    public void setPenerima(String penerima) {
+        this.penerima = penerima;
+    }
+}
