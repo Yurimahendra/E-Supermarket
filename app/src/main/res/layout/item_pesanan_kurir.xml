@@ -32,6 +32,28 @@
             android:layout_marginLeft="10dp"
             android:visibility="gone"/>
 
+        <TextView
+            android:id="@+id/tvLatKurir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="lat"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPesananKurir"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvLongKurir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="long"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/ImgItemPesananKurir"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvNamaBarangPesananKurir"
             android:layout_width="match_parent"

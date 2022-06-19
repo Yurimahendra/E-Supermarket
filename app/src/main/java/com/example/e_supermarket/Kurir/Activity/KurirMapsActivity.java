@@ -35,6 +35,12 @@ public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCal
     TextView latitud;
     TextView longitude;
     TextView alamat;
+    private String latitudeOrder;
+    private String longitudeOrder;
+    private String alamatOrder;
+
+    double ConvLat;
+    double ConvLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,14 @@ public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCal
         latitud = findViewById(R.id.lat);
         longitude = findViewById(R.id.longi);
         alamat = findViewById(R.id.alamatlatlon);
+
+        Bundle bundle = getIntent().getExtras();
+        latitudeOrder = bundle.getString("latitude");
+        longitudeOrder = bundle.getString("longitude");
+        alamatOrder = bundle.getString("alamat");
+
+        ConvLat = Double.valueOf(latitudeOrder);
+        ConvLong = Double.valueOf(longitudeOrder);
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -83,9 +97,9 @@ public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCal
                     LatLng lokasisekarang = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.addMarker(new MarkerOptions().position(lokasisekarang).title(addres));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(lokasisekarang));
-                    latitud.setText(String.valueOf(location.getLatitude()));
-                    longitude.setText(String.valueOf(location.getLongitude()));
-                    alamat.setText(addres);
+                    //latitud.setText(String.valueOf(location.getLatitude()));
+                    //longitude.setText(String.valueOf(location.getLongitude()));
+                    //alamat.setText(addres);
                 }
             }
         });
@@ -105,9 +119,9 @@ public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCal
         mMap = googleMap;
         oke = true;
         // Add a marker in Sydney and move the camera
-        /*LatLng phb = new LatLng(-6.868345, 109.107206);
-        mMap.addMarker(new MarkerOptions().position(phb).title("Marker in Politeknik Harapan Bersama"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(phb));*/
+        LatLng phb = new LatLng(ConvLat, ConvLong);
+        mMap.addMarker(new MarkerOptions().position(phb).title(alamatOrder));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(phb));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling

@@ -61,6 +61,11 @@ public class DetailPesananKurirActivity extends AppCompatActivity {
     private String UtglKirimPesan;
     private String UMetodeBayarPesan;
     private String UStatus;
+    private String latitude;
+    private String longitude;
+
+    private TextView LatDetKurir;
+    private TextView LongDetKurir;
 
     Button TerkirimDetailKurir;
     ProgressBar PbDetailTerkirimKurir;
@@ -85,6 +90,8 @@ public class DetailPesananKurirActivity extends AppCompatActivity {
         EdtAlamatDetailKurir = findViewById(R.id.EdtAlamatOrderKurir);
         EdtNopDetailKurir = findViewById(R.id.EdtNopOrderKurir);
         EdtTglDetailKurir = findViewById(R.id.EdtTabeOrderKurir);
+        LatDetKurir = findViewById(R.id.tvLatDetailKurir);
+        LongDetKurir = findViewById(R.id.tvLongDetailKurir);
 
         backDetailKurir = findViewById(R.id.imgBackOrderProdukKurir);
         //TerkirimDetailKurir = findViewById(R.id.TerkirimOrder1Kurir);
@@ -120,6 +127,8 @@ public class DetailPesananKurirActivity extends AppCompatActivity {
         UongkirPesan = bundle.getString("ongkir");
         UTotalHargaPesan = bundle.getString("total");
         UMetodeBayarPesan = bundle.getString("metode");
+        latitude = bundle.getString("latitude");
+        longitude = bundle.getString("longitude");
 
         tvIdPesananDetailKurir.setText(UidPesanan);
         EdtNamaDetailKurir.setText(UnamaPemesan);
@@ -136,12 +145,21 @@ public class DetailPesananKurirActivity extends AppCompatActivity {
         OngkirDetailKurir.setText(UongkirPesan);
         tvTotalHargaKurir.setText(UTotalHargaPesan);
         MetodePembayaranDetailKurir.setText(UMetodeBayarPesan);
+        LatDetKurir.setText(latitude);
+        LongDetKurir.setText(longitude);
 
         btnLihatMaps = findViewById(R.id.LihatMapKurir);
         btnLihatMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DetailPesananKurirActivity.this, KurirMapsActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putString("latitude", LatDetKurir.getText().toString());
+                bundle.putString("longitude", LongDetKurir.getText().toString());
+                bundle.putString("alamat", EdtAlamatDetailKurir.getText().toString());
+                //bundle.putInt("jumlah", count);
+                Intent intent = new Intent(DetailPesananKurirActivity.this, KurirMapsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }

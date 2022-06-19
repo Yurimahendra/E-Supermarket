@@ -19,28 +19,32 @@
         android:layout_height="wrap_content"
         android:id="@+id/lat"
         android:text="latidu"
-        android:layout_above="@+id/longi"/>
+        android:layout_above="@+id/longi"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/longi"
         android:text="longitud"
-        android:layout_above="@+id/alamatlatlon"/>
+        android:layout_above="@+id/alamatlatlon"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/alamatlatlon"
         android:text="alamat"
-        android:layout_above="@+id/btnsimpanlokasi"/>
+        android:layout_above="@+id/btnsimpanlokasi"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/btnsimpanlokasi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="SIMPAN"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>
 

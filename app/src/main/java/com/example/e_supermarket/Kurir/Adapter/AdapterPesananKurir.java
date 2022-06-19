@@ -50,6 +50,8 @@ public class AdapterPesananKurir extends RecyclerView.Adapter<AdapterPesananKuri
         holder.JumlahPesananKurir.setText(""+buatPesananListKurir.get(position).getJumlah_pesanan());
         Glide.with(holder.imageProdukPesananKurir.getContext())
                 .load(buatPesananListKurir.get(position).getGambar()).into(holder.imageProdukPesananKurir);
+        holder.LatKurir.setText(buatPesananListKurir.get(position).getLatitude());
+        holder.LongKurir.setText(buatPesananListKurir.get(position).getLongitude());
         //holder.DeskripsiPembeli.setText(ProdukListPembeli.get(position).getDeskripsi());
         holder.UbahKurir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +73,8 @@ public class AdapterPesananKurir extends RecyclerView.Adapter<AdapterPesananKuri
                 bundle.putString("ongkir", item.getOngkir());
                 bundle.putString("total", item.getTotal_harga());
                 bundle.putString("metode", item.getMetode_pembayaran());
+                bundle.putString("latitude", item.getLatitude());
+                bundle.putString("longitude", item.getLongitude());
                 //bundle.putInt("jumlah", count);
                 Intent intent = new Intent(halamanUtamaKurirActivity, DetailPesananKurirActivity.class);
                 intent.putExtras(bundle);
@@ -92,6 +96,8 @@ public class AdapterPesananKurir extends RecyclerView.Adapter<AdapterPesananKuri
         // TextView StokPesanan;
         TextView SatuanPesananKurir;
         TextView JumlahPesananKurir;
+        TextView LatKurir;
+        TextView LongKurir;
 
 
         // ImageView KeranjangProduk;
@@ -115,6 +121,9 @@ public class AdapterPesananKurir extends RecyclerView.Adapter<AdapterPesananKuri
 
             // KeranjangProduk = itemView.findViewById(R.id.ImgKeranjang);
             UbahKurir = itemView.findViewById(R.id.btnUbahKurir);
+
+            LatKurir = itemView.findViewById(R.id.tvLatKurir);
+            LongKurir = itemView.findViewById(R.id.tvLongKurir);
 
 
         }
