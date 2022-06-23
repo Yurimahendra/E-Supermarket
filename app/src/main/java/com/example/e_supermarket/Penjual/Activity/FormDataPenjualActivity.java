@@ -29,9 +29,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 //import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,18 +57,18 @@ public class FormDataPenjualActivity extends AppCompatActivity {
     Button BtnUpdate;
     DatePickerDialog datePickerDialog;
     SimpleDateFormat dateFormat;
-    FirebaseFirestore Dbroot;
+    //FirebaseFirestore Dbroot;
 
     private List<DataPenjual> dataPenjualList;
     private AdapterProfilePenjual adapterProfilePenjual;
 
-    private FirebaseFirestore db;
+    //private FirebaseFirestore db;
 
      int p = 0;
 
     ProgressBar PbSimpanDataS;
-    FirebaseStorage storage;
-    StorageReference storageReference;
+    //FirebaseStorage storage;
+    //StorageReference storageReference;
 
     int index_jk;
     private String jk[] = {"Pria", "Wanita"};
@@ -119,7 +117,7 @@ public class FormDataPenjualActivity extends AppCompatActivity {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         BtnUpdate = (Button) findViewById(R.id.btnUpdateData);
-        Dbroot = FirebaseFirestore.getInstance();
+        //Dbroot = FirebaseFirestore.getInstance();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
@@ -213,7 +211,7 @@ public class FormDataPenjualActivity extends AppCompatActivity {
             }
         });
 
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
         dataPenjualList = new ArrayList<>();
 
 

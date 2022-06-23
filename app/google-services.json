@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "687491761609",
-    "project_id": "esupermarket-9f9e0",
-    "storage_bucket": "esupermarket-9f9e0.appspot.com"
+    "project_number": "338665032975",
+    "project_id": "e-supermarket1",
+    "storage_bucket": "e-supermarket1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:687491761609:android:6144735298dcaa4c5b5418",
+        "mobilesdk_app_id": "1:338665032975:android:28b3e9fcebb2db218a427a",
         "android_client_info": {
           "package_name": "com.example.e_supermarket"
         }
       },
       "oauth_client": [
         {
-          "client_id": "687491761609-f3eq7auqt66gg2irdtqftl314g40dgs9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.e_supermarket",
-            "certificate_hash": "16d03a5464482f5277d6359525134d5b64f58f97"
-          }
-        },
-        {
-          "client_id": "687491761609-mgbflvdgu3cn281e8c3vn9lmo9du73ns.apps.googleusercontent.com",
+          "client_id": "338665032975-nk9tq73ug8i2n3itg092numo1rh4ok2l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBIyG08DQ1LiRtODj9gEsKiMv8F3P-2T78"
+          "current_key": "AIzaSyCjxaL_U53TWi-MOIWMrWmrUNFXyzs5b9A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "687491761609-mgbflvdgu3cn281e8c3vn9lmo9du73ns.apps.googleusercontent.com",
+              "client_id": "338665032975-nk9tq73ug8i2n3itg092numo1rh4ok2l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

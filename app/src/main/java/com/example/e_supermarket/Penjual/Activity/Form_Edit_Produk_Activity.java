@@ -31,7 +31,7 @@ import com.example.e_supermarket.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
+
 
 import java.io.File;
 import java.text.NumberFormat;
@@ -53,7 +53,7 @@ public class Form_Edit_Produk_Activity extends AppCompatActivity implements onRe
     EditText Ongkir;
     Spinner Satuan;
     EditText Deskripsi;
-    FirebaseFirestore db;
+   // FirebaseFirestore db;
 
     private String uNama_Barang;
     private String uMerk;

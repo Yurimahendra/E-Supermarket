@@ -4,11 +4,17 @@ public class Chat {
     private String isiPesan;
     private String pengirim;
     private String penerima;
+    private String tanggal;
 
-    public Chat(String isiPesan, String pengirim, String penerima) {
+
+    public Chat() {
+    }
+
+    public Chat(String isiPesan, String pengirim, String penerima, String tanggal) {
         this.isiPesan = isiPesan;
         this.pengirim = pengirim;
         this.penerima = penerima;
+        this.tanggal = tanggal;
     }
 
     public String getIsiPesan() {
@@ -33,5 +39,13 @@ public class Chat {
 
     public void setPenerima(String penerima) {
         this.penerima = penerima;
+    }
+
+    public String getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
     }
 }

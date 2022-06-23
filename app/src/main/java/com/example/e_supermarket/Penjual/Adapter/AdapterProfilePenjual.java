@@ -18,9 +18,7 @@ import com.example.e_supermarket.Penjual.Activity.HalamanProfilePenjualActivity;
 import com.example.e_supermarket.Penjual.Model.DataPenjual;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+
 
 import java.util.List;
 
@@ -31,9 +29,9 @@ public class AdapterProfilePenjual extends RecyclerView.Adapter<AdapterProfilePe
     private Context context;
     private List<DataPenjual> penjualList;
 
-    FirebaseFirestore db;
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
+    //FirebaseFirestore db;
+    //private FirebaseStorage storage;
+    //private StorageReference storageReference;
 
     public AdapterProfilePenjual(Context context, List<DataPenjual> penjualList) {
         this.context = context;

@@ -19,11 +19,7 @@ import com.example.e_supermarket.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +35,11 @@ public class ProfileFragmentPenjual extends Fragment {
     private List<DataPenjual> dataPenjualList;
     private AdapterProfilePenjual adapterProfilePenjual;
 
-    private FirebaseFirestore db;
+    //private FirebaseFirestore db;
 
 
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
+    //private FirebaseStorage storage;
+    //private StorageReference storageReference;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

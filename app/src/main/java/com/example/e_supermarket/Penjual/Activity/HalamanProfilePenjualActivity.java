@@ -39,11 +39,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,13 +57,13 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
    // private AdapterProfilePenjual adapterProfilePenjual;
     private int index;
 
-    private FirebaseFirestore db;
+    //private FirebaseFirestore db;
 
     private SwipeRefreshLayout srlDataPenjual;
     private ProgressBar pbDataPenjual;
 
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
+    //private FirebaseStorage storage;
+    //private StorageReference storageReference;
 
     TextView idPnjl;
     TextView Nama_penjual;
