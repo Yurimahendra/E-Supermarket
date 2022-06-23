@@ -97,6 +97,8 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        getProfilePenjual();
+        getProfilePembeli();
     }
 
     @Override
@@ -142,7 +144,7 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
                         //Tgllahirpenjual.setText(tanggal_lahir);
                         //Jkpenjual.setText(jenis_kelamin);
                         //Alamatpenjual.setText(alamat);
-                        //Noponselpenjual.setText(no_ponsel);
+                        tvNoponKontakPemb.setText(no_ponsel);
                         //Namatokopenjual.setText(nama_toko);
                         //Namabankpenjual.setText(nama_bank);
                         //NoRek.setText(""+no_rekening);
