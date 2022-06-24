@@ -41,10 +41,11 @@
         android:padding="5dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgProfilKontakPembeli"
+            android:id="@+id/imgProfilKontakPenjual"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_person_24" />
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -53,7 +54,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvNamaKontakPembeli"
+                android:id="@+id/tvNamaKontakPenjual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -62,7 +63,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvNoponKontakPembeli"
+                android:id="@+id/tvNoponKontakPenjual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -72,13 +73,31 @@
                 android:visibility="gone"/>
 
             <TextView
-                android:id="@+id/tvNoponPengirim"
+                android:id="@+id/tvNamaKontakPembeli"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="Nopon Pengirim"
+                android:text="Nama Pembeli"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:visibility="gone"/>
+
+
+            <TextView
+                android:id="@+id/tvNoponPembeli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Nopon Pembeli"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgProfilKontakPembeli"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_person_24"
                 android:visibility="gone"/>
 
 

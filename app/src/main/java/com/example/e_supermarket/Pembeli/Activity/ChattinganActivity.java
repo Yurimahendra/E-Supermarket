@@ -36,12 +36,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChattinganActivity extends AppCompatActivity {
     ImageView backChatinga;
-    CircleImageView fotoChtingan;
-    TextView NamaChtingan;
-    private String Ufoto;
-    private String Unama;
-    private String Upenerima;
-    private String Upengirim;
+    CircleImageView fotoChtinganPenjual;
+    TextView NamaChtinganPenjual;
+
+    private String UfotoPenjual;
+    private String UnamaPenjual;
+    private String Unoponpenjual;
+
+    private String UfotoPembeli;
+    private String UnamaPembeli;
+    private String UnoponPembeli;
 
     private DatabaseReference reference;
 
@@ -63,18 +67,21 @@ public class ChattinganActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        NamaChtingan = findViewById(R.id.tvNamaChatinganPembeli);
-        fotoChtingan = findViewById(R.id.imgProfilChtinganPembeli);
+        NamaChtinganPenjual = findViewById(R.id.tvNamaChatinganPenjual);
+        fotoChtinganPenjual = findViewById(R.id.imgProfilChtinganPenjual);
 
         Bundle bundle = getIntent().getExtras();
-        Ufoto = bundle.getString("foto");
-        Unama = bundle.getString("nama");
-        Upenerima = bundle.getString("no_ponsel");
-        Upengirim = bundle.getString("pengirim");
+        UfotoPenjual = bundle.getString("foto_penjual");
+        UnamaPenjual = bundle.getString("nama_penjual");
+        Unoponpenjual = bundle.getString("no_ponsel_penjual");
 
-        NamaChtingan.setText(Unama);
-        Glide.with(fotoChtingan.getContext())
-                .load(Ufoto).into(fotoChtingan);
+        UfotoPembeli = bundle.getString("foto_pembeli");
+        UnamaPembeli = bundle.getString("nama_pembeli");
+        UnoponPembeli = bundle.getString("no_ponsel_pembeli");
+
+        NamaChtinganPenjual.setText(UnamaPenjual);
+        Glide.with(fotoChtinganPenjual.getContext())
+                .load(UfotoPenjual).into(fotoChtinganPenjual);
 
         chattinganBinding.btnKirimChatPemb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,10 +111,10 @@ public class ChattinganActivity extends AppCompatActivity {
                     chatList.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         Chat chat = snapshot.getValue(Chat.class);
-                        if (chat != null && chat.getPengirim().equals(Upengirim)
-                                && chat.getPenerima().equals(Upenerima)
-                                || chat.getPenerima().equals(Upengirim)
-                                && chat.getPengirim().equals(Upenerima)){
+                        if (chat != null && chat.getNo_pembeli().equals(UnoponPembeli)
+                                && chat.getNo_penjual().equals(Unoponpenjual)
+                                || chat.getNo_penjual().equals(UnoponPembeli)
+                                && chat.getNo_pembeli().equals(Unoponpenjual)){
                             chatList.add(chat);
                         }
                     }
@@ -139,8 +146,8 @@ public class ChattinganActivity extends AppCompatActivity {
         SimpleDateFormat pukul = new SimpleDateFormat("hh:mm");
         String jam = pukul.format(calendar.getTime());*/
 
-        Chat chat = new Chat(text, Upengirim, Upenerima,
-                hari);
+        Chat chat = new Chat(text, UnamaPembeli, UnoponPembeli, UfotoPembeli,
+                UnamaPenjual, Unoponpenjual, UfotoPenjual, hari);
 
         reference.child("Pesan").push().setValue(chat).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -150,12 +157,12 @@ public class ChattinganActivity extends AppCompatActivity {
         });
 
         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("daftar chat").
-                child(Upengirim).child(Upenerima);
-        reference1.child("IDChat").setValue(Upenerima);
+                child(UnoponPembeli).child(Unoponpenjual);
+        reference1.child("IDChat").setValue(Unoponpenjual);
 
         DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("daftar chat").
-                child(Upenerima).child(Upengirim);
-        reference2.child("IDChat").setValue(Upenerima);
+                child(Unoponpenjual).child(UnoponPembeli);
+        reference2.child("IDChat").setValue(Unoponpenjual);
 
     }
 }

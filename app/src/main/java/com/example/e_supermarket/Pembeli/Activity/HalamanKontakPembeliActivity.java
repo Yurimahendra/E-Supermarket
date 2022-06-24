@@ -33,23 +33,18 @@ import retrofit2.Response;
 
 public class HalamanKontakPembeliActivity extends AppCompatActivity {
     ImageView backKontakPembeli;
-    CircleImageView proflKontkPembli;
+    CircleImageView proflKontkPenj;
+    TextView tvNamaKontakPenj;
+    TextView tvNoponKontakPenj;
+
+    CircleImageView proflKontkPemb;
     TextView tvNamaKontakPemb;
     TextView tvNoponKontakPemb;
-    TextView tvNoponpengirim;
+
     LinearLayout lnkontakPembl;
 
-    private int id;
-    private long nik ;
     private String nama ;
-    private String jenis_kelamin ;
     private String no_ponsel ;
-    private String tempat_lahir;
-    private String tanggal_lahir ;
-    private String alamat ;
-    private String nama_toko ;
-    private String nama_bank ;
-    private long no_rekening ;
     private String gambar;
 
     private RecyclerView recyclerView;
@@ -59,6 +54,8 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
     private List<DataPembeli> dataPembeliList = new ArrayList<>();
     private int index1;
     private String no_ponsel1 ;
+    private String nama1 ;
+    private String foto1 ;
 
     ProgressBar pbKontakPemb;
 
@@ -77,20 +74,26 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
             }
         });
 
-        proflKontkPembli = findViewById(R.id.imgProfilKontakPembeli);
+        proflKontkPenj = findViewById(R.id.imgProfilKontakPenjual);
+        tvNamaKontakPenj = findViewById(R.id.tvNamaKontakPenjual);
+        tvNoponKontakPenj = findViewById(R.id.tvNoponKontakPenjual);
+
+        proflKontkPemb = findViewById(R.id.imgProfilKontakPembeli);
         tvNamaKontakPemb = findViewById(R.id.tvNamaKontakPembeli);
-        tvNoponKontakPemb = findViewById(R.id.tvNoponKontakPembeli);
-        tvNoponpengirim = findViewById(R.id.tvNoponPengirim);
+        tvNoponKontakPemb = findViewById(R.id.tvNoponPembeli);
 
         lnkontakPembl = findViewById(R.id.lnKontakPemb);
         lnkontakPembl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("foto", RetroServer.imageURL + gambar);
-                bundle.putString("nama", tvNamaKontakPemb.getText().toString());
-                bundle.putString("no_ponsel", tvNoponKontakPemb.getText().toString());
-                bundle.putString("pengirim", tvNoponpengirim.getText().toString());
+                bundle.putString("foto_penjual", RetroServer.imageURL + gambar);
+                bundle.putString("nama_penjual", tvNamaKontakPenj.getText().toString());
+                bundle.putString("no_ponsel_penjual", tvNoponKontakPenj.getText().toString());
+
+                bundle.putString("foto_pembeli", RetroServer.imageURL + foto1);
+                bundle.putString("nama_pembeli", tvNamaKontakPemb.getText().toString());
+                bundle.putString("no_ponsel_pembeli", tvNoponKontakPemb.getText().toString());
                 //bundle.putInt("jumlah", count);
                 Intent intent = new Intent(HalamanKontakPembeliActivity.this, ChattinganActivity.class);
                 intent.putExtras(bundle);
@@ -122,34 +125,16 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
                     try {
                         dataPenjualList = response.body().getDataPenjual();
 
-                        id = dataPenjualList.get(index).getId();
                         nama = dataPenjualList.get(index).getNama();
-                        nik = dataPenjualList.get(index).getNik();
-                        tempat_lahir = dataPenjualList.get(index).getTempat_lahir();
-                        tanggal_lahir = dataPenjualList.get(index).getTanggal_lahir();
-                        jenis_kelamin = dataPenjualList.get(index).getJenis_kelamin();
-                        alamat = dataPenjualList.get(index).getAlamat();
                         no_ponsel = dataPenjualList.get(index).getNo_ponsel();
-                        nama_toko = dataPenjualList.get(index).getNama_toko();
-                        nama_bank = dataPenjualList.get(index).getNama_bank();
-                        no_rekening = dataPenjualList.get(index).getNo_rekening();
                         gambar = dataPenjualList.get(index).getGambar();
 
                         // Log.i("tes", ""+nik);
 
-                        //idPnjl.setText(""+id);
-                        tvNamaKontakPemb.setText(nama);
-                       // Nik.setText(""+nik);
-                        //Tmptlahirpenjual.setText(tempat_lahir);
-                        //Tgllahirpenjual.setText(tanggal_lahir);
-                        //Jkpenjual.setText(jenis_kelamin);
-                        //Alamatpenjual.setText(alamat);
-                        tvNoponKontakPemb.setText(no_ponsel);
-                        //Namatokopenjual.setText(nama_toko);
-                        //Namabankpenjual.setText(nama_bank);
-                        //NoRek.setText(""+no_rekening);
-                        Glide.with(proflKontkPembli.getContext())
-                                .load(RetroServer.imageURL + gambar).into(proflKontkPembli);
+                        tvNamaKontakPenj.setText(nama);
+                        tvNoponKontakPenj.setText(no_ponsel);
+                        Glide.with(proflKontkPenj.getContext())
+                                .load(RetroServer.imageURL + gambar).into(proflKontkPenj);
 
                     }catch (IndexOutOfBoundsException indexOutOfBoundsException){
                         // Log.i("tes", ""+nik);
@@ -185,9 +170,15 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     try {
                         dataPembeliList = response.body().getDataPembeli();
-                        no_ponsel1 = dataPembeliList.get(index1).getNo_ponsel();
 
-                        tvNoponpengirim.setText(no_ponsel1);
+                        nama1 = dataPembeliList.get(index1).getNama();
+                        no_ponsel1 = dataPembeliList.get(index1).getNo_ponsel();
+                        foto1 = dataPembeliList.get(index1).getGambar();
+
+                        tvNamaKontakPemb.setText(nama1);
+                        tvNoponKontakPemb.setText(no_ponsel1);
+                        Glide.with(proflKontkPemb.getContext())
+                                .load(RetroServer.imageURL + foto1).into(proflKontkPemb);
 
 
                     }catch (IndexOutOfBoundsException indexOutOfBoundsException){

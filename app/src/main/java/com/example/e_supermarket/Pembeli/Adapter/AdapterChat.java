@@ -89,7 +89,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (chatList.get(position).getPengirim().equals(no_ponsel)){
+        if (chatList.get(position).getNo_pembeli().equals(no_ponsel)){
             return pesanKirim;
         }else {
             return pesanTerima;
