@@ -53,6 +53,8 @@ public class ChattinganActivity extends AppCompatActivity {
     private AdapterChat adapterChat;
     private List<Chat> chatList;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

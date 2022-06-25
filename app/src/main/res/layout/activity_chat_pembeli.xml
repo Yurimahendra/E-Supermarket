@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".Pembeli.Activity.ChatPembeliActivity">
 
+    <TextView
+        android:id="@+id/tvNopembChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="nopon"
+        android:textSize="15sp"
+        android:layout_marginStart="5dp"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:id="@+id/lnchatPemb"
         android:layout_width="match_parent"
@@ -35,11 +44,22 @@
                 android:layout_marginStart="5dp"
                 android:visibility="gone"/>
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/textchatpemb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Chat"
+                android:textSize="15sp"
+                android:layout_marginStart="5dp"
+                android:visibility="gone"/>-->
+
+
+
+            <TextView
+                android:id="@+id/tvNopenjChat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nopon penj"
                 android:textSize="15sp"
                 android:layout_marginStart="5dp"
                 android:visibility="gone"/>
@@ -67,5 +87,13 @@
         android:background="@color/design_default_color_primary"
         app:itemIconTint="@color/white"
         android:layout_alignParentBottom="true"/>
+
+
+    <ProgressBar
+        android:id="@+id/pb_chatPemb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
 
 </RelativeLayout>
