@@ -60,23 +60,15 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/sw_ChatinganPembeli"
-        android:layout_below="@id/tolbarChatingPemb"
-        android:layout_above="@+id/lnKetikPesanPemb"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/recChatinganPembeli">
+        android:layout_height="wrap_content"
+        android:id="@+id/recChatinganPembeli"
+        android:layout_below="@id/tolbarChatingPemb"
+        android:layout_above="@+id/lnKetikPesanPemb">
 
 
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"

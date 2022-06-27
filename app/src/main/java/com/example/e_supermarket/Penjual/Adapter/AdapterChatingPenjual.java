@@ -1,22 +1,19 @@
-package com.example.e_supermarket.Pembeli.Adapter;
+package com.example.e_supermarket.Penjual.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.e_supermarket.Pembeli.Activity.ProfilePembeliActivity;
+import com.example.e_supermarket.Pembeli.Adapter.AdapterChat;
 import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
 import com.example.e_supermarket.Pembeli.Model.Chat;
 import com.example.e_supermarket.Pembeli.Model.DataPembeli;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
-import com.example.e_supermarket.Penjual.Activity.HalamanProfilePenjualActivity;
 import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
 import com.example.e_supermarket.Penjual.Model.DataPenjual;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
@@ -30,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
+public class AdapterChatingPenjual extends RecyclerView.Adapter<AdapterChatingPenjual.ViewHolder>{
     private List<DataPembeli> dataPembeliList = new ArrayList<>();
     private int index;
     private String no_ponsel ;
@@ -46,7 +43,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
     public static final int pesanKirim = 0;
     public static final int pesanTerima = 1;
 
-    public AdapterChat(List<Chat> chatList, Context context) {
+    public AdapterChatingPenjual(List<Chat> chatList, Context context) {
         this.chatList = chatList;
         this.context = context;
     }
@@ -55,13 +52,12 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == pesanKirim){
-            View view = LayoutInflater.from(context).inflate(R.layout.pesan_kirim_pembeli, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.pesan_kirim_penjual, parent, false);
             return new ViewHolder(view);
         }else {
-            View view = LayoutInflater.from(context).inflate(R.layout.pesan_terima_pembeli, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.pesan_terima_penjual, parent, false);
             return new ViewHolder(view);
         }
-
     }
 
     @Override
@@ -81,8 +77,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
         //TextView isiChatTerima;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            isiChat = itemView.findViewById(R.id.isiPesanKirimPemb);
-            //isiChatTerima = itemView.findViewById(R.id.isiPesanTerimaPemb);
+            isiChat = itemView.findViewById(R.id.isiPesanKirimPenj);
+            //isiChatTerima = itemView.findViewById(R.id.isiPesanTerimaPenj);
         }
 
         public void gabung(Chat chat) {
@@ -93,7 +89,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (chatList.get(position).getPengirim().equals(no_ponsel)){
+        //return super.getItemViewType(position);
+        if (chatList.get(position).getPengirim().equals(no_ponsel1)){
             return pesanKirim;
         }else {
             return pesanTerima;
@@ -169,7 +166,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
             @Override
             public void onFailure(Call<ResponseDataPenjual> call, Throwable t) {
                 //Toast.makeText(HalamanProfilePenjualActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
-               // pbDataPenjual.setVisibility(View.GONE);
+                // pbDataPenjual.setVisibility(View.GONE);
             }
         });
 

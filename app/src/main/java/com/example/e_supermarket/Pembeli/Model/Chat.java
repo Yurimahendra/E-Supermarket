@@ -2,6 +2,7 @@ package com.example.e_supermarket.Pembeli.Model;
 
 public class Chat {
     private String isiPesan;
+    private String pengirim;
 
     private String nama_pembeli;
     private String no_pembeli;
@@ -16,8 +17,9 @@ public class Chat {
     public Chat() {
     }
 
-    public Chat(String isiPesan, String nama_pembeli, String no_pembeli, String foto_pembeli, String nama_penjual, String no_penjual, String foto_penjual, String tanggal) {
+    public Chat(String isiPesan, String pengirim, String nama_pembeli, String no_pembeli, String foto_pembeli, String nama_penjual, String no_penjual, String foto_penjual, String tanggal) {
         this.isiPesan = isiPesan;
+        this.pengirim = pengirim;
         this.nama_pembeli = nama_pembeli;
         this.no_pembeli = no_pembeli;
         this.foto_pembeli = foto_pembeli;
@@ -33,6 +35,14 @@ public class Chat {
 
     public void setIsiPesan(String isiPesan) {
         this.isiPesan = isiPesan;
+    }
+
+    public String getPengirim() {
+        return pengirim;
+    }
+
+    public void setPengirim(String pengirim) {
+        this.pengirim = pengirim;
     }
 
     public String getNama_pembeli() {

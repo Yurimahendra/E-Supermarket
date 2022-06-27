@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.e_supermarket.Pembeli.Activity.ChattinganActivity;
 import com.example.e_supermarket.Pembeli.Adapter.AdapterChat;
 import com.example.e_supermarket.Pembeli.Model.Chat;
+import com.example.e_supermarket.Penjual.Adapter.AdapterChatingPenjual;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.databinding.ActivityChattinganBinding;
 import com.example.e_supermarket.databinding.ActivityChattinganPenjualBinding;
@@ -51,8 +53,10 @@ public class ChattinganPenjualActivity extends AppCompatActivity {
     private DatabaseReference reference;
 
     private ActivityChattinganPenjualBinding chattinganPenjualBinding;
-    private AdapterChat adapterChat;
+    private AdapterChatingPenjual adapterChat;
     private List<Chat> chatList;
+
+    private SwipeRefreshLayout swChatPenjual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,13 @@ public class ChattinganPenjualActivity extends AppCompatActivity {
         chattinganPenjualBinding.recChatinganPenjual.setLayoutManager(layoutManager);
 
         bacaPesan();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bacaPesan();
     }
 
     private void bacaPesan() {
@@ -122,7 +133,7 @@ public class ChattinganPenjualActivity extends AppCompatActivity {
                     if (adapterChat != null){
                         adapterChat.notifyDataSetChanged();
                     }else {
-                        adapterChat = new AdapterChat(chatList, ChattinganPenjualActivity.this);
+                        adapterChat = new AdapterChatingPenjual(chatList, ChattinganPenjualActivity.this);
                         chattinganPenjualBinding.recChatinganPenjual.setAdapter(adapterChat);
                     }
                 }
@@ -146,7 +157,7 @@ public class ChattinganPenjualActivity extends AppCompatActivity {
         SimpleDateFormat pukul = new SimpleDateFormat("hh:mm");
         String jam = pukul.format(calendar.getTime());*/
 
-        Chat chat = new Chat(text, UnamaPembeli, UnoponPembeli, UfotoPembeli,
+        Chat chat = new Chat(text, Unoponpenjual, UnamaPembeli, UnoponPembeli, UfotoPembeli,
                 UnamaPenjual, Unoponpenjual, UfotoPenjual, hari);
 
         reference.child("Pesan").push().setValue(chat).addOnSuccessListener(new OnSuccessListener<Void>() {

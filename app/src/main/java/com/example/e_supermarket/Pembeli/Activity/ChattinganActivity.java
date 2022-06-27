@@ -148,7 +148,7 @@ public class ChattinganActivity extends AppCompatActivity {
         SimpleDateFormat pukul = new SimpleDateFormat("hh:mm");
         String jam = pukul.format(calendar.getTime());*/
 
-        Chat chat = new Chat(text, UnamaPembeli, UnoponPembeli, UfotoPembeli,
+        Chat chat = new Chat(text, UnoponPembeli, UnamaPembeli, UnoponPembeli, UfotoPembeli,
                 UnamaPenjual, Unoponpenjual, UfotoPenjual, hari);
 
         reference.child("Pesan").push().setValue(chat).addOnSuccessListener(new OnSuccessListener<Void>() {

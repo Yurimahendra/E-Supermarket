@@ -1,6 +1,9 @@
 package com.example.e_supermarket.Penjual.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,16 +11,38 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.e_supermarket.MainActivity;
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
+import com.example.e_supermarket.Pembeli.Model.DataPembeli;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Penjual.Adapter.AdapterDaftarChatPenjual;
+import com.example.e_supermarket.Penjual.Adapter.AdapterKontakPenjual;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HalamanChatPenjualActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewPenjual;
     FirebaseAuth firebaseAuth;
+
+    private SwipeRefreshLayout srlChatPenj;
+    private ProgressBar pbChatPenj;
+
+    private RecyclerView recyclerView;
+    private List<DataPembeli> dataPembeliList = new ArrayList<>();
+    private AdapterDaftarChatPenjual adapterDaftarChatPenjual;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -69,6 +94,59 @@ public class HalamanChatPenjualActivity extends AppCompatActivity {
                 startActivity(new Intent(HalamanChatPenjualActivity.this, KontakChatPenjualActivity.class));
             }
         });
+
+        srlChatPenj = findViewById(R.id.sw_chatPenj);
+        pbChatPenj = findViewById(R.id.pb_halchatPemb);
+
+
+        recyclerView = (RecyclerView)findViewById(R.id.recChatPenj);;
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(HalamanChatPenjualActivity.this, LinearLayoutManager.VERTICAL, false));
+
+        srlChatPenj.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srlChatPenj.setRefreshing(true);
+                getProfilePembeli();
+                srlChatPenj.setRefreshing(false);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getProfilePembeli();
+    }
+
+    private void getProfilePembeli() {
+        pbChatPenj.setVisibility(View.VISIBLE);
+        ApiRequestPembeli requestDataPembeli = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+        Call<ResponseDataPembeli> tampilData = requestDataPembeli.RetrieveDataPembeli();
+
+        tampilData.enqueue(new Callback<ResponseDataPembeli>() {
+            @Override
+            public void onResponse(Call<ResponseDataPembeli> call, Response<ResponseDataPembeli> response) {
+                if (response.isSuccessful()){
+                    dataPembeliList = response.body().getDataPembeli();
+
+                    adapterDaftarChatPenjual = new AdapterDaftarChatPenjual(HalamanChatPenjualActivity.this, dataPembeliList);
+                    recyclerView.setAdapter(adapterDaftarChatPenjual);
+                    adapterDaftarChatPenjual.notifyDataSetChanged();
+
+                }
+
+                pbChatPenj.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataPembeli> call, Throwable t) {
+                Toast.makeText(HalamanChatPenjualActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                pbChatPenj.setVisibility(View.GONE);
+            }
+        });
+
+
     }
 
 
