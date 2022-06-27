@@ -36,7 +36,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ESupermarket"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Penjual.Activity.ChatinganPenjualActivity"></activity>
+        <activity android:name=".Penjual.Activity.ChattinganPenjualActivity"></activity>
+        <activity android:name=".Penjual.Activity.ChatinganPenjualActivity" />
         <activity android:name=".Penjual.Activity.KontakChatPenjualActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

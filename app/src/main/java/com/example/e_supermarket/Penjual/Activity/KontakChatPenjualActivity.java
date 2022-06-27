@@ -12,12 +12,16 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.e_supermarket.Pembeli.Activity.HalamanKontakPembeliActivity;
 import com.example.e_supermarket.Pembeli.Activity.ProfilePembeliActivity;
 import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
 import com.example.e_supermarket.Pembeli.Model.DataPembeli;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
 import com.example.e_supermarket.Penjual.Adapter.AdapterKontakPenjual;
 import com.example.e_supermarket.Penjual.Adapter.AdapterProdukPenjualHU;
+import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
+import com.example.e_supermarket.Penjual.Model.DataPenjual;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 
@@ -36,6 +40,8 @@ public class KontakChatPenjualActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<DataPembeli> dataPembeliList = new ArrayList<>();
     private AdapterKontakPenjual adapterKontakPenjual;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,4 +108,6 @@ public class KontakChatPenjualActivity extends AppCompatActivity {
 
 
     }
+
+
 }
