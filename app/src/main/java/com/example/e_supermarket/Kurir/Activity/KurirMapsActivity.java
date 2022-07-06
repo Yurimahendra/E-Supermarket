@@ -95,8 +95,8 @@ public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCal
                 if (oke) {
                     String addres = addressList.get(0).getAddressLine(0);
                     LatLng lokasisekarang = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(lokasisekarang).title(addres));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(lokasisekarang));
+                    //mMap.addMarker(new MarkerOptions().position(lokasisekarang).title(addres));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasisekarang, 16));
                     //latitud.setText(String.valueOf(location.getLatitude()));
                     //longitude.setText(String.valueOf(location.getLongitude()));
                     //alamat.setText(addres);
@@ -118,6 +118,7 @@ public class KurirMapsActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         oke = true;
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         // Add a marker in Sydney and move the camera
         LatLng phb = new LatLng(ConvLat, ConvLong);
         mMap.addMarker(new MarkerOptions().position(phb).title(alamatOrder));

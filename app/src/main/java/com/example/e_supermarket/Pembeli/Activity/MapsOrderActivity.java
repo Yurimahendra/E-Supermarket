@@ -28,13 +28,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
     private GoogleMap mMap;
     private Boolean oke = false;
@@ -67,6 +68,7 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
     private  String LongToko;
     private String ConvOngkir1;
     private String ConvTotalHarga1;
+    Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,8 +143,8 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
             }
         });
 
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        geocoder = new Geocoder(this, Locale.getDefault());
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{
@@ -150,37 +152,7 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
             }, 100);
 
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, new LocationListener() {
-            List<Address> addressList = null;
 
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-                try {
-                    addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                    if (addressList != null) {
-                        Address returnAddr = addressList.get(0);
-                        StringBuilder stringBuilder = new StringBuilder("");
-                        for (int i = 0; i < returnAddr.getMaxAddressLineIndex(); i++) {
-                            stringBuilder.append(returnAddr.getAddressLine(i)).append("\n");
-                        }
-                        Log.w("my Addres", stringBuilder.toString());
-                    } else {
-                        Log.w("my Addres", "no addres");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (oke) {
-                    String addres = addressList.get(0).getAddressLine(0);
-                    LatLng lokasisekarang = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(lokasisekarang).title(addres));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(lokasisekarang));
-                    latitudOrder.setText(String.valueOf(location.getLatitude()));
-                    longitudeOrder.setText(String.valueOf(location.getLongitude()));
-                    alamatOrder.setText(addres);
-                }
-            }
-        });
     }
 
     /**
@@ -201,6 +173,7 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
         oke = true;
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -211,6 +184,91 @@ public class MapsOrderActivity extends FragmentActivity implements OnMapReadyCal
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        if (oke){
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, new LocationListener() {
+                List<Address> addressList = null;
+
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    try {
+                        addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                        if (addressList.size() > 0 ) {
+                            Address returnAddr = addressList.get(0);
+                            StringBuilder stringBuilder = new StringBuilder("");
+                            for (int i = 0; i < returnAddr.getMaxAddressLineIndex(); i++) {
+                                stringBuilder.append(returnAddr.getAddressLine(i)).append("\n");
+                            }
+                            //Log.w("my Addres", stringBuilder.toString());
+                        } else {
+                            Log.w("my Addres", "no addres");
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if (oke) {
+                        oke = false;
+                        Address addres = addressList.get(0);
+                        String adres1 = addres.getAddressLine(0);
+                        LatLng lokasisekarang = new LatLng(addres.getLatitude(), addres.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(lokasisekarang).title(adres1).draggable(true));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasisekarang, 16));
+                        latitudOrder.setText(String.valueOf(location.getLatitude()));
+                        longitudeOrder.setText(String.valueOf(location.getLongitude()));
+                        alamatOrder.setText(adres1);
+                    }
+                }
+
+
+            });
+        }
+
         mMap.setMyLocationEnabled(true);
+        mMap.setOnMarkerDragListener(this);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    }
+
+
+    @Override
+    public void onMarkerDrag(@NonNull Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(@NonNull Marker marker) {
+        //oke = false;
+        List<Address> addressList = null;
+        LatLng latLng = marker.getPosition();
+        try {
+            addressList = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            if (addressList != null) {
+                Address returnAddr = addressList.get(0);
+                StringBuilder stringBuilder = new StringBuilder("");
+                for (int i = 0; i < returnAddr.getMaxAddressLineIndex(); i++) {
+                    stringBuilder.append(returnAddr.getAddressLine(i)).append("\n");
+                }
+                Log.w("my Addres", stringBuilder.toString());
+            } else {
+                Log.w("my Addres", "no addres");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (oke == false) {
+            String addres = addressList.get(0).getAddressLine(0);
+            LatLng lokasisekarang = new LatLng(latLng.latitude, latLng.longitude);
+            marker.setTitle(addres);
+            marker.setPosition(lokasisekarang);
+            //mMap.addMarker(new MarkerOptions().position(lokasisekarang).title(addres).draggable(true));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasisekarang, 16));
+            latitudOrder.setText(String.valueOf(latLng.latitude));
+            longitudeOrder.setText(String.valueOf(latLng.longitude));
+            alamatOrder.setText(addres);
+        }
+    }
+
+    @Override
+    public void onMarkerDragStart(@NonNull Marker marker) {
+
     }
 }
