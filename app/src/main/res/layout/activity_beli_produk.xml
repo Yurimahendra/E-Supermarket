@@ -243,7 +243,8 @@
                     android:layout_marginTop="5dp"
                     android:hint="Alamat Pengiriman"
                     android:inputType="textCapSentences"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:focusable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
