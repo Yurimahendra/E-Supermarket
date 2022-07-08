@@ -12,6 +12,7 @@
     <string name="string_otp_verification" />
     <string name="verifikasi">VERIFIKASI</string>
     <string name="email">Kami akan mengirimkan Anda OTP di email ini</string>
+    <string name="default_notification_channel_id">Notifikasi</string>
     <string-array name="Jenis_Kelamin">
         <item>Pria</item>
         <item>Wanita</item>
