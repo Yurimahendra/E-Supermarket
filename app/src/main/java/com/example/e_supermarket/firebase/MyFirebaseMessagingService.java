@@ -1,15 +1,22 @@
 package com.example.e_supermarket.firebase;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 
+import com.example.e_supermarket.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -37,6 +44,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
+            Uri defUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NotificationCompat.Builder noBuilder = new NotificationCompat.Builder(getApplicationContext(), "CH1")
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setContentText(remoteMessage.getNotification().getBody())
+                    .setContentTitle("Notifikasi")
+                    .setAutoCancel(true)
+                    .setSound(defUri);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                NotificationChannel notificationChannel = new NotificationChannel("CH1", "Notifikasi", NotificationManager.IMPORTANCE_DEFAULT);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+
+            notificationManager.notify(0, noBuilder.build());
+
+
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 

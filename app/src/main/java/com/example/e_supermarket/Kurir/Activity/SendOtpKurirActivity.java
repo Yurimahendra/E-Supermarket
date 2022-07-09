@@ -70,8 +70,8 @@ public class SendOtpKurirActivity extends AppCompatActivity {
                     compare = ETnopon.compareTo(noponsel);
                     lenNopon = ETnopon.length();
                     if (inputMobileK.getText().toString().trim().isEmpty()){
-                        startActivity(new Intent(SendOtpKurirActivity.this, HalamanUtamaKurirActivity.class));
-                        //Toast.makeText(SendOtpKurirActivity.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                        //startActivity(new Intent(SendOtpKurirActivity.this, HalamanUtamaKurirActivity.class));
+                        Toast.makeText(SendOtpKurirActivity.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                         return;
                     }else if (lenNopon < 12){
                         Toast.makeText(SendOtpKurirActivity.this, "Jumlah Nomor Tidak Sesuai", Toast.LENGTH_SHORT).show();

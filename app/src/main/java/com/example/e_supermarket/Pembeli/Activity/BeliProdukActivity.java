@@ -21,6 +21,7 @@ import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
 import com.example.e_supermarket.Pembeli.Model.DataPembeli;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseNotifOrder;
 import com.example.e_supermarket.Penjual.Activity.FormDataPenjualActivity;
 import com.example.e_supermarket.Penjual.Activity.HalamanProfilePenjualActivity;
 import com.example.e_supermarket.Penjual.Activity.PenjualMapsActivity;
@@ -424,6 +425,7 @@ public class BeliProdukActivity extends AppCompatActivity {
 
     }
 
+
     private void showDateDialog() {
         Calendar calendar = Calendar.getInstance();
 
@@ -489,6 +491,7 @@ public class BeliProdukActivity extends AppCompatActivity {
 
             double jarakMaks = 10000;
             double jarak = getJarak(lattujuan,longtujuan, lattoko, longtoko);
+            Log.d("jarak : ", String.valueOf(jarak));
 
             if (namaPemesan.equals("")) {
                 EdtNamaBeli.setError("Nama TIDAK BOLEH KOSONG");
@@ -511,7 +514,8 @@ public class BeliProdukActivity extends AppCompatActivity {
                 PbBuatPesan.setVisibility(View.GONE);
                 btnBuatPesanan.setVisibility(View.VISIBLE);
             }else if (jarak > jarakMaks) {
-                Toast.makeText(this, "Alamat Pengiriman Lebih dari 10 KM", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Jarak Alamat Pengiriman Tidak Boleh Lebih Dari 10 KM", Toast.LENGTH_SHORT).show();
+                //EdtAlamatBeli.setError("Jarak Alamat Pengiriman Tidak Boleh Lebih Dari 10 KM");
                 PbBuatPesan.setVisibility(View.GONE);
                 btnBuatPesanan.setVisibility(View.VISIBLE);
             } else if (MetodeBayarPesan != n_metode[0]){
@@ -552,6 +556,32 @@ public class BeliProdukActivity extends AppCompatActivity {
 
                                 //Toast.makeText(FormDataPembeliActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
                             }*/
+                            ApiRequestPembeli notifOrder = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                            Call<ResponseNotifOrder> SimpannotifOrder = notifOrder.SendNotifOrder(
+                                    "Notifikasi",
+                                    "Ada Orderan Masuk Nih"
+                            );
+
+                            SimpannotifOrder.enqueue(new Callback<ResponseNotifOrder>() {
+                                @Override
+                                public void onResponse(Call<ResponseNotifOrder> call, Response<ResponseNotifOrder> response) {
+                                    if( response.isSuccessful()) {
+                                        Toast.makeText(BeliProdukActivity.this, "notif berhasil", Toast.LENGTH_SHORT).show();
+
+                                    }else {
+                                        Toast.makeText(BeliProdukActivity.this, "notif gagal"+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                    PbBuatPesan.setVisibility(View.GONE);
+                                    btnBuatPesanan.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseNotifOrder> call, Throwable t) {
+                                    Toast.makeText(BeliProdukActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                                    PbBuatPesan.setVisibility(View.GONE);
+                                    btnBuatPesanan.setVisibility(View.VISIBLE);
+                                }
+                            });
                         }else {
                             //Log.i("idpesanan", ""+idPesanan);
                             Toast.makeText(BeliProdukActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
@@ -569,6 +599,7 @@ public class BeliProdukActivity extends AppCompatActivity {
                     }
 
                 });
+
             }else {
                 ApiRequestPembeli requestBuatPesanan = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
                 Call<ResponseBuatPesanan> SimpanBuatPesanan = requestBuatPesanan.SendBuatPesanan(
@@ -603,10 +634,32 @@ public class BeliProdukActivity extends AppCompatActivity {
                             //String pesan = response.body().getPesan();
                             startActivity(new Intent(getApplicationContext(), OrderanPembeliActivity.class));
                             Toast.makeText(BeliProdukActivity.this, "berhasil disimpan", Toast.LENGTH_SHORT).show();
-                            /*if (kode == 200){
+                            ApiRequestPembeli notifOrder = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+                            Call<ResponseNotifOrder> SimpannotifOrder = notifOrder.SendNotifOrder(
+                                    "Notifikasi",
+                                    "Ada Orderan Masuk Nih "
+                            );
 
-                                //Toast.makeText(FormDataPembeliActivity.this, "pesan : "+pesan, Toast.LENGTH_SHORT).show();
-                            }*/
+                            SimpannotifOrder.enqueue(new Callback<ResponseNotifOrder>() {
+                                @Override
+                                public void onResponse(Call<ResponseNotifOrder> call, Response<ResponseNotifOrder> response) {
+                                    if( response.isSuccessful()) {
+                                        Toast.makeText(BeliProdukActivity.this, "notif berhasil", Toast.LENGTH_SHORT).show();
+
+                                    }else {
+                                        Toast.makeText(BeliProdukActivity.this, "notif gagal"+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                    PbBuatPesan.setVisibility(View.GONE);
+                                    btnBuatPesanan.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseNotifOrder> call, Throwable t) {
+                                    Toast.makeText(BeliProdukActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                                    PbBuatPesan.setVisibility(View.GONE);
+                                    btnBuatPesanan.setVisibility(View.VISIBLE);
+                                }
+                            });
                         }else {
                             //Log.i("idpesanan", ""+idPesanan);
                             Toast.makeText(BeliProdukActivity.this, "Data Gagal Tersimpan "+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
@@ -750,4 +803,5 @@ public class BeliProdukActivity extends AppCompatActivity {
 
         return  s;
     }
+
 }

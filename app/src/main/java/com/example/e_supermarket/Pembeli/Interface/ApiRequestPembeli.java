@@ -6,6 +6,7 @@ import androidx.versionedparcelable.ParcelField;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataKeranjang;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseNotifOrder;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
 
@@ -161,5 +162,14 @@ public interface ApiRequestPembeli {
     @DELETE("api/datakeranjang/{datakeranjang}")
     Call<ResponseDataKeranjang> hapusDataKeranjang(
             @Path("datakeranjang") int id
+    );
+
+    //notif
+    //@Headers({"Accept: application/json"})
+    @FormUrlEncoded
+    @POST("api/notiforder")
+    Call<ResponseNotifOrder> SendNotifOrder(
+            @Field("title") String title,
+            @Field("body") String body
     );
 }
