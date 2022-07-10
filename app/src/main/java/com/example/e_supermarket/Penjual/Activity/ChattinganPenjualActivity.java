@@ -17,8 +17,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.Pembeli.Activity.ChattinganActivity;
 import com.example.e_supermarket.Pembeli.Adapter.AdapterChat;
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
 import com.example.e_supermarket.Pembeli.Model.Chat;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseNotifOrder;
 import com.example.e_supermarket.Penjual.Adapter.AdapterChatingPenjual;
+import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.databinding.ActivityChattinganBinding;
 import com.example.e_supermarket.databinding.ActivityChattinganPenjualBinding;
@@ -36,6 +39,9 @@ import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChattinganPenjualActivity extends AppCompatActivity {
     ImageView backChatinga;
@@ -174,6 +180,33 @@ public class ChattinganPenjualActivity extends AppCompatActivity {
         DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("daftar chat").
                 child(Unoponpenjual).child(UnoponPembeli);
         reference2.child("IDChat").setValue(Unoponpenjual);
+
+        ApiRequestPembeli notifOrder = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
+        Call<ResponseNotifOrder> SimpannotifOrder = notifOrder.SendNotifOrder(
+                "Notifikasi",
+                "Ada Chat Dari Penjual"
+        );
+
+        SimpannotifOrder.enqueue(new Callback<ResponseNotifOrder>() {
+            @Override
+            public void onResponse(Call<ResponseNotifOrder> call, Response<ResponseNotifOrder> response) {
+                if( response.isSuccessful()) {
+                    //Toast.makeText(BeliProdukActivity.this, "notif berhasil", Toast.LENGTH_SHORT).show();
+
+                }else {
+                    //Toast.makeText(BeliProdukActivity.this, "notif gagal"+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                }
+                //PbBuatPesan.setVisibility(View.GONE);
+                //btnBuatPesanan.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseNotifOrder> call, Throwable t) {
+                //Toast.makeText(BeliProdukActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                //PbBuatPesan.setVisibility(View.GONE);
+                //btnBuatPesanan.setVisibility(View.VISIBLE);
+            }
+        });
 
     }
 
