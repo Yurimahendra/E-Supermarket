@@ -72,7 +72,7 @@ public class SendOtpKurirActivity extends AppCompatActivity {
                     if (inputMobileK.getText().toString().trim().isEmpty()){
                         //startActivity(new Intent(SendOtpKurirActivity.this, HalamanUtamaKurirActivity.class));
                         Toast.makeText(SendOtpKurirActivity.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
-                        return;
+                        //return;
                     }else if (lenNopon < 12){
                         Toast.makeText(SendOtpKurirActivity.this, "Jumlah Nomor Tidak Sesuai", Toast.LENGTH_SHORT).show();
                     }else if (compare != 0){
@@ -118,8 +118,8 @@ public class SendOtpKurirActivity extends AppCompatActivity {
 
                 }catch (NullPointerException exception){
                     if (inputMobileK.getText().toString().trim().isEmpty()){
-                        startActivity(new Intent(SendOtpKurirActivity.this, HalamanUtamaKurirActivity.class));
-                        //Toast.makeText(SendOtpKurirActivity.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                        //startActivity(new Intent(SendOtpKurirActivity.this, HalamanUtamaKurirActivity.class));
+                        Toast.makeText(SendOtpKurirActivity.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     progressBarK.setVisibility(View.VISIBLE);
