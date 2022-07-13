@@ -566,7 +566,7 @@ public class BeliProdukActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<ResponseNotifOrder> call, Response<ResponseNotifOrder> response) {
                                     if( response.isSuccessful()) {
-                                        Toast.makeText(BeliProdukActivity.this, "notif berhasil", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(BeliProdukActivity.this, "notif berhasil", Toast.LENGTH_SHORT).show();
 
                                     }else {
                                         Toast.makeText(BeliProdukActivity.this, "notif gagal"+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
@@ -633,7 +633,7 @@ public class BeliProdukActivity extends AppCompatActivity {
                             //int kode = response.body().getKode();
                             //String pesan = response.body().getPesan();
                             startActivity(new Intent(getApplicationContext(), OrderanPembeliActivity.class));
-                            Toast.makeText(BeliProdukActivity.this, "berhasil disimpan", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BeliProdukActivity.this, "berhasil", Toast.LENGTH_SHORT).show();
                             ApiRequestPembeli notifOrder = RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
                             Call<ResponseNotifOrder> SimpannotifOrder = notifOrder.SendNotifOrder(
                                     "Notifikasi",
@@ -644,7 +644,7 @@ public class BeliProdukActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<ResponseNotifOrder> call, Response<ResponseNotifOrder> response) {
                                     if( response.isSuccessful()) {
-                                        Toast.makeText(BeliProdukActivity.this, "notif berhasil", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(BeliProdukActivity.this, "notif berhasil", Toast.LENGTH_SHORT).show();
 
                                     }else {
                                         Toast.makeText(BeliProdukActivity.this, "notif gagal"+response.errorBody().toString(), Toast.LENGTH_SHORT).show();

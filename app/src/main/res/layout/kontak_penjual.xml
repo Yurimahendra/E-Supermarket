@@ -49,6 +49,15 @@
                 android:text="Nomor"
                 android:textSize="15sp" />
 
+            <TextView
+                android:id="@+id/tvalamatPenjToPemb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="alamat"
+                android:textSize="15sp"
+                android:visibility="gone"/>
+
 
         </LinearLayout>
 

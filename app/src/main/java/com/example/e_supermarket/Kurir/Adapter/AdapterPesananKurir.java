@@ -1,5 +1,6 @@
 package com.example.e_supermarket.Kurir.Adapter;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,11 +22,13 @@ import com.example.e_supermarket.Penjual.Activity.HalamanNotifPenjualActivity;
 import com.example.e_supermarket.Penjual.Adapter.AdapterPesananPenjual;
 import com.example.e_supermarket.R;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class AdapterPesananKurir extends RecyclerView.Adapter<AdapterPesananKurir.MyViewHolder>{
     private HalamanUtamaKurirActivity halamanUtamaKurirActivity;
     private List<BuatPesanan> buatPesananListKurir;
+
 
     public AdapterPesananKurir(HalamanUtamaKurirActivity halamanUtamaKurirActivity, List<BuatPesanan> buatPesananListKurir) {
         this.halamanUtamaKurirActivity = halamanUtamaKurirActivity;
@@ -41,6 +44,13 @@ public class AdapterPesananKurir extends RecyclerView.Adapter<AdapterPesananKuri
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        /*String tanggalKrm = buatPesananListKurir.get(position).getTanggal_pengiriman();
+        Calendar calendar = Calendar.getInstance();
+        String thnSekarang = String.valueOf(calendar.get(Calendar.YEAR));
+        String bulanSekarang = String.valueOf(calendar.get(Calendar.MONTH));
+        String tglSekarang = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+        String sekarang = thnSekarang+"-"+bulanSekarang+"-"+tglSekarang;
+        int comprTgl = tanggalKrm.compareTo(sekarang);*/
         holder.IdPesananKurir.setText(String.valueOf(buatPesananListKurir.get(position).getId_pesanan()));
         holder.Nama_BarangPesananKurir.setText(buatPesananListKurir.get(position).getNama_barang());
         holder.MerkPesananKurir.setText(buatPesananListKurir.get(position).getMerk_barang());
@@ -81,6 +91,24 @@ public class AdapterPesananKurir extends RecyclerView.Adapter<AdapterPesananKuri
                 halamanUtamaKurirActivity.startActivity(intent);
             }
         });
+        String status = buatPesananListKurir.get(position).getStatus_pesanan();
+        String status1 = "terima";
+        try {
+            if (status.equalsIgnoreCase(status1)){
+                holder.Nama_BarangPesananKurir.setVisibility(View.VISIBLE);
+                holder.MerkPesananKurir.setVisibility(View.VISIBLE);
+                holder.HargaPesananKurir.setVisibility(View.VISIBLE);
+                holder.SatuanPesananKurir.setVisibility(View.VISIBLE);
+                holder.JumlahPesananKurir.setVisibility(View.VISIBLE);
+                holder.imageProdukPesananKurir.setVisibility(View.VISIBLE);
+                holder.UbahKurir.setVisibility(View.VISIBLE);
+            }
+        }catch (NullPointerException e){
+            
+        }
+
+
+
     }
 
     @Override

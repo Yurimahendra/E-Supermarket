@@ -64,6 +64,8 @@ public class ChatPembeliActivity extends AppCompatActivity {
     private String gambar;
     TextView tvNoPenjChat;
     private String nomorPenjual;
+    private String alamat ;
+    private String nama_toko ;
 
 
 
@@ -145,6 +147,8 @@ public class ChatPembeliActivity extends AppCompatActivity {
                 bundle.putString("foto_penjual", RetroServer.imageURL + gambar);
                 bundle.putString("nama_penjual", nama);
                 bundle.putString("no_ponsel_penjual", no_ponsel);
+                bundle.putString("alamat", alamat);
+                bundle.putString("nama_toko", nama_toko);
 
                 bundle.putString("foto_pembeli", RetroServer.imageURL + foto1);
                 bundle.putString("nama_pembeli", nama1);
@@ -189,6 +193,8 @@ public class ChatPembeliActivity extends AppCompatActivity {
                         nama = dataPenjualList.get(index).getNama();
                         no_ponsel = dataPenjualList.get(index).getNo_ponsel();
                         gambar = dataPenjualList.get(index).getGambar();
+                        alamat = dataPenjualList.get(index).getAlamat();
+                        nama_toko = dataPenjualList.get(index).getNama_toko();
 
 
 

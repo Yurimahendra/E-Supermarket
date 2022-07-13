@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -49,6 +50,8 @@ public class ChattinganActivity extends AppCompatActivity {
     private String UfotoPenjual;
     private String UnamaPenjual;
     private String Unoponpenjual;
+    private String Ualamat;
+    private String Unamatoko;
 
     private String UfotoPembeli;
     private String UnamaPembeli;
@@ -83,11 +86,28 @@ public class ChattinganActivity extends AppCompatActivity {
         UfotoPenjual = bundle.getString("foto_penjual");
         UnamaPenjual = bundle.getString("nama_penjual");
         Unoponpenjual = bundle.getString("no_ponsel_penjual");
+        Ualamat = bundle.getString("alamat");
+        Unamatoko = bundle.getString("nama_toko");
 
         UfotoPembeli = bundle.getString("foto_pembeli");
         UnamaPembeli = bundle.getString("nama_pembeli");
         UnoponPembeli = bundle.getString("no_ponsel_pembeli");
 
+        NamaChtinganPenjual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("foto_penjual", UfotoPenjual);
+                bundle1.putString("nama_penjual", UnamaPenjual);
+                bundle1.putString("no_ponsel_penjual", Unoponpenjual);
+                bundle1.putString("alamat", Ualamat);
+                bundle1.putString("nama_toko", Unamatoko);
+
+                Intent intent = new Intent(ChattinganActivity.this, PembeliLihatProfilPenjualActivity.class);
+                intent.putExtras(bundle1);
+                startActivity(intent);
+            }
+        });
         NamaChtinganPenjual.setText(UnamaPenjual);
         Glide.with(fotoChtinganPenjual.getContext())
                 .load(UfotoPenjual).into(fotoChtinganPenjual);

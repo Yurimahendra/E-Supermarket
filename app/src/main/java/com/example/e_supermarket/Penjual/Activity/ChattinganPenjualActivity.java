@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -55,6 +56,7 @@ public class ChattinganPenjualActivity extends AppCompatActivity {
     private String UfotoPembeli;
     private String UnamaPembeli;
     private String UnoponPembeli;
+    private String UalamatPembeli;
 
     private DatabaseReference reference;
 
@@ -89,7 +91,22 @@ public class ChattinganPenjualActivity extends AppCompatActivity {
         UfotoPembeli = bundle.getString("foto_pembeli");
         UnamaPembeli = bundle.getString("nama_pembeli");
         UnoponPembeli = bundle.getString("no_ponsel_pembeli");
+        UalamatPembeli = bundle.getString("alamat");
 
+        NamaChtinganPembeli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("foto_pembeli", UfotoPembeli);
+                bundle1.putString("nama_pembeli", UnamaPembeli);
+                bundle1.putString("no_ponsel_pembeli", UnoponPembeli);
+                bundle1.putString("alamat", UalamatPembeli);
+
+                Intent intent = new Intent(ChattinganPenjualActivity.this, PenjualLihatPembeliActivity.class);
+                intent.putExtras(bundle1);
+                startActivity(intent);
+            }
+        });
         NamaChtinganPembeli.setText(UnamaPembeli);
         Glide.with(fotoChtinganPembeli.getContext())
                 .load(UfotoPembeli).into(fotoChtinganPembeli);

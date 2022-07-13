@@ -138,6 +138,8 @@ public class AdapterDaftarChatPenjual extends RecyclerView.Adapter<AdapterDaftar
                 bundle.putString("nama_pembeli", dataPembeliList.get(position).getNama());
                 bundle.putString("id", String.valueOf(dataPembeliList.get(position).getId()));
                 bundle.putString("no_ponsel_pembeli", dataPembeliList.get(position).getNo_ponsel());
+                bundle.putString("alamat", dataPembeliList.get(position).getAlamat());
+
                 bundle.putString("foto_penjual", RetroServer.imageURL + gambar);
                 bundle.putString("nama_penjual", nama);
                 bundle.putString("no_ponsel_penjual", no_ponsel);

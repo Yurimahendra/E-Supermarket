@@ -19,7 +19,7 @@
             android:layout_width="80dp"
             android:layout_height="147dp"
             android:id="@+id/ImgItemPesananKurir"
-            />
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tvIdBarangPesananKurir"
@@ -62,7 +62,8 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_toRightOf="@id/ImgItemPesananKurir"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvMerkPesananKurir"
@@ -74,7 +75,8 @@
             android:layout_toRightOf="@id/ImgItemPesananKurir"
             android:layout_below="@id/tvNamaBarangPesananKurir"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvHargaPesananKurir"
@@ -86,7 +88,8 @@
             android:layout_toRightOf="@id/ImgItemPesananKurir"
             android:layout_below="@id/tvMerkPesananKurir"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -114,7 +117,8 @@
             android:layout_toRightOf="@+id/tvJumlahPesananKurir"
             android:layout_below="@id/tvHargaPesananKurir"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -127,7 +131,8 @@
             android:layout_toRightOf="@+id/ImgItemPesananKurir"
             android:layout_below="@id/tvHargaPesananKurir"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btnUbahKurir"
@@ -136,7 +141,8 @@
             android:text="DETAIL PESANAN"
             android:layout_below="@id/tvJumlahPesananKurir"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="200dp"/>
+            android:layout_marginLeft="200dp"
+            android:visibility="gone"/>
 
 
         <!--<Button

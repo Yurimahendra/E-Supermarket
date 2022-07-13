@@ -448,7 +448,7 @@ public class DetailPesananActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 PbDetailBatal.setVisibility(View.VISIBLE);
-                BatalDetail.setVisibility(View.INVISIBLE);
+                //BatalDetail.setVisibility(View.INVISIBLE);
 
                 ApiRequestPembeli haDataOrderan= RetroServer.konekRetrofit().create(ApiRequestPembeli.class);
                 Call<ResponseBuatPesanan> BatalOrderan = haDataOrderan.BatalDataOrderan(Uid);
@@ -471,7 +471,7 @@ public class DetailPesananActivity extends AppCompatActivity {
                     }
                 });
                 PbDetailBatal.setVisibility(View.GONE);
-                BatalDetail.setVisibility(View.VISIBLE);
+                //BatalDetail.setVisibility(View.VISIBLE);
 
 
             }

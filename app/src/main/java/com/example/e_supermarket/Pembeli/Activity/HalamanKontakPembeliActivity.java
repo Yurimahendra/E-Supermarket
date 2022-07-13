@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -36,6 +37,8 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
     CircleImageView proflKontkPenj;
     TextView tvNamaKontakPenj;
     TextView tvNoponKontakPenj;
+    EditText NamaToko;
+    EditText Alamatpenjual;
 
     CircleImageView proflKontkPemb;
     TextView tvNamaKontakPemb;
@@ -46,6 +49,8 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
     private String nama ;
     private String no_ponsel ;
     private String gambar;
+    private String alamat ;
+    private String nama_toko ;
 
     private RecyclerView recyclerView;
     private List<DataPenjual> dataPenjualList = new ArrayList<>();
@@ -77,6 +82,8 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
         proflKontkPenj = findViewById(R.id.imgProfilKontakPenjual);
         tvNamaKontakPenj = findViewById(R.id.tvNamaKontakPenjual);
         tvNoponKontakPenj = findViewById(R.id.tvNoponKontakPenjual);
+        NamaToko = findViewById(R.id.tvnatoKontakPembToPenj);
+        Alamatpenjual = findViewById(R.id.tvalamatKontakPembToPenj);
 
         proflKontkPemb = findViewById(R.id.imgProfilKontakPembeli);
         tvNamaKontakPemb = findViewById(R.id.tvNamaKontakPembeli);
@@ -90,6 +97,8 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
                 bundle.putString("foto_penjual", RetroServer.imageURL + gambar);
                 bundle.putString("nama_penjual", tvNamaKontakPenj.getText().toString());
                 bundle.putString("no_ponsel_penjual", tvNoponKontakPenj.getText().toString());
+                bundle.putString("alamat", Alamatpenjual.getText().toString());
+                bundle.putString("nama_toko", NamaToko.getText().toString());
 
                 bundle.putString("foto_pembeli", RetroServer.imageURL + foto1);
                 bundle.putString("nama_pembeli", tvNamaKontakPemb.getText().toString());
@@ -128,6 +137,8 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
                         nama = dataPenjualList.get(index).getNama();
                         no_ponsel = dataPenjualList.get(index).getNo_ponsel();
                         gambar = dataPenjualList.get(index).getGambar();
+                        alamat = dataPenjualList.get(index).getAlamat();
+                        nama_toko = dataPenjualList.get(index).getNama_toko();
 
                         // Log.i("tes", ""+nik);
 
@@ -135,6 +146,8 @@ public class HalamanKontakPembeliActivity extends AppCompatActivity {
                         tvNoponKontakPenj.setText(no_ponsel);
                         Glide.with(proflKontkPenj.getContext())
                                 .load(RetroServer.imageURL + gambar).into(proflKontkPenj);
+                        NamaToko.setText(nama_toko);
+                        Alamatpenjual.setText(alamat);
 
                     }catch (IndexOutOfBoundsException indexOutOfBoundsException){
                         // Log.i("tes", ""+nik);

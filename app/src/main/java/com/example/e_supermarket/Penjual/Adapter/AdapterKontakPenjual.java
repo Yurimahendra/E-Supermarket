@@ -40,6 +40,8 @@ public class AdapterKontakPenjual extends RecyclerView.Adapter<AdapterKontakPenj
     private String nama ;
     private String no_ponsel ;
     private String gambar;
+    private String alamat;
+    private String nama_toko;
 
     private List<DataPenjual> dataPenjualList = new ArrayList<>();
     private int index;
@@ -61,6 +63,7 @@ public class AdapterKontakPenjual extends RecyclerView.Adapter<AdapterKontakPenj
         holder.idPmbl.setText(String.valueOf(dataPembeliList.get(position).getId()));
         holder.Nama_pembeli.setText(dataPembeliList.get(position).getNama());
         holder.Noponselpembeli.setText(dataPembeliList.get(position).getNo_ponsel());
+        //holder.alamatpembeli.setText(dataPembeliList.get(position).g);
         Glide.with(holder.ImgProfilePmbl.getContext())
                 .load(RetroServer.imageURL + dataPembeliList.get(position).getGambar()).into(holder.ImgProfilePmbl);
 
@@ -73,6 +76,8 @@ public class AdapterKontakPenjual extends RecyclerView.Adapter<AdapterKontakPenj
                 bundle.putString("nama_pembeli", dataPembeliList.get(position).getNama());
                 bundle.putString("id", String.valueOf(dataPembeliList.get(position).getId()));
                 bundle.putString("no_ponsel_pembeli", dataPembeliList.get(position).getNo_ponsel());
+                bundle.putString("alamat", dataPembeliList.get(position).getAlamat());
+
                 bundle.putString("foto_penjual", RetroServer.imageURL + gambar);
                 bundle.putString("nama_penjual", nama);
                 bundle.putString("no_ponsel_penjual", no_ponsel);
@@ -93,6 +98,7 @@ public class AdapterKontakPenjual extends RecyclerView.Adapter<AdapterKontakPenj
         TextView idPmbl;
         TextView Nama_pembeli;
         TextView Noponselpembeli;
+        TextView alamatpembeli;
         CircleImageView ImgProfilePmbl;
 
 
@@ -103,6 +109,7 @@ public class AdapterKontakPenjual extends RecyclerView.Adapter<AdapterKontakPenj
             Nama_pembeli = itemView.findViewById(R.id.tvNamaKontakPenj);
             Noponselpembeli = itemView.findViewById(R.id.tvNoponKontakPenj);
             ImgProfilePmbl = itemView.findViewById(R.id.imgProfilKontakPenj);
+            alamatpembeli = itemView.findViewById(R.id.tvalamatPenjToPemb);
 
         }
     }
