@@ -220,24 +220,42 @@
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:id="@+id/alamatOrder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxBackgroundColor="@color/white"
-                android:layout_below="@+id/namaOrder"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp">
-                <EditText
-                    android:id="@+id/EdtAlamatOrder"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_below="@+id/namaOrder">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/alamatOrder1"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:hint="Alamat pengiriman"
-                    android:inputType="textMultiLine"
-                    android:maxLines="3"
-                    android:minLines="1"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    app:boxBackgroundColor="@color/white"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp">
+                    <EditText
+                        android:id="@+id/EdtAlamatOrder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Alamat pengiriman"
+                        android:inputType="textMultiLine"
+                        android:maxLines="3"
+                        android:minLines="1"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <Button
+                    android:id="@+id/btnBukaMapsDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_location_24" />
+                <!--android:layout_toRightOf="@+id/alamtpenjl"
+                android:layout_centerVertical="true"-->
+            </LinearLayout>
+
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/noponOrder"

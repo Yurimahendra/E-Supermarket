@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pembeli.Activity.MapsDetailPesananActivity">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnsimpanlokasiMapsDetail"/>
+
+    <Button
+        android:id="@+id/btnsimpanlokasiMapsDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SIMPAN"
+        android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/latMapsDetail"
+        android:text="latidu"
+        android:layout_above="@+id/longiMapsDetail"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/longiMapsDetail"
+        android:text="longitud"
+        android:layout_above="@+id/alamatMapsDetail"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/alamatMapsDetail"
+        android:text="alamat"
+        android:layout_above="@+id/btnsimpanlokasiMapsDetail"
+        android:visibility="gone"/>
+
+</RelativeLayout>

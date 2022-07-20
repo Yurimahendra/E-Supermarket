@@ -71,9 +71,9 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                     compare = Enopon.compareTo(noponsel);
                     lenNopon = Enopon.length();
                     if (inputMobileS.getText().toString().trim().isEmpty()){
-                        //Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
-                        //startActivity(intent);
-                        Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
+                        startActivity(intent);
+                        //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                         //return;
                     }else if (lenNopon < 12){
                         Toast.makeText(SendOTPActivityPenjual.this, "Jumlah Nomor Tidak Sesuai", Toast.LENGTH_SHORT).show();

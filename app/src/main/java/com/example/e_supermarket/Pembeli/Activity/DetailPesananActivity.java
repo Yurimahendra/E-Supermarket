@@ -26,6 +26,8 @@ import com.example.e_supermarket.Pembeli.Model.DataPembeli;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseBuatPesanan;
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
 import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
+import com.example.e_supermarket.Penjual.Model.DataPenjual;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
@@ -48,6 +50,7 @@ public class DetailPesananActivity extends AppCompatActivity {
     int index1;
     int id;
     int getid;
+    private List<DataPenjual> dataPenjualList = new ArrayList<>();
 
     Button btnPesananDiterima;
 
@@ -127,10 +130,15 @@ public class DetailPesananActivity extends AppCompatActivity {
 
     private String status_pesanan = "terima";
 
+    Button btnmapsDetail;
+    private String latitude;
+    private String longitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pesanan);
+        getProfilePenjual();
 
         tvIdPesananDetail = findViewById(R.id.EdtNoPesanan);
         Nama_BarangDetail = findViewById(R.id.tvNamaBarangOrder);
@@ -153,6 +161,7 @@ public class DetailPesananActivity extends AppCompatActivity {
         dateFormatDetail = new SimpleDateFormat("yyyy-MM-dd");
 
         btnPesananDiterima = findViewById(R.id.BtnPesananDiterima);
+        btnmapsDetail = findViewById(R.id.btnBukaMapsDetail);
 
 
 
@@ -176,12 +185,7 @@ public class DetailPesananActivity extends AppCompatActivity {
             }
         });
 
-        UpdateDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UpdateDetailPesan();
-            }
-        });
+
 
         BatalDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +224,44 @@ public class DetailPesananActivity extends AppCompatActivity {
         UuStatus_pesanan = String.valueOf(UStatus_pesanan);
         UBukti_transfer = bundle.getString("bukti_transfer");
 
+        UpdateDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateDetailPesan();
+            }
+        });
+
+        btnmapsDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("id", Uid);
+                bundle1.putString("id_pesanan", UidPesanan);
+                bundle1.putString("nama", UnamaPemesan);
+                bundle1.putString("no_hp", UNohpPesan);
+                bundle1.putString("alamat", UalamatKirimPesan);
+                bundle1.putString("latitude", Ulatitude);
+                bundle1.putString("longitude", Ulongitude);
+                bundle1.putString("nama_barang", UnamaBarangPesan);
+                bundle1.putString("merk", UmerkBarangPesan);
+                bundle1.putString("harga", UhargaBarangPesan);
+                bundle1.putInt("jumlah", UjumlahBarangPesan);
+                bundle1.putString("satuan", UsatuanPesan);
+                bundle1.putString("gambar", UgambarPesan);
+                bundle1.putString("tanggal", UtglKirimPesan);
+                bundle1.putString("ongkir", UongkirPesan);
+                bundle1.putString("total", UTotalHargaPesan);
+                bundle1.putString("metode",UMetodeBayarPesan);
+                bundle1.putString("status", UStatus);
+                bundle1.putString("status_pesanan", UStatus_pesanan);
+                bundle1.putString("bukti_transfer", UBukti_transfer);
+                Intent intent = new Intent(DetailPesananActivity.this, MapsDetailPesananActivity.class);
+                intent.putExtras(bundle1);
+                startActivity(intent);
+            }
+        });
+
+
         tvIdPesananDetail.setText(UidPesanan);
         EdtNamaDetail.setText(UnamaPemesan);
         EdtNopDetail.setText(UNohpPesan);
@@ -254,6 +296,7 @@ public class DetailPesananActivity extends AppCompatActivity {
         //Log.i("status", ""+UStatus_pesanan);
 
         if (UuStatus_pesanan.equals(status_pesanan)){
+            btnmapsDetail.setVisibility(View.GONE);
             if (index == 0){
                 EdtNamaDetail.setFocusable(false);
                 EdtAlamatDetail.setFocusable(false);
@@ -264,7 +307,6 @@ public class DetailPesananActivity extends AppCompatActivity {
                 tvStatusDetail.setVisibility(View.GONE);
                 tvstatus.setVisibility(View.GONE);
                 btnPesananDiterima.setVisibility(View.VISIBLE);
-
             }else if (UStatus.equals(status)){
                 EdtNamaDetail.setFocusable(false);
                 EdtAlamatDetail.setFocusable(false);
@@ -509,6 +551,13 @@ public class DetailPesananActivity extends AppCompatActivity {
             tglKirimPesanDetail = EdtTglDetail.getText().toString().trim();
             MetodeBayarPesanDetail = MetodePembayaranDetail.getSelectedItem().toString().trim();
             //StatusDetail;
+            double lattujuan = Double.valueOf(Ulatitude);
+            double longtujuan = Double.valueOf(Ulongitude);
+            double lattoko = Double.valueOf(latitude);
+            double longtoko = Double.valueOf(longitude);
+
+            double jarakMaks = 10000;
+            double jarak = getJarak(lattujuan,longtujuan, lattoko, longtoko);
 
 
             int lenNopOrder = NohpPesanDetail.length();
@@ -533,7 +582,12 @@ public class DetailPesananActivity extends AppCompatActivity {
                 EdtTglDetail.setError("Tanggal TIDAK BOLEH KOSONG");
                 PbDetailUpdate.setVisibility(View.GONE);
                 UpdateDetail.setVisibility(View.VISIBLE);
-            } else {
+            }else if (jarak > jarakMaks) {
+                Toast.makeText(this, "Jarak Alamat Pengiriman Tidak Boleh Lebih Dari 10 KM", Toast.LENGTH_SHORT).show();
+                //EdtAlamatBeli.setError("Jarak Alamat Pengiriman Tidak Boleh Lebih Dari 10 KM");
+                PbDetailUpdate.setVisibility(View.GONE);
+                UpdateDetail.setVisibility(View.VISIBLE);
+            }else {
                 Bundle bundle1 = getIntent().getExtras();
                 if (bundle1 != null) {
                     int id = Uid;
@@ -558,7 +612,7 @@ public class DetailPesananActivity extends AppCompatActivity {
                             RequestBody.create(MediaType.parse("text/plain"), UTotalHargaPesan),
                             RequestBody.create(MediaType.parse("text/plain"), MetodeBayarPesanDetail),
                             RequestBody.create(MediaType.parse("text/plain"), UStatus),
-                            RequestBody.create(MediaType.parse("text/plain"), UStatus_pesanan),
+                            RequestBody.create(MediaType.parse("text/plain"), UuStatus_pesanan),
                             null
 
                     );
@@ -626,5 +680,73 @@ public class DetailPesananActivity extends AppCompatActivity {
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH));
         datePickerDialogDetail.show();
+    }
+
+    private void getProfilePenjual() {
+        //pbDataPenjual.setVisibility(View.VISIBLE);
+        ApiRequestDataProduk requestDataPenjual = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+        Call<ResponseDataPenjual> tampilData = requestDataPenjual.RetrieveDataPenjual();
+
+        tampilData.enqueue(new Callback<ResponseDataPenjual>() {
+            @Override
+            public void onResponse(Call<ResponseDataPenjual> call, Response<ResponseDataPenjual> response) {
+                if (response.isSuccessful()){
+                    try {
+                        dataPenjualList = response.body().getDataPenjual();
+
+                        latitude = dataPenjualList.get(index1).getLatitude();
+                        longitude = dataPenjualList.get(index1).getLongitude();
+
+                        //LatToko.setText(latitude);
+                        //LongToko.setText(longitude);
+
+                        //Log.i("latToko", ""+latitude);
+                        //Log.i("LongToko", ""+longitude);
+
+                    }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                        // Log.i("tes", ""+nik);
+                    }
+
+
+                    /*adapterProfilePenjual = new AdapterProfilePenjual(HalamanProfilePenjualActivity.this, dataPenjualList);
+                    recyclerView.setAdapter(adapterProfilePenjual);
+                    adapterProfilePenjual.notifyDataSetChanged();*/
+
+                }
+
+                //pbDataPenjual.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataPenjual> call, Throwable t) {
+                //Toast.makeText(BeliProdukActivity.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+                // pbDataPenjual.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    private Double getJarak(Double latTujuan, Double longTujuan, Double latToko, Double longToko){
+        Double pi = 3.14;
+
+        Double latTuj = latTujuan;
+        Double longTuj = longTujuan;
+
+        Double latTo = latToko;
+        Double longTo = longToko;
+        Double R = 6371e3;
+
+        Double latTujRad = latTuj * (pi / 180);
+        Double latToRad = latTo * (pi / 180);
+
+        Double deltalatRad = (latTo - latTuj) * (pi / 180);
+        Double deltaLonRad = (longTo - longTuj) * (pi / 180);
+
+        //rumus haversine
+        Double a = Math.sin(deltalatRad / 2) * Math.sin(deltalatRad / 2) + Math.cos(latTujRad) * Math.cos(latToRad) * Math.sin(deltaLonRad /2) * Math.sin(deltaLonRad /2);
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 -a));
+        Double s = R * c ; //jarak (meter)
+
+        return  s;
     }
 }

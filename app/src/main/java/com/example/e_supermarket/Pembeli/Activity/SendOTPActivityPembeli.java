@@ -60,8 +60,8 @@ public class SendOTPActivityPembeli extends AppCompatActivity {
                 noponPemb = inputMobileB.getText().toString().trim();
                 lenNoponPemb = noponPemb.length();
                 if (inputMobileB.getText().toString().trim().isEmpty()){
-                    //startActivity(new Intent(SendOTPActivityPembeli.this, HalamanUtamaPembeliActivity.class));
-                    Toast.makeText(SendOTPActivityPembeli.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SendOTPActivityPembeli.this, HalamanUtamaPembeliActivity.class));
+                    //Toast.makeText(SendOTPActivityPembeli.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                     return;
                 }else if (lenNoponPemb < 12){
                     Toast.makeText(SendOTPActivityPembeli.this, "Jumlah Nomor Tidak Sesuai", Toast.LENGTH_SHORT).show();
