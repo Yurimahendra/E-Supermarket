@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button BtnPenjual;
     Button BtnPembeli;
     Button BtnKurir;
+    AppConfig appConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         BtnPenjual = findViewById(R.id.btnpenjual);
         BtnPembeli = findViewById(R.id.btnpembeli);
         BtnKurir = findViewById(R.id.btnKurir);
+
+        //appConfig = new AppConfig(this);
 
         BtnPenjual.setOnClickListener(new View.OnClickListener() {
             @Override

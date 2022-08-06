@@ -3,8 +3,10 @@ package com.example.e_supermarket.Penjual.Interface;
 import androidx.annotation.Nullable;
 
 import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseDataPembeli;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseNotifOrder;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataProduk;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseStatusLogin;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -107,7 +109,14 @@ public interface ApiRequestDataProduk {
             @Nullable @Part MultipartBody.Part gambar
     );
 
+    @FormUrlEncoded
+    @POST("api/statusloginpenjual")
+    Call<ResponseStatusLogin> SendStatusLP(
+            @Field("status") String status
+    );
 
+    @GET("api/statusloginpenjualG")
+    Call<ResponseStatusLogin> RetrieveStsLP();
 
 }
 

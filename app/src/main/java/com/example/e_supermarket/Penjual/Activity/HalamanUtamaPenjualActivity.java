@@ -12,12 +12,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.e_supermarket.AppConfig;
 import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.Penjual.Adapter.AdapterProdukPenjualHU;
 import com.example.e_supermarket.Penjual.Fragment.ChatFragmentPenjual;
@@ -55,6 +57,7 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<DataProduk> dataProdukList = new ArrayList<>();
     private AdapterProdukPenjualHU adapterProdukPenjualHU;
+    AppConfig appConfig;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -105,6 +108,10 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
 
         //retrieveData();
         firebaseAuth = FirebaseAuth.getInstance();
+        appConfig = new AppConfig(this);
+        String nomor = getIntent().getStringExtra("mobile");
+        //Toast.makeText(this, nomor, Toast.LENGTH_SHORT).show();
+        //Log.d("nomor", getIntent().getStringExtra("mobile"));
 
         bottomNavigationViewPenjual = findViewById(R.id.nav_penjual);
         bottomNavigationViewPenjual.setOnNavigationItemSelectedListener(navigation_penjual);
@@ -178,6 +185,7 @@ public class HalamanUtamaPenjualActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //firebaseAuth.signOut();
+                        appConfig.UpdateUserLoginStatus(false);
                         Intent intent = new Intent(HalamanUtamaPenjualActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

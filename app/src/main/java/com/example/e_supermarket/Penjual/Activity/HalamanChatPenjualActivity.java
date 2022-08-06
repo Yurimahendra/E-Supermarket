@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.e_supermarket.AppConfig;
 import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
 import com.example.e_supermarket.Pembeli.Model.DataPembeli;
@@ -43,6 +44,8 @@ public class HalamanChatPenjualActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<DataPembeli> dataPembeliList = new ArrayList<>();
     private AdapterDaftarChatPenjual adapterDaftarChatPenjual;
+
+    AppConfig appConfig;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -159,6 +162,7 @@ public class HalamanChatPenjualActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //firebaseAuth.signOut();
+                        appConfig.UpdateUserLoginStatus(false);
                         Intent intent = new Intent(HalamanChatPenjualActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

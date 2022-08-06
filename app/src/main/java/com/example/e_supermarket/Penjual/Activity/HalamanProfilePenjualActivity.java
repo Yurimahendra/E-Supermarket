@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.e_supermarket.AppConfig;
 import com.example.e_supermarket.MainActivity;
 import com.example.e_supermarket.Pembeli.Activity.ProfilePembeliActivity;
 import com.example.e_supermarket.Pembeli.Adapter.AdapterProfilePembeli;
@@ -94,6 +95,8 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
     private String nama_bank ;
     private long no_rekening ;
     private String gambar;
+
+    AppConfig appConfig;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_penjual = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -288,6 +291,7 @@ public class HalamanProfilePenjualActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //firebaseAuth.signOut();
+                        appConfig.UpdateUserLoginStatus(false);
                         Intent intent = new Intent(HalamanProfilePenjualActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

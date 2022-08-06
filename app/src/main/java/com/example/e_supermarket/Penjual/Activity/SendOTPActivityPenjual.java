@@ -13,10 +13,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.e_supermarket.AppConfig;
+import com.example.e_supermarket.Pembeli.Activity.BeliProdukActivity;
+import com.example.e_supermarket.Pembeli.Interface.ApiRequestPembeli;
+import com.example.e_supermarket.Pembeli.ResponseModelPembeli.ResponseNotifOrder;
 import com.example.e_supermarket.Penjual.Adapter.AdapterProfilePenjual;
 import com.example.e_supermarket.Penjual.Interface.ApiRequestDataProduk;
 import com.example.e_supermarket.Penjual.Model.DataPenjual;
+import com.example.e_supermarket.Penjual.Model.StatusLogin;
 import com.example.e_supermarket.Penjual.ResponseModel.ResponseDataPenjual;
+import com.example.e_supermarket.Penjual.ResponseModel.ResponseStatusLogin;
 import com.example.e_supermarket.Penjual.Server.RetroServer;
 import com.example.e_supermarket.R;
 import com.google.firebase.FirebaseException;
@@ -43,6 +49,12 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
 
     int lenNopon;
 
+    AppConfig appConfig;
+
+    private List<StatusLogin> statusLogin = new ArrayList<>();
+    int index1;
+    private String stsLoginP;
+    boolean stsLP;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +64,14 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
         Button buttonS = findViewById(R.id.btnGetOtpS);
         TextView TvemailS = findViewById(R.id.txtEmail);
         ProgressBar progressBarS = findViewById(R.id.progressBarS);
+        getStsLP();
 
-
+        stsLP = Boolean.valueOf(stsLoginP);
+        Log.d("status", String.valueOf(stsLP));
+        if (stsLP == true){
+            Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
+            startActivity(intent);
+        }
 
         TvemailS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,9 +89,9 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                     compare = Enopon.compareTo(noponsel);
                     lenNopon = Enopon.length();
                     if (inputMobileS.getText().toString().trim().isEmpty()){
-                        Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
-                        startActivity(intent);
-                        //Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
+                        //Intent intent = new Intent(SendOTPActivityPenjual.this, HalamanUtamaPenjualActivity.class);
+                        //startActivity(intent);
+                        Toast.makeText(SendOTPActivityPenjual.this, "Masukan Nomor Ponsel", Toast.LENGTH_SHORT).show();
                         //return;
                     }else if (lenNopon < 12){
                         Toast.makeText(SendOTPActivityPenjual.this, "Jumlah Nomor Tidak Sesuai", Toast.LENGTH_SHORT).show();
@@ -108,6 +126,29 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
                                     public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                         progressBarS.setVisibility(View.GONE);
                                         buttonS.setVisibility(View.VISIBLE);
+                                        ApiRequestDataProduk notifOrder = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+                                        Call<ResponseStatusLogin> SimpanStsLp = notifOrder.SendStatusLP("true");
+
+                                        SimpanStsLp.enqueue(new Callback<ResponseStatusLogin>() {
+                                            @Override
+                                            public void onResponse(Call<ResponseStatusLogin> call, Response<ResponseStatusLogin> response) {
+                                                if( response.isSuccessful()) {
+                                                    //Toast.makeText(BeliProdukActivity.this, "notif berhasil", Toast.LENGTH_SHORT).show();
+
+                                                }else {
+                                                    Toast.makeText(SendOTPActivityPenjual.this, "status gagal"+response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                                                }
+                                                //PbBuatPesan.setVisibility(View.GONE);
+                                                //btnBuatPesanan.setVisibility(View.VISIBLE);
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<ResponseStatusLogin> call, Throwable t) {
+                                                //Toast.makeText(BeliProdukActivity.this, "Gagal Menghubungi Server "+t.getMessage() , Toast.LENGTH_SHORT).show();
+                                                //PbBuatPesan.setVisibility(View.GONE);
+                                                //btnBuatPesanan.setVisibility(View.VISIBLE);
+                                            }
+                                        });
                                         Intent intent = new Intent(getApplicationContext(), VerifyOTPActivityPenjual.class);
                                         intent.putExtra("mobile", inputMobileS.getText().toString());
                                         intent.putExtra("verificationId", verificationId);
@@ -201,6 +242,40 @@ public class SendOTPActivityPenjual extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseDataPenjual> call, Throwable t) {
                 Toast.makeText(SendOTPActivityPenjual.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
+
+    private void getStsLP() {
+
+        ApiRequestDataProduk requestStsLP = RetroServer.konekRetrofit().create(ApiRequestDataProduk.class);
+        Call<ResponseStatusLogin> StsLP = requestStsLP.RetrieveStsLP();
+
+        StsLP.enqueue(new Callback<ResponseStatusLogin>() {
+            @Override
+            public void onResponse(Call<ResponseStatusLogin> call, Response<ResponseStatusLogin> response) {
+                if (response.isSuccessful()){
+
+                    try {
+                        statusLogin = response.body().getStatus();
+                        stsLoginP = statusLogin.get(index1).getStatus();
+                        //Enopon = noponsel;
+                        //Log.i("no", ""+noponsel);
+                    }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+                        //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseStatusLogin> call, Throwable t) {
+                //Toast.makeText(SendOTPActivityPenjual.this, "gagal menghubungi server", Toast.LENGTH_SHORT).show();
 
             }
         });

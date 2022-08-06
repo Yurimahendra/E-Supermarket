@@ -111,12 +111,13 @@ public class VerifyOTPActivityPenjual extends AppCompatActivity {
                                         if (task.isSuccessful()){
                                             if (compare == 0){
                                                 Intent intent = new Intent(getApplicationContext(), HalamanUtamaPenjualActivity.class);
-                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                intent.putExtra("mobile", textMobileVS.getText().toString().trim());
                                                 startActivity(intent);
                                             }else {
                                                 Intent intent = new Intent(getApplicationContext(), FormDataPenjualActivity.class);
                                                 intent.putExtra("mobile", textMobileVS.getText().toString());
-                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                 startActivity(intent);
                                             }
 
