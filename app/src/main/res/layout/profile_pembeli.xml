@@ -37,7 +37,7 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ktm"
                     android:layout_marginBottom="30dp"
-                    />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvIdPmbl"
@@ -58,7 +58,8 @@
                     android:text="Nama"
                     android:textColor="@color/black"
                     android:textSize="25sp"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
 
             </FrameLayout>
 
@@ -71,7 +72,8 @@
                 android:layout_marginTop="5dp"
                 android:text="nik"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvtmptlahirpembeli"
@@ -80,7 +82,8 @@
                 android:layout_marginTop="5dp"
                 android:text="tempat lahir"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvtgllahirpembeli"
@@ -89,7 +92,8 @@
                 android:layout_marginTop="5dp"
                 android:text="tgl lahir"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvjkpembeli"
@@ -98,7 +102,8 @@
                 android:layout_marginTop="5dp"
                 android:text="jenis kelamin"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvalamatpembeli"
@@ -107,7 +112,8 @@
                 android:layout_marginTop="5dp"
                 android:text="alamat"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvnoponselpembeli"
@@ -116,7 +122,8 @@
                 android:layout_marginTop="5dp"
                 android:text="no ponsel"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:visibility="gone"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -125,7 +132,8 @@
                 android:layout_marginTop="15dp"
                 android:id="@+id/btnEditProfilePembeli"
                 android:text="EDIT"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>

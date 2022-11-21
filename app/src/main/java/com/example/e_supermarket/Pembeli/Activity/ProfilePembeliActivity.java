@@ -5,9 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +49,7 @@ public class ProfilePembeliActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewPembeli;
     private SwipeRefreshLayout srlProfPembeli;
     private ProgressBar pbProfPembeli;
+    private SharedPreferences sharedPreferences;
 
     //private RecyclerView recyclerView;
     private List<DataPembeli> dataPembeliList = new ArrayList<>();
@@ -75,6 +78,9 @@ public class ProfilePembeliActivity extends AppCompatActivity {
     private String tanggal_lahir ;
     private String alamat ;
     private String gambar;
+    FloatingActionButton fabEdtPmbli;
+    private int compare;
+    private String prefs_nopon;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_pembeli = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -100,6 +106,9 @@ public class ProfilePembeliActivity extends AppCompatActivity {
                     break;
                 case R.id.logoutpembelil:
                     //Fp = new LogoutFragmentPenjual();
+                    @SuppressLint("CommitPrefEdits")
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear().apply();
                     Fauth.signOut();
                     onBackPressedOut();
                     return true;
@@ -112,12 +121,15 @@ public class ProfilePembeliActivity extends AppCompatActivity {
     };
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_pembeli);
         bottomNavigationViewPembeli = findViewById(R.id.nav_pembeli);
         bottomNavigationViewPembeli.setOnNavigationItemSelectedListener(navigation_pembeli);
+
+        sharedPreferences = getSharedPreferences("myapp-data", MODE_PRIVATE);
 
         srlProfPembeli = findViewById(R.id.sw_profpembeli);
         pbProfPembeli = findViewById(R.id.pb_profilePembeli);
@@ -137,7 +149,7 @@ public class ProfilePembeliActivity extends AppCompatActivity {
         Noponselpembeli = findViewById(R.id.tvnoponselpembeli);
         ImgProfilePmbl = findViewById(R.id.ImgProfilePembeli);
 
-        FloatingActionButton fabEdtPmbli = (FloatingActionButton) findViewById(R.id.fab_edtPmbli);
+        fabEdtPmbli = (FloatingActionButton) findViewById(R.id.fab_edtPmbli);
         fabEdtPmbli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +175,28 @@ public class ProfilePembeliActivity extends AppCompatActivity {
             public void onRefresh() {
                 srlProfPembeli.setRefreshing(true);
                 getProfilePembeli();
+                try {
+
+                    if (sharedPreferences.getString("pref_nopon", null) != null){
+                        prefs_nopon = sharedPreferences.getString("pref_nopon", null);
+                        compare = prefs_nopon.compareTo(no_ponsel);
+                        if (compare == 0){
+                            Nama_pembeli.setVisibility(View.VISIBLE);
+                            Nik_Pembeli.setVisibility(View.VISIBLE);
+                            Tmptlahirpembeli.setVisibility(View.VISIBLE);
+                            Tgllahirpembeli.setVisibility(View.VISIBLE);
+                            Jkpembeli.setVisibility(View.VISIBLE);
+                            Alamatpembeli.setVisibility(View.VISIBLE);
+                            Noponselpembeli.setVisibility(View.VISIBLE);
+                            ImgProfilePmbl.setVisibility(View.VISIBLE);
+                            fabEdtPmbli.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+
+                }catch (NullPointerException e){
+
+                }
                 srlProfPembeli.setRefreshing(false);
             }
         });
@@ -172,6 +206,28 @@ public class ProfilePembeliActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         getProfilePembeli();
+        try {
+
+            if (sharedPreferences.getString("pref_nopon", null) != null){
+                prefs_nopon = sharedPreferences.getString("pref_nopon", null);
+                compare = prefs_nopon.compareTo(no_ponsel);
+                if (compare == 0){
+                    Nama_pembeli.setVisibility(View.VISIBLE);
+                    Nik_Pembeli.setVisibility(View.VISIBLE);
+                    Tmptlahirpembeli.setVisibility(View.VISIBLE);
+                    Tgllahirpembeli.setVisibility(View.VISIBLE);
+                    Jkpembeli.setVisibility(View.VISIBLE);
+                    Alamatpembeli.setVisibility(View.VISIBLE);
+                    Noponselpembeli.setVisibility(View.VISIBLE);
+                    ImgProfilePmbl.setVisibility(View.VISIBLE);
+                    fabEdtPmbli.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+        }catch (NullPointerException e){
+
+        }
     }
 
     private void getProfilePembeli() {
@@ -206,6 +262,9 @@ public class ProfilePembeliActivity extends AppCompatActivity {
                         Noponselpembeli.setText(no_ponsel);
                         Glide.with(ImgProfilePmbl.getContext())
                                 .load(RetroServer.imageURL + gambar).into(ImgProfilePmbl);
+
+
+
                     }catch (IndexOutOfBoundsException indexOutOfBoundsException){
 
                     }

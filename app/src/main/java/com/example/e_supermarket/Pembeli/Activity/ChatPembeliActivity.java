@@ -3,9 +3,11 @@ package com.example.e_supermarket.Pembeli.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -48,6 +50,7 @@ import retrofit2.Response;
 public class ChatPembeliActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewPembeli;
     FirebaseAuth Fauth;
+    private SharedPreferences sharedPreferences;
 
     CircleImageView proflChatPembli;
     TextView tvNamaChatPemb;
@@ -106,6 +109,9 @@ public class ChatPembeliActivity extends AppCompatActivity {
                     break;
                 case R.id.logoutpembelil:
                     //Fp = new LogoutFragmentPenjual();
+                    @SuppressLint("CommitPrefEdits")
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear().apply();
                     Fauth.signOut();
                     onBackPressedOut();
                     return true;
@@ -125,6 +131,7 @@ public class ChatPembeliActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_pembeli);
         bottomNavigationViewPembeli = findViewById(R.id.nav_pembeli);
         bottomNavigationViewPembeli.setOnNavigationItemSelectedListener(navigation_pembeli);
+        sharedPreferences = getSharedPreferences("myapp-data", MODE_PRIVATE);
         Fauth = FirebaseAuth.getInstance();
         pbChatPemb = findViewById(R.id.pb_chatPemb);
 

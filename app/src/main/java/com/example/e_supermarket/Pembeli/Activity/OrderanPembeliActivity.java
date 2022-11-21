@@ -5,9 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +42,7 @@ import retrofit2.Response;
 public class OrderanPembeliActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewPembeli;
     FirebaseAuth Fauth;
+    private SharedPreferences sharedPreferences;
 
     private SwipeRefreshLayout srlDataProdukOrderan;
     private ProgressBar pbDataProdukOrderan;
@@ -73,6 +76,9 @@ public class OrderanPembeliActivity extends AppCompatActivity {
                     break;
                 case R.id.logoutpembelil:
                     //Fp = new LogoutFragmentPenjual();
+                    @SuppressLint("CommitPrefEdits")
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear().apply();
                     Fauth.signOut();
                     onBackPressedOut();
                     return true;
@@ -91,6 +97,7 @@ public class OrderanPembeliActivity extends AppCompatActivity {
         setContentView(R.layout.activity_orderan_pembeli);
         bottomNavigationViewPembeli = findViewById(R.id.nav_pembeli);
         bottomNavigationViewPembeli.setOnNavigationItemSelectedListener(navigation_pembeli);
+        sharedPreferences = getSharedPreferences("myapp-data", MODE_PRIVATE);
 
         Fauth = FirebaseAuth.getInstance();
 

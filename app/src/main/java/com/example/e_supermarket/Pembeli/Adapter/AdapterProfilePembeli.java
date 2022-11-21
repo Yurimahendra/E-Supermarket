@@ -1,6 +1,10 @@
 package com.example.e_supermarket.Pembeli.Adapter;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +32,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterProfilePembeli extends RecyclerView.Adapter<AdapterProfilePembeli.MyViewHolder>{
     private ProfilePembeliActivity profilePembeliActivity;
     private List<DataPembeli> dataPembeliList;
+    private SharedPreferences sharedPreferences;
+
 
     public AdapterProfilePembeli(ProfilePembeliActivity profilePembeliActivity, List<DataPembeli> dataPembeliList) {
         this.profilePembeliActivity = profilePembeliActivity;
@@ -42,7 +48,7 @@ public class AdapterProfilePembeli extends RecyclerView.Adapter<AdapterProfilePe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.idPmbl.setText(String.valueOf(dataPembeliList.get(position).getId()));
         holder.Nama_pembeli.setText(dataPembeliList.get(position).getNama());
         holder.Nik_Pembeli.setText(String.valueOf(dataPembeliList.get(position).getNik()));
@@ -74,6 +80,31 @@ public class AdapterProfilePembeli extends RecyclerView.Adapter<AdapterProfilePe
                 profilePembeliActivity.startActivity(intent);
             }
         });
+
+        //sharedPreferences = profilePembeliActivity.getSharedPreferences("myapp-data", MODE_PRIVATE);
+        String pref_nopon1 = dataPembeliList.get(position).getNo_ponsel();
+        String getNopon = sharedPreferences.getString("pref_nopon", null);
+
+        /**try {
+            if (getNopon != null ){
+                if (getNopon == pref_nopon1 ){
+                    holder.Nama_pembeli.setVisibility(View.VISIBLE);
+                    holder.Nik_Pembeli.setVisibility(View.VISIBLE);
+                    holder.Tmptlahirpembeli.setVisibility(View.VISIBLE);
+                    holder.Tgllahirpembeli.setVisibility(View.VISIBLE);
+                    holder.Jkpembeli.setVisibility(View.VISIBLE);
+                    holder.Alamatpembeli.setVisibility(View.VISIBLE);
+                    holder.Noponselpembeli.setVisibility(View.VISIBLE);
+                    holder.ImgProfilePmbl.setVisibility(View.VISIBLE);
+                    holder.editProfilepembeli.setVisibility(View.VISIBLE);
+                }
+            }
+        }catch (NullPointerException e){
+
+        }**/
+
+
+
     }
 
     @Override

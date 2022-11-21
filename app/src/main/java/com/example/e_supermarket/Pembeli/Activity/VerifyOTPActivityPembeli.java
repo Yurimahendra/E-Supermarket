@@ -3,7 +3,9 @@ package com.example.e_supermarket.Pembeli.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,6 +42,7 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
 
     private EditText inputCode1B, inputCode2B, inputCode3B, inputCode4B, inputCode5B, inputCode6B;
     private String verificationIdB;
+    private SharedPreferences sharedPreferences;
 
     private List<DataPembeli> dataPembeliList = new ArrayList<>();
     int index;
@@ -64,6 +67,8 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
         inputCode6B = findViewById(R.id.inputCode6p);
 
         setupOTPInputs();
+
+        sharedPreferences = getSharedPreferences("myapp-data", MODE_PRIVATE);
 
         final ProgressBar progressBarVB = findViewById(R.id.progressBarVB);
         final Button buttonVB = findViewById(R.id.btnVerifyPemb);
@@ -107,6 +112,10 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
                                         ETnopon = textMobileVB.getText().toString().trim();
                                         compare = ETnopon.compareTo(noponsel);
                                         if (task.isSuccessful()){
+                                            @SuppressLint("CommitPrefEdits")
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("pref_nopon", ETnopon);
+                                            editor.apply();
                                             if (compare == 0){
                                                 Intent intent = new Intent(getApplicationContext(), HalamanUtamaPembeliActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

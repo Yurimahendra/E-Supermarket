@@ -55,7 +55,7 @@
                             android:layout_gravity="center"
                             android:src="@drawable/ktm"
                             android:layout_marginBottom="30dp"
-                            />
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvIdPmbl"
@@ -76,7 +76,8 @@
                             android:text="Nama"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:visibility="gone"/>
 
                     </FrameLayout>
 
@@ -93,7 +94,8 @@
                             android:hint="NIK"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:focusable="false"/>
+                            android:focusable="false"
+                            android:visibility="gone"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -109,7 +111,8 @@
                             android:hint="Tempat Lahir"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:focusable="false"/>
+                            android:focusable="false"
+                            android:visibility="gone"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -124,7 +127,8 @@
                             android:hint="Tanggal Lahir"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:focusable="false"/>
+                            android:focusable="false"
+                            android:visibility="gone"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -139,7 +143,8 @@
                             android:hint="Jenis Kelamin"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:focusable="false"/>
+                            android:focusable="false"
+                            android:visibility="gone"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -154,7 +159,8 @@
                             android:hint="Alamat"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:focusable="false"/>
+                            android:focusable="false"
+                            android:visibility="gone"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -169,7 +175,8 @@
                             android:hint="No Ponsel"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:focusable="false"/>
+                            android:focusable="false"
+                            android:visibility="gone"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -217,6 +224,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/design_default_color_primary"
-        app:tint="@color/white"/>
+        app:tint="@color/white"
+        android:visibility="gone"/>
 
 </RelativeLayout>

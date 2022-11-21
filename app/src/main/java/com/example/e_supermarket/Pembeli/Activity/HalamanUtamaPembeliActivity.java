@@ -5,9 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +43,7 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewPembeli;
     private SwipeRefreshLayout srlDataProduk;
     private ProgressBar pbDataProdukPembeli;
+    private SharedPreferences sharedPreferences;
 
     private RecyclerView recyclerViewPembeli;
     private List<DataProduk> dataProdukListPembeli = new ArrayList<>();
@@ -73,6 +76,9 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
                     break;
                 case R.id.logoutpembelil:
                     //Fp = new LogoutFragmentPenjual();
+                    @SuppressLint("CommitPrefEdits")
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear().apply();
                     Fauth.signOut();
                     onBackPressedOut();
                     return true;
@@ -91,6 +97,7 @@ public class HalamanUtamaPembeliActivity extends AppCompatActivity {
         setContentView(R.layout.activity_halaman_utama_pembeli);
         srlDataProduk = findViewById(R.id.sw_dataprodukPembeli);
         pbDataProdukPembeli = findViewById(R.id.pb_dataprodukPembeli);
+        sharedPreferences = getSharedPreferences("myapp-data", MODE_PRIVATE);
 
         Fauth = FirebaseAuth.getInstance();
 

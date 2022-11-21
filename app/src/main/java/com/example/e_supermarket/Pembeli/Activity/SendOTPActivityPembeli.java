@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,7 @@ import retrofit2.Response;
 public class SendOTPActivityPembeli extends AppCompatActivity {
     String noponPemb;
     int lenNoponPemb;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,18 @@ public class SendOTPActivityPembeli extends AppCompatActivity {
         final Button buttonB = findViewById(R.id.btnGetOtpPemb);
         final ProgressBar progressBarB = findViewById(R.id.progressBarB);
         TextView TvLupanopon = findViewById(R.id.tvLupaNoPon);
+
+        sharedPreferences = getSharedPreferences("myapp-data", MODE_PRIVATE);
+
+        try {
+            if (sharedPreferences.getString("pref_nopon", null) != null){
+                Intent intent = new Intent(SendOTPActivityPembeli.this, HalamanUtamaPembeliActivity.class);
+                startActivity(intent);
+            }
+        }catch (NullPointerException e){
+
+        }
+
 
         TvLupanopon.setOnClickListener(new View.OnClickListener() {
             @Override
