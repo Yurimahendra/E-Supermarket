@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -67,7 +68,7 @@ public class ProfilePembeliActivity extends AppCompatActivity {
     EditText Noponselpembeli;
     CircleImageView ImgProfilePmbl;
 
-    private int index;
+    private int index = 0;
 
     private int id;
     private long nik ;
@@ -81,6 +82,7 @@ public class ProfilePembeliActivity extends AppCompatActivity {
     FloatingActionButton fabEdtPmbli;
     private int compare;
     private String prefs_nopon;
+    private String noponUSer;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigation_pembeli = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -130,6 +132,8 @@ public class ProfilePembeliActivity extends AppCompatActivity {
         bottomNavigationViewPembeli.setOnNavigationItemSelectedListener(navigation_pembeli);
 
         sharedPreferences = getSharedPreferences("myapp-data", MODE_PRIVATE);
+        prefs_nopon = sharedPreferences.getString("pref_nopon", null);
+        Log.d("prefprofil", prefs_nopon);
 
         srlProfPembeli = findViewById(R.id.sw_profpembeli);
         pbProfPembeli = findViewById(R.id.pb_profilePembeli);
@@ -170,64 +174,64 @@ public class ProfilePembeliActivity extends AppCompatActivity {
             }
         });
 
+        getProfilePembeli();
+
         srlProfPembeli.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 srlProfPembeli.setRefreshing(true);
                 getProfilePembeli();
-                try {
+                /**try {
 
-                    if (sharedPreferences.getString("pref_nopon", null) != null){
-                        prefs_nopon = sharedPreferences.getString("pref_nopon", null);
-                        compare = prefs_nopon.compareTo(no_ponsel);
-                        if (compare == 0){
-                            Nama_pembeli.setVisibility(View.VISIBLE);
-                            Nik_Pembeli.setVisibility(View.VISIBLE);
-                            Tmptlahirpembeli.setVisibility(View.VISIBLE);
-                            Tgllahirpembeli.setVisibility(View.VISIBLE);
-                            Jkpembeli.setVisibility(View.VISIBLE);
-                            Alamatpembeli.setVisibility(View.VISIBLE);
-                            Noponselpembeli.setVisibility(View.VISIBLE);
-                            ImgProfilePmbl.setVisibility(View.VISIBLE);
-                            fabEdtPmbli.setVisibility(View.VISIBLE);
-                        }
-
+                    //prefs_nopon = sharedPreferences.getString("pref_nopon", null);
+                    compare = prefs_nopon.compareTo(noponUSer);
+                    if (compare == 0){
+                        Nama_pembeli.setVisibility(View.VISIBLE);
+                        Nik_Pembeli.setVisibility(View.VISIBLE);
+                        Tmptlahirpembeli.setVisibility(View.VISIBLE);
+                        Tgllahirpembeli.setVisibility(View.VISIBLE);
+                        Jkpembeli.setVisibility(View.VISIBLE);
+                        Alamatpembeli.setVisibility(View.VISIBLE);
+                        Noponselpembeli.setVisibility(View.VISIBLE);
+                        ImgProfilePmbl.setVisibility(View.VISIBLE);
+                        fabEdtPmbli.setVisibility(View.VISIBLE);
                     }
+
 
                 }catch (NullPointerException e){
 
-                }
+                }**/
                 srlProfPembeli.setRefreshing(false);
             }
         });
+
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         getProfilePembeli();
-        try {
-
-            if (sharedPreferences.getString("pref_nopon", null) != null){
-                prefs_nopon = sharedPreferences.getString("pref_nopon", null);
-                compare = prefs_nopon.compareTo(no_ponsel);
-                if (compare == 0){
-                    Nama_pembeli.setVisibility(View.VISIBLE);
-                    Nik_Pembeli.setVisibility(View.VISIBLE);
-                    Tmptlahirpembeli.setVisibility(View.VISIBLE);
-                    Tgllahirpembeli.setVisibility(View.VISIBLE);
-                    Jkpembeli.setVisibility(View.VISIBLE);
-                    Alamatpembeli.setVisibility(View.VISIBLE);
-                    Noponselpembeli.setVisibility(View.VISIBLE);
-                    ImgProfilePmbl.setVisibility(View.VISIBLE);
-                    fabEdtPmbli.setVisibility(View.VISIBLE);
-                }
-
+        /**try {
+            //prefs_nopon = sharedPreferences.getString("pref_nopon", null);
+            compare = prefs_nopon.compareTo(noponUSer);
+            if (compare == 0){
+                Nama_pembeli.setVisibility(View.VISIBLE);
+                Nik_Pembeli.setVisibility(View.VISIBLE);
+                Tmptlahirpembeli.setVisibility(View.VISIBLE);
+                Tgllahirpembeli.setVisibility(View.VISIBLE);
+                Jkpembeli.setVisibility(View.VISIBLE);
+                Alamatpembeli.setVisibility(View.VISIBLE);
+                Noponselpembeli.setVisibility(View.VISIBLE);
+                ImgProfilePmbl.setVisibility(View.VISIBLE);
+                fabEdtPmbli.setVisibility(View.VISIBLE);
             }
+
+
 
         }catch (NullPointerException e){
 
-        }
+        }**/
     }
 
     private void getProfilePembeli() {
@@ -242,15 +246,20 @@ public class ProfilePembeliActivity extends AppCompatActivity {
                     try {
                         dataPembeliList = response.body().getDataPembeli();
 
-                        id = dataPembeliList.get(index).getId();
-                        nama = dataPembeliList.get(index).getNama();
-                        nik = dataPembeliList.get(index).getNik();
-                        tempat_lahir = dataPembeliList.get(index).getTempat_lahir();
-                        tanggal_lahir = dataPembeliList.get(index).getTanggal_lahir();
-                        jenis_kelamin = dataPembeliList.get(index).getJenis_kelamin();
-                        alamat = dataPembeliList.get(index).getAlamat();
-                        no_ponsel = dataPembeliList.get(index).getNo_ponsel();
-                        gambar = dataPembeliList.get(index).getGambar();
+
+                        do {
+                            no_ponsel = dataPembeliList.get(index).getNo_ponsel();
+                            id = dataPembeliList.get(index).getId();
+                            nama = dataPembeliList.get(index).getNama();
+                            nik = dataPembeliList.get(index).getNik();
+                            tempat_lahir = dataPembeliList.get(index).getTempat_lahir();
+                            tanggal_lahir = dataPembeliList.get(index).getTanggal_lahir();
+                            jenis_kelamin = dataPembeliList.get(index).getJenis_kelamin();
+                            alamat = dataPembeliList.get(index).getAlamat();
+                            gambar = dataPembeliList.get(index).getGambar();
+                            index ++;
+                            //noponUSer = no_ponsel;
+                        }while (!no_ponsel.equals(prefs_nopon));
 
                         idPmbl.setText(""+id);
                         Nama_pembeli.setText(nama);
@@ -262,6 +271,22 @@ public class ProfilePembeliActivity extends AppCompatActivity {
                         Noponselpembeli.setText(no_ponsel);
                         Glide.with(ImgProfilePmbl.getContext())
                                 .load(RetroServer.imageURL + gambar).into(ImgProfilePmbl);
+
+
+                        compare = prefs_nopon.compareTo(no_ponsel);
+                        if (compare == 0){
+                            Nama_pembeli.setVisibility(View.VISIBLE);
+                            Nik_Pembeli.setVisibility(View.VISIBLE);
+                            Tmptlahirpembeli.setVisibility(View.VISIBLE);
+                            Tgllahirpembeli.setVisibility(View.VISIBLE);
+                            Jkpembeli.setVisibility(View.VISIBLE);
+                            Alamatpembeli.setVisibility(View.VISIBLE);
+                            Noponselpembeli.setVisibility(View.VISIBLE);
+                            ImgProfilePmbl.setVisibility(View.VISIBLE);
+                            fabEdtPmbli.setVisibility(View.VISIBLE);
+                        }
+
+
 
 
 

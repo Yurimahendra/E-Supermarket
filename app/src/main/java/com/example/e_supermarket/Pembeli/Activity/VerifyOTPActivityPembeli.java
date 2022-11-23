@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,8 +45,10 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
     private String verificationIdB;
     private SharedPreferences sharedPreferences;
 
+    private TextView textMobileVB;
+
     private List<DataPembeli> dataPembeliList = new ArrayList<>();
-    int index;
+    int index = 0;
     String noponsel;
     String ETnopon;
     int compare;
@@ -55,9 +58,10 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_o_t_p_pembeli);
 
-        TextView textMobileVB = findViewById(R.id.txtMobilePemb);
+        textMobileVB = findViewById(R.id.txtMobilePemb);
         textMobileVB.setText(getIntent().getStringExtra("mobile")
         );
+        ETnopon = textMobileVB.getText().toString().trim();
 
         inputCode1B = findViewById(R.id.inputCode1p);
         inputCode2B = findViewById(R.id.inputCode2p);
@@ -69,11 +73,13 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
         setupOTPInputs();
 
         sharedPreferences = getSharedPreferences("myapp-data", MODE_PRIVATE);
-
+        getProfilePembeli();
         final ProgressBar progressBarVB = findViewById(R.id.progressBarVB);
         final Button buttonVB = findViewById(R.id.btnVerifyPemb);
 
         verificationIdB = getIntent().getStringExtra("verificationId");
+
+
 
         buttonVB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,8 +115,9 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
                                     try {
                                         progressBarVB.setVisibility(View.GONE);
                                         buttonVB.setVisibility(View.VISIBLE);
-                                        ETnopon = textMobileVB.getText().toString().trim();
                                         compare = ETnopon.compareTo(noponsel);
+                                        Log.d("noponVB", ETnopon);
+                                        Log.d("noponDB", noponsel);
                                         if (task.isSuccessful()){
                                             @SuppressLint("CommitPrefEdits")
                                             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -292,8 +299,16 @@ public class VerifyOTPActivityPembeli extends AppCompatActivity {
                 if (response.isSuccessful()){
                     try {
                         dataPembeliList = response.body().getDataPembeli();
-                        noponsel = dataPembeliList.get(index).getNo_ponsel();
-                        ETnopon= noponsel;
+
+                        //ETnopon = noponsel;
+                        do {
+                            noponsel = dataPembeliList.get(index).getNo_ponsel();
+                            if (!ETnopon.equals(noponsel)){
+                                index ++;
+                            }
+                            Log.d("nopon", noponsel);
+                        }while (!ETnopon.equals(noponsel));
+
                     }catch (IndexOutOfBoundsException indexOutOfBoundsException){
                         //Toast.makeText(SendOTPActivityPenjual.this, "", Toast.LENGTH_SHORT).show();
                     }
